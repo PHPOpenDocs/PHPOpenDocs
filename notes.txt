@@ -1,0 +1,17 @@
+Domain changes
+The domain for the container registry is ghcr.io.
+
+Registry	Example URL
+GitHub Packages Docker registry	docker.pkg.github.com/OWNER/REPOSITORY/IMAGE_NAME
+GitHub Container Registry	ghcr.io/OWNER/IMAGE_NAME
+
+Select the read:packages scope to download container images and read their metadata.
+
+Select the write:packages scope to download and upload container images and read and write their metadata.
+
+Select the delete:packages scope to delete container images.
+
+Using the CLI for your container type, sign in to the GitHub Container Registry service at ghcr.io.
+
+$ echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+> Login Succeeded

@@ -1,0 +1,28 @@
+img {
+  display: block;
+  max-width: 100%;
+  height: auto; }
+
+html {
+  scroll-behavior: smooth;
+  background-color: #333333;
+  color: #cccccc; }
+
+html a {
+  color: #cccccc; }
+
+p + p {
+  margin-top: 40px; }
+
+.top_header {
+  background-color: #8892BF; }
+
+.nav_header {
+  background-color: #323214;
+  color: #999999; }
+
+.content {
+  background-color: #f2f2f2;
+  color: #333333; }
+
+/*# sourceMappingURL=site.css.map */

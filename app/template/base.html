@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>OpenSourceFees</title>
+  <link rel="stylesheet" href="/css/site.css">
+
+  {{ emitDnsPreFetch() | raw}}
+
+</head>
+<body>
+
+{# Inline Javascript creates some javascript inline to the page, so that #}
+{# it is always available, and we don't need to wait for an external JS file #}
+{# to load. #}
+{% include 'inline_javascript.html' %}
+
+{% include 'header.html' %}
+
+<main role="main" class="container">
+
+{% block page_body %}
+    Page body goes here. Did you accidentally call base.html by mistake?
+{% endblock %}
+
+</main>
+
+
+
+{% include 'footer.html' %}
+
+</body>
+
+{# TODO - swap out for compiled JS #}
+
+<script src="/jquery/jquery-3.3.1.min.js"></script>
+<script src="/jquery/jquery-ui.min.js"></script>
+
+<script nonce="{{ request_nonce() }}">
+  $(".osf_button").click(function () {return false});
+</script>
+
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/StripeCheckout.js"></script>
+<script src="/js/PaymentWidget.js"></script>
+<script src="/js/dequeue.js"></script>
+
+{% block page_javascript %}
+  {# If a page needs custom javascript, place it in the page_javascript block.  #}
+{% endblock %}
+
+{{ memory_debug() }}
+
+<!-- yay, page is done. -->
+</html>
