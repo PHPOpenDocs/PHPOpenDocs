@@ -3,23 +3,23 @@ on: [push]
 env:
   IMAGE_NAME: danack_phpopendocs
 jobs:
-  unit_tests:
-    name: Unit Tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@master
-      - name: Perform phpunit tests
-        uses: ./containers/run_php_tests
-  code_style:
-    name: Code Style Analysis
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@master
-      - name: Analyze code style
-        uses: ./containers/run_php_codesniffer
-  deploy:
+#  unit_tests:
+#    name: Unit Tests
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@master
+#      - name: Perform phpunit tests
+#        uses: ./containers/run_php_tests
+#  code_style:
+#    name: Code Style Analysis
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@master
+#      - name: Analyze code style
+#        uses: ./containers/run_php_codesniffer
+  build_and_push_container:
     name: Build container and push
     runs-on: ubuntu-latest
     steps:
@@ -32,12 +32,12 @@ jobs:
         run: echo ::set-output name=tag::$(git log -1 --pretty=format:%h)
        # after this step, ${{steps.vars.outputs.tag}} can be used
 ## *************************************************
+##    Create a PAT with `read:packages` and `write:packages` scopes and save it as an Actions secret `CR_PAT`
       - name: Log into GitHub Container Registry
-      # TODO: Create a PAT with `read:packages` and `write:packages` scopes and save it as an Actions secret `CR_PAT`
-      run: echo "${{ secrets.CONTAINER_REGISTRY_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.CONTAINER_REGISTRY_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
 ## *************************************************
-        - name: Build poi image
-          run: docker build src/poi/ --file dockerfiles/Dockerfile_3 --tag $IMAGE_NAME
+      - name: Build poi image
+        run: docker build src/poi/ --file dockerfiles/Dockerfile_3 --tag $IMAGE_NAME
 ## *************************************************
       - name: Push poi image to GitHub Container Registry
         run: |
@@ -53,7 +53,7 @@ jobs:
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
 
           # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && VERSION=latest
+          [ "$VERSION" == "main" ] && VERSION=latest
 
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
