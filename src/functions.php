@@ -1,0 +1,1026 @@
+<?php
+
+declare(strict_types = 1);
+
+/**
+ * This file holds functions that are required by all environments.
+ */
+
+/**
+ * @param array $indexes
+ * @return mixed
+ * @throws Exception
+ */
+function getConfig(array $indexes)
+{
+    static $options = null;
+    if ($options === null) {
+        require __DIR__ . '/../config.php';
+        require __DIR__ . '/../autoconf.php';
+    }
+
+    $data = $options;
+
+
+    foreach ($indexes as $index) {
+        if (array_key_exists($index, $data) === false) {
+            throw new \Exception("Config doesn't contain an element for $index, for indexes [" . implode('|', $indexes) . "]");
+        }
+
+        $data = $data[$index];
+    }
+
+    return $data;
+}
+
+function getExceptionText(\Throwable $exception): string
+{
+    $text = "";
+    do {
+        $text .= get_class($exception) . ":" . $exception->getMessage() . "\n\n";
+        $text .= $exception->getTraceAsString();
+
+        $exception = $exception->getPrevious();
+    } while ($exception !== null);
+
+    return $text;
+}
+
+function saneErrorHandler($errorNumber, $errorMessage, $errorFile, $errorLine): bool
+{
+    if (error_reporting() === 0) {
+        // Error reporting has been silenced
+        if ($errorNumber !== E_USER_DEPRECATED) {
+        // Check it isn't this value, as this is used by twig, with error suppression. :-/
+            return true;
+        }
+    }
+    if ($errorNumber === E_DEPRECATED) {
+        return false;
+    }
+    if ($errorNumber === E_CORE_ERROR || $errorNumber === E_ERROR) {
+        // For these two types, PHP is shutting down anyway. Return false
+        // to allow shutdown to continue
+        return false;
+    }
+    $message = "Error: [$errorNumber] $errorMessage in file $errorFile on line $errorLine.";
+    throw new \Exception($message);
+}
+
+/**
+ * Decode JSON with actual error detection
+ */
+function json_decode_safe(?string $json)
+{
+    if ($json === null) {
+        throw new \Osf\Exception\JsonException("Error decoding JSON: cannot decode null.");
+    }
+
+    $data = json_decode($json, true);
+
+    if (json_last_error() === JSON_ERROR_NONE) {
+        return $data;
+    }
+
+    $parser = new \Seld\JsonLint\JsonParser();
+    $parsingException = $parser->lint($json);
+
+    if ($parsingException !== null) {
+        throw $parsingException;
+    }
+
+    if ($data === null) {
+        throw new \Osf\Exception\JsonException("Error decoding JSON: null returned.");
+    }
+
+    throw new \Osf\Exception\JsonException("Error decoding JSON: " . json_last_error_msg());
+}
+
+
+/**
+ * @param mixed $data
+ * @param int $options
+ * @return string
+ * @throws Exception
+ */
+function json_encode_safe($data, $options = 0): string
+{
+    $result = json_encode($data, $options);
+
+    if ($result === false) {
+        throw new \Exception("Failed to encode data as json: " . json_last_error_msg());
+    }
+
+    return $result;
+}
+
+
+/**
+ * Get the options to use when hashing passwords.
+ * The cost should be tuned for the hash to take something like a
+ * quarter of a second of CPU time to hash.
+ *
+ * @return array
+ */
+function get_password_options()
+{
+    $options = [
+        'cost' => 12,
+    ];
+
+    return $options;
+}
+
+/**
+ * @param string $password
+ * @return string
+ */
+function generate_password_hash(string $password): string
+{
+    $options = get_password_options();
+    $hash = password_hash($password, PASSWORD_BCRYPT, $options);
+
+    if ($hash === false) {
+        throw new \Exception('Failed to hash password.');
+    }
+
+    return $hash;
+}
+
+
+function getClientIpAddress() : string
+{
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {   //shared internet
+        return $_SERVER['HTTP_CLIENT_IP'];
+    }
+
+    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {   // from load balancer
+        $ipString = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        $ipParts = explode(',', $ipString);
+        if ($ipParts === false) {
+            throw new \Exception("Failed to explode ipSrting.");
+        }
+
+        if (count($ipParts) > 0) {
+            return trim($ipParts[0]);
+        }
+    }
+
+    return $_SERVER['REMOTE_ADDR'];
+}
+
+/**
+ * Recursive directory search
+ * @param string $folder
+ * @param string $pattern
+ * @return array
+ */
+function recursiveSearch(string $folder, string $pattern)
+{
+    $dir = new \RecursiveDirectoryIterator($folder);
+    $ite = new \RecursiveIteratorIterator($dir);
+    $files = new \RegexIterator($ite, $pattern, \RegexIterator::GET_MATCH);
+    $fileList = array();
+    foreach ($files as $file) {
+        $fileList = array_merge($fileList, $file);
+    }
+    return $fileList;
+}
+
+
+function convertToValue($name, $value)
+{
+    if (is_scalar($value) === true) {
+        return $value;
+    }
+    if ($value === null) {
+        return null;
+    }
+
+    $callable = [$value, 'toArray'];
+    if (is_object($value) === true && is_callable($callable)) {
+        return $callable();
+    }
+    if (is_object($value) === true && $value instanceof \DateTime) {
+//        return $value->format(DATE_ATOM);
+        return $value->format(\Osf\App::DATE_TIME_EXACT_FORMAT);
+    }
+
+    if (is_array($value) === true) {
+        $values = [];
+        foreach ($value as $key => $entry) {
+            $values[$key] = convertToValue($key, $entry);
+        }
+
+        return $values;
+    }
+
+    if (is_object($value) === true) {
+        $message = "Unsupported type [" . gettype($value) . "] of class [" . get_class($value) . "] for toArray for property $name.";
+    }
+
+    throw new \Exception($message);
+}
+
+
+/**
+ * Fetch data and return statusCode, body and headers
+ */
+function fetchUri(string $uri, string $method, array $queryParams = [], string $body = null, array $headers = [])
+{
+    $query = http_build_query($queryParams);
+    $curl = curl_init();
+
+    curl_setopt($curl, CURLOPT_URL, $uri . $query);
+    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+
+    $allHeaders = [];
+
+    if ($body !== null) {
+        $allHeaders[] = 'Content-Type: application/json';
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
+    }
+
+
+    foreach ($headers as $header) {
+        $allHeaders[] = $header;
+    }
+
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $allHeaders);
+
+    $headers = [];
+    $handleHeaderLine = function ($curl, $headerLine) use (&$headers) {
+        $headers[] = $headerLine;
+        return strlen($headerLine);
+    };
+    curl_setopt($curl, CURLOPT_HEADERFUNCTION, $handleHeaderLine);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+    $body = curl_exec($curl);
+    $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+    return [$statusCode, $body, $headers];
+}
+
+/**
+ * Fetch data and only return successful request
+ */
+function fetchDataWithHeaders($uri, array $headers)
+{
+    [$statusCode, $body, $responseHeaders] = fetchUri($uri, 'GET', [], null, $headers);
+
+    if ($statusCode === 200) {
+        return json_decode_safe($body);
+    }
+
+    throw new \Exception("Failed to fetch data from " . $uri);
+}
+
+/**
+ * Fetch data and only return successful request
+ */
+function fetchData($uri)
+{
+    [$statusCode, $body, $headers] = fetchUri($uri, 'GET');
+
+    if ($statusCode === 200) {
+        return json_decode_safe($body);
+    }
+
+    throw new \Exception("Failed to fetch data from " . $uri);
+}
+
+
+/**
+ * Escape characters that are meaningful in SQL like searches
+ * @param string $string
+ * @return mixed
+ */
+function escapeMySqlLikeString(string $string)
+{
+    return str_replace(
+        ['\\', '_', '%', ],
+        ['\\\\', '\\_', '\\%'],
+        $string
+    );
+}
+
+// Docker IP addresses are apparently "172.XX.X.X",
+// Which should be in an IPV4 PRIVATE ADDRESS SPACE
+// https://www.arin.net/knowledge/address_filters.html
+function isIpAddressDockerBoxHost(string $ipAddress)
+{
+    if (substr($ipAddress, 0, 4) !== '172.') {
+        return false;
+    }
+
+    $ipParts = explode('.', $ipAddress);
+
+    if (count($ipParts) !== 4) {
+        return false;
+    }
+
+    $ipPart1 = (int)$ipParts[1];
+    if ($ipPart1 >= 16 && $ipPart1 <= 31) {
+        return true;
+    }
+
+    return false;
+}
+
+function isIpAddressSameCluster(string $ipAddress)
+{
+    if (strpos($ipAddress, '10.') === 0) {
+        return true;
+    }
+
+    return false;
+}
+
+function showRawCharacters(string $result)
+{
+    $resultInHex = unpack('H*', $result);
+    $resultInHex = $resultInHex[1];
+
+    $bytes = str_split($resultInHex, 2);
+    $resultSeparated = implode(', ', $bytes); //byte safe
+    return $resultSeparated;
+}
+
+
+function buildInString(string $prefix, $entries)
+{
+    $strings = [];
+    $params = [];
+    $count = 0;
+
+    foreach ($entries as $entry) {
+        $currentString = ':' . $prefix . $count;
+        $strings[] = $currentString;
+        $params[$currentString] = $entry;
+        $count += 1;
+    }
+
+    return [implode(', ', $strings), $params];
+}
+
+
+function compareArrays(array $expected, array $actual, array $currentKeyPath = [])
+{
+    $errors = [];
+
+    ksort($expected);
+    ksort($actual);
+    foreach ($expected as $key => $value) {
+        $keyPath = $currentKeyPath;
+        $keyPath[] = $key;
+
+        if (array_key_exists($key, $actual) === false) {
+            $errors[implode('.', $keyPath)] = "Missing key should be value " . \json_encode($expected[$key]);
+        }
+        else if (is_array($expected[$key]) === true && is_array($actual[$key]) === true) {
+            $deeperErrors = compareArrays($expected[$key], $actual[$key], $keyPath);
+            $errors = array_merge($errors, $deeperErrors);
+        }
+        else {
+            $expectedValue = \json_encode($expected[$key]);
+            $actualValue = \json_encode($actual[$key]);
+            if ($expectedValue !== $actualValue) {
+                $errors[implode('.', $keyPath)] = "Values don't match.\nExpected " . $expectedValue . "\n vs actual " . $actualValue . "\n";
+            }
+        }
+
+        unset($actual[$key]);
+    }
+
+    foreach ($actual as $key => $value) {
+        $keyPath = $currentKeyPath;
+        $keyPath[] = $key;
+        $errors[implode('.', $keyPath)] = "Has extra value of " . \json_encode($value);
+    }
+
+    return $errors;
+}
+
+function getMimeTypeFromFilename($filename)
+{
+    $contentTypesByExtension = [
+        'pdf' => 'application/pdf',
+        'jpg' => 'image/jpg',
+        'png' => 'image/png',
+    ];
+
+    $extension = pathinfo($filename, PATHINFO_EXTENSION);
+    $extension = strtolower($extension);
+
+    if (array_key_exists($extension, $contentTypesByExtension) === false) {
+        throw new \Exception("Unknown file type [$extension]");
+    }
+
+    return $contentTypesByExtension[$extension];
+}
+
+function str_putcsv($dataHeaders, $dataRows)
+{
+    # Generate CSV data from array
+    $fh = fopen('php://temp', 'rw'); # don't create a file, attempt
+    # to use memory instead
+
+    assert($fh !== false, "File handle is false.");
+
+    /** @var $fh \resource */
+    if ($dataHeaders !== null) {
+        fputcsv($fh, $dataHeaders);
+    }
+
+    foreach ($dataRows as $row) {
+        fputcsv($fh, $row);
+    }
+    rewind($fh);
+    $csv = stream_get_contents($fh);
+    fclose($fh);
+
+    return $csv;
+}
+
+
+
+/**
+ * Self-contained monitoring system for system signals
+ * returns true if a 'graceful exit' like signal is received.
+ *
+ * We don't listen for SIGKILL as that needs to be an immediate exit,
+ * which PHP already provides.
+ * @return bool
+ */
+function checkSignalsForExit()
+{
+    static $initialised = false;
+    static $needToExit = false;
+    static $fnSignalHandler = null;
+
+    if ($initialised === false) {
+        $fnSignalHandler = function ($signalNumber) use (&$needToExit) {
+            $needToExit = true;
+        };
+        pcntl_signal(SIGINT, $fnSignalHandler, false);
+        pcntl_signal(SIGQUIT, $fnSignalHandler, false);
+        pcntl_signal(SIGTERM, $fnSignalHandler, false);
+        pcntl_signal(SIGHUP, $fnSignalHandler, false);
+        pcntl_signal(SIGUSR1, $fnSignalHandler, false);
+        $initialised = true;
+    }
+
+    pcntl_signal_dispatch();
+
+    return $needToExit;
+}
+
+
+/**
+ * Repeatedly calls a callable until it's time to stop
+ *
+ * @param callable $callable - the thing to run
+ * @param int $secondsBetweenRuns - the minimum time between runs
+ * @param int $sleepTime - the time to sleep between runs
+ * @param int $maxRunTime - the max time to run for, before returning
+ */
+function continuallyExecuteCallable($callable, int $secondsBetweenRuns, int $sleepTime, int $maxRunTime)
+{
+    $startTime = microtime(true);
+    $lastRuntime = 0;
+    $finished = false;
+
+    echo "starting continuallyExecuteCallable \n";
+    while ($finished === false) {
+        $shouldRunThisLoop = false;
+        if ($secondsBetweenRuns === 0) {
+            $shouldRunThisLoop = true;
+        }
+        else if ((microtime(true) - $lastRuntime) > $secondsBetweenRuns) {
+            $shouldRunThisLoop = true;
+        }
+
+        if ($shouldRunThisLoop === true) {
+            $callable();
+            $lastRuntime = microtime(true);
+        }
+
+        if (checkSignalsForExit()) {
+            break;
+        }
+
+        if ($sleepTime > 0) {
+            sleep($sleepTime);
+        }
+
+        if ((microtime(true) - $startTime) > $maxRunTime) {
+            echo "Reach maxRunTime - finished = true\n";
+            $finished = true;
+        }
+    }
+
+    echo "Finishing continuallyExecuteCallable\n";
+}
+
+
+function buildInvoiceRenderLink(\Osf\Model\Invoice $invoice): string
+{
+    $domain = 'http://local.app.basereality.com';
+    $link = sprintf(
+        '%s/invoice/%s/render',
+        $domain,
+        $invoice->getId()
+    );
+
+    return $link;
+}
+
+function buildInvoicePrepareLink(\Osf\Model\Invoice $invoice): string
+{
+    $domain = 'http://local.app.basereality.com';
+    $link = sprintf(
+        '%s/invoice/%s/generate',
+        $domain,
+        $invoice->getId()
+    );
+
+    return $link;
+}
+
+
+function buildInvoiceDownloadLink(\Osf\Model\Invoice $invoice): string
+{
+    $domain = 'http://local.app.basereality.com';
+
+    $link = sprintf(
+        '%s/invoice/%s/download',
+        $domain,
+        $invoice->getId()
+    );
+
+    return $link;
+}
+
+
+function getReasonPhrase(int $status)
+{
+    $knownStatusReasons = [
+        420 => 'Enhance Your Calm',
+        421 => 'what the heck',
+        512 => 'Server known limitation',
+    ];
+
+    return $knownStatusReasons[$status] ?? '';
+}
+
+function formatTextToAnchor($question): string
+{
+    $text = str_replace(' ', '_', $question);
+
+    /** @var string|null $text */
+    $text = preg_replace('#[^\w]#', '', $text);
+    if ($text === null) {
+        throw new \Exception("Preg replace failed.");
+    }
+
+    return $text;
+}
+
+
+function linkableTitle(string $title): string
+{
+    $questionAnchor = formatTextToAnchor($title);
+
+    $output = '<div>';
+    $output .= '<a href="#' . $questionAnchor . '">';
+    $output .= '<i class="fa fa-link" aria-hidden="true"></i>';
+    $output .= '<h3>' . $title . '</h3>';
+    $output .= '</a>';
+    $output .= '</div>';
+
+    return $output;
+}
+
+function getPathToProject(\Osf\Model\Project $project)
+{
+    $params = [
+        ':uri_project_name' => $project->getName()
+    ];
+
+    return esprintf(
+        '/projects/:uri_project_name',
+        $params
+    );
+}
+
+function formatPrice(string $currency, int $priceInCents)
+{
+    $currencySymbols = [
+        'EUR' => '€',
+        'GBP' => '£',
+        'USD' => '$'
+    ];
+
+    if (array_key_exists($currency, $currencySymbols) === false) {
+        throw new \Exception("Currency [$currency] not known.");
+    }
+
+    $cents = $priceInCents % 100;
+    $priceWholeNumber = ($priceInCents - $cents)/ 100;
+
+    if ($cents === 0) {
+        return $currencySymbols[$currency] . number_format($priceWholeNumber);
+    }
+
+    // TODO - International number format this.
+    return sprintf(
+        "%s%s.%02d",
+        $currencySymbols[$currency],
+        number_format($priceWholeNumber),
+        $cents
+    );
+}
+
+
+function createId(): string
+{
+    return bin2hex(random_bytes(16));
+}
+
+
+function renderNavbarLinks(\Psr\Http\Message\ServerRequestInterface $request): string
+{
+    $currentHtml = '<span class="sr-only">(current)</span>';
+
+    $links = [
+        '/' => 'Home',
+        "/projects" => 'Projects',
+        "/introduction" => 'About',
+        "/os_maintainers" => 'Info for maintainers',
+//        "/os_users" => 'Info for companies',
+    ];
+
+    $currentPath = $request->getUri()->getPath();
+    $html = '';
+
+    $linkHtml = <<< HTML_LINK
+    <li class="nav-item :attr_active">
+        <a class="nav-link" href=":attr_link_path">:html_description :raw_current_text </a>
+    </li>
+HTML_LINK;
+
+    foreach ($links as $linkPath => $linkDescription) {
+        $currentTextToUse = '';
+        $activeToUse = '';
+        if ($linkPath === $currentPath) {
+            $currentTextToUse = $currentHtml;
+            $activeToUse = 'active';
+        }
+        $params = [
+            ":attr_link_path" => $linkPath,
+            ':attr_active' => $activeToUse,
+            ':html_description' => $linkDescription,
+            ':raw_current_text' => $currentTextToUse
+        ];
+
+        $html .= esprintf($linkHtml, $params);
+    }
+
+    return $html;
+}
+
+function getMemoryLimit()
+{
+    $memoryLimit = ini_get('memory_limit');
+
+    if ($memoryLimit === false) {
+        throw new \Exception("Failed to get memory_limit.");
+    }
+
+    if (strrpos($memoryLimit, 'M') === (strlen($memoryLimit) - 1)) {
+        $memoryLimitValue = ((int)$memoryLimit) * 1024 * 1024;
+    }
+    else if (strrpos($memoryLimit, 'G') === (strlen($memoryLimit))) {
+        $memoryLimitValue = ((int)$memoryLimit) * 1024 * 1024 * 1024;
+    }
+    else {
+        throw new \Exception("Could not understand memory limit of [$memoryLimit]");
+    }
+
+    return $memoryLimitValue;
+}
+
+function getPercentMemoryUsed() : int
+{
+    $maxMemory = memory_get_peak_usage();
+
+    $memoryLimitValue = getMemoryLimit();
+
+    $percentMemoryUsed = (int)((100 * $maxMemory) / $memoryLimitValue);
+
+    return $percentMemoryUsed;
+}
+
+
+function array_contains($needle, array $haystack): bool
+{
+    return in_array($needle, $haystack, true);
+}
+
+
+/**
+ * @param string[] $headers
+ * @param mixed[][] $rows
+ * @return string
+ */
+function renderTable($headers, $rows)
+{
+    $thead = '';
+    foreach ($headers as $header) {
+        $thead .= sprintf("<td>%s</td>\n", $header);
+    }
+
+    $tbody = '';
+    foreach ($rows as $row) {
+        $tbody .= "<tr>\n";
+        foreach ($row as $value) {
+            $tbody .= sprintf("<td>%s</td>\n", $value);
+        }
+
+        $tbody .= "</tr>\n";
+    }
+
+    $table = <<< TABLE
+<table>
+  <thead>
+    <tr>
+     $thead
+    </tr>
+  </thead>
+  <tbody>
+    $tbody
+  </tbody>
+</table>
+TABLE;
+
+
+    return $table;
+}
+
+function formatTraceLine(array $trace)
+{
+
+    $location = '??';
+    $function = 'unknown';
+
+    if (isset($trace["file"]) && isset($trace["line"])) {
+        $location = $trace["file"]. ':' . $trace["line"];
+    }
+    else if (isset($trace["file"])) {
+        $location = $trace["file"] . ':??';
+    }
+//    else {
+//        var_dump($trace);
+//        exit(0);
+//    }
+
+    $baseDir = realpath(__DIR__ . '/../');
+    if ($baseDir === false) {
+        throw new \Exception("Couldn't find parent directory from " . __DIR__);
+    }
+
+    $location = str_replace($baseDir, '', $location);
+
+    if (isset($trace["class"]) && isset($trace["type"]) && isset($trace["function"])) {
+        $function = $trace["class"] . $trace["type"] . $trace["function"];
+    }
+    else if (isset($trace["class"]) && isset($trace["function"])) {
+        $function = $trace["class"] . '_' . $trace["function"];
+    }
+    else if (isset($trace["function"])) {
+        $function = $trace["function"];
+    }
+    else {
+        $function = "Function is weird: " . json_encode(var_export($trace, true));
+    }
+
+    return sprintf(
+        "%s %s",
+        $location,
+        $function
+    );
+}
+
+function getExceptionStack(\Throwable $exception): string
+{
+    $line = "Exception of type " . get_class($exception). "\n";
+
+    foreach ($exception->getTrace() as $trace) {
+        $line .=  formatTraceLine($trace);
+    }
+
+    return $line;
+}
+
+
+/**
+ * @param Throwable $exception
+ * @return string[]
+ */
+function getExceptionStackAsArray(\Throwable $exception)
+{
+    $lines = [];
+    foreach ($exception->getTrace() as $trace) {
+        $lines[] = formatTraceLine($trace);
+    }
+
+    return $lines;
+}
+
+
+
+function randomPassword(int $length): string
+{
+    $characters = '0123456789abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ!@£$%^&*()/?{}[]';
+    $charactersLength = mb_strlen($characters);
+    $randString = '';
+
+    for ($i = 0; $i < $length; $i++) {
+        $offset = $charactersLength - 1;
+        $position = random_int(0, $offset);
+        $randString .= mb_substr($characters, $position, 1);
+    }
+
+    return $randString;
+}
+
+function renderTableHtml($items, array $headers, callable $rowFn)
+{
+    $thead = '';
+    foreach ($headers as $header) {
+        $thead .= sprintf("     <th>%s</th>\n", $header);
+    }
+
+    $tbody = '';
+    foreach ($items as $item) {
+        $tbody .= $rowFn($item);
+    }
+
+    $table = <<< TABLE
+<table>
+  <thead>
+    <tr>
+$thead
+    </tr>
+  </thead>
+  <tbody>
+$tbody
+  </tbody>
+</table>
+TABLE;
+
+    return $table;
+}
+
+
+function getExceptionInfoAsArray(\Throwable $exception)
+{
+    $data = [
+        'status' => 'error',
+        'message' => $exception->getMessage(),
+    ];
+
+    $previousExceptions = [];
+
+    do {
+        $exceptionInfo = [
+            'type' => get_class($exception),
+            'message' => $exception->getMessage(),
+            'trace' => getExceptionStackAsArray($exception),
+        ];
+
+        $previousExceptions[] = $exceptionInfo;
+    } while (($exception = $exception->getPrevious()) !== null);
+
+    $data['details'] = $previousExceptions;
+
+    return $data;
+}
+
+/**
+ * Format an array of strings to have a count at the start
+ * e.g. $lines = ['foo', 'bar'], output is:
+ *
+ * #0 foo
+ * #1 bar
+ */
+function formatLinesWithCount(array $lines): string
+{
+    $output = '';
+    $count = 0;
+
+    foreach ($lines as $line) {
+        $output .= '  #' . $count . ' '. $line . "\n";
+        $count += 1;
+    }
+
+    return $output;
+}
+
+function purgeExceptionMessage(\Throwable $exception)
+{
+    $rawMessage = $exception->getMessage();
+
+    $purgeAfterPhrases = [
+        'with params'
+    ];
+
+    $message = $rawMessage;
+
+    foreach ($purgeAfterPhrases as $purgeAfterPhrase) {
+        $matchPosition = strpos($message, $purgeAfterPhrase);
+        if ($matchPosition !== false) {
+            $message = substr($message, 0, $matchPosition + strlen($purgeAfterPhrase));
+            $message .= '**PURGED**';
+        }
+    }
+
+    return $message;
+}
+
+function getTextForException(\Throwable $exception)
+{
+    $currentException = $exception;
+    $text = '';
+
+    do {
+        $text .= sprintf(
+            "Exception type:\n  %s\n\nMessage:\n  %s \n\nStack trace:\n%s\n",
+            get_class($currentException),
+            purgeExceptionMessage($currentException),
+            formatLinesWithCount(getExceptionStackAsArray($currentException))
+        );
+
+        $currentException = $currentException->getPrevious();
+    } while ($currentException !== null);
+
+    return $text;
+}
+
+
+function getRandomId(): string
+{
+    $foo = random_bytes(32);
+
+    return hash("sha256", $foo);
+}
+
+function setupStripeClient($key)
+{
+    static $logger = null;
+
+    if ($logger === null) {
+        $logger = new \Osf\Stripe\StripeNotTerribleLogger();
+    }
+
+    \Stripe\Stripe::setApiKey($key);
+    \Stripe\Stripe::setLogger($logger);
+}
+
+
+function getUnitPrice(string $currency, \Osf\Model\SkuPrice $skuPrice)
+{
+    $currency = strtolower($currency);
+
+    if ($currency === 'gbp') {
+        return $skuPrice->getCostInGBPPence();
+    }
+
+    if ($currency === 'eur') {
+        return $skuPrice->getCostInEURCents();
+    }
+
+    if ($currency === 'usd') {
+        return $skuPrice->getCostInUSDCents();
+    }
+
+    throw new \Exception("Unknown currency [$currency]");
+}
+
+
+//function getIniMemoryBytes()
+//{
+//    $val = trim($val);
+//    $last = strtolower($val[strlen($val)-1]);
+//    switch($last) {
+//        // The 'G' modifier is available since PHP 5.1.0
+//        case 'g':
+//            return $val * 1024 * 1024 * 1024;
+//        case 'm':
+//            return $val * 1024 * 1024;
+//        case 'k':
+//            return $val * 1024;
+//    }
+//    return $val;
+//}

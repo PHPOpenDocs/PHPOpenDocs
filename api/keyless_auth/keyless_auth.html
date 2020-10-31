@@ -1,0 +1,52 @@
+
+$urls = [
+  'https://phpopendocs.basereality.com/auth' => 'my public key'
+];
+
+
+
+$return_url = $_REQUEST['return_url'];
+
+$return_url = sanitse_url($return_url);
+
+// check against referrer?
+
+$user_value = $username;
+
+// this prevents against DNS hijacks.
+if (array_key_exists($return_url, $urls) === true) {
+  $signing_key = $urls[$return_url];
+  $user_value = encrypt_string_with_key($user_value, $signing_key);
+}
+
+if (logged_in() === true) {
+
+<html>
+
+<body>
+
+
+<form method="post" url="$url">
+
+  <input type="hidden" name="username" value="$username"/>
+  <input type="hidden" name="signature" value="sign_with_phpnet_key($username)"/>
+  <input type="button" value="let them know who you are">
+</form>
+
+
+<form method="post" url="self.php?">
+
+  <input type="hidden" name="username" value="$username"/>
+  <input type="hidden" name="signature" value="sign_with_phpnet_key($username)"/>
+  <input type="button" value="nope">
+</form>
+
+</body>
+
+</html>
+
+}
+
+else {
+  show_login_page();
+}
