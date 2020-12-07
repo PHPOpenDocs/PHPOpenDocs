@@ -45,7 +45,7 @@ HTML;
 
     public function getBreadCrumbRaw(): string
     {
-    $html = <<< HTML
+        $html = <<< HTML
   <ul>
     <li><a href="index.php">PHP Manual</a></li>      <li><a href="funcref.php">Function Reference</a></li>      <li><a href="refs.basic.vartype.php">Variable and Type Related Extensions</a></li>      <li><a href="book.funchand.php">Function Handling</a></li>      <li><a href="ref.funchand.php">Function handling Functions</a></li></ul>
 HTML;

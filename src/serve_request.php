@@ -46,6 +46,3 @@ catch (\Throwable $exception) {
         echo nl2br($exceptionText);
     }
 }
-
-
-

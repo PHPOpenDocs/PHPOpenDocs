@@ -43,7 +43,7 @@ HTML;
 
     public function getBreadCrumbRaw(): string
     {
-    $html = <<< HTML
+        $html = <<< HTML
 <div id="breadcrumbs-inner">
  
   <ul>

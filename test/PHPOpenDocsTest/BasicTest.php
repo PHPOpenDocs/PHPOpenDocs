@@ -6,8 +6,12 @@ namespace PHPOpenDocsTest;
 
 use OpenDocs\ContentLinks;
 
+/**
+ * @coversNothing
+ */
 class BasicTest extends BaseTestCase
 {
+
     public function test1()
     {
         $contentLinksData = ['children' => [
@@ -44,7 +48,5 @@ class BasicTest extends BaseTestCase
         ];
 
         $contentLinks = ContentLinks::createFromArray($contentLinksData);
-
     }
-
 }

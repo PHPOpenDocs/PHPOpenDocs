@@ -33,7 +33,7 @@ function createBreadcrumbHtml(Breadcrumbs $breadcrumbs): string
         $li_parts[] = esprintf($li_template, $params);
     }
 
-    return "<ul>" . implode("",$li_parts) . "</ul>";
+    return "<ul>" . implode("", $li_parts) . "</ul>";
 }
 
 function createPrevNextHtml(?PrevNextLinks $prevNextLinks): string

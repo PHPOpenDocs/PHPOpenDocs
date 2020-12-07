@@ -2,7 +2,6 @@
 
 declare(strict_types = 1);
 
-
 # Contributing to PHP
 //http://git.php.net/?p=php-src.git;a=blob;f=CONTRIBUTING.md;hb=HEAD
 

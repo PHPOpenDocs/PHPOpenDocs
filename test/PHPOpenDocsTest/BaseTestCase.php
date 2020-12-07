@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace PHPOpenDocsTest;
 
 use PHPUnit\Framework\TestCase;
@@ -8,7 +10,7 @@ use PHPUnit\Framework\TestCase;
  * Class TestBase
  *
  * Allows checking that no code has output characters, or left the output buffer in a bad state.
- *
+ * @coversNothing
  */
 class BaseTestCase extends TestCase
 {
