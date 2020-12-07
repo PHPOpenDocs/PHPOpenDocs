@@ -1,0 +1,26 @@
+
+@use "colors.scss";
+
+
+.opendocs_prev_next {
+
+  .opendocs_prev {
+
+  }
+  .opendocs_next {
+
+  }
+
+  a {
+    text-decoration: none;
+    padding: 12px;
+
+    color: colors.$breadcrumbs_link_color;
+    border:0;
+    //text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  a:hover, a:focus {
+    color: colors.$breadcrumbs_link_hover_color;
+  }
+}

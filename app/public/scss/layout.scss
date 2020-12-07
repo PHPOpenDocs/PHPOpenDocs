@@ -1,0 +1,61 @@
+
+@use "colors.scss";
+
+.opendocs_wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.opendocs_header {
+  grid-area: hd;
+}
+
+.opendocs_breadcrumbs {
+  grid-area: breadcrumbs;
+}
+
+.opendocs_prev_next {
+  grid-area: prev_next;
+}
+
+.opendocs_content {
+  grid-area: main;
+  padding: 1em;
+  flex-shrink: 1;
+}
+
+.opendocs_content_links {
+  grid-area: content_links;
+  padding: 1em;
+}
+
+.opendocs_footer {
+  grid-area: ft;
+  flex-shrink: 0;
+}
+
+.opendocs_wrapper {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  //grid-auto-rows: minmax(48px, auto);
+  grid-template-areas:
+        "hd hd hd hd   hd   hd   hd   hd   hd"
+        "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next "
+        "main main main main main main content_links content_links content_links "
+        "ft ft ft ft   ft   ft   ft   ft   ft";
+  flex-direction: column;
+  align-items: stretch;
+}
+
+@media (max-width: 600px) {
+  .opendocs_wrapper {
+    grid-template-areas:
+            "hd hd hd hd   hd   hd   hd   hd   hd"
+            "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next "
+            "main main main main main main main main main"
+            "np np np np   np   np   np   np   np"
+
+            "ft ft ft ft   ft   ft   ft   ft   ft";
+  }
+}
+

@@ -15,3 +15,9 @@ Using the CLI for your container type, sign in to the GitHub Container Registry 
 
 $ echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
 > Login Succeeded
+
+
+
+recommended libraries
+
+ - https://hashids.org/

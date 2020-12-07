@@ -1,24 +1,16 @@
 version: "3"
 services:
-#  db:
-#    ports:
-#      - "3360:3306"
   php_fpm:
     environment:
       - ENV_DESCRIPTION=default,prod
-  php_fpm_debug:
-    environment:
-      - ENV_DESCRIPTION=default,prod
-#  redis:
-#    ports:
-#      - "6380:6379"
   varnish:
     depends_on:
-      - db
       - nginx
       - php_fpm
-      - redis
     ports:
       - "8006:80"
     environment:
       - ENV_DESCRIPTION=default,prod
+networks:
+  proxy:
+    external: true

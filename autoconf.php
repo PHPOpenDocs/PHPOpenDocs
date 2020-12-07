@@ -1,6 +1,6 @@
 <?php
 
 $options['twig'] = [
-    'cache' => false,
-    'debug' => true
+    'cache' => true,
+    'debug' => false
 ];

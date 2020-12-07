@@ -15,13 +15,8 @@
     "build": "webpack --mode production",
     "build:watch": "webpack --watch --mode production",
     "stats": "webpack --profile",
-
-
-    "sass:build": "node-sass --source-map true scss/ -o public/css",
-    "sass:build:watch": "node-sass --source-map true --watch scss/ -o public/css",
-    "build-task-wat:autoprefixer": "postcss dist/css/*.css --use autoprefixer -d public/css",
-    "sass-wat:build": "npm-run-all -p build-task:*",
-    "sass:watch": "chokidar 'scss/**/*.scss' -c 'npm run sass:build'"
+    "sass:build": "sass public/scss/site.scss public/css/site.css",
+    "sass:build:watch": "sass public/scss/site.scss public/css/site.css --watch"
   },
   "keywords": [],
   "author": "",
@@ -34,7 +29,6 @@
     "argv": "0.0.2",
     "command-line-args": "^5.1.1",
     "danack-message": "0.0.4",
-    "node-sass": "^4.14.1",
     "preact": "^8.5.3",
     "preact-compat": "^3.19.0",
     "preact-render-to-string": "4.1.0",
@@ -46,6 +40,7 @@
     "compression-webpack-plugin": "^3.0.1",
     "css-loader": "^3.4.2",
     "raw-loader": "^4.0.0",
+    "sass": "^1.29.0",
     "script-loader": "^0.7.2",
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.1.2",

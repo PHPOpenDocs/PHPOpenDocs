@@ -1,0 +1,58 @@
+
+@use "colors.scss";
+
+.opendocs_content_links {
+
+  color: colors.$nav_panel_text;
+  line-height: 1.6;
+  letter-spacing: -.00278rem;
+
+  ul{
+    margin-top: 0px;
+    padding-left: 0;
+
+    li {
+      list-style-type: none;
+      margin: 0;
+
+      a {
+        text-decoration: none;
+      }
+
+      a:link, a:visited {
+        color: #ccc;
+      }
+
+      a:hover, a:focus, #layout-content a:hover, #layout-content a:focus {
+        color: #AE508D;
+        border-color: #AE508D;
+        outline: 0;
+      }
+
+      a {
+        font-size: .875rem;
+        border-bottom: 1px dotted;
+        margin-bottom:-1px;
+        display:block;
+      }
+
+      ul {
+        padding-left: 0.75rem;
+      }
+    }
+  }
+
+
+  .opendocs_content_links_level_1 {
+
+  }
+
+  .opendocs_content_links_level_2 {
+  }
+
+  .opendocs_content_links_level_3 {
+
+  }
+
+
+}

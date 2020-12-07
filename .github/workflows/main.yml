@@ -3,116 +3,19 @@ on: [push]
 env:
   IMAGE_NAME: danack_phpopendocs
 jobs:
-#  unit_tests:
-#    name: Unit Tests
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@master
-#      - name: Perform phpunit tests
-#        uses: ./containers/run_php_tests
-#  code_style:
-#    name: Code Style Analysis
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@master
-#      - name: Analyze code style
-#        uses: ./containers/run_php_codesniffer
-  build_and_push_container:
-    name: Build container and push
+  unit_tests:
+    name: Unit Tests
     runs-on: ubuntu-latest
     steps:
-## *************************************************
-      - name: Checkout code
-        uses: actions/checkout@v2
-## *************************************************
-      - name: Get the version
-        id: vars
-        run: echo ::set-output name=tag::$(git log -1 --pretty=format:%h)
-       # after this step, ${{steps.vars.outputs.tag}} can be used
-## *************************************************
-##    Create a PAT with `read:packages` and `write:packages` scopes and save it as an Actions secret `CR_PAT`
-      - name: Log into GitHub Container Registry
-        run: echo "${{ secrets.CONTAINER_REGISTRY_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
-## *************************************************
-      - name: Build poi image
-        run: docker build src/poi/ --file dockerfiles/Dockerfile_3 --tag $IMAGE_NAME
-## *************************************************
-      - name: Push poi image to GitHub Container Registry
-        run: |
-          IMAGE_ID=ghcr.io/${{ github.repository }}/$IMAGE_NAME
-
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-          # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-          # Use Docker `latest` tag convention
-          [ "$VERSION" == "main" ] && VERSION=latest
-
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
-## *************************************************
-
-#      - name: Deploy
-#        uses: appleboy/ssh-action@master
-#        with:
-#          host: ${{ secrets.HOST }}
-#          username: ${{ secrets.USERNAME }}
-#          key: ${{ secrets.KEY }}
-#          script: cd /home/schtroumpsify && SCHTROUMPSIFY_VERSION=${{steps.vars.outputs.tag}} docker-compose -f docker-compose.yaml -f docker-compose.production.yaml up --no-deps -d schtroumpsify
-
-
-#  build-and-test:
-#    name: Npm build production JS files
-#    runs-on: ubuntu-latest
-#    env:
-#      working-directory: ./app
-#    strategy:
-#      matrix:
-#        node-version: [8.x]
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@master
-#        with:
-#          node-version: ${{ matrix.node-version }}
-#      - run: npm install
-#      - run: npm install webpack
-#        working-directory: ${{ env.working-directory }}
-#      - run: npm run build --if-present
-#        working-directory: ${{ env.working-directory }}
-#        env:
-#          CI: true
-##      - name: Build JS files
-##        uses: ./containers/npm_build
-#      - name: Commit built files
-#        uses: stefanzweifel/git-auto-commit-action@v4.1.6
-#        with:
-#          commit_message: Commit built javascript
-#          branch: ${{ github.head_ref }}
-#          file_pattern: ./app/public/js/*
-
-#- uses: bahmutov/npm-install@v1
-#  with:
-#    working-directory: app2
-# - name: Run app2
-#  run: node .
-#  working-directory: app2
-
-#    - uses: actions/cache@v1
-#      id: cache
-#      with:
-#        path: path/to/dependencies
-#        key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
-#
-#    - name: Install Dependencies
-#      if: steps.cache.outputs.cache-hit != 'true'
-#      run: /install.sh
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Perform phpunit tests
+        uses: ./containers/run_php_tests
+  code_style:
+    name: Code Style Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Analyze code style
+        uses: ./containers/run_php_codesniffer

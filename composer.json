@@ -28,7 +28,8 @@
         "danack/aurynconfig": "^0.9.1",
         "ext-json": "*",
         "ext-curl": "*",
-        "danack/float-hex": "^1.0"
+        "danack/float-hex": "^1.0",
+        "michelf/php-markdown": "^1.9"
     },
     "require-dev": {
         "behat/behat": "^3.4",
@@ -45,8 +46,13 @@
     },
     "autoload": {
         "psr-0": {
-            "OpenDocs\\": "src_docs/",
+            "OpenDocs\\": "src/",
             "PhpOpenDocs\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "PHPOpenDocsTest\\": "test/"
         }
     },
     "config": {

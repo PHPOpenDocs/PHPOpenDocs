@@ -15,6 +15,16 @@ return [
 
     ['/', 'GET', 'PhpOpenDocs\AppController\Pages::index'],
 
+    ['/about', 'GET', 'PhpOpenDocs\AppController\Pages::about'],
+
+    ['/css/{any:.*}', 'GET', 'PhpOpenDocs\AppController\Pages::get404Page'],
+
+    // TODO - actually make a 404 page
+    ['/{any:.*}', 'GET', 'Osf\AppController\Pages::index'],
+];
+
+//    ['/test/compile_error', 'GET', '\Osf\CommonController\CompileError::deliberateCompileError'],
+
 //    ['/faq', 'GET', 'Osf\AppController\Pages::faq'],
 //
 //    ['/privacy_policy', 'GET', 'Osf\AppController\Pages::privacyPolicy'],
@@ -25,13 +35,3 @@ return [
 //    ['/csp/test', 'GET', 'Osf\CommonController\ContentSecurityPolicy::getTestPage'],
 //    ['/csp', 'POST', 'Osf\CommonController\ContentSecurityPolicy::postReport'],
 //
-
-
-//    ['/test/compile_error', 'GET', '\Osf\CommonController\CompileError::deliberateCompileError'],
-
-    ['/css/{any:.*}', 'GET', 'Osf\AppController\Pages::get404Page'],
-
-    // TODO - actually make a 404 page
-    ['/{any:.*}', 'GET', 'Osf\AppController\Pages::index'],
-];
-

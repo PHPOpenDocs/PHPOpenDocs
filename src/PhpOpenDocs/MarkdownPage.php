@@ -4,31 +4,29 @@ declare(strict_types = 1);
 
 namespace PhpOpenDocs;
 
-class ExamplePage
+use Michelf\Markdown;
+
+class MarkdownPage
 {
+    private string $filename;
+
+    private string $content_html;
+
+    public function __construct(string $filename)
+    {
+        $this->filename = $filename;
+        $markdown = @file_get_contents($this->filename);
+        if ($markdown === false) {
+            throw new \Exception("Failed to read $filename.");
+        }
+
+        $this->content_html = Markdown::defaultTransform($markdown);
+    }
+
+
     public function getPageContent(): string
     {
-        $html = <<< HTML
-
-<h2>
-  Hello, I am the page content.
-</h2>
-
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam lacinia quam quis est ultrices vehicula. Nulla et sagittis eros. Etiam aliquet justo sit amet cursus volutpat. Fusce et ipsum vel quam commodo dapibus. Nullam vitae urna elit. Vivamus placerat odio molestie sapien facilisis, et venenatis ante fermentum. Suspendisse hendrerit sit amet ex ut ornare. Suspendisse porta arcu vitae elit tristique condimentum vitae in tortor. Fusce molestie sapien vel est interdum, et aliquet nunc vestibulum. Nam efficitur tempus libero sit amet rhoncus. Nulla facilisi.
-</p>
-<p>
-Maecenas tristique arcu non felis consectetur cursus non eget mauris. Nam placerat nunc in ipsum consequat laoreet. In eget sagittis massa, eu varius ex. Sed mauris nisl, finibus et euismod pretium, viverra ac ipsum. Pellentesque placerat velit non libero gravida egestas. Morbi non turpis quis purus aliquet finibus. Mauris porttitor in eros et laoreet.
-</p>
-
-<p>
-Fusce nec purus pharetra, pharetra neque ut, molestie nunc. Sed venenatis justo imperdiet nulla iaculis, vitae consequat libero pharetra. Aliquam accumsan sapien nisi, tincidunt pellentesque tortor bibendum a. Sed scelerisque diam at tincidunt ultricies. Sed vulputate facilisis arcu, ac interdum tellus tempor nec. Nam tempus, leo at ultrices varius, neque enim ultrices lacus, non tempor nunc elit quis mauris. Sed hendrerit elit ligula. Cras ut dolor ut sapien facilisis pretium ac vitae tortor. Nunc quis dictum felis.
-</p>
-
-
-HTML;
-
-        return $html;
+        return $this->content_html;
     }
 
     public function getRawTopHeader(): string
@@ -46,8 +44,11 @@ HTML;
     public function getBreadCrumbRaw(): string
     {
     $html = <<< HTML
+<div id="breadcrumbs-inner">
+ 
   <ul>
-    <li><a href="index.php">PHP Manual</a></li>      <li><a href="funcref.php">Function Reference</a></li>      <li><a href="refs.basic.vartype.php">Variable and Type Related Extensions</a></li>      <li><a href="book.funchand.php">Function Handling</a></li>      <li><a href="ref.funchand.php">Function handling Functions</a></li></ul>
+    <li><a href="index.php">PHP Manual</a></li>      <li><a href="funcref.php">Function Reference</a></li>      <li><a href="refs.basic.vartype.php">Variable and Type Related Extensions</a></li>      <li><a href="book.funchand.php">Function Handling</a></li>      <li><a href="ref.funchand.php">Function handling Functions</a></li>      </ul>
+</div>
 HTML;
 
         return $html;
@@ -56,20 +57,15 @@ HTML;
     public function getPrevNextLinks(): string
     {
         $html = <<< HTML
- 
-  <span class="prev">
-    <a href="function.func-get-arg.php">
-      « func_get_arg
-      </a>
-  </span>
-
-
-  <span class="next">
+ <div class="next">
     <a href="function.func-num-args.php">
       func_num_args »
     </a>
-  </span>
-
+  </div>
+  <div class="prev">
+    <a href="function.func-get-arg.php">
+      « func_get_arg        </a>
+  </div>
 HTML;
 
         return $html;

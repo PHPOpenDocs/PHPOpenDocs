@@ -8,6 +8,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 require_once __DIR__ . '/factories.php';
 require_once __DIR__ . '/functions.php';
+require_once __DIR__ . '/site_html.php';
 require_once __DIR__ . '/slim_functions.php';
 
 use SlimAuryn\ExceptionMiddleware;
@@ -44,11 +45,7 @@ catch (\Throwable $exception) {
         var_dump(get_class($exception));
         echo nl2br($exceptionText);
     }
-
-//    return;
 }
 
-//// This will save and store collected coverage data:
-//$shutDownCodeCoverage();
 
 

@@ -1,0 +1,28 @@
+@use "colors.scss";
+
+
+.opendocs_footer {
+  color: #ffffff;
+  background-color: colors.$footer_background_color;
+  border-top: 1px solid colors.$footer_color;
+  //height: 30px;
+  padding: 10px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  top: auto;
+  width: 100%;
+
+  a {
+    text-decoration: none;
+    padding: 12px;
+
+    color: #E2E4EF;
+    border:0;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  a:hover, a:focus {
+    color: colors.$footer_link_hover_color;
+  }
+}

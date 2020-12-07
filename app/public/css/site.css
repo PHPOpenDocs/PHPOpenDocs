@@ -1,28 +1,190 @@
-img {
+@charset "UTF-8";
+.opendocs_wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.opendocs_header {
+  grid-area: hd;
+}
+
+.opendocs_breadcrumbs {
+  grid-area: breadcrumbs;
+}
+
+.opendocs_prev_next {
+  grid-area: prev_next;
+}
+
+.opendocs_content {
+  grid-area: main;
+  padding: 1em;
+  flex-shrink: 1;
+}
+
+.opendocs_content_links {
+  grid-area: content_links;
+  padding: 1em;
+}
+
+.opendocs_footer {
+  grid-area: ft;
+  flex-shrink: 0;
+}
+
+.opendocs_wrapper {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-areas: "hd hd hd hd   hd   hd   hd   hd   hd" "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next " "main main main main main main content_links content_links content_links " "ft ft ft ft   ft   ft   ft   ft   ft";
+  flex-direction: column;
+  align-items: stretch;
+}
+
+@media (max-width: 600px) {
+  .opendocs_wrapper {
+    grid-template-areas: "hd hd hd hd   hd   hd   hd   hd   hd" "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next " "main main main main main main main main main" "np np np np   np   np   np   np   np" "ft ft ft ft   ft   ft   ft   ft   ft";
+  }
+}
+.opendocs_breadcrumbs {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.opendocs_breadcrumbs ul {
+  padding-inline-start: 0;
+  margin: 0px;
+}
+.opendocs_breadcrumbs ul li + li:before {
+  padding: 0 0.5rem 0;
+  content: "›";
+}
+.opendocs_breadcrumbs ul li {
+  list-style-type: none;
+  float: left;
+  font-weight: 400;
+}
+.opendocs_breadcrumbs ul li a {
+  text-decoration: none;
+  padding: 12px;
+  color: #E2E4EF;
+  border: 0;
+}
+.opendocs_breadcrumbs ul li a:hover, .opendocs_breadcrumbs ul li a:focus {
+  color: #fff;
+}
+
+.opendocs_content {
+  line-height: 1.4;
+  letter-spacing: -0.00278rem;
+  background-color: #F2F2F2;
+  color: #333;
+}
+
+.opendocs_content_links {
+  color: #F2F2F2;
+  line-height: 1.6;
+  letter-spacing: -0.00278rem;
+}
+.opendocs_content_links ul {
+  margin-top: 0px;
+  padding-left: 0;
+}
+.opendocs_content_links ul li {
+  list-style-type: none;
+  margin: 0;
+}
+.opendocs_content_links ul li a {
+  text-decoration: none;
+}
+.opendocs_content_links ul li a:link, .opendocs_content_links ul li a:visited {
+  color: #ccc;
+}
+.opendocs_content_links ul li a:hover, .opendocs_content_links ul li a:focus, .opendocs_content_links ul li #layout-content a:hover, .opendocs_content_links ul li #layout-content a:focus {
+  color: #AE508D;
+  border-color: #AE508D;
+  outline: 0;
+}
+.opendocs_content_links ul li a {
+  font-size: 0.875rem;
+  border-bottom: 1px dotted;
+  margin-bottom: -1px;
   display: block;
-  max-width: 100%;
-  height: auto; }
+}
+.opendocs_content_links ul li ul {
+  padding-left: 0.75rem;
+}
+.opendocs_footer {
+  color: #ffffff;
+  background-color: #8892BF;
+  border-top: 1px solid #E2E4EF;
+  padding: 10px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  top: auto;
+  width: 100%;
+}
+.opendocs_footer a {
+  text-decoration: none;
+  padding: 12px;
+  color: #E2E4EF;
+  border: 0;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.opendocs_footer a:hover, .opendocs_footer a:focus {
+  color: #fff;
+}
+
+.opendocs_header {
+  background-color: #8892BF;
+  color: #E2E4EF;
+}
+.opendocs_header ul {
+  padding-inline-start: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.opendocs_header ul li {
+  list-style-type: none;
+  float: left;
+  font-weight: 400;
+  padding: 12px;
+}
+.opendocs_header ul li a {
+  text-decoration: none;
+  color: #E2E4EF;
+  border: 0;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.opendocs_header ul li a:hover, .opendocs_header ul li a:focus {
+  color: #fff;
+}
+
+.opendocs_prev_next a {
+  text-decoration: none;
+  padding: 12px;
+  color: #E2E4EF;
+  border: 0;
+}
+.opendocs_prev_next a:hover, .opendocs_prev_next a:focus {
+  color: #fff;
+}
 
 html {
   scroll-behavior: smooth;
   background-color: #333333;
-  color: #cccccc; }
+  color: #cccccc;
+}
 
-html a {
-  color: #cccccc; }
+* {
+  box-sizing: border-box;
+}
 
-p + p {
-  margin-top: 40px; }
-
-.top_header {
-  background-color: #8892BF; }
-
-.nav_header {
-  background-color: #323214;
-  color: #999999; }
-
-.content {
-  background-color: #f2f2f2;
-  color: #333333; }
+body {
+  font-family: Arial, x-locale-body, sans-serif;
+  font-size: 18px;
+  font-size: 1rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 /*# sourceMappingURL=site.css.map */

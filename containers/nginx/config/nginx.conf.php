@@ -58,6 +58,8 @@ $appNormalBlock = createServerBlock(
     $portStrings   = ['80', '8000'],
     $domains = [
         '*.phpopendocs.com',
+        'phpopendocs.com',
+        '*.phpopendocs.com',
         'phpopendocs.com'
     ],
     $root = '/var/app/app/public',
