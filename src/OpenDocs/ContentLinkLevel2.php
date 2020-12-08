@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace OpenDocs;
 
 use Params\ExtractRule\GetArrayOfTypeOrNull;
+use Params\ExtractRule\GetOptionalString;
 use Params\ExtractRule\GetString;
 use Params\InputParameter;
 use Params\ProcessRule\MinLength;
@@ -12,12 +13,13 @@ use Params\ProcessRule\MaxLength;
 use Params\Create\CreateFromArray;
 use Params\ExtractRule\GetArrayOfType;
 use Params\InputParameterList;
+use Params\ProcessRule\SkipIfNull;
 
 class ContentLinkLevel2 implements InputParameterList
 {
     use CreateFromArray;
 
-    private string $path;
+    private ?string $path;
 
     private string $description;
 
@@ -26,12 +28,12 @@ class ContentLinkLevel2 implements InputParameterList
 
     /**
      *
-     * @param string $path
+     * @param ?string $path
      * @param string $description
-     * @param array $children
+     * @param ContentLinkLevel3[]|null $children
      */
     public function __construct(
-        string $path,
+        ?string $path,
         string $description,
         ?array $children
     ) {
@@ -44,7 +46,7 @@ class ContentLinkLevel2 implements InputParameterList
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath(): ?string
     {
         return $this->path;
     }
@@ -58,7 +60,7 @@ class ContentLinkLevel2 implements InputParameterList
     }
 
     /**
-     * @return array
+     * @return ContentLinkLevel3[]|null
      */
     public function getChildren(): ?array
     {
@@ -73,7 +75,8 @@ class ContentLinkLevel2 implements InputParameterList
         return [
             new InputParameter(
                 'path',
-                new GetString(),
+                new GetOptionalString(),
+                new SkipIfNull(),
                 new MinLength(2),
                 new MaxLength(1024)
             ),

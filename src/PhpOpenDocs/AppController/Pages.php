@@ -12,10 +12,11 @@ use PhpOpenDocs\ExamplePage;
 use PhpOpenDocs\MarkdownPage;
 use OpenDocs\Breadcrumb;
 use OpenDocs\Breadcrumbs;
+use SlimAuryn\Response\StubResponse;
 
 class Pages
 {
-    public function index()
+    public function index(): StubResponse
     {
         $html = file_get_contents(__DIR__ . "/test_page.html");
 
@@ -83,7 +84,7 @@ class Pages
         return new HtmlResponse($html);
     }
 
-    public function about()
+    public function about(): StubResponse
     {
         $html = file_get_contents(__DIR__ . "/test_page.html");
         $page = new MarkdownPage(__DIR__ . "/../../../docs/php_opendocs_about.md");

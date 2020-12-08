@@ -25,7 +25,13 @@ class ContentSecurityPolicyMiddleware
         $this->apiDomain = $apiDomain;
     }
 
-    public function __invoke(Request $request, ResponseInterface $response, $next)
+    /**
+     * @param Request $request
+     * @param ResponseInterface $response
+     * @param callable $next
+     * @return ResponseInterface
+     */
+    public function __invoke(Request $request, ResponseInterface $response, $next): ResponseInterface
     {
         /** @var ResponseInterface $response  */
         $response = $next($request, $response);

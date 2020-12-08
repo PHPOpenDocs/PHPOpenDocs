@@ -1,0 +1,54 @@
+parameters:
+  bootstrap: null
+
+  scanFiles:
+    - injectionParams/cli.php
+
+  #bootstrapFiles
+
+#  autoload_files:
+#    - lib/cli_functions.php
+#    - injectionParams/cli.php
+#    - lib/cli_functions.php
+#    - lib/exception_mappers_api.php
+#    - lib/exception_mappers_app.php
+#    - lib/exception_mappers_cli.php
+#    - src/factories.php
+#    - src/functions.php
+#    - src/site_html.php
+
+  excludes_analyse:
+
+    - *injectionParams/*
+    - *PHPOpenDocs/CommonController/CompileError.php
+    - PhpOpenDocs/Config.php
+    - *opcache.php
+#  ignoreErrors:
+#    -
+#      message: '#Strict comparison using === between array<int, string> and false will always evaluate to false.#'
+#      path: *functions.php
+#    -
+#      message: '#Access to an undefined property .*#'
+#      path: *StandardPlatformStripeClient.php
+#    -
+#      message: '#Parameter \#2 $colno|object of method PDOStatement::setFetchMode() expects int|object, string given.#'
+#      path: *
+#    -
+#      message: '#.* for foreach, only iterables are supported.*#'
+#      path: *ToArray.php *in context*
+#    -
+#      message: '#.*supplied for foreach, only iterables are supported.#'
+#      path: *InMemoryAdminSession.php
+#    -
+#      message: '#.*supplied for foreach, only iterables are supported.#'
+#      path: *InMemorySuperSession.php
+#    -
+#      message: '#.*supplied for foreach, only iterables are supported.#'
+#      path: *ToString.php *in context*
+#    -
+#      message: '#.*supplied for foreach, only iterables are supported.#'
+#      path: *FromString.php *in context*
+#    -
+#      message: '#should return .* but returns object.#'
+#      path: *FromString.php *in context*
+#

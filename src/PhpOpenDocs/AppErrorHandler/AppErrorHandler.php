@@ -11,5 +11,9 @@ namespace PhpOpenDocs\AppErrorHandler;
  */
 interface AppErrorHandler
 {
+    /**
+     * @param $container
+     * @return mixed
+     */
     public function __invoke($container);
 }

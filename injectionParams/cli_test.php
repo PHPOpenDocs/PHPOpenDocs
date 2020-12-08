@@ -1,6 +1,6 @@
 <?php
 
-use Osf\InjectionParams;
+use PhpOpenDocs\InjectionParams;
 
 if (function_exists('injectionParams') == false) {
 
@@ -8,27 +8,17 @@ if (function_exists('injectionParams') == false) {
     {
         // These classes will only be created once by the injector.
         $shares = [
-            \Doctrine\ORM\EntityManager::class,
+//            \Doctrine\ORM\EntityManager::class,
         ];
 
         // Alias interfaces (or classes) to the actual types that should be used
         // where they are required.
         $aliases = [
-            \Osf\Repo\ProjectCredentialRepo\ProjectStripeConnectRepo::class =>
-            \Osf\Repo\ProjectCredentialRepo\DoctrineProjectStripeConnectRepo::class,
-
-            \Osf\Repo\ProjectRepo\ProjectRepo::class =>
-            \Osf\Repo\ProjectRepo\DoctrineProjectRepo::class,
-
-//            \Osf\Repo\StripeCheckoutSessionRepo\StripeCheckoutSessionRepo::class =>
-//                \Osf\Repo\StripeCheckoutSessionRepo\DatabaseStripeCheckoutSessionRepo::class,
         ];
 
         // Delegate the creation of types to callables.
         $delegates = [
             \Redis::class => 'createRedis',
-            \PDO::class => 'createPDO',
-            \Doctrine\ORM\EntityManager::class => 'createDoctrineEntityManager',
         ];
 
         // Define some params that can be injected purely by name.

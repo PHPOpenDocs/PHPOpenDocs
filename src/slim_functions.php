@@ -11,7 +11,7 @@ use SlimAuryn\Response\StubResponse;
 function exampleResponseMapper(
     \SlimAuryn\Response\StubResponse $builtResponse,
     ResponseInterface $response
-) {
+): ResponseInterface {
     $status = $builtResponse->getStatus();
     $reasonPhrase = getReasonPhrase($status);
 
@@ -28,7 +28,7 @@ function exampleResponseMapper(
  * @param Injector $injector
  * @param ServerRequestInterface $request
  * @param ResponseInterface $response
- * @param array $routeArguments
+ * @param array<string, string> $routeArguments
  * @throws \Auryn\ConfigException
  */
 function setupSlimAurynInvoker(
@@ -36,7 +36,7 @@ function setupSlimAurynInvoker(
     ServerRequestInterface $request,
     ResponseInterface $response,
     array $routeArguments
-) {
+): void {
     $injector->alias(ServerRequestInterface::class, get_class($request));
     $injector->share($request);
     $injector->alias(ResponseInterface::class, get_class($response));

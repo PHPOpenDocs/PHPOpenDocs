@@ -113,7 +113,7 @@ HTML;
     }
 
 
-    public function getFooter()
+    public function getFooter(): string
     {
         $html = <<< HTML
 <span class="copyright">Copyright © 2020 :html_copyright_name</span>

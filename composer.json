@@ -24,7 +24,6 @@
         "seld/jsonlint": "^1.7",
         "slim/slim": "3.7.0",
         "tholu/php-cidr-match": "^0.2.0",
-        "twig/twig": "3.0.5",
         "danack/aurynconfig": "^0.9.1",
         "ext-json": "*",
         "ext-curl": "*",

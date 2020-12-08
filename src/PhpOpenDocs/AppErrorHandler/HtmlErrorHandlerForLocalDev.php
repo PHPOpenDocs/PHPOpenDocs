@@ -12,6 +12,12 @@ class HtmlErrorHandlerForLocalDev implements AppErrorHandler
 {
     public function __invoke($container)
     {
+        /**
+         * @param mixed $request
+         * @param mixed $response
+         * @param mixed $exception
+         * @return mixed
+         */
         return function ($request, $response, $exception) {
             /** @var \Throwable $exception */
             $text = getTextForException($exception);

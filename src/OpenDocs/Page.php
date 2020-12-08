@@ -68,9 +68,9 @@ class Page
     }
 
     /**
-     * @return NavigationLink
+     * @return NavigationLink[]
      */
-    public function getNavigationLinks(): NavigationLink
+    public function getNavigationLinks(): array
     {
         return $this->navigationLinks;
     }

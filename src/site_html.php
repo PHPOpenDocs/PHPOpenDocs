@@ -46,6 +46,7 @@ function createPrevNextHtml(?PrevNextLinks $prevNextLinks): string
     $nextLink = $prevNextLinks->getNextLink();
 
     $template = '';
+    $params = [];
 
     if ($prevLink) {
         $template .= '<span class="opendocs_prev"><a href=":attr_prev_link">« :html_prev_description</a></span>';
@@ -62,7 +63,7 @@ function createPrevNextHtml(?PrevNextLinks $prevNextLinks): string
     return esprintf($template, $params);
 }
 
-function createPageHeaderHtml()
+function createPageHeaderHtml() : string
 {
     $html = <<< HTML
     <ul>
@@ -112,6 +113,7 @@ function createContentLinkLevel2Html(ContentLinkLevel2 $contentLinkLevel2): stri
         return $html;
     }
 
+    $li_elements = [];
     foreach ($children as $child) {
         $li_elements[] = createContentLinkLevel3Html($child);
     }
@@ -148,7 +150,7 @@ function createContentLinkLevel1Html(ContentLinkLevel1 $contentLinkLevel1): stri
     return "<li>" . $html . "</li>";
 }
 
-function createContentLinksHtml(ContentLinks $contentLinks)
+function createContentLinksHtml(ContentLinks $contentLinks): string
 {
     $li_elements = [];
     foreach ($contentLinks->getChildren() as $contentLinkLevel1) {

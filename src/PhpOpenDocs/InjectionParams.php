@@ -8,12 +8,12 @@ use Auryn\Injector;
 
 class InjectionParams
 {
-    public $shares;
-    public $aliases;
-    public $classParams;
-    public $delegates;
-    public $prepares;
-    public $namedParams;
+    public array $shares;
+    public array $aliases;
+    public array $classParams;
+    public array $delegates;
+    public array $prepares;
+    public array $namedParams;
 
     public function __construct(
         array $shares = [],

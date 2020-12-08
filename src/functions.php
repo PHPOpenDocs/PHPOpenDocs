@@ -11,7 +11,7 @@ declare(strict_types = 1);
  * @return mixed
  * @throws Exception
  */
-function getConfig(array $indexes)
+function getConfig(array $indexes): string
 {
     static $options = null;
     if ($options === null) {
@@ -73,7 +73,7 @@ function saneErrorHandler($errorNumber, $errorMessage, $errorFile, $errorLine): 
 function json_decode_safe(?string $json)
 {
     if ($json === null) {
-        throw new \Osf\Exception\JsonException("Error decoding JSON: cannot decode null.");
+        throw new \PhpOpenDocs\Exception\JsonException("Error decoding JSON: cannot decode null.");
     }
 
     $data = json_decode($json, true);
@@ -90,10 +90,10 @@ function json_decode_safe(?string $json)
     }
 
     if ($data === null) {
-        throw new \Osf\Exception\JsonException("Error decoding JSON: null returned.");
+        throw new \PhpOpenDocs\Exception\JsonException("Error decoding JSON: null returned.");
     }
 
-    throw new \Osf\Exception\JsonException("Error decoding JSON: " . json_last_error_msg());
+    throw new \PhpOpenDocs\Exception\JsonException("Error decoding JSON: " . json_last_error_msg());
 }
 
 
@@ -524,44 +524,6 @@ function continuallyExecuteCallable($callable, int $secondsBetweenRuns, int $sle
 }
 
 
-function buildInvoiceRenderLink(\Osf\Model\Invoice $invoice): string
-{
-    $domain = 'http://local.app.basereality.com';
-    $link = sprintf(
-        '%s/invoice/%s/render',
-        $domain,
-        $invoice->getId()
-    );
-
-    return $link;
-}
-
-function buildInvoicePrepareLink(\Osf\Model\Invoice $invoice): string
-{
-    $domain = 'http://local.app.basereality.com';
-    $link = sprintf(
-        '%s/invoice/%s/generate',
-        $domain,
-        $invoice->getId()
-    );
-
-    return $link;
-}
-
-
-function buildInvoiceDownloadLink(\Osf\Model\Invoice $invoice): string
-{
-    $domain = 'http://local.app.basereality.com';
-
-    $link = sprintf(
-        '%s/invoice/%s/download',
-        $domain,
-        $invoice->getId()
-    );
-
-    return $link;
-}
-
 
 function getReasonPhrase(int $status)
 {
@@ -588,31 +550,6 @@ function formatTextToAnchor($question): string
 }
 
 
-function linkableTitle(string $title): string
-{
-    $questionAnchor = formatTextToAnchor($title);
-
-    $output = '<div>';
-    $output .= '<a href="#' . $questionAnchor . '">';
-    $output .= '<i class="fa fa-link" aria-hidden="true"></i>';
-    $output .= '<h3>' . $title . '</h3>';
-    $output .= '</a>';
-    $output .= '</div>';
-
-    return $output;
-}
-
-function getPathToProject(\Osf\Model\Project $project)
-{
-    $params = [
-        ':uri_project_name' => $project->getName()
-    ];
-
-    return esprintf(
-        '/projects/:uri_project_name',
-        $params
-    );
-}
 
 function formatPrice(string $currency, int $priceInCents)
 {
@@ -646,48 +583,6 @@ function formatPrice(string $currency, int $priceInCents)
 function createId(): string
 {
     return bin2hex(random_bytes(16));
-}
-
-
-function renderNavbarLinks(\Psr\Http\Message\ServerRequestInterface $request): string
-{
-    $currentHtml = '<span class="sr-only">(current)</span>';
-
-    $links = [
-        '/' => 'Home',
-        "/projects" => 'Projects',
-        "/introduction" => 'About',
-        "/os_maintainers" => 'Info for maintainers',
-//        "/os_users" => 'Info for companies',
-    ];
-
-    $currentPath = $request->getUri()->getPath();
-    $html = '';
-
-    $linkHtml = <<< HTML_LINK
-    <li class="nav-item :attr_active">
-        <a class="nav-link" href=":attr_link_path">:html_description :raw_current_text </a>
-    </li>
-HTML_LINK;
-
-    foreach ($links as $linkPath => $linkDescription) {
-        $currentTextToUse = '';
-        $activeToUse = '';
-        if ($linkPath === $currentPath) {
-            $currentTextToUse = $currentHtml;
-            $activeToUse = 'active';
-        }
-        $params = [
-            ":attr_link_path" => $linkPath,
-            ':attr_active' => $activeToUse,
-            ':html_description' => $linkDescription,
-            ':raw_current_text' => $currentTextToUse
-        ];
-
-        $html .= esprintf($linkHtml, $params);
-    }
-
-    return $html;
 }
 
 function getMemoryLimit()
@@ -975,52 +870,3 @@ function getRandomId(): string
 
     return hash("sha256", $foo);
 }
-
-function setupStripeClient($key)
-{
-    static $logger = null;
-
-    if ($logger === null) {
-        $logger = new \Osf\Stripe\StripeNotTerribleLogger();
-    }
-
-    \Stripe\Stripe::setApiKey($key);
-    \Stripe\Stripe::setLogger($logger);
-}
-
-
-function getUnitPrice(string $currency, \Osf\Model\SkuPrice $skuPrice)
-{
-    $currency = strtolower($currency);
-
-    if ($currency === 'gbp') {
-        return $skuPrice->getCostInGBPPence();
-    }
-
-    if ($currency === 'eur') {
-        return $skuPrice->getCostInEURCents();
-    }
-
-    if ($currency === 'usd') {
-        return $skuPrice->getCostInUSDCents();
-    }
-
-    throw new \Exception("Unknown currency [$currency]");
-}
-
-
-//function getIniMemoryBytes()
-//{
-//    $val = trim($val);
-//    $last = strtolower($val[strlen($val)-1]);
-//    switch($last) {
-//        // The 'G' modifier is available since PHP 5.1.0
-//        case 'g':
-//            return $val * 1024 * 1024 * 1024;
-//        case 'm':
-//            return $val * 1024 * 1024;
-//        case 'k':
-//            return $val * 1024;
-//    }
-//    return $val;
-//}

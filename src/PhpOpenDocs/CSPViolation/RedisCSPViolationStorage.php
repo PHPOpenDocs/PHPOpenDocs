@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace PhpOpenDocs\CSPViolation;
 
-use Osf\Data\ContentPolicyViolationReport;
+use PhpOpenDocs\Data\ContentPolicyViolationReport;
 use PhpOpenDocs\Key\ContentSecurityPolicyKey;
 use Redis;
 
@@ -21,7 +21,7 @@ class RedisCSPViolationStorage implements CSPViolationStorage
     /**
      * this should be called reportViolation?
      */
-    public function report(ContentPolicyViolationReport $cpvr)
+    public function report(ContentPolicyViolationReport $cpvr): void
     {
         $string = json_encode_safe($cpvr->toArray());
         $this->redis->lPush(
@@ -30,16 +30,16 @@ class RedisCSPViolationStorage implements CSPViolationStorage
         );
     }
 
-    public function clearReports()
+    public function clearReports(): void
     {
         $this->redis->del(ContentSecurityPolicyKey::getAbsoluteKeyName('csp'));
     }
 
     /**
      * @return ContentPolicyViolationReport[]
-     * @throws \Osf\Exception\JsonException
+     * @throws \PhpOpenDocs\Exception\JsonException
      */
-    public function getReports()
+    public function getReports(): array
     {
         $elements = $this->redis->lrange(
             ContentSecurityPolicyKey::getAbsoluteKeyName('csp'),

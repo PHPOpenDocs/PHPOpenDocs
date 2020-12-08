@@ -6,8 +6,7 @@ namespace PhpOpenDocs\Service;
 
 class RequestNonce
 {
-    /** @var string  */
-    private $string;
+    private string $string;
 
     public function __construct()
     {
@@ -15,7 +14,7 @@ class RequestNonce
         $this->string = bin2hex($bytes);
     }
 
-    public function getRandom()
+    public function getRandom(): string
     {
         return $this->string;
     }

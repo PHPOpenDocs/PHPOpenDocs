@@ -12,19 +12,22 @@ class FakeCSPViolationStorage implements CSPViolationStorage
     private $clearCalls = 0;
 
     /** @var ContentPolicyViolationReport[]  */
-    private $reports = [];
+    private array $reports = [];
 
-    public function clearReports()
+    public function clearReports(): void
     {
         $this->clearCalls += 1;
     }
 
-    public function getReports()
+    /**
+     * @return ContentPolicyViolationReport[]
+     */
+    public function getReports(): array
     {
         return $this->reports;
     }
 
-    public function report(ContentPolicyViolationReport $cpvr)
+    public function report(ContentPolicyViolationReport $cpvr): void
     {
         $this->reports[] = $cpvr;
     }
