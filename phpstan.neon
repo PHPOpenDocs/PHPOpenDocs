@@ -18,37 +18,17 @@ parameters:
 #    - src/site_html.php
 
   excludes_analyse:
-
     - *injectionParams/*
+    - *PhpOpenDocs/InjectionParams.php
     - *PHPOpenDocs/CommonController/CompileError.php
     - PhpOpenDocs/Config.php
     - *opcache.php
-#  ignoreErrors:
-#    -
-#      message: '#Strict comparison using === between array<int, string> and false will always evaluate to false.#'
-#      path: *functions.php
-#    -
-#      message: '#Access to an undefined property .*#'
-#      path: *StandardPlatformStripeClient.php
-#    -
-#      message: '#Parameter \#2 $colno|object of method PDOStatement::setFetchMode() expects int|object, string given.#'
-#      path: *
-#    -
-#      message: '#.* for foreach, only iterables are supported.*#'
-#      path: *ToArray.php *in context*
-#    -
-#      message: '#.*supplied for foreach, only iterables are supported.#'
-#      path: *InMemoryAdminSession.php
-#    -
-#      message: '#.*supplied for foreach, only iterables are supported.#'
-#      path: *InMemorySuperSession.php
-#    -
-#      message: '#.*supplied for foreach, only iterables are supported.#'
-#      path: *ToString.php *in context*
-#    -
-#      message: '#.*supplied for foreach, only iterables are supported.#'
-#      path: *FromString.php *in context*
-#    -
-#      message: '#should return .* but returns object.#'
-#      path: *FromString.php *in context*
-#
+  ignoreErrors:
+## PHP 7/8 issues start - delete these when PHP 7 support is dropped
+    -
+      message: '#Strict comparison using === .*#'
+      path: *functions.php
+    -
+      message: '#Comparison operation ">" between int<1, max> and 0 is always true.*#'
+      path: *functions.php
+## PHP 7/8 issues end - delete these when PHP 7 support is dropped

@@ -6,6 +6,10 @@ namespace PhpOpenDocs\AppErrorHandler;
 
 class HtmlErrorHandlerForProd implements AppErrorHandler
 {
+    /**
+     * @param mixed $container
+     * @return \Closure|mixed
+     */
     public function __invoke($container)
     {
         return function ($request, $response, \Throwable $exception) {

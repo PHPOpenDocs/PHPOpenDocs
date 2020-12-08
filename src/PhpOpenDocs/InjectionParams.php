@@ -8,11 +8,33 @@ use Auryn\Injector;
 
 class InjectionParams
 {
+    /**
+     * @var array<string|object>
+     */
     public array $shares;
+
+    /**
+     * @var array<string, string|object>
+     */
     public array $aliases;
+
+    /**
+     * @var array<string, mixed>
+     */
     public array $classParams;
+    /**
+     * @var array<string, callable>
+     */
     public array $delegates;
+
+    /**
+     * @var array<string, callable>
+     */
     public array $prepares;
+
+    /**
+     * @var array<string, mixed>
+     */
     public array $namedParams;
 
     public function __construct(
@@ -31,7 +53,7 @@ class InjectionParams
         $this->namedParams = $namedParams;
     }
 
-    public static function fromParams(array $vars)
+    public static function fromParams(array $vars): self
     {
         return new static(
             [],

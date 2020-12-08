@@ -10,7 +10,7 @@ use PhpOpenDocs\Data\ContentPolicyViolationReport;
 interface CSPViolationStorage extends CSPViolationReporter
 {
     /** Empty all the reports */
-    public function clearReports();
+    public function clearReports(): void;
 
     /**
      * @return ContentPolicyViolationReport[]

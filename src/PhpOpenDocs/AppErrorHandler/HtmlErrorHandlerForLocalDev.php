@@ -10,6 +10,10 @@ use SlimAuryn\Response\HtmlResponse;
 
 class HtmlErrorHandlerForLocalDev implements AppErrorHandler
 {
+    /**
+     * @param mixed $container
+     * @return \Closure|mixed
+     */
     public function __invoke($container)
     {
         /**

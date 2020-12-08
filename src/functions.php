@@ -7,11 +7,11 @@ declare(strict_types = 1);
  */
 
 /**
- * @param array $indexes
+ * @param array<mixed> $indexes
  * @return mixed
  * @throws Exception
  */
-function getConfig(array $indexes): string
+function getConfig(array $indexes)
 {
     static $options = null;
     if ($options === null) {
@@ -20,7 +20,6 @@ function getConfig(array $indexes): string
     }
 
     $data = $options;
-
 
     foreach ($indexes as $index) {
         if (array_key_exists($index, $data) === false) {
@@ -46,7 +45,7 @@ function getExceptionText(\Throwable $exception): string
     return $text;
 }
 
-function saneErrorHandler($errorNumber, $errorMessage, $errorFile, $errorLine): bool
+function saneErrorHandler(int $errorNumber, string $errorMessage, string $errorFile, int $errorLine): bool
 {
     if (error_reporting() === 0) {
         // Error reporting has been silenced
@@ -69,6 +68,7 @@ function saneErrorHandler($errorNumber, $errorMessage, $errorFile, $errorLine): 
 
 /**
  * Decode JSON with actual error detection
+ * @return mixed
  */
 function json_decode_safe(?string $json)
 {
@@ -120,9 +120,9 @@ function json_encode_safe($data, $options = 0): string
  * The cost should be tuned for the hash to take something like a
  * quarter of a second of CPU time to hash.
  *
- * @return array
+ * @return array<mixed>
  */
-function get_password_options()
+function get_password_options(): array
 {
     $options = [
         'cost' => 12,
@@ -173,7 +173,7 @@ function getClientIpAddress() : string
  * Recursive directory search
  * @param string $folder
  * @param string $pattern
- * @return array
+ * @return array<string, string>
  */
 function recursiveSearch(string $folder, string $pattern)
 {
@@ -188,7 +188,13 @@ function recursiveSearch(string $folder, string $pattern)
 }
 
 
-function convertToValue($name, $value)
+/**
+ * @param string $name
+ * @param mixed $value
+ * @return mixed
+ * @throws Exception
+ */
+function convertToValue(string $name, $value)
 {
     if (is_scalar($value) === true) {
         return $value;
@@ -202,8 +208,7 @@ function convertToValue($name, $value)
         return $callable();
     }
     if (is_object($value) === true && $value instanceof \DateTime) {
-//        return $value->format(DATE_ATOM);
-        return $value->format(\Osf\App::DATE_TIME_EXACT_FORMAT);
+        return $value->format(\PhpOpenDocs\App::DATE_TIME_EXACT_FORMAT);
     }
 
     if (is_array($value) === true) {
@@ -215,6 +220,8 @@ function convertToValue($name, $value)
         return $values;
     }
 
+    $message = "Unknown error converting to param '$name' to value.";
+
     if (is_object($value) === true) {
         $message = "Unsupported type [" . gettype($value) . "] of class [" . get_class($value) . "] for toArray for property $name.";
     }
@@ -225,6 +232,12 @@ function convertToValue($name, $value)
 
 /**
  * Fetch data and return statusCode, body and headers
+ * @param string $uri
+ * @param string $method
+ * @param array<mixed> $queryParams
+ * @param string|null $body
+ * @param array<mixed> $headers
+ * @return array<mixed>
  */
 function fetchUri(string $uri, string $method, array $queryParams = [], string $body = null, array $headers = [])
 {
@@ -264,8 +277,11 @@ function fetchUri(string $uri, string $method, array $queryParams = [], string $
 
 /**
  * Fetch data and only return successful request
+ * @param string $uri
+ * @param array<string, string> $headers
+ * @return mixed
  */
-function fetchDataWithHeaders($uri, array $headers)
+function fetchDataWithHeaders(string $uri, array $headers)
 {
     [$statusCode, $body, $responseHeaders] = fetchUri($uri, 'GET', [], null, $headers);
 
@@ -278,8 +294,10 @@ function fetchDataWithHeaders($uri, array $headers)
 
 /**
  * Fetch data and only return successful request
+ * @param string $uri
+ * @return mixed
  */
-function fetchData($uri)
+function fetchData(string $uri)
 {
     [$statusCode, $body, $headers] = fetchUri($uri, 'GET');
 
@@ -308,7 +326,7 @@ function escapeMySqlLikeString(string $string)
 // Docker IP addresses are apparently "172.XX.X.X",
 // Which should be in an IPV4 PRIVATE ADDRESS SPACE
 // https://www.arin.net/knowledge/address_filters.html
-function isIpAddressDockerBoxHost(string $ipAddress)
+function isIpAddressDockerBoxHost(string $ipAddress): bool
 {
     if (substr($ipAddress, 0, 4) !== '172.') {
         return false;
@@ -328,7 +346,7 @@ function isIpAddressDockerBoxHost(string $ipAddress)
     return false;
 }
 
-function isIpAddressSameCluster(string $ipAddress)
+function isIpAddressSameCluster(string $ipAddress): bool
 {
     if (strpos($ipAddress, '10.') === 0) {
         return true;
@@ -337,7 +355,7 @@ function isIpAddressSameCluster(string $ipAddress)
     return false;
 }
 
-function showRawCharacters(string $result)
+function showRawCharacters(string $result): string
 {
     $resultInHex = unpack('H*', $result);
     $resultInHex = $resultInHex[1];
@@ -348,7 +366,12 @@ function showRawCharacters(string $result)
 }
 
 
-function buildInString(string $prefix, $entries)
+/**
+ * @param string $prefix
+ * @param array<mixed> $entries
+ * @return array<mixed>
+ */
+function buildInString(string $prefix, $entries): array
 {
     $strings = [];
     $params = [];
@@ -365,6 +388,12 @@ function buildInString(string $prefix, $entries)
 }
 
 
+/**
+ * @param array<mixed> $expected
+ * @param array<mixed> $actual
+ * @param array<string|int> $currentKeyPath
+ * @return array<mixed>
+ */
 function compareArrays(array $expected, array $actual, array $currentKeyPath = [])
 {
     $errors = [];
@@ -402,7 +431,7 @@ function compareArrays(array $expected, array $actual, array $currentKeyPath = [
     return $errors;
 }
 
-function getMimeTypeFromFilename($filename)
+function getMimeTypeFromFilename(string $filename): string
 {
     $contentTypesByExtension = [
         'pdf' => 'application/pdf',
@@ -420,7 +449,12 @@ function getMimeTypeFromFilename($filename)
     return $contentTypesByExtension[$extension];
 }
 
-function str_putcsv($dataHeaders, $dataRows)
+/**
+ * @param array<string> $dataHeaders
+ * @param array<array<string>> $dataRows
+ * @return string
+ */
+function str_putcsv(array $dataHeaders, array $dataRows): string
 {
     # Generate CSV data from array
     $fh = fopen('php://temp', 'rw'); # don't create a file, attempt
@@ -485,8 +519,12 @@ function checkSignalsForExit()
  * @param int $sleepTime - the time to sleep between runs
  * @param int $maxRunTime - the max time to run for, before returning
  */
-function continuallyExecuteCallable($callable, int $secondsBetweenRuns, int $sleepTime, int $maxRunTime)
-{
+function continuallyExecuteCallable(
+    $callable,
+    int $secondsBetweenRuns,
+    int $sleepTime,
+    int $maxRunTime
+): void {
     $startTime = microtime(true);
     $lastRuntime = 0;
     $finished = false;
@@ -525,7 +563,7 @@ function continuallyExecuteCallable($callable, int $secondsBetweenRuns, int $sle
 
 
 
-function getReasonPhrase(int $status)
+function getReasonPhrase(int $status): string
 {
     $knownStatusReasons = [
         420 => 'Enhance Your Calm',
@@ -536,48 +574,48 @@ function getReasonPhrase(int $status)
     return $knownStatusReasons[$status] ?? '';
 }
 
-function formatTextToAnchor($question): string
-{
-    $text = str_replace(' ', '_', $question);
+//function formatTextToAnchor($question): string
+//{
+//    $text = str_replace(' ', '_', $question);
+//
+//    /** @var string|null $text */
+//    $text = preg_replace('#[^\w]#', '', $text);
+//    if ($text === null) {
+//        throw new \Exception("Preg replace failed.");
+//    }
+//
+//    return $text;
+//}
 
-    /** @var string|null $text */
-    $text = preg_replace('#[^\w]#', '', $text);
-    if ($text === null) {
-        throw new \Exception("Preg replace failed.");
-    }
-
-    return $text;
-}
 
 
-
-function formatPrice(string $currency, int $priceInCents)
-{
-    $currencySymbols = [
-        'EUR' => '€',
-        'GBP' => '£',
-        'USD' => '$'
-    ];
-
-    if (array_key_exists($currency, $currencySymbols) === false) {
-        throw new \Exception("Currency [$currency] not known.");
-    }
-
-    $cents = $priceInCents % 100;
-    $priceWholeNumber = ($priceInCents - $cents)/ 100;
-
-    if ($cents === 0) {
-        return $currencySymbols[$currency] . number_format($priceWholeNumber);
-    }
-
-    // TODO - International number format this.
-    return sprintf(
-        "%s%s.%02d",
-        $currencySymbols[$currency],
-        number_format($priceWholeNumber),
-        $cents
-    );
-}
+//function formatPrice(string $currency, int $priceInCents)
+//{
+//    $currencySymbols = [
+//        'EUR' => '€',
+//        'GBP' => '£',
+//        'USD' => '$'
+//    ];
+//
+//    if (array_key_exists($currency, $currencySymbols) === false) {
+//        throw new \Exception("Currency [$currency] not known.");
+//    }
+//
+//    $cents = $priceInCents % 100;
+//    $priceWholeNumber = ($priceInCents - $cents)/ 100;
+//
+//    if ($cents === 0) {
+//        return $currencySymbols[$currency] . number_format($priceWholeNumber);
+//    }
+//
+//    // TODO - International number format this.
+//    return sprintf(
+//        "%s%s.%02d",
+//        $currencySymbols[$currency],
+//        number_format($priceWholeNumber),
+//        $cents
+//    );
+//}
 
 
 function createId(): string
@@ -585,6 +623,10 @@ function createId(): string
     return bin2hex(random_bytes(16));
 }
 
+/**
+ * @return int
+ * @throws Exception
+ */
 function getMemoryLimit()
 {
     $memoryLimit = ini_get('memory_limit');
@@ -618,6 +660,11 @@ function getPercentMemoryUsed() : int
 }
 
 
+/**
+ * @param mixed $needle
+ * @param array<mixed> $haystack
+ * @return bool
+ */
 function array_contains($needle, array $haystack): bool
 {
     return in_array($needle, $haystack, true);
@@ -663,9 +710,13 @@ TABLE;
     return $table;
 }
 
-function formatTraceLine(array $trace)
+/**
+ * @param array<string, string> $trace
+ * @return string
+ * @throws Exception
+ */
+function formatTraceLine(array $trace): string
 {
-
     $location = '??';
     $function = 'unknown';
 
@@ -750,6 +801,12 @@ function randomPassword(int $length): string
     return $randString;
 }
 
+/**
+ * @param array<mixed> $items
+ * @param array<string> $headers
+ * @param callable $rowFn
+ * @return string
+ */
 function renderTableHtml($items, array $headers, callable $rowFn)
 {
     $thead = '';
@@ -779,6 +836,10 @@ TABLE;
 }
 
 
+/**
+ * @param Throwable $exception
+ * @return mixed
+ */
 function getExceptionInfoAsArray(\Throwable $exception)
 {
     $data = [
@@ -809,6 +870,8 @@ function getExceptionInfoAsArray(\Throwable $exception)
  *
  * #0 foo
  * #1 bar
+ * @param array<string> $lines
+ * @return string
  */
 function formatLinesWithCount(array $lines): string
 {
@@ -823,7 +886,7 @@ function formatLinesWithCount(array $lines): string
     return $output;
 }
 
-function purgeExceptionMessage(\Throwable $exception)
+function purgeExceptionMessage(\Throwable $exception): string
 {
     $rawMessage = $exception->getMessage();
 
@@ -844,7 +907,7 @@ function purgeExceptionMessage(\Throwable $exception)
     return $message;
 }
 
-function getTextForException(\Throwable $exception)
+function getTextForException(\Throwable $exception): string
 {
     $currentException = $exception;
     $text = '';

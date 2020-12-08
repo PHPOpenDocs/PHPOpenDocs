@@ -9,5 +9,5 @@ use PhpOpenDocs\Data\ContentPolicyViolationReport;
 interface CSPViolationReporter
 {
     /** Store a report about a CSP violation */
-    public function report(ContentPolicyViolationReport $cpvr);
+    public function report(ContentPolicyViolationReport $cpvr): void;
 }

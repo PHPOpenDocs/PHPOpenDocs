@@ -8,6 +8,10 @@ use PhpOpenDocs\App;
 
 class JsonErrorHandlerForLocalDev implements AppErrorHandler
 {
+    /**
+     * @param mixed $container
+     * @return \Closure|mixed
+     */
     public function __invoke($container)
     {
         return function ($request, $response, $exception) {

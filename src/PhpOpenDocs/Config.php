@@ -15,24 +15,28 @@ class Config
 
     const EXAMPLE_EXCEPTION_LOGGING = ['phpopendocs', 'exception_logging'];
 
-    const OSF_CORS_ALLOW_ORIGIN = ['phpopendocs', 'cors', 'allow_origin'];
+    const PHPOPENDOCS_CORS_ALLOW_ORIGIN = ['phpopendocs', 'cors', 'allow_origin'];
 
-    const OSF_ENVIRONMENT = ['phpopendocs', 'env'];
+    const PHPOPENDOCS_ENVIRONMENT = ['phpopendocs', 'env'];
 
 //    const OSF_ALLOWED_ACCESS_CIDRS = ['phpopendocs', 'allowed_access_cidrs'];
 
     // This is used for naming the server for external services. e.g.
     // Google authenticator. It should have a unique name per environment
-    const OSF_SERVER_NAME = ['phpopendocs', 'server_name'];
+    const PHPOPENDOCS_SERVER_NAME = ['phpopendocs', 'server_name'];
 
 
-
-    public static function get($index): string
+    /**
+     * @param string[] $index
+     * @return string
+     * @throws \Exception
+     */
+    public static function get(array $index): string
     {
         return getConfig($index);
     }
 
-    public static function testValuesArePresent()
+    public static function testValuesArePresent(): void
     {
         $rc = new \ReflectionClass(self::class);
         $constants = $rc->getConstants();
@@ -42,18 +46,17 @@ class Config
         }
     }
 
-    public function getCorsAllowOriginForApi()
+    public function getCorsAllowOriginForApi(): string
     {
-        return $this->get(self::OSF_CORS_ALLOW_ORIGIN);
+        return $this->get(self::PHPOPENDOCS_CORS_ALLOW_ORIGIN);
     }
 
-    public static function getEnvironment()
+    public static function getEnvironment(): string
     {
-        return getConfig(self::OSF_ENVIRONMENT);
+        return getConfig(self::PHPOPENDOCS_ENVIRONMENT);
     }
 
-
-    public static function isProductionEnv()
+    public static function isProductionEnv(): bool
     {
         if (self::getEnvironment() === Config::ENVIRONMENT_LOCAL) {
             return false;
