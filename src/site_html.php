@@ -109,6 +109,16 @@ function createContentLinkLevel3Html(string $sectionPath, ContentLinkLevel3 $con
     return esprintf($template, $params);
 }
 
+function getUrl($sectionPath, $path)
+{
+    // It's an external url
+    if (strpos($path, 'http') === 0) {
+        return $path;
+    }
+
+    return $sectionPath . $path;
+}
+
 function createContentLinkLevel2Html(string $sectionPath, ContentLinkLevel2 $contentLinkLevel2): string
 {
     $path = $contentLinkLevel2->getPath();
@@ -123,7 +133,7 @@ function createContentLinkLevel2Html(string $sectionPath, ContentLinkLevel2 $con
             '<a href=":attr_path">:html_description</a></span>',
             [
                 ':html_description' => $contentLinkLevel2->getDescription(),
-                ':attr_path' => $sectionPath . $contentLinkLevel2->getPath(),
+                ':attr_path' => getUrl($sectionPath, $contentLinkLevel2->getPath()),
             ]
         );
     }
@@ -201,19 +211,27 @@ HTML;
 
 
 function createPageHtml(
-    string $sectionPath,
+    ?\OpenDocs\Section $section,
     Page $page,
     Breadcrumbs $breadcrumbs
 ): string {
 
     $headerLinks = createStandardHeaderLinks();
 
+    $prefix = '/';
+    if ($section) {
+        $prefix = $section->getPrefix();
+    }
+
+    $pageTitle = $page->getTitle() ?? "PHP OpenDocs";
+
     $params = [
+        ':html_page_title' => $pageTitle,
         ':raw_top_header' => createPageHeaderHtml($headerLinks),
         ':raw_breadcrumbs' => createBreadcrumbHtml($breadcrumbs),
         ':raw_prev_next' => createPrevNextHtml($page->getPrevNextLinks()),
         ':raw_content' => $page->getContentHtml(),
-        ':raw_nav_content' => createContentLinksHtml($sectionPath, $page->getContentLinks()),
+        ':raw_nav_content' => createContentLinksHtml($prefix, $page->getContentLinks()),
         ':raw_footer' => createFooterHtml($page->getCopyrightOwner(), $page->getEditUrl()),
     ];
 

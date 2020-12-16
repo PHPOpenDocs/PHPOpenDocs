@@ -92,6 +92,12 @@
   margin-top: 0px;
   margin-bottom: 0px;
 }
+.opendocs_content a {
+  color: #000;
+}
+.opendocs_content a:hover, .opendocs_content a:focus {
+  color: #AE508D;
+}
 .opendocs_content p {
   line-height: 1.2;
   margin-block-start: 0.5em;
@@ -205,7 +211,19 @@ html {
   background-color: #fefefd;
 }
 
+h1 + h2 {
+  padding-top: 12px;
+}
+
 h2 + h3 {
+  padding-top: 12px;
+}
+
+h3 + h4 {
+  padding-top: 12px;
+}
+
+h5 + h6 {
   padding-top: 12px;
 }
 

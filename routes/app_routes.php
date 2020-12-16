@@ -16,8 +16,8 @@ return [
     ['/about', 'GET', 'PhpOpenDocs\AppController\Pages::about'],
     ['/sections', 'GET', 'PhpOpenDocs\AppController\Pages::sections'],
 
-    ['/rfc_codex{name:.+}', 'GET', 'PhpOpenDocs\AppController\Pages::rfc_codex_item'],
-    ['/rfc_codex', 'GET', 'PhpOpenDocs\AppController\Pages::rfc_codex'],
+//    ['/rfc_codex{name:.+}', 'GET', 'PhpOpenDocs\AppController\Pages::rfc_codex_item'],
+//    ['/rfc_codex', 'GET', 'PhpOpenDocs\AppController\Pages::rfc_codex'],
 
     ['/css/{any:.*}', 'GET', 'PhpOpenDocs\AppController\Pages::get404Page'],
 
@@ -26,7 +26,7 @@ return [
     ['/test/compile_error', 'GET', 'PhpOpenDocs\AppController\CompileError::deliberateCompileError'],
 
     // TODO - actually make a 404 page
-    ['/{any:.*}', 'GET', 'Osf\AppController\Pages::index'],
+    ['/{any:.*}', 'GET', 'PhpOpenDocs\AppController\Pages::get404Page'],
 ];
 
 

@@ -14,14 +14,19 @@ class Section
 
     private string $purpose;
 
+    private SectionInfo $sectionInfo;
+
+
     public function __construct(
         string $prefix,
         string $name,
-        string $purpose
+        string $purpose,
+        SectionInfo $sectionInfo
     ) {
         $this->prefix = $prefix;
         $this->name = $name;
         $this->purpose = $purpose;
+        $this->sectionInfo = $sectionInfo;
     }
 
     /**
@@ -46,5 +51,13 @@ class Section
     public function getPurpose(): string
     {
         return $this->purpose;
+    }
+
+    /**
+     * @return SectionInfo
+     */
+    public function getSectionInfo(): SectionInfo
+    {
+        return $this->sectionInfo;
     }
 }

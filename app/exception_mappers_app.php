@@ -38,7 +38,7 @@ function parseErrorMapperForApp(\ParseError $parseError, ResponseInterface $resp
     $text = $string . "\n\n\n\n" . $text;
 
     $page = Page::errorPage(nl2br($text));
-    $html = createPageHtml('/blah', $page, new Breadcrumbs);
+    $html = createPageHtml(null, $page, new Breadcrumbs);
 
     return new \SlimAuryn\Response\HtmlResponse($html, [], 500);
 }

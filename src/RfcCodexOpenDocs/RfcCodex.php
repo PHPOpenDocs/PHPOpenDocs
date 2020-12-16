@@ -8,6 +8,7 @@ namespace RfcCodexOpenDocs;
 use OpenDocs\ContentLinks;
 use OpenDocs\FooterInfo;
 use OpenDocs\Page;
+use OpenDocs\Section;
 use OpenDocs\PrevNextLinks;
 use OpenDocs\URL;
 use OpenDocs\ContentLinkLevel1;
@@ -23,6 +24,12 @@ class RfcCodex {
      * @var RfcCodexEntry[]
      */
     private array $under_discussion_entries = [];
+
+
+    /**
+     * @var RfcCodexEntry[]
+     */
+    private array $achieved_entries = [];
 
     public function __construct(MarkdownRenderer $markdownRenderer)
     {
@@ -59,51 +66,125 @@ class RfcCodex {
                 $under_discussion[1]
             );
         }
+
+        $achived_entries_list = [
+            ['Annotations', 'annotations.md'],
+            ['Briefer closure syntax', 'briefer_closure_syntax.md'],
+            ['Co- and contra-variance', 'co_and_contra_variance.md'],
+            ['Named params', 'named_params.md'],
+            ['Null short-circuiting', 'https://wiki.php.net/rfc/nullsafe_operator'],
+            ['Union types', 'union_types.md'],
+        ];
+
+        foreach ($achived_entries_list as $achieved) {
+            $this->achieved_entries[] = new RfcCodexEntry(
+                $achieved[0],
+                $achieved[1]
+            );
+        }
     }
 
-//    private array $done = [
-//        //Annotations
-////Briefer closure syntax
-////Co- and contra-variance
-////Named params
-////Null short-circuiting - https://wiki.php.net/rfc/nullsafe_operator
-////Union types
-//    ];
-
-
-
-    public function getContentLinks(): ContentLinks
+    private function makeList(string $name, $items)
     {
-        $underDiscussionList = [];
 
-        foreach ($this->under_discussion_entries as $entry) {
-            $underDiscussionList[] = new ContentLinkLevel2(
-                $entry->getPath(),
+        $list = [];
+        foreach ($items as $entry) {
+
+            $url = $entry->getFilename();
+            if (strpos($url, 'http') !== 0) {
+                $url = '/' . $entry->getPath();
+            }
+
+            $list[] = new ContentLinkLevel2(
+                $url,
                 $entry->getName(),
                 null
             );
         }
 
-        $underDiscussion = new ContentLinkLevel1(
+        return new ContentLinkLevel1(
             null,
-            'Under discussion',
-            $underDiscussionList
+            $name,
+            $list
         );
-
-        return new ContentLinks([$underDiscussion]);
     }
 
-    public function getPage($path): Page
+    public function getContentLinks(): ContentLinks
     {
-       $contents = 'Shamoan';
+        $underDiscussion = $this->makeList(
+            'Under discussion',
+            $this->under_discussion_entries
+        );
 
-       foreach ($this->under_discussion_entries as $entry) {
-           if ($path === $entry->getPath()) {
-               $fullPath = __DIR__ . "/../../vendor/danack/rfc-codex/" . $entry->getFilename();
-               $markdown = file_get_contents($fullPath);
-               $contents = $this->markdownRenderer->render($markdown);
-          };
-       }
+        $achieved = $this->makeList(
+            'Ideas that overcame their challenges',
+            $this->achieved_entries
+        );
+
+
+        return new ContentLinks([$underDiscussion, $achieved]);
+    }
+
+
+    private function getContentsFromList($name, $list): ?string
+    {
+        foreach ($list as $entry) {
+            if ($name === $entry->getPath() || $name === $entry->getFilename()) {
+                $fullPath = __DIR__ . "/../../vendor/danack/rfc-codex/" . $entry->getFilename();
+                $markdown = file_get_contents($fullPath);
+                return $this->markdownRenderer->render($markdown);
+            };
+        }
+
+        return null;
+    }
+
+    private function getContents($name): ?string
+    {
+        $contents = $this->getContentsFromList($name, $this->under_discussion_entries);
+        if ($contents !== null) {
+            return $contents;
+        }
+
+        $contents = $this->getContentsFromList($name, $this->achieved_entries);
+        if ($contents !== null) {
+            return $contents;
+        }
+
+        return null;
+    }
+
+    public function getPage(Section $section, $name): Page
+    {
+        $contents = $this->getContents($name);
+
+        if ($contents === null) {
+            // TODO
+            $contents = "This should be a 404 page.";
+        }
+
+        return new Page(
+            'Rfc Codex - ' . $name,
+            new URL('https://github.com/danack/RfcCodex'),
+            $this->getContentLinks(),
+            new PrevNextLinks(null, null),
+            $contents,
+            'Danack',
+        );
+    }
+
+
+    public function getIndexPage(Section $section): Page
+    {
+        $fullPath = __DIR__ . "/../../vendor/danack/rfc-codex/rfc_codex.md";
+        $markdown = file_get_contents($fullPath);
+        $contents = $this->markdownRenderer->render($markdown);
+
+        $contents = str_replace(
+            "https://github.com/Danack/RfcCodex/blob/master",
+            $section->getPrefix(),
+            $contents
+        );
 
         return new Page(
             'Rfc Codex',

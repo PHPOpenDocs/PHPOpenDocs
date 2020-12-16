@@ -6,6 +6,9 @@ declare(strict_types = 1);
  * This file holds functions that are required by all environments.
  */
 
+use OpenDocs\Breadcrumbs;
+use SlimAuryn\Response\HtmlResponse;
+
 /**
  * @param array<mixed> $indexes
  * @return mixed
@@ -683,3 +686,19 @@ function showTotalErrorPage(\Throwable $exception)
 }
 
 
+function convertPageToHtmlResponse(
+    \OpenDocs\Section $section,
+    \OpenDocs\Page $page
+) {
+    $headerLinks = createStandardHeaderLinks();
+    $breadcrumbs = new Breadcrumbs();
+
+    $html = createPageHtml(
+        $section,
+        $page,
+        $breadcrumbs = new Breadcrumbs()
+    );
+
+
+    return new HtmlResponse($html);
+}

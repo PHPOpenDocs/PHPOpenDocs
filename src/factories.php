@@ -6,6 +6,8 @@ declare (strict_types = 1);
  * This file contains factory functions that create objects from either
  * configuration values, user input or other external data.
  *
+ * We deliberately do not import most of the classes referenced in this file to the current namespace
+ * as that would make it harder to read, not easier.
  */
 
 use Auryn\Injector;
@@ -33,9 +35,45 @@ function createMemoryWarningCheck(
 }
 
 
-function createRoutesForApp(): \SlimAuryn\Routes
+function createRoutesForApp(\OpenDocs\SectionList $sectionList)//: \SlimAuryn\Routes
 {
-    return new \SlimAuryn\Routes(__DIR__ . '/../routes/app_routes.php');
+    $routes = new \PhpOpenDocs\SlimRoutesExtended();
+
+    $injector = new \Auryn\Injector();
+    $injectionParams = getSectionInjectionParams();
+    $injectionParams->addToInjector($injector);
+
+    foreach ($sectionList->getSections() as $section) {
+        $sectionInfo = $section->getSectionInfo();
+        foreach ($sectionInfo->getRoutes() as $route) {
+            $fullPath = $section->getPrefix() . $route->getPath();
+            $routeCallable = $route->getCallable();
+            $sectionFn = function (\PhpOpenDocs\FullRouteInfo $fullRouteInfo)
+                use ($section, $routeCallable, $injector)
+            {
+                $injector = clone $injector;
+                $injector->share($section);
+
+                foreach ($fullRouteInfo->getRouteParams()->getAll() as $key => $value) {
+                    $injector->defineParam($key, $value);
+                }
+
+                $page = $injector->execute($routeCallable);
+
+                return convertPageToHtmlResponse($section, $page);
+            };
+
+            $routes->addRoute($fullPath, $route->getMethod(), $sectionFn);
+        }
+    }
+
+    $standardRoutes = require __DIR__ . '/../routes/app_routes.php';
+    foreach ($standardRoutes as $standardRoute) {
+        list($path, $method, $callable) = $standardRoute;
+        $routes->addRoute($path, $method, $callable);
+    }
+
+    return $routes;
 }
 
 /**
@@ -48,7 +86,6 @@ function createExceptionMiddlewareForApp(\Auryn\Injector $injector): \SlimAuryn\
         // We don't use this. All forms are api based.
         /// \Params\Exception\ValidationException::class => 'foo',
         \PhpOpenDocs\Exception\DebuggingCaughtException::class => 'debuggingCaughtExceptionExceptionMapperApp',
-
         \ParseError::class => 'parseErrorMapperForApp',
     ];
 
@@ -67,8 +104,6 @@ function createExceptionMiddlewareForApp(\Auryn\Injector $injector): \SlimAuryn\
  */
 function getResultMappers(\Auryn\Injector $injector)
 {
-
-
     return [
         \SlimAuryn\Response\StubResponse::class => '\SlimAuryn\ResponseMapper\ResponseMapper::mapStubResponseToPsr7',
 //        \PhpOpenDocs\Response\MarkdownResponse::class => $markdownResponseMapperFn,
@@ -101,17 +136,9 @@ function createSlimAppForApp(
 
     // TODO - this shouldn't be used in production.
     $container['errorHandler'] = $appErrorHandler;
-//  function ($container) use ($appErrorHandler) {
-//        return $appErrorHandler;
-//    };
-
     $container['phpErrorHandler'] = $appErrorHandler;
-//        function ($container) {
-//        return $container['errorHandler'];
-//    };
 
     $app = new \Slim\App($container);
-
     $app->add($injector->make(\SlimAuryn\ExceptionMiddleware::class));
 //    $app->add($injector->make(\PhpOpenDocs\Middleware\ContentSecurityPolicyMiddleware::class));
 //    $app->add($injector->make(\PhpOpenDocs\Middleware\BadHeaderMiddleware::class));
@@ -159,20 +186,21 @@ function createSectionList(): \OpenDocs\SectionList
     $sections[] = new \OpenDocs\Section(
         '/rfc_codex',
         'RFC Codex',
-        "Discussions ideas for how PHP can be improved, why some ideas haven't come to fruition yet."
+        "Discussions ideas for how PHP can be improved, why some ideas haven't come to fruition yet.",
+        new \RfcCodexOpenDocs\RfcCodexSectionInfo()
     );
 
-    $sections[] = new \OpenDocs\Section(
-        '/sponsoring',
-        'Sponsoring',
-        'How to give money to people who work on PHP core or documentation.'
-    );
-
-    $sections[] = new \OpenDocs\Section(
-        '/internals',
-        'Internals',
-        "Scary details of how PHP works internally, and how to write internal or extension code."
-    );
+//    $sections[] = new \OpenDocs\Section(
+//        '/sponsoring',
+//        'Sponsoring',
+//        'How to give money to people who work on PHP core or documentation.'
+//    );
+//
+//    $sections[] = new \OpenDocs\Section(
+//        '/internals',
+//        'Internals',
+//        "Scary details of how PHP works internally, and how to write internal or extension code."
+//    );
 
     return new \OpenDocs\SectionList($sections);
 }

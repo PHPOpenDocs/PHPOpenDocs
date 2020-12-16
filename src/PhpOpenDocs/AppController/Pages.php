@@ -20,6 +20,26 @@ use RfcCodexOpenDocs\RfcCodex;
 
 class Pages
 {
+    public function get404Page(): StubResponse
+    {
+        $page = new \OpenDocs\Page(
+            $title = 'PHP OpenDocs',
+            $editUrl = new URL('www.example.com'),
+            ContentLinks::createEmpty(),
+            new PrevNextLinks(null, null),
+            $contentHtml = "404, you know the score.",
+            $copyrightOwner = 'PHP Open docs'
+        );
+
+        $html = createPageHtml(
+            null,
+            $page,
+            $breadcrumbs = new Breadcrumbs()
+        );
+
+        return new HtmlResponse($html);
+    }
+
     public function index(): StubResponse
     {
         $examplePage = new ExamplePage();
@@ -83,61 +103,14 @@ class Pages
 
         $sectionPath = '/';
         $html = createPageHtml(
-            $sectionPath,
+            null,
             $page,
             $breadcrumbs
         );
         return new HtmlResponse($html);
     }
 
-    public function rfc_codex_item($name): StubResponse
-    {
-        $injector = new \Auryn\Injector();
-        $injectionParams = getSectionInjectionParams();
-        $injectionParams->addToInjector($injector);
 
-        $rfcCodex = $injector->make(\RfcCodexOpenDocs\RfcCodex::class);
-
-        $page = $rfcCodex->getPage($name);
-        $breadcrumbs = new Breadcrumbs();
-
-        $sectionPath = '/rfc_codex';
-        $html = createPageHtml(
-            $sectionPath,
-            $page,
-            $breadcrumbs
-        );
-
-        return new HtmlResponse($html);
-    }
-
-    public function rfc_codex(RfcCodex $rfcCodex): StubResponse
-    {
-        $injector = new \Auryn\Injector();
-        $injectionParams = getSectionInjectionParams();
-        $injectionParams->addToInjector($injector);
-
-        $rfcCodex = $injector->make(\RfcCodexOpenDocs\RfcCodex::class);
-
-        $page = $rfcCodex->getPage('blaah');
-        $breadcrumbs = new Breadcrumbs();
-
-        $params = [
-            ':raw_top_header' =>  createPageHeaderHtml(),
-            ':raw_breadcrumbs' => createBreadcrumbHtml($breadcrumbs),
-            ':raw_prev_next' => createPrevNextHtml($page->getPrevNextLinks()),
-            ':raw_content' => $page->getContentHtml(),
-            ':raw_nav_content' => createContentLinksHtml('/rfc_codex', $page->getContentLinks()),
-            ':raw_footer' => createFooterHtml($page->getCopyrightOwner(), $page->getEditUrl()),
-        ];
-
-        $html = file_get_contents(__DIR__ . "/test_page.html");
-
-
-        $html = esprintf($html, $params);
-
-        return new HtmlResponse($html);
-    }
 
     public function about(): StubResponse
     {
@@ -153,7 +126,7 @@ class Pages
         );
 
         $html = createPageHtml(
-            "/",
+            null,
             $page,
             $breadcrumbs = new Breadcrumbs()
         );
@@ -186,7 +159,7 @@ class Pages
         );
 
         $html = createPageHtml(
-            "/",
+            null,
             $page,
             $breadcrumbs = new Breadcrumbs()
         );
