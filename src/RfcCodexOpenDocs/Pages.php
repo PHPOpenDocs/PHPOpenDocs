@@ -16,7 +16,7 @@ use OpenDocs\ContentLinkLevel2;
 use OpenDocs\MarkdownRenderer;
 
 
-class RfcCodex {
+class Pages {
 
     private MarkdownRenderer $markdownRenderer;
 

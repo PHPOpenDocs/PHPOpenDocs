@@ -195,7 +195,7 @@ function createSectionList(): \OpenDocs\SectionList
 //        'Sponsoring',
 //        'How to give money to people who work on PHP core or documentation.'
 //    );
-//
+
 //    $sections[] = new \OpenDocs\Section(
 //        '/internals',
 //        'Internals',

@@ -12,9 +12,9 @@ class RfcCodexSectionInfo implements SectionInfo
     public function getRoutes()
     {
         return [
-            new GetRoute('/{name:.+}', 'RfcCodexOpenDocs\RfcCodex::getPage'),
-            new GetRoute('/', 'RfcCodexOpenDocs\RfcCodex::getIndexPage'),
-            new GetRoute('', 'RfcCodexOpenDocs\RfcCodex::getIndexPage'),
+            new GetRoute('/{name:.+}', 'RfcCodexOpenDocs\Pages::getPage'),
+            new GetRoute('/', 'RfcCodexOpenDocs\Pages::getIndexPage'),
+            new GetRoute('', 'RfcCodexOpenDocs\Pages::getIndexPage'),
         ];
     }
 }

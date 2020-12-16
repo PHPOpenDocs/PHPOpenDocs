@@ -8,7 +8,7 @@ services:
       - nginx
       - php_fpm
     ports:
-      - "8006:80"
+      - "8007:80"
     environment:
       - ENV_DESCRIPTION=default,prod
 networks:
