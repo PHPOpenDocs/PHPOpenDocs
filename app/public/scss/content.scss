@@ -2,8 +2,16 @@
 @use "colors.scss";
 
 .opendocs_content {
-  line-height: 1.4;
   letter-spacing: -.00278rem;
   background-color: colors.$content_panel_background;
   color: colors.$content_panel_text;
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  p {
+    line-height: 1.2;
+  }
 }

@@ -17,11 +17,22 @@ return [
 
     ['/about', 'GET', 'PhpOpenDocs\AppController\Pages::about'],
 
+    ['/rfc_codex{name:.+}', 'GET', 'PhpOpenDocs\AppController\Pages::rfc_codex_item'],
+    ['/rfc_codex', 'GET', 'PhpOpenDocs\AppController\Pages::rfc_codex'],
+
     ['/css/{any:.*}', 'GET', 'PhpOpenDocs\AppController\Pages::get404Page'],
+
+    ['/test/caught_exception', 'GET', 'PhpOpenDocs\AppController\Debug::testCaughtException'],
+    ['/test/uncaught_exception', 'GET', 'PhpOpenDocs\AppController\Debug::testUncaughtException'],
+    ['/test/compile_error', 'GET', 'PhpOpenDocs\AppController\CompileError::deliberateCompileError'],
 
     // TODO - actually make a 404 page
     ['/{any:.*}', 'GET', 'Osf\AppController\Pages::index'],
 ];
+
+
+
+
 
 //    ['/test/compile_error', 'GET', '\Osf\CommonController\CompileError::deliberateCompileError'],
 

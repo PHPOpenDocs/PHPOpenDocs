@@ -16,33 +16,20 @@ function injectionParams()
     // Alias interfaces (or classes) to the actual types that should be used
     // where they are required.
     $aliases = [
-
-
-
         \VarMap\VarMap::class => \VarMap\Psr7VarMap::class,
-//        \Osf\Service\BadnessNotifier\BadnessNotifier::class =>
-//        \Osf\Service\BadnessNotifier\FakeBadnessNotifier::class,
-
-
         \PhpOpenDocs\Service\TooMuchMemoryNotifier\TooMuchMemoryNotifier::class =>
         \PhpOpenDocs\Service\TooMuchMemoryNotifier\NullTooMuchMemoryNotifier::class,
-
-
         \PhpOpenDocs\CSPViolation\CSPViolationReporter::class =>
         \PhpOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
-
         \PhpOpenDocs\CSPViolation\CSPViolationStorage::class =>
             \PhpOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
-
     ];
 
     // Delegate the creation of types to callables.
     $delegates = [
-        \Psr\Log\LoggerInterface::class => 'createLogger',
+//        \Psr\Log\LoggerInterface::class => 'createLogger',
 //        \PDO::class => 'createPDO',
 //        \Redis::class => '\createRedis',
-//        \Twig_Environment::class => 'createTwigForSite',
-//        \Twig\Environment::class => 'createTwigForSite',
 //        Doctrine\ORM\EntityManager::class => 'createDoctrineEntityManager',
 //        \Osf\Service\LocalStorage\InvoiceLocalStorage\FileInvoiceLocalStorage::class => 'createFileInvoiceLocalStorage',
 //        \Osf\Service\TwilioClient::class => 'createTwilioClientFromConfig',

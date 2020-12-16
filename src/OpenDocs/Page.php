@@ -6,74 +6,56 @@ namespace OpenDocs;
 
 class Page
 {
-    private ?Link $next;
-
-    private ?Link $previous;
-
-    /** @var NavigationLink[] */
-    private array $navigationLinks;
-
     // The title for SEO
     private string $title;
 
     private URL $editUrl;
 
-    private URL $reportBugUrl;
+    private ContentLinks $contentLinks;
 
-    // The HTML content of the page.
-    private string $content;
+    private PrevNextLinks $prevNextLinks;
+
+    private string $contentHtml;
+
+    private string $copyrightOwner;
 
     /**
      *
-     * @param Link|null $next
-     * @param Link|null $previous
-     * @param NavigationLink[] $navigationLinks
      * @param string $title
      * @param URL $editUrl
-     * @param URL $reportBugUrl
-     * @param string $content
+     * @param ContentLinks $contentLinks
+     * @param PrevNextLinks $prevNextLinks
+     * @param string $contentHtml
      */
     public function __construct(
-        ?Link $next,
-        ?Link $previous,
-        array $navigationLinks,
         string $title,
         URL $editUrl,
-        URL $reportBugUrl,
-        string $content
+        ContentLinks $contentLinks,
+        PrevNextLinks $prevNextLinks,
+        string $contentHtml,
+        string $copyrightOwner
     ) {
-        $this->next = $next;
-        $this->previous = $previous;
-        $this->navigationLinks = $navigationLinks;
         $this->title = $title;
         $this->editUrl = $editUrl;
-        $this->reportBugUrl = $reportBugUrl;
-        $this->content = $content;
+        $this->contentLinks = $contentLinks;
+        $this->prevNextLinks = $prevNextLinks;
+        $this->contentHtml = $contentHtml;
+        $this->copyrightOwner = $copyrightOwner;
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getNext(): ?Link
+    public static function errorPage($errorContentsHtml)
     {
-        return $this->next;
+        return new self(
+            'error',
+            new URL('www.example.com'),
+            ContentLinks::createEmpty(),
+            new PrevNextLinks(null, null),
+            $contentHtml = $errorContentsHtml,
+            $copyrightOwner = 'PHPImagick'
+        );
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getPrevious(): ?Link
-    {
-        return $this->previous;
-    }
 
-    /**
-     * @return NavigationLink[]
-     */
-    public function getNavigationLinks(): array
-    {
-        return $this->navigationLinks;
-    }
 
     /**
      * @return string
@@ -92,18 +74,34 @@ class Page
     }
 
     /**
-     * @return URL
+     * @return ContentLinks
      */
-    public function getReportBugUrl(): URL
+    public function getContentLinks(): ContentLinks
     {
-        return $this->reportBugUrl;
+        return $this->contentLinks;
+    }
+
+    /**
+     * @return PrevNextLinks
+     */
+    public function getPrevNextLinks(): PrevNextLinks
+    {
+        return $this->prevNextLinks;
     }
 
     /**
      * @return string
      */
-    public function getContent(): string
+    public function getContentHtml(): string
     {
-        return $this->content;
+        return $this->contentHtml;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCopyrightOwner(): string
+    {
+        return $this->copyrightOwner;
     }
 }

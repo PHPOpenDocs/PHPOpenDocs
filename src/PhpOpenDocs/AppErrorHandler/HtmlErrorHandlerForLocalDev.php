@@ -7,6 +7,8 @@ namespace PhpOpenDocs\AppErrorHandler;
 use PhpOpenDocs\App;
 use SlimAuryn\ResponseMapper\ResponseMapper;
 use SlimAuryn\Response\HtmlResponse;
+use OpenDocs\Page;
+use OpenDocs\Breadcrumbs;
 
 class HtmlErrorHandlerForLocalDev implements AppErrorHandler
 {
@@ -25,13 +27,13 @@ class HtmlErrorHandlerForLocalDev implements AppErrorHandler
         return function ($request, $response, $exception) {
             /** @var \Throwable $exception */
             $text = getTextForException($exception);
-
+            /** This is to allow testing */
             $text .= App::ERROR_CAUGHT_BY_ERROR_HANDLER_MESSAGE;
+            $page = Page::errorPage(nl2br($text));
 
-            $stubResponse = new HtmlResponse(nl2br($text), [], 500);
-
+            $html = createPageHtml('/blah', $page, new Breadcrumbs);
+            $stubResponse = new HtmlResponse($html, [], 500);
             \error_log($text);
-
             $response = ResponseMapper::mapStubResponseToPsr7($stubResponse, $response);
 
             return $response;

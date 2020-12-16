@@ -9,12 +9,11 @@
         }
     ],
     "require": {
-
         "danack/rfc-codex": "0.0.1",
         "danack/configurator": "1.0.0",
         "danack/console": "^2.6",
         "danack/esprintf": "^1.0.0",
-        "danack/looping-exec": "^0.1.1",
+        "danack/looping-exec": "^0.2.0",
         "danack/params": "^0.6.3",
         "danack/json-safe": "^0.1.1",
         "danack/slim-auryn-invoker": "^2.0.1",
@@ -46,7 +45,8 @@
     "autoload": {
         "psr-0": {
             "OpenDocs\\": "src/",
-            "PhpOpenDocs\\": "src/"
+            "PhpOpenDocs\\": "src/",
+            "RfcCodexOpenDocs\\": "src/"
         }
     },
     "autoload-dev": {

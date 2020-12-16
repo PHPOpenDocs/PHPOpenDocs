@@ -32,39 +32,6 @@ function getConfig(array $indexes)
     return $data;
 }
 
-function getExceptionText(\Throwable $exception): string
-{
-    $text = "";
-    do {
-        $text .= get_class($exception) . ":" . $exception->getMessage() . "\n\n";
-        $text .= $exception->getTraceAsString();
-
-        $exception = $exception->getPrevious();
-    } while ($exception !== null);
-
-    return $text;
-}
-
-function saneErrorHandler(int $errorNumber, string $errorMessage, string $errorFile, int $errorLine): bool
-{
-    if (error_reporting() === 0) {
-        // Error reporting has been silenced
-        if ($errorNumber !== E_USER_DEPRECATED) {
-        // Check it isn't this value, as this is used by twig, with error suppression. :-/
-            return true;
-        }
-    }
-    if ($errorNumber === E_DEPRECATED) {
-        return false;
-    }
-    if ($errorNumber === E_CORE_ERROR || $errorNumber === E_ERROR) {
-        // For these two types, PHP is shutting down anyway. Return false
-        // to allow shutdown to continue
-        return false;
-    }
-    $message = "Error: [$errorNumber] $errorMessage in file $errorFile on line $errorLine.";
-    throw new \Exception($message);
-}
 
 /**
  * Decode JSON with actual error detection
@@ -477,92 +444,6 @@ function str_putcsv(array $dataHeaders, array $dataRows): string
     return $csv;
 }
 
-
-
-/**
- * Self-contained monitoring system for system signals
- * returns true if a 'graceful exit' like signal is received.
- *
- * We don't listen for SIGKILL as that needs to be an immediate exit,
- * which PHP already provides.
- * @return bool
- */
-function checkSignalsForExit()
-{
-    static $initialised = false;
-    static $needToExit = false;
-    static $fnSignalHandler = null;
-
-    if ($initialised === false) {
-        $fnSignalHandler = function ($signalNumber) use (&$needToExit) {
-            $needToExit = true;
-        };
-        pcntl_signal(SIGINT, $fnSignalHandler, false);
-        pcntl_signal(SIGQUIT, $fnSignalHandler, false);
-        pcntl_signal(SIGTERM, $fnSignalHandler, false);
-        pcntl_signal(SIGHUP, $fnSignalHandler, false);
-        pcntl_signal(SIGUSR1, $fnSignalHandler, false);
-        $initialised = true;
-    }
-
-    pcntl_signal_dispatch();
-
-    return $needToExit;
-}
-
-
-/**
- * Repeatedly calls a callable until it's time to stop
- *
- * @param callable $callable - the thing to run
- * @param int $secondsBetweenRuns - the minimum time between runs
- * @param int $sleepTime - the time to sleep between runs
- * @param int $maxRunTime - the max time to run for, before returning
- */
-function continuallyExecuteCallable(
-    $callable,
-    int $secondsBetweenRuns,
-    int $sleepTime,
-    int $maxRunTime
-): void {
-    $startTime = microtime(true);
-    $lastRuntime = 0;
-    $finished = false;
-
-    echo "starting continuallyExecuteCallable \n";
-    while ($finished === false) {
-        $shouldRunThisLoop = false;
-        if ($secondsBetweenRuns === 0) {
-            $shouldRunThisLoop = true;
-        }
-        else if ((microtime(true) - $lastRuntime) > $secondsBetweenRuns) {
-            $shouldRunThisLoop = true;
-        }
-
-        if ($shouldRunThisLoop === true) {
-            $callable();
-            $lastRuntime = microtime(true);
-        }
-
-        if (checkSignalsForExit()) {
-            break;
-        }
-
-        if ($sleepTime > 0) {
-            sleep($sleepTime);
-        }
-
-        if ((microtime(true) - $startTime) > $maxRunTime) {
-            echo "Reach maxRunTime - finished = true\n";
-            $finished = true;
-        }
-    }
-
-    echo "Finishing continuallyExecuteCallable\n";
-}
-
-
-
 function getReasonPhrase(int $status): string
 {
     $knownStatusReasons = [
@@ -573,50 +454,6 @@ function getReasonPhrase(int $status): string
 
     return $knownStatusReasons[$status] ?? '';
 }
-
-//function formatTextToAnchor($question): string
-//{
-//    $text = str_replace(' ', '_', $question);
-//
-//    /** @var string|null $text */
-//    $text = preg_replace('#[^\w]#', '', $text);
-//    if ($text === null) {
-//        throw new \Exception("Preg replace failed.");
-//    }
-//
-//    return $text;
-//}
-
-
-
-//function formatPrice(string $currency, int $priceInCents)
-//{
-//    $currencySymbols = [
-//        'EUR' => '€',
-//        'GBP' => '£',
-//        'USD' => '$'
-//    ];
-//
-//    if (array_key_exists($currency, $currencySymbols) === false) {
-//        throw new \Exception("Currency [$currency] not known.");
-//    }
-//
-//    $cents = $priceInCents % 100;
-//    $priceWholeNumber = ($priceInCents - $cents)/ 100;
-//
-//    if ($cents === 0) {
-//        return $currencySymbols[$currency] . number_format($priceWholeNumber);
-//    }
-//
-//    // TODO - International number format this.
-//    return sprintf(
-//        "%s%s.%02d",
-//        $currencySymbols[$currency],
-//        number_format($priceWholeNumber),
-//        $cents
-//    );
-//}
-
 
 function createId(): string
 {
@@ -708,80 +545,6 @@ TABLE;
 
 
     return $table;
-}
-
-/**
- * @param array<string, string> $trace
- * @return string
- * @throws Exception
- */
-function formatTraceLine(array $trace): string
-{
-    $location = '??';
-    $function = 'unknown';
-
-    if (isset($trace["file"]) && isset($trace["line"])) {
-        $location = $trace["file"]. ':' . $trace["line"];
-    }
-    else if (isset($trace["file"])) {
-        $location = $trace["file"] . ':??';
-    }
-//    else {
-//        var_dump($trace);
-//        exit(0);
-//    }
-
-    $baseDir = realpath(__DIR__ . '/../');
-    if ($baseDir === false) {
-        throw new \Exception("Couldn't find parent directory from " . __DIR__);
-    }
-
-    $location = str_replace($baseDir, '', $location);
-
-    if (isset($trace["class"]) && isset($trace["type"]) && isset($trace["function"])) {
-        $function = $trace["class"] . $trace["type"] . $trace["function"];
-    }
-    else if (isset($trace["class"]) && isset($trace["function"])) {
-        $function = $trace["class"] . '_' . $trace["function"];
-    }
-    else if (isset($trace["function"])) {
-        $function = $trace["function"];
-    }
-    else {
-        $function = "Function is weird: " . json_encode(var_export($trace, true));
-    }
-
-    return sprintf(
-        "%s %s",
-        $location,
-        $function
-    );
-}
-
-function getExceptionStack(\Throwable $exception): string
-{
-    $line = "Exception of type " . get_class($exception). "\n";
-
-    foreach ($exception->getTrace() as $trace) {
-        $line .=  formatTraceLine($trace);
-    }
-
-    return $line;
-}
-
-
-/**
- * @param Throwable $exception
- * @return string[]
- */
-function getExceptionStackAsArray(\Throwable $exception)
-{
-    $lines = [];
-    foreach ($exception->getTrace() as $trace) {
-        $lines[] = formatTraceLine($trace);
-    }
-
-    return $lines;
 }
 
 
@@ -886,45 +649,7 @@ function formatLinesWithCount(array $lines): string
     return $output;
 }
 
-function purgeExceptionMessage(\Throwable $exception): string
-{
-    $rawMessage = $exception->getMessage();
 
-    $purgeAfterPhrases = [
-        'with params'
-    ];
-
-    $message = $rawMessage;
-
-    foreach ($purgeAfterPhrases as $purgeAfterPhrase) {
-        $matchPosition = strpos($message, $purgeAfterPhrase);
-        if ($matchPosition !== false) {
-            $message = substr($message, 0, $matchPosition + strlen($purgeAfterPhrase));
-            $message .= '**PURGED**';
-        }
-    }
-
-    return $message;
-}
-
-function getTextForException(\Throwable $exception): string
-{
-    $currentException = $exception;
-    $text = '';
-
-    do {
-        $text .= sprintf(
-            "Exception type:\n  %s\n\nMessage:\n  %s \n\nStack trace:\n%s\n",
-            get_class($currentException),
-            purgeExceptionMessage($currentException),
-            formatLinesWithCount(getExceptionStackAsArray($currentException))
-        );
-
-        $currentException = $currentException->getPrevious();
-    } while ($currentException !== null);
-
-    return $text;
-}
 
 
 function getRandomId(): string
@@ -932,4 +657,27 @@ function getRandomId(): string
     $foo = random_bytes(32);
 
     return hash("sha256", $foo);
+}
+
+function showTotalErrorPage(\Throwable $exception)
+{
+    $exceptionText = null;
+
+    $exceptionText = "Failed to get exception text.";
+
+    try {
+        $exceptionText = getExceptionText($exception);
+
+        \error_log("Exception in code and Slim error handler failed also: " . get_class($exception) . " " . $exceptionText);
+    }
+    catch (\Throwable $exception) {
+        // Does nothing.
+    }
+
+    http_response_code(503);
+
+    if ($exceptionText !== null) {
+        var_dump(get_class($exception));
+        echo nl2br($exceptionText);
+    }
 }

@@ -8,8 +8,10 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 require_once __DIR__ . '/factories.php';
 require_once __DIR__ . '/functions.php';
+require_once __DIR__ . '/error_functions.php';
 require_once __DIR__ . '/site_html.php';
 require_once __DIR__ . '/slim_functions.php';
+require_once __DIR__ . '/../injectionParams/section.php';
 
 use SlimAuryn\ExceptionMiddleware;
 use SlimAuryn\Routes;
@@ -28,21 +30,8 @@ try {
     $app->run();
 }
 catch (\Throwable $exception) {
-    $exceptionText = null;
 
-    try {
-        $exceptionText = getExceptionText($exception);
+    showTotalErrorPage($exception);
 
-        \error_log("Exception in code and Slim error handler failed also: " . get_class($exception) . " " . $exceptionText);
-    }
-    catch (\Throwable $exception) {
-        // Does nothing.
-    }
 
-    http_response_code(503);
-    echo "oops.";
-    if ($exceptionText !== null) {
-        var_dump(get_class($exception));
-        echo nl2br($exceptionText);
-    }
 }

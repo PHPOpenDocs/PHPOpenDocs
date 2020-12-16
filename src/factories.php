@@ -48,6 +48,8 @@ function createExceptionMiddlewareForApp(\Auryn\Injector $injector): \SlimAuryn\
         // We don't use this. All forms are api based.
         /// \Params\Exception\ValidationException::class => 'foo',
         \PhpOpenDocs\Exception\DebuggingCaughtException::class => 'debuggingCaughtExceptionExceptionMapperApp',
+
+        \ParseError::class => 'parseErrorMapperForApp',
     ];
 
     $resultMappers = getResultMappers($injector);
@@ -160,7 +162,6 @@ function createSlimContainer(): \Slim\Container
 
 function createHtmlAppErrorHandler(\Auryn\Injector $injector) : \PhpOpenDocs\AppErrorHandler\AppErrorHandler
 {
-
     if (Config::isProductionEnv() === true) {
         return $injector->make(\PhpOpenDocs\AppErrorHandler\HtmlErrorHandlerForProd::class);
     }

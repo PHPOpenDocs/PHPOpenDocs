@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .opendocs_wrapper {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -13,6 +13,7 @@
 }
 
 .opendocs_prev_next {
+  max-width: 340px;
   grid-area: prev_next;
 }
 
@@ -20,9 +21,11 @@
   grid-area: main;
   padding: 1em;
   flex-shrink: 1;
+  flex-grow: 1;
 }
 
 .opendocs_content_links {
+  max-width: 340px;
   grid-area: content_links;
   padding: 1em;
 }
@@ -73,10 +76,16 @@
 }
 
 .opendocs_content {
-  line-height: 1.4;
   letter-spacing: -0.00278rem;
   background-color: #F2F2F2;
   color: #333;
+}
+.opendocs_content h1, .opendocs_content h2, .opendocs_content h3, .opendocs_content h4, .opendocs_content h5, .opendocs_content h6 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.opendocs_content p {
+  line-height: 1.2;
 }
 
 .opendocs_content_links {
@@ -117,10 +126,6 @@
   background-color: #8892BF;
   border-top: 1px solid #E2E4EF;
   padding: 10px;
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  top: auto;
   width: 100%;
 }
 .opendocs_footer a {

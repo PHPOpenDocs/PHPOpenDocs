@@ -1,11 +1,20 @@
 
+//@media (prefers-color-scheme: dark) {
+//  .day.dark-scheme   { background:  #333; color: white; }
+//  .night.dark-scheme { background: black; color:  #ddd; }
+//}
+//
+//@media (prefers-color-scheme: light) {
+//  .day.light-scheme   { background: white; color:  #555; }
+//  .night.light-scheme { background:  #eee; color: black; }
+//}
 
-$header_panel_background: #8892BF;
+
+$header_panel_background: #8892bf;
 $header_panel_text: #E2E4EF;
 
 $header_link_color: #E2E4EF;
 $header_link_hover_color: #fff;
-
 
 $breadcrumbs_link_color: #E2E4EF;
 $breadcrumbs_link_hover_color: #fff;
@@ -20,3 +29,6 @@ $footer_color: #E2E4EF;
 
 $footer_link_color: #E2E4EF;
 $footer_link_hover_color: #fff;
+
+$code_background: #000;
+$code_color: #fff;

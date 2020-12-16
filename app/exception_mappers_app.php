@@ -7,35 +7,22 @@ declare(strict_types = 1);
  * acceptable responses that will be seen by the public
  */
 
+use OpenDocs\Breadcrumbs;
+use OpenDocs\Page;
 use Psr\Http\Message\ResponseInterface;
-
-function encapsulateTextInHtml(string $text)
-{
-    $html = <<< HTML
-<html>
-  <head>
-  </head>
-  <body>
-    $text;
-  </body>
-</html>
-HTML;
-
-    return $html;
-}
 
 function debuggingCaughtExceptionExceptionMapperApp(
     \PhpOpenDocs\Exception\DebuggingCaughtException $pdoe,
     ResponseInterface $response
 ) {
     $text = getTextForException($pdoe);
-
-    $text .= "\n<!-- This is caught in the exception mapper -->";
-
     \error_log($text);
-    return new \SlimAuryn\Response\HtmlResponse(nl2br($text), [], 512);
-}
+    $page = Page::errorPage(nl2br($text));
+    $html = createPageHtml('/blah', $page, new Breadcrumbs);
+    $html .= "\n<!-- This is caught in the exception mapper -->";
 
+    return new \SlimAuryn\Response\HtmlResponse($html, [], 512);
+}
 
 function parseErrorMapperForApp(\ParseError $parseError, ResponseInterface $response)
 {
@@ -46,5 +33,12 @@ function parseErrorMapperForApp(\ParseError $parseError, ResponseInterface $resp
         $parseError->getLine()
     );
 
-    return new \SlimAuryn\Response\HtmlResponse(nl2br($string));
+    $text = getTextForException($parseError);
+
+    $text = $string . "\n\n\n\n" . $text;
+
+    $page = Page::errorPage(nl2br($text));
+    $html = createPageHtml('/blah', $page, new Breadcrumbs);
+
+    return new \SlimAuryn\Response\HtmlResponse($html, [], 500);
 }

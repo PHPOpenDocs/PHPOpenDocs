@@ -24,6 +24,11 @@ class ContentLinks
         $this->children = $children;
     }
 
+    public static function createEmpty()
+    {
+        return new self([]);
+    }
+
     /**
      * @return \Params\InputParameter[]
      */
