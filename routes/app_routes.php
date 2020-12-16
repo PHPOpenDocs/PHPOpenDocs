@@ -12,10 +12,9 @@ namespace PhpOpenDocs\Route;
 // an api key, should call an appropriate callable.
 return [
 
-
     ['/', 'GET', 'PhpOpenDocs\AppController\Pages::index'],
-
     ['/about', 'GET', 'PhpOpenDocs\AppController\Pages::about'],
+    ['/sections', 'GET', 'PhpOpenDocs\AppController\Pages::sections'],
 
     ['/rfc_codex{name:.+}', 'GET', 'PhpOpenDocs\AppController\Pages::rfc_codex_item'],
     ['/rfc_codex', 'GET', 'PhpOpenDocs\AppController\Pages::rfc_codex'],
@@ -39,10 +38,6 @@ return [
 //    ['/faq', 'GET', 'Osf\AppController\Pages::faq'],
 //
 //    ['/privacy_policy', 'GET', 'Osf\AppController\Pages::privacyPolicy'],
-//
-//
-//
-//
 //    ['/csp/test', 'GET', 'Osf\CommonController\ContentSecurityPolicy::getTestPage'],
 //    ['/csp', 'POST', 'Osf\CommonController\ContentSecurityPolicy::postReport'],
 //

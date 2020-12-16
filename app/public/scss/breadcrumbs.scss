@@ -1,17 +1,26 @@
 @use "colors.scss";
-
+@use "variables.scss";
 
 .opendocs_breadcrumbs {
 
-  padding-top: 5px;
-  padding-bottom: 5px;
+  //padding-top: 5px;
+  //padding-bottom: 5px;
+
+  padding-top: variables.$navigation_padding_top;
+  padding-bottom: variables.$navigation_padding_bottom;
+
+  color: colors.$standard_text_color;
+  background-color: colors.$breadcrumbs_background;
+  border-top: 1px solid colors.$prev_next_border_color;
+  border-bottom: 1px solid colors.$prev_next_border_color;
+
 
   ul {
     padding-inline-start: 0;
     margin: 0px;
 
     li+li:before {
-      padding:0 .5rem 0;
+      //padding:0 .5rem 0;
       content:"\203A";
     }
 
@@ -26,7 +35,7 @@
 
         color: colors.$breadcrumbs_link_color;
         border:0;
-        //text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+        //text-shadow: 0 -0.5px 0 rgba(0, 0, 0, 0.125);
       }
 
       a:hover, a:focus {

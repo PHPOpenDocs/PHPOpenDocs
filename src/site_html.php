@@ -15,6 +15,8 @@ use OpenDocs\ContentLinkLevel3;
 use OpenDocs\FooterInfo;
 use OpenDocs\Page;
 use OpenDocs\URL;
+use OpenDocs\HeaderLink;
+use OpenDocs\HeaderLinks;
 
 function createBreadcrumbHtml(Breadcrumbs $breadcrumbs): string
 {
@@ -62,20 +64,37 @@ function createPrevNextHtml(?PrevNextLinks $prevNextLinks): string
         $params[':html_next_description'] = $nextLink->getDescription();
     }
 
-    return esprintf($template, $params);
+    return "<span class='opendocs_prev_next_container'>" . esprintf($template, $params) ."</span>";
 }
 
-function createPageHeaderHtml() : string
+function createPageHeaderHtml(HeaderLinks $headerLinks) : string
 {
-    $html = <<< HTML
-    <ul>
-      <li><a href="/foo">Downloads</a></li>
-      <li><a href="/bar">Documentation</a></li>
-      <li><a href="/about">About</a></li>
-    </ul>
-HTML;
+
+    $template = '<li><a href=":attr_path">:html_description</a></li>';
+    $html = "<ul>";
+
+    foreach ($headerLinks->getHeaderLinks() as $headerLink) {
+        $params = [
+            ':html_description' => $headerLink->getDescription(),
+            ':attr_path' => $headerLink->getPath(),
+        ];
+        $html .= esprintf($template, $params);
+    }
+
+    $html .= "<ul>";
 
     return $html;
+}
+
+
+function createStandardHeaderLinks(): HeaderLinks
+{
+    return new HeaderLinks([
+        new HeaderLink("/", "Home"),
+        new HeaderLink("/sections", "Sections"),
+        new HeaderLink("/about", "About"),
+    ]);
+
 }
 
 
@@ -187,8 +206,10 @@ function createPageHtml(
     Breadcrumbs $breadcrumbs
 ): string {
 
+    $headerLinks = createStandardHeaderLinks();
+
     $params = [
-        ':raw_top_header' => createPageHeaderHtml(),
+        ':raw_top_header' => createPageHeaderHtml($headerLinks),
         ':raw_breadcrumbs' => createBreadcrumbHtml($breadcrumbs),
         ':raw_prev_next' => createPrevNextHtml($page->getPrevNextLinks()),
         ':raw_content' => $page->getContentHtml(),

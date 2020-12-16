@@ -12,8 +12,12 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: rgb(51, 51, 51);
-  color: rgb(204, 204, 204);
+  background-color: colors.$background_colour;
+  //color: colors.$color;
+}
+
+h2 + h3 {
+  padding-top: 12px;
 }
 
 * {

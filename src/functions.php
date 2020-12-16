@@ -681,3 +681,5 @@ function showTotalErrorPage(\Throwable $exception)
         echo nl2br($exceptionText);
     }
 }
+
+

@@ -1,14 +1,25 @@
 
 @use "colors.scss";
-
+@use "variables.scss";
 
 .opendocs_prev_next {
 
-  .opendocs_prev {
+  background-color: colors.$prev_next_background;
+  border-top: 1px solid colors.$prev_next_border_color;
+  border-bottom: 1px solid colors.$prev_next_border_color;
+  width: 100%;
 
+  padding-top: variables.$navigation_padding_top;
+  padding-bottom: variables.$navigation_padding_bottom;
+
+  .opendocs_prev_next_container {
+    float: right;
   }
-  .opendocs_next {
 
+  .opendocs_prev {
+  }
+
+  .opendocs_next {
   }
 
   a {

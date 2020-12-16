@@ -2,20 +2,20 @@
 
 
 .opendocs_footer {
-  color: #ffffff;
+  color: colors.$footer_color;
   background-color: colors.$footer_background_color;
-  border-top: 1px solid colors.$footer_color;
+  border-top: 1px solid colors.$footer_border_color;
 
   padding: 10px;
   width: 100%;
+  font-weight: bold;
 
   a {
     text-decoration: none;
     padding: 12px;
 
-    color: #E2E4EF;
+    color: colors.$footer_link_color;
     border:0;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   }
 
   a:hover, a:focus {

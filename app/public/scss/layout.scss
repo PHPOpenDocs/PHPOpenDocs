@@ -9,20 +9,26 @@
 
 .opendocs_header {
   grid-area: hd;
+  padding-left: 18px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .opendocs_breadcrumbs {
   grid-area: breadcrumbs;
+  padding: 18px;
 }
 
 .opendocs_prev_next {
-  max-width: variables.$right_panel_max_width;
+  //max-width: variables.$right_panel_max_width;
   grid-area: prev_next;
+  padding: 18px;
+  flex-grow: 1;
 }
 
 .opendocs_content {
   grid-area: main;
-  padding: 1em;
+  padding: 18px;
   flex-shrink: 1;
   flex-grow: 1;
 }
@@ -30,7 +36,7 @@
 .opendocs_content_links {
   max-width: variables.$right_panel_max_width;
   grid-area: content_links;
-  padding: 1em;
+  padding: 18px;
 }
 
 .opendocs_footer {

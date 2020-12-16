@@ -13,8 +13,10 @@ use PhpOpenDocs\ExamplePage;
 use PhpOpenDocs\MarkdownPage;
 use OpenDocs\Breadcrumb;
 use OpenDocs\Breadcrumbs;
+use OpenDocs\SectionList;
 use SlimAuryn\Response\StubResponse;
 use RfcCodexOpenDocs\RfcCodex;
+
 
 class Pages
 {
@@ -139,7 +141,6 @@ class Pages
 
     public function about(): StubResponse
     {
-
         $page = new MarkdownPage(__DIR__ . "/../../../docs/php_opendocs_about.md");
 
         $page = new \OpenDocs\Page(
@@ -148,6 +149,39 @@ class Pages
             ContentLinks::createEmpty(),
             new PrevNextLinks(null, null),
             $contentHtml = $page->getPageContent(),
+            $copyrightOwner = 'PHP Open docs'
+        );
+
+        $html = createPageHtml(
+            "/",
+            $page,
+            $breadcrumbs = new Breadcrumbs()
+        );
+
+        return new HtmlResponse($html);
+    }
+
+
+    public function sections(SectionList $sectionList): StubResponse
+    {
+        $html = '';
+        $sectionTemplate = "<a href=':attr_link'>:html_name</a><p>:html_description</p>";
+
+        foreach ($sectionList->getSections() as $section) {
+            $params = [
+                ':attr_link' => $section->getPrefix(),
+                ':html_name' => $section->getName(),
+                ':html_description' => $section->getPurpose()
+            ];
+            $html .= esprintf($sectionTemplate, $params);
+        }
+
+        $page = new \OpenDocs\Page(
+            $title = 'PHP OpenDocs',
+            $editUrl = new URL('www.example.com'),
+            ContentLinks::createEmpty(),
+            new PrevNextLinks(null, null),
+            $contentHtml = $html,
             $copyrightOwner = 'PHP Open docs'
         );
 

@@ -7,6 +7,8 @@
   line-height: 1.6;
   letter-spacing: -.00278rem;
 
+  border-left: 1px dotted rgba(10, 10, 10, 0.2);
+
   ul{
     margin-top: 0px;
     padding-left: 0;
@@ -20,17 +22,17 @@
       }
 
       a:link, a:visited {
-        color: #ccc;
+        color: colors.$standard_text_color;
       }
 
       a:hover, a:focus, #layout-content a:hover, #layout-content a:focus {
-        color: #AE508D;
-        border-color: #AE508D;
+        color: colors.$standard_link_hover_color;
+        border-color: colors.$standard_link_hover_color;
         outline: 0;
       }
 
       a {
-        font-size: .875rem;
+        //font-size: .875rem;
         border-bottom: 1px dotted;
         margin-bottom:-1px;
         display:block;
@@ -42,17 +44,12 @@
     }
   }
 
-
   .opendocs_content_links_level_1 {
-
   }
 
   .opendocs_content_links_level_2 {
   }
 
   .opendocs_content_links_level_3 {
-
   }
-
-
 }

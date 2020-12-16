@@ -60,25 +60,6 @@ function createExceptionMiddlewareForApp(\Auryn\Injector $injector): \SlimAuryn\
     );
 }
 
-///**
-// * Creates the ExceptionMiddleware that converts all known app exceptions
-// * to nicely formatted pages for the api
-// */
-//function createExceptionMiddlewareForApi(\Auryn\Injector $injector)
-//{
-//    $exceptionHandlers = [
-//        \Params\Exception\ValidationException::class => 'paramsValidationExceptionMapperApi',
-//        \PhpOpenDocs\Exception\DebuggingCaughtException::class => 'debuggingCaughtExceptionExceptionMapperForApi',
-//        //        \ParseError::class => 'parseErrorMapper',
-////        \PDOException::class => 'pdoExceptionMapper',
-//    ];
-//
-//    return new \SlimAuryn\ExceptionMiddleware(
-//        $exceptionHandlers,
-//        getResultMappers($injector)
-//    );
-//}
-
 
 /**
  * Creates the objects that map StubResponse into PSR7 responses
@@ -86,14 +67,7 @@ function createExceptionMiddlewareForApp(\Auryn\Injector $injector): \SlimAuryn\
  */
 function getResultMappers(\Auryn\Injector $injector)
 {
-//    $markdownResponseMapperFn = function (
-//        \PhpOpenDocs\Response\MarkdownResponse $markdownResponse,
-//        ResponseInterface $originalResponse
-//    ) use ($injector) {
-//        $markdownResponseMapper = $injector->make(\PhpOpenDocs\Service\MarkdownResponseMapper::class);
-//
-//        return $markdownResponseMapper($markdownResponse, $originalResponse);
-//    };
+
 
     return [
         \SlimAuryn\Response\StubResponse::class => '\SlimAuryn\ResponseMapper\ResponseMapper::mapStubResponseToPsr7',
@@ -176,4 +150,29 @@ function createJsonAppErrorHandler(\Auryn\Injector $injector) : \PhpOpenDocs\App
     }
 
     return $injector->make(\PhpOpenDocs\AppErrorHandler\JsonErrorHandlerForLocalDev::class);
+}
+
+function createSectionList(): \OpenDocs\SectionList
+{
+    $sections = [];
+
+    $sections[] = new \OpenDocs\Section(
+        '/rfc_codex',
+        'RFC Codex',
+        "Discussions ideas for how PHP can be improved, why some ideas haven't come to fruition yet."
+    );
+
+    $sections[] = new \OpenDocs\Section(
+        '/sponsoring',
+        'Sponsoring',
+        'How to give money to people who work on PHP core or documentation.'
+    );
+
+    $sections[] = new \OpenDocs\Section(
+        '/internals',
+        'Internals',
+        "Scary details of how PHP works internally, and how to write internal or extension code."
+    );
+
+    return new \OpenDocs\SectionList($sections);
 }

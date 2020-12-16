@@ -1,34 +1,44 @@
 
-//@media (prefers-color-scheme: dark) {
-//  .day.dark-scheme   { background:  #333; color: white; }
-//  .night.dark-scheme { background: black; color:  #ddd; }
-//}
-//
-//@media (prefers-color-scheme: light) {
-//  .day.light-scheme   { background: white; color:  #555; }
-//  .night.light-scheme { background:  #eee; color: black; }
-//}
+
+//$standard_text_color: #222222;
+$standard_text_color: #000;
+$standard_link_hover_color: #AE508D;
+$standard_border_color: #888;
 
 
-$header_panel_background: #8892bf;
-$header_panel_text: #E2E4EF;
+$background_colour: rgb(254, 254, 253);
+$color: rgb(204, 204, 204);
 
-$header_link_color: #E2E4EF;
-$header_link_hover_color: #fff;
+//$navigation_background_color: #c8cee3;
+$navigation_background_color: #dddfec;
 
-$breadcrumbs_link_color: #E2E4EF;
-$breadcrumbs_link_hover_color: #fff;
+$prev_next_background: $navigation_background_color;
+$prev_next_border_color: $standard_border_color;
 
-$content_panel_background: #F2F2F2;
+
+$header_panel_background: $background_colour;
+$header_panel_text: #8892bf;
+
+$header_link_color: #8892bf;
+$header_link_hover_color: $standard_link_hover_color;
+
+$breadcrumbs_background: $navigation_background_color;
+
+$breadcrumbs_link_color: $standard_text_color;
+$breadcrumbs_link_hover_color: $standard_link_hover_color;
+
+//$content_panel_background: #fcfcfc;
+$content_panel_background: $background_colour;
 $content_panel_text: #333;
 
-$nav_panel_text: #F2F2F2;
+$nav_panel_text: $standard_text_color;
 
-$footer_background_color: #8892BF;
-$footer_color: #E2E4EF;
+$footer_background_color: #c8cee3;
+$footer_color: $standard_text_color;
+$footer_border_color: $standard_border_color;
 
-$footer_link_color: #E2E4EF;
-$footer_link_hover_color: #fff;
+$footer_link_color: $standard_text_color;
+$footer_link_hover_color: $standard_link_hover_color;
 
 $code_background: #000;
 $code_color: #fff;
