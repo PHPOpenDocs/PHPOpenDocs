@@ -19,14 +19,12 @@ This is a place holder page, that has all the bits filled out, so I can play wit
 </p>
 
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam lacinia quam quis est ultrices vehicula. Nulla et sagittis eros. Etiam aliquet justo sit amet cursus volutpat. Fusce et ipsum vel quam commodo dapibus. Nullam vitae urna elit. Vivamus placerat odio molestie sapien facilisis, et venenatis ante fermentum. Suspendisse hendrerit sit amet ex ut ornare. Suspendisse porta arcu vitae elit tristique condimentum vitae in tortor. Fusce molestie sapien vel est interdum, et aliquet nunc vestibulum. Nam efficitur tempus libero sit amet rhoncus. Nulla facilisi.
-</p>
-<p>
-Maecenas tristique arcu non felis consectetur cursus non eget mauris. Nam placerat nunc in ipsum consequat laoreet. In eget sagittis massa, eu varius ex. Sed mauris nisl, finibus et euismod pretium, viverra ac ipsum. Pellentesque placerat velit non libero gravida egestas. Morbi non turpis quis purus aliquet finibus. Mauris porttitor in eros et laoreet.
+Lets have some Lorem ipsum to fill out the page a bit.
+
 </p>
 
 <p>
-Fusce nec purus pharetra, pharetra neque ut, molestie nunc. Sed venenatis justo imperdiet nulla iaculis, vitae consequat libero pharetra. Aliquam accumsan sapien nisi, tincidunt pellentesque tortor bibendum a. Sed scelerisque diam at tincidunt ultricies. Sed vulputate facilisis arcu, ac interdum tellus tempor nec. Nam tempus, leo at ultrices varius, neque enim ultrices lacus, non tempor nunc elit quis mauris. Sed hendrerit elit ligula. Cras ut dolor ut sapien facilisis pretium ac vitae tortor. Nunc quis dictum felis.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam lacinia quam quis est ultrices vehicula. Nulla et sagittis eros. Etiam aliquet justo sit amet cursus volutpat. Fusce et ipsum vel quam commodo dapibus. Nullam vitae urna elit. Vivamus placerat odio molestie sapien facilisis, et venenatis ante fermentum. Suspendisse hendrerit sit amet ex ut ornare. Suspendisse porta arcu vitae elit tristique condimentum vitae in tortor. Fusce molestie sapien vel est interdum, et aliquet nunc vestibulum. Nam efficitur tempus libero sit amet rhoncus. Nulla facilisi.
 </p>
 
 
