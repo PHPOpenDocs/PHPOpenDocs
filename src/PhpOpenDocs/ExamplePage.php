@@ -19,8 +19,7 @@ This is a place holder page, that has all the bits filled out, so I can play wit
 </p>
 
 <p>
-Lets have some Lorem ipsum to fill out the page a bit.
-
+Lets have some Lorem ipsum to fill out the page a bit. And test if the auto-deployer is working.
 </p>
 
 <p>
