@@ -67,7 +67,7 @@ class Pages {
             );
         }
 
-        $achived_entries_list = [
+        $achieved_entries_list = [
             ['Annotations', 'annotations.md'],
             ['Briefer closure syntax', 'briefer_closure_syntax.md'],
             ['Co- and contra-variance', 'co_and_contra_variance.md'],
@@ -76,7 +76,7 @@ class Pages {
             ['Union types', 'union_types.md'],
         ];
 
-        foreach ($achived_entries_list as $achieved) {
+        foreach ($achieved_entries_list as $achieved) {
             $this->achieved_entries[] = new RfcCodexEntry(
                 $achieved[0],
                 $achieved[1]

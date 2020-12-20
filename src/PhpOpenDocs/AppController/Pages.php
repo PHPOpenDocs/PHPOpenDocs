@@ -28,7 +28,7 @@ class Pages
             ContentLinks::createEmpty(),
             new PrevNextLinks(null, null),
             $contentHtml = "404, you know the score.",
-            $copyrightOwner = 'PHP Open docs'
+            $copyrightOwner = 'PHP OpenDocs'
         );
 
         $html = createPageHtml(
@@ -122,7 +122,7 @@ class Pages
             ContentLinks::createEmpty(),
             new PrevNextLinks(null, null),
             $contentHtml = $page->getPageContent(),
-            $copyrightOwner = 'PHP Open docs'
+            $copyrightOwner = 'PHP OpenDocs'
         );
 
         $html = createPageHtml(
@@ -132,6 +132,11 @@ class Pages
         );
 
         return new HtmlResponse($html);
+    }
+
+    public function privacyPolicy()
+    {
+
     }
 
 
@@ -155,7 +160,7 @@ class Pages
             ContentLinks::createEmpty(),
             new PrevNextLinks(null, null),
             $contentHtml = $html,
-            $copyrightOwner = 'PHP Open docs'
+            $copyrightOwner = 'PHP OpenDocs'
         );
 
         $html = createPageHtml(

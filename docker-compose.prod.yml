@@ -11,6 +11,13 @@ services:
       - "8007:80"
     environment:
       - ENV_DESCRIPTION=default,prod
+  npm_build:
+    build: containers/npm
+    ports:
+      - 8888:8888
+    volumes:
+      - .:/var/app
+    entrypoint: ["bash", "/var/app/containers/npm/compile_sass.sh"]
 networks:
   proxy:
     external: true

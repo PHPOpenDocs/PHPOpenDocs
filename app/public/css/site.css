@@ -239,4 +239,46 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+table {
+  border-collapse: collapse;
+  font-size: 1rem;
+  border: 0px;
+}
+table tr {
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+}
+table tr:hover td {
+  border-top: 1px solid rgba(32, 32, 32, 0.333);
+  border-bottom: 1px solid rgba(32, 32, 32, 0.333);
+}
+table tr:hover td:first-child {
+  border-left: 1px solid rgba(32, 32, 32, 0.333);
+}
+table tr:hover td:last-child {
+  border-right: 1px solid rgba(32, 32, 32, 0.333);
+}
+table th {
+  text-align: left;
+  vertical-align: top;
+}
+table td {
+  vertical-align: top;
+}
+table th, table td {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 4px;
+}
+table th:first-child,
+table td:first-child {
+  padding-left: 4px;
+  padding-right: 0;
+}
+table tr:nth-child(even) {
+  background: rgba(230, 230, 230, 0.5);
+}
+
 /*# sourceMappingURL=site.css.map */

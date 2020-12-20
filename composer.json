@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "danack/rfc-codex": "0.0.1",
+        "danack/rfc-codex": "0.0.2",
         "danack/configurator": "1.0.0",
         "danack/console": "^2.6",
         "danack/esprintf": "^1.0.0",
@@ -45,6 +45,7 @@
     "autoload": {
         "psr-0": {
             "OpenDocs\\": "src/",
+            "PHPFunding\\": "src/",
             "PhpOpenDocs\\": "src/",
             "RfcCodexOpenDocs\\": "src/"
         }

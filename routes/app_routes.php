@@ -16,6 +16,8 @@ return [
     ['/about', 'GET', 'PhpOpenDocs\AppController\Pages::about'],
     ['/sections', 'GET', 'PhpOpenDocs\AppController\Pages::sections'],
 
+    ['/privacy_policy', 'GET', 'PhpOpenDocs\AppController\Pages::privacyPolicy'],
+
 //    ['/rfc_codex{name:.+}', 'GET', 'PhpOpenDocs\AppController\Pages::rfc_codex_item'],
 //    ['/rfc_codex', 'GET', 'PhpOpenDocs\AppController\Pages::rfc_codex'],
 
@@ -24,6 +26,8 @@ return [
     ['/test/caught_exception', 'GET', 'PhpOpenDocs\AppController\Debug::testCaughtException'],
     ['/test/uncaught_exception', 'GET', 'PhpOpenDocs\AppController\Debug::testUncaughtException'],
     ['/test/compile_error', 'GET', 'PhpOpenDocs\AppController\CompileError::deliberateCompileError'],
+
+
 
     // TODO - actually make a 404 page
     ['/{any:.*}', 'GET', 'PhpOpenDocs\AppController\Pages::get404Page'],

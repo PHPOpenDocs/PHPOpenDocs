@@ -190,11 +190,12 @@ function createSectionList(): \OpenDocs\SectionList
         new \RfcCodexOpenDocs\RfcCodexSectionInfo()
     );
 
-//    $sections[] = new \OpenDocs\Section(
-//        '/sponsoring',
-//        'Sponsoring',
-//        'How to give money to people who work on PHP core or documentation.'
-//    );
+    $sections[] = new \OpenDocs\Section(
+        '/sponsoring',
+        'Sponsoring',
+        'How to give money to people who work on PHP core or documentation.',
+        new \PHPFunding\PHPFundingSectionInfo
+    );
 
 //    $sections[] = new \OpenDocs\Section(
 //        '/internals',
