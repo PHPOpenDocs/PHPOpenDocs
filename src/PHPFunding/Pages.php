@@ -107,7 +107,7 @@ HTML;
 
         return new Page(
             'Rfc Codex',
-            new URL('https://github.com/danack/RfcCodex'),
+            new URL('https://github.com/PHPOpenDocs/PHPOpenDocs'),
             $this->getContentLinks(),
             new PrevNextLinks(null, null),
             $contents,

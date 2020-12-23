@@ -42,7 +42,11 @@ class PeopleList
             ->addGithubSponsor('https://github.com/sponsors/Danack');
 
         $people[] = (new PHPPerson('Derick Rethans'))
-            ->addRfc_8_0('https://wiki.php.net/rfc/shorter_attribute_syntax_change', 'Shorter Attribute Syntax Change');
+            ->addRfc_8_0(
+                'https://wiki.php.net/rfc/shorter_attribute_syntax_change',
+                'Shorter Attribute Syntax Change'
+            )
+            ->addGithubSponsor('https://github.com/sponsors/derickr');
 
         $people[] = (new PHPPerson('Dmitry Stogov'))
             ->addRfc_8_0('https://wiki.php.net/rfc/jit', 'JIT');
@@ -52,14 +56,21 @@ class PeopleList
 
         $people[] = (new PHPPerson('Gabriel Caruso'))
             ->addRfc_8_0('https://wiki.php.net/rfc/magic-methods-signature', 'Ensure correct signatures of magic methods')
-            ->addRfc_8_0('https://wiki.php.net/todo/php80#release_managers', 'PHP 8 Release Manager');
+            ->addRfc_8_0('https://wiki.php.net/todo/php80#release_managers', 'PHP 8 Release Manager')
+            ->addGithubSponsor('https://github.com/sponsors/carusogabriel')
+        ;
 
         $people[] = (new PHPPerson('George Peter Banyard'))
             ->addRfc_8_0(
                 'https://wiki.php.net/rfc/locale_independent_float_to_string',
                 'Locale-independent float to string cast'
             )
-            ->addRfc_8_0('https://wiki.php.net/rfc/saner-numeric-strings', 'Saner numeric strings');
+            ->addRfc_8_0(
+                    'https://wiki.php.net/rfc/saner-numeric-strings',
+                    'Saner numeric strings'
+            )
+            ->addGithubSponsor('https://github.com/sponsors/Girgias');
+
 
         $people[] = (new PHPPerson('Ilija Tovilo'))
             ->addRfc_8_0('https://wiki.php.net/rfc/throw_expression', 'throw expression')
