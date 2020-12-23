@@ -84,6 +84,12 @@ HTML;
         $rowString = implode("", $rows);
 
         $html = <<< HTML
+
+<p>
+This is the list of RFCs that were passed for PHP 8, the authors involved with them, and links to their sponsors page.
+<b>TODO</b> still need to add the declined RFCs.
+</p>
+
 <table>
   <thead>
     <tr>
