@@ -17,7 +17,6 @@ use OpenDocs\Section;
 
 class Pages
 {
-
     public function getNounsPage(): Page
     {
         $nouns = require(__DIR__ . "/nouns.php");
@@ -25,8 +24,11 @@ class Pages
         $contents = renderNouns($nouns);
 
         return new Page(
-            'Rfc Codex',
-            createEditInfo(__DIR__ . "/nouns.php", __LINE__),
+            'Naming things - nouns',
+            createEditInfo2(
+                'Edit page', __FILE__, __LINE__,
+                'Edit nouns', __DIR__ . "/nouns.php", null
+            ),
             $this->getContentLinks(),
             new PrevNextLinks(null, null),
             $contents,
@@ -44,8 +46,11 @@ class Pages
         $contents = renderVerbs($verbs);
 
         return new Page(
-            'Rfc Codex',
-            createEditInfo(__DIR__ . "/verbs.php", __LINE__),
+            'Naming things - verbs',
+            createEditInfo2(
+                'Edit page', __FILE__, __LINE__,
+                'Edit verbs', __DIR__ . "/verbs.php", null
+            ),
             $this->getContentLinks(),
             new PrevNextLinks(null, null),
             $contents,
@@ -82,8 +87,9 @@ The word 'standard' is in quotes because these are just guidelines. They absolut
 Please note these suggestions are for naming things in terms that <em>programmers</em> would understand. For code that is dealing with business problems, you should probably use domain specific names that non-programmers would understand. 
 </p>
 
+
+<h2>Some other resources</h2>
 <p>
-Some other resources:
     <ul>
       <li>A paper describing
     <a href="https://www.nr.no/en/nrpublication?query=/file/sle2008_postproceedings.pdf">The Java Programmer’s Phrase BookEinar W. Høst and Bjarte M. Østvold</a> and the <a href="http://phrasebook.nr.no/phrasebook/index.html">Phrasebook itself</a>
@@ -101,6 +107,12 @@ Some other resources:
       <li>
         <a href="https://gist.github.com/maxtruxa/b2ca551e42d3aead2b3d">Antonym List</a> by maxtruxa
       </li>
+      
+      <li>
+        <a href="http://source-code-wordle.de/">Words used in Source Code</a> by Markus Meyer
+      </li>
+      
+      
     </ul>
 </p>
 
@@ -114,8 +126,8 @@ HTML;
         $contents = esprintf($words, $params);
 
         return new Page(
-            'Rfc Codex',
-            createEditInfo(__FILE__, __LINE__ - 33),
+            'Naming things',
+            createEditInfo('Edit page', __FILE__, __LINE__ - 33),
             $this->getContentLinks(),
             new PrevNextLinks(null, null),
             $contents,

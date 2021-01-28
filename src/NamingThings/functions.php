@@ -6,7 +6,7 @@ namespace NamingThings;
 
 use OpenDocs\EditInfo;
 
-function createEditInfo(string $file, ?int $line): EditInfo
+function createEditInfo(string $description, string $file, ?int $line): EditInfo
 {
     $path = normaliseFilePath($file);
 
@@ -16,11 +16,29 @@ function createEditInfo(string $file, ?int $line): EditInfo
         $link .= '#L' . $line;
     }
 
-    return new EditInfo(
-        'Edit page',
-        $link
-    );
+    return new EditInfo([$description => $link]);
 }
+
+function createEditInfo2(
+    string $description1, string $file1, ?int $line1,
+    string $description2, string $file2, ?int $line2
+): EditInfo
+{
+    $path = normaliseFilePath($file1);
+    $link1 = 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/' . $path;
+    if ($line1 !== null) {
+        $link1 .= '#L' . $line1;
+    }
+
+    $path = normaliseFilePath($file2);
+    $link2 = 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/' . $path;
+    if ($line2 !== null) {
+        $link2 .= '#L' . $line2;
+    }
+
+    return new EditInfo([$description1 => $link1, $description2 => $link2]);
+}
+
 
 function noun_link(string $noun)
 {
@@ -159,4 +177,29 @@ HTML;
     $content .= $bad_functions;
 
     return $content;
+}
+
+
+function Noun(
+    string $name,
+    string $description,
+    array $also = []
+): Verb {
+    return new Noun(
+        $name,
+        $description,
+        $also
+    );
+}
+
+function Verb(
+    string $name,
+    string $description,
+    array $also = []
+): Verb {
+    return new Verb(
+        $name,
+        $description,
+        $also
+    );
 }

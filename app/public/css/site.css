@@ -289,6 +289,11 @@ html {
   background-color: var(--background_color);
 }
 
+p {
+  -webkit-text-size-adjust: 200%;
+  text-size-adjust: 200%;
+}
+
 h1 + h2 {
   padding-top: 12px;
 }
@@ -355,20 +360,27 @@ table tr:nth-child(even) {
   background: rgba(230, 230, 230, 0.5);
 }
 
-.nouns_table td {
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-right: 4px;
-}
-.nouns_table a {
-  text-decoration: none;
-}
-
+.nouns_table th,
+.nouns_table td,
+.verbs_table th,
 .verbs_table td {
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-right: 4px;
+  padding-top: 6px;
+  padding-bottom: 10px;
+  padding-right: 10px;
 }
+.nouns_table th:first-child,
+.nouns_table td:first-child,
+.verbs_table th:first-child,
+.verbs_table td:first-child {
+  padding-left: 4px;
+}
+.nouns_table th:last-child,
+.nouns_table td:last-child,
+.verbs_table th:last-child,
+.verbs_table td:last-child {
+  padding-right: 0;
+}
+.nouns_table a,
 .verbs_table a {
   text-decoration: none;
 }

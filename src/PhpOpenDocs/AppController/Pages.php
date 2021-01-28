@@ -16,7 +16,6 @@ use OpenDocs\Breadcrumb;
 use OpenDocs\Breadcrumbs;
 use OpenDocs\SectionList;
 use SlimAuryn\Response\StubResponse;
-use RfcCodexOpenDocs\RfcCodex;
 use OpenDocs\EditInfo;
 
 class Pages
@@ -121,7 +120,7 @@ class Pages
 
         $page = new \OpenDocs\Page(
             $title = 'PHP OpenDocs',
-            new EditInfo('edit page?', 'www.example.com'),
+            createPHPOpenDocsEditInfo('Edit page', realpath(__DIR__ . "/../../../docs/php_opendocs_about.md"), null),
             ContentLinks::createEmpty(),
             new PrevNextLinks(null, null),
             $contentHtml = $page->getPageContent(),

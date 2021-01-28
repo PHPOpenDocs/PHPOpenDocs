@@ -37,9 +37,10 @@ function purgeExceptionMessage(\Throwable $exception): string
 
     $file = $exception->getFile();
 
-    if (strpos($file, "/var/app/") === 0) {
-        $file = substr($file, strlen("/var/app/"));
-    }
+//    // normaliseFilePath
+//    if (strpos($file, "/var/app/") === 0) {
+//        $file = substr($file, strlen("/var/app/"));
+//    }
 
 //    $message .= sprintf(
 //        "file %s:%s",
@@ -58,9 +59,10 @@ function getTextForException(\Throwable $exception): string
 
     do {
         $text .= sprintf(
-            "Exception type: %s\nMessage:  %s \n\nStack trace:\n%s\n",
+            "Exception type: %s\nMessage:  %s\nFile:  %s \n\nStack trace:\n%s\n",
             get_class($currentException),
             purgeExceptionMessage($currentException),
+            normaliseFilePath($currentException->getFile()) . ':' . $currentException->getLine(),
             formatLinesWithCount(getExceptionStackAsArray($currentException))
         );
 

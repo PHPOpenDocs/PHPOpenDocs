@@ -218,6 +218,25 @@ function createContentLinksHtml(string $sectionPath, ContentLinks $contentLinks)
 }
 
 
+/**
+ * @param array<string, string> $namesWithLinks
+ */
+function createEditLinks(array $namesWithLinks): string
+{
+    $html_snippets = [];
+
+    $template = '<a href=":attr_edit_link">:html_description</a>';
+
+    foreach ($namesWithLinks as $name => $link) {
+        $html_snippets[] = esprintf(
+            $template,
+            [':html_description' => $name, ":attr_edit_link" => $link]
+        );
+    }
+
+    return implode($html_snippets);
+}
+
 function createFooterHtml(
     CopyrightInfo $copyrightInfo,
     EditInfo $editInfo
@@ -227,14 +246,15 @@ function createFooterHtml(
   <a href=":attr_copyright_link">© :html_copyright_name</a>
 </span>
 <span class="edit_link">
-  <a href=":attr_edit_link">Edit this page</a>
+  :raw_edit_links
 </span>
 HTML;
+
 
     $params = [
         ':html_copyright_name' => $copyrightInfo->getName(),
         ':attr_copyright_link' => $copyrightInfo->getLink(),
-        ':attr_edit_link' => $editInfo->getLink()
+        ':raw_edit_links' => createEditLinks($editInfo->getNamesWithLinks())
     ];
 
     return esprintf($html, $params);

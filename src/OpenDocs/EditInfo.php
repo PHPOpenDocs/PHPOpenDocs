@@ -5,35 +5,30 @@ declare(strict_types = 1);
 namespace OpenDocs;
 
 /**
- *
+ * Used to display the edit links in the page footer.
  */
 class EditInfo
 {
-    private string $name;
+    /**
+     * @var array<string, string>
+     */
+    private array $namesWithLinks;
 
     private string $link;
 
-    public function __construct(
-        string $name,
-        string $link
-    ) {
-        $this->name = $name;
-        $this->link = $link;
+    /**
+     * @param array<string, string> $namesWithLinks
+     */
+    public function __construct(array $namesWithLinks)
+    {
+        $this->namesWithLinks = $namesWithLinks;
     }
 
     /**
-     * @return string
+     * @return array<string, string>
      */
-    public function getName(): string
+    public function getNamesWithLinks(): array
     {
-        return $this->name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLink(): string
-    {
-        return $this->link;
+        return $this->namesWithLinks;
     }
 }

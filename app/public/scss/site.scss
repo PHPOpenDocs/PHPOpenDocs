@@ -10,36 +10,25 @@
 @import "basic.scss";
 
 
-.nouns_table {
-
-  td {
-    padding-top:4px;
-    padding-bottom:4px;
-    padding-right:4px;
-  }
-
-  //td:first-child {
-  //  padding-left:4px;
-  //  padding-right: 0;
-  //}
-
-  a {
-    text-decoration: none;
-  }
-}
-
+.nouns_table,
 .verbs_table {
 
+  th,
   td {
-    padding-top:4px;
-    padding-bottom:4px;
-    padding-right:4px;
+    padding-top: 6px;
+    padding-bottom: 10px;
+    padding-right: 10px;
   }
 
-  //td:first-child {
-  //  padding-left:4px;
-  //  padding-right: 0;
-  //}
+  th:first-child,
+  td:first-child {
+    padding-left:4px;
+  }
+
+  th:last-child,
+  td:last-child {
+    padding-right: 0;
+  }
 
   a {
     text-decoration: none;

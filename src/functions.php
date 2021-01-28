@@ -689,10 +689,7 @@ function showTotalErrorPage(\Throwable $exception)
 
 function createDefaultEditInfo()
 {
-    return new EditInfo(
-        'Edit page',
-        'https://github.com/PHPOpenDocs/PHPOpenDocs'
-    );
+    return new EditInfo(['Edit page','https://github.com/PHPOpenDocs/PHPOpenDocs']);
 }
 
 function createDefaultCopyrightInfo()
@@ -743,4 +740,18 @@ function convertPageToHtmlResponse(
 
 
     return new HtmlResponse($html);
+}
+
+
+function createPHPOpenDocsEditInfo(string $description, string $file, ?int $line): EditInfo
+{
+    $path = normaliseFilePath($file);
+
+    $link = 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/' . $path;
+
+    if ($link !== null) {
+        $link .= '#L' . $line;
+    }
+
+    return new EditInfo([$description => $link]);
 }
