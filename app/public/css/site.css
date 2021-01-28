@@ -82,7 +82,7 @@
 
 .opendocs_content {
   grid-area: main;
-  padding: 18px;
+  padding: 24px;
   flex-shrink: 1;
   flex-grow: 1;
 }
@@ -295,6 +295,10 @@ html {
   background-color: var(--background_color);
 }
 
+h1, h2, h3, h4, h5, h6, p {
+  padding-left: 4px;
+}
+
 h1 + h2 {
   padding-top: 12px;
 }
@@ -375,6 +379,10 @@ table tr:nth-child(even) {
 .verbs_table td:first-child {
   padding-left: 4px;
 }
+.nouns_table td:first-child,
+.verbs_table td:first-child {
+  font-weight: bolder;
+}
 .nouns_table th:last-child,
 .nouns_table td:last-child,
 .verbs_table th:last-child,
@@ -384,6 +392,21 @@ table tr:nth-child(even) {
 .nouns_table a,
 .verbs_table a {
   text-decoration: none;
+  color: var(--content_panel_text_color);
+}
+.nouns_table a:hover,
+.verbs_table a:hover {
+  color: var(--content_panel_text_color);
+}
+.nouns_table a::after,
+.verbs_table a::after {
+  content: " 🔗";
+  font-size: 0.75em;
+  color: transparent;
+}
+.nouns_table a:hover::after,
+.verbs_table a:hover::after {
+  color: inherit;
 }
 
 /*# sourceMappingURL=site.css.map */

@@ -4,13 +4,9 @@ html {
   background-color: var(--background_color);
 }
 
-
-//p {
-//  -webkit-text-size-adjust: 200%;
-//  text-size-adjust: 200%;
-//}
-
-
+h1, h2, h3, h4, h5, h6, p {
+  padding-left: 4px;
+}
 
 h1 + h2 {
   padding-top: 12px;
@@ -26,6 +22,7 @@ h3 + h4 {
 h5 + h6 {
   padding-top: 12px;
 }
+
 
 * {
   box-sizing: border-box;
