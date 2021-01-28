@@ -29,7 +29,8 @@ class Pages
             ContentLinks::createEmpty(),
             new PrevNextLinks(null, null),
             $contentHtml = "404, you know the score.",
-            $copyrightOwner = 'PHP OpenDocs'
+            $copyrightOwner = 'PHP OpenDocs',
+            new Breadcrumbs()
         );
 
         $html = createPageHtml(
@@ -99,7 +100,8 @@ class Pages
             $contentLinks,
             $prevNextLinks,
             $contentHtml = $examplePage->getPageContent(),
-            createDefaultCopyrightInfo()
+            createDefaultCopyrightInfo(),
+            new Breadcrumbs()
         );
 
         $sectionPath = '/';
@@ -123,7 +125,8 @@ class Pages
             ContentLinks::createEmpty(),
             new PrevNextLinks(null, null),
             $contentHtml = $page->getPageContent(),
-            new CopyrightInfo('PHP OpenDocs', 'https://github.com/PHPOpenDocs/PHPOpenDocs/LICENSE')
+            new CopyrightInfo('PHP OpenDocs', 'https://github.com/PHPOpenDocs/PHPOpenDocs/LICENSE'),
+            new Breadcrumbs()
         );
 
         $html = createPageHtml(
@@ -160,7 +163,8 @@ class Pages
             ContentLinks::createEmpty(),
             new PrevNextLinks(null, null),
             $contentHtml = $html,
-            new CopyrightInfo('PHP OpenDocs', 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/LICENSE')
+            new CopyrightInfo('PHP OpenDocs', 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/LICENSE'),
+            new Breadcrumbs()
         );
 
         $html = createPageHtml(
