@@ -71,7 +71,7 @@ HTML;
     $verb_template = <<< HTML
 <tr>
   <td>
-    <a href="#:attr_noun_name">:html_noun_name</a> 
+    <a class='anchor' href="#:attr_noun_name">:html_noun_name</a> 
   </td>
   <td>
     :raw_description
@@ -141,7 +141,7 @@ HTML;
     $verb_template = <<< HTML
 <tr>
   <td>
-    <a href="#:attr_verb_name">:html_verb_name</a> 
+    <a class='anchor' href="#:attr_verb_name">:html_verb_name</a> 
   </td>
   <td>
     :raw_description
@@ -184,7 +184,7 @@ function Noun(
     string $name,
     string $description,
     array $also = []
-): Verb {
+): Noun {
     return new Noun(
         $name,
         $description,

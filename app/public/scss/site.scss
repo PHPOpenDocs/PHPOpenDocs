@@ -34,22 +34,22 @@
     padding-right: 0;
   }
 
-  a {
+  a.anchor {
     text-decoration: none;
     color: var(--content_panel_text_color);
   }
 
-  a:hover {
+  a.anchor:hover {
     color: var(--content_panel_text_color);
   }
 
-  a::after {
+  a.anchor::after {
     content: " 🔗";
     font-size: 0.75em;
     color: transparent;
   }
 
-  a:hover::after {
+  a.anchor:hover::after {
     color: inherit;
   }
 }

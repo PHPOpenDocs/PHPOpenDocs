@@ -389,23 +389,23 @@ table tr:nth-child(even) {
 .verbs_table td:last-child {
   padding-right: 0;
 }
-.nouns_table a,
-.verbs_table a {
+.nouns_table a.anchor,
+.verbs_table a.anchor {
   text-decoration: none;
   color: var(--content_panel_text_color);
 }
-.nouns_table a:hover,
-.verbs_table a:hover {
+.nouns_table a.anchor:hover,
+.verbs_table a.anchor:hover {
   color: var(--content_panel_text_color);
 }
-.nouns_table a::after,
-.verbs_table a::after {
+.nouns_table a.anchor::after,
+.verbs_table a.anchor::after {
   content: " 🔗";
   font-size: 0.75em;
   color: transparent;
 }
-.nouns_table a:hover::after,
-.verbs_table a:hover::after {
+.nouns_table a.anchor:hover::after,
+.verbs_table a.anchor:hover::after {
   color: inherit;
 }
 
