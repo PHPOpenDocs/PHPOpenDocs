@@ -689,7 +689,7 @@ function showTotalErrorPage(\Throwable $exception)
 
 function createDefaultEditInfo()
 {
-    return new EditInfo(['Edit page','https://github.com/PHPOpenDocs/PHPOpenDocs']);
+    return new EditInfo(['Edit page' => 'https://github.com/PHPOpenDocs/PHPOpenDocs']);
 }
 
 function createDefaultCopyrightInfo()

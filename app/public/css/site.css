@@ -155,14 +155,20 @@
   line-height: 24px;
 }
 .opendocs_content h1, .opendocs_content h2, .opendocs_content h3, .opendocs_content h4, .opendocs_content h5, .opendocs_content h6 {
-  margin-top: 24px;
-  margin-bottom: 16px;
+  margin-top: 0px;
+  margin-bottom: 0px;
   font-weight: 600;
   line-height: 1.25;
 }
 .opendocs_content h1, .opendocs_content h2, .opendocs_content h3, .opendocs_content h4, .opendocs_content h5 {
   padding-bottom: 0.3em;
   border-bottom: 1px solid var(--content_panel_border_color);
+}
+.opendocs_content p + h1,
+.opendocs_content p + h2,
+.opendocs_content p + h3,
+.opendocs_content p + h4 {
+  margin-top: 24px;
 }
 .opendocs_content a {
   color: var(--standard_link_color);

@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace RfcCodexOpenDocs;
 
+use OpenDocs\Breadcrumb;
+use OpenDocs\Breadcrumbs;
 use OpenDocs\ContentLinks;
 use OpenDocs\CopyrightInfo;
 use OpenDocs\FooterInfo;
@@ -171,7 +173,8 @@ class Pages
             $this->getContentLinks(),
             new PrevNextLinks(null, null),
             $contents,
-            new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE')
+            new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
+            $breadcrumbs = new Breadcrumbs(new Breadcrumb($name, $name))
         );
     }
 
@@ -193,7 +196,8 @@ class Pages
             $this->getContentLinks(),
             new PrevNextLinks(null, null),
             $contents,
-            new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE')
+            new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
+            $breadcrumbs = new Breadcrumbs()
         );
     }
 }

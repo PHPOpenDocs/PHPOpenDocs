@@ -4,9 +4,13 @@
   color: var(--content_panel_text_color);
   line-height: 24px;
 
+  //h1, h2, h3, h4, h5, h6 {
+  //  margin: 0px;
+  //}
+
   h1, h2, h3, h4, h5, h6 {
-    margin-top: 24px;
-    margin-bottom: 16px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     font-weight: 600;
     line-height: 1.25;
   }
@@ -14,6 +18,13 @@
   h1, h2, h3, h4, h5 {
     padding-bottom: .3em;
     border-bottom: 1px solid var(--content_panel_border_color);
+  }
+
+  p + h1,
+  p + h2,
+  p + h3,
+  p + h4 {
+    margin-top: 24px;
   }
 
   a {
