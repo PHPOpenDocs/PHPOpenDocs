@@ -4,7 +4,7 @@ One of the problems with the PHP manual site is that it is a monolithic repo, wh
 
 Instead of having all content under a single repo, OpenDocs is an experiment in delegating responsibility for each section of a website to separate organisations.
 
-All of the content should be related to PHP or closely related technologies, but other than that, it would 
+All of the content should be related to PHP or closely related technologies, but other than that, pretty much anything goes.
 
 
 ## Principles
@@ -33,6 +33,10 @@ This site is explicitly setup from the start to make that possible.
 ### API support
 
 Some content would be greatly enhanced by having support for API calls to other sites. e.g. the whole of the [phpimagick.com](https://phpimagick.com) set of examples. This will be supported at some point.
+
+### Custom CSS per section
+
+This will be needed quite soon...
 
 ### Discussions
 
