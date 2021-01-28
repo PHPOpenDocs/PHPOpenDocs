@@ -20,4 +20,9 @@ $ echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
 
 recommended libraries
 
- - https://hashids.org/
+
+https://phpqa.io/projects/phan.html
+
+https://github.com/exakat/php-static-analysis-tools
+
+git clone --depth 1 git@github.com:exakat/php-static-analysis-tools.git

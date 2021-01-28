@@ -1,10 +1,8 @@
 
-@use "colors.scss";
-
 .opendocs_header {
 
-  background-color: colors.$header_panel_background;
-  color: colors.$header_panel_text;
+  background-color: var(--header_panel_background);
+  color: var(--header_panel_text_color);
 
   font-weight: bold;
   font-size: 36px;
@@ -28,15 +26,14 @@
 
       a {
         text-decoration: none;
-        color: colors.$header_link_color;
+        color: var(--header_link_color);
         border:0;
         //text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
       }
 
       a:hover, a:focus {
-        color: colors.$header_link_hover_color;
+        color: var(--header_link_hover_color);
       }
     }
   }
 }
-

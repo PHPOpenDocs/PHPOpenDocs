@@ -30,8 +30,5 @@ try {
     $app->run();
 }
 catch (\Throwable $exception) {
-
     showTotalErrorPage($exception);
-
-
 }

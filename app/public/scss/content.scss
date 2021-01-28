@@ -1,27 +1,48 @@
 
-@use "colors.scss";
-
 .opendocs_content {
-  letter-spacing: -.00278rem;
-  background-color: colors.$content_panel_background;
-  color: colors.$content_panel_text;
+  background-color: var(--content_panel_background_color);
+  color: var(--content_panel_text_color);
+  line-height: 24px;
 
   h1, h2, h3, h4, h5, h6 {
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  h1, h2, h3, h4, h5 {
+    padding-bottom: .3em;
+    border-bottom: 1px solid var(--content_panel_border_color);
   }
 
   a {
-    color: colors.$standard_text_color;
+    color: var(--standard_link_color);
   }
 
   a:hover, a:focus {
-    color: colors.$standard_link_hover_color;
+    color: var(--standard_link_hover_color);
   }
 
   p {
     line-height: 1.2;
     margin-block-start: 0.5em;
     margin-block-end: 0.5em;
+  }
+
+  ul {
+    //margin-block-start: 0;
+    padding-left: 20px;
+
+  }
+
+  // A list where the first words are a link
+  //ul { //.link_list {
+  //  list-style-type: none;
+  //  padding-left: 0px;
+  //}
+
+  li+li {
+    margin-top: .25em;
   }
 }

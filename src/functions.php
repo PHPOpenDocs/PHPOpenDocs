@@ -7,6 +7,8 @@ declare(strict_types = 1);
  */
 
 use OpenDocs\Breadcrumbs;
+use OpenDocs\CopyrightInfo;
+use OpenDocs\EditInfo;
 use SlimAuryn\Response\HtmlResponse;
 
 /**
@@ -685,6 +687,46 @@ function showTotalErrorPage(\Throwable $exception)
     }
 }
 
+function createDefaultEditInfo()
+{
+    return new EditInfo(
+        'Edit page',
+        'https://github.com/PHPOpenDocs/PHPOpenDocs'
+    );
+}
+
+function createDefaultCopyrightInfo()
+{
+    return new CopyrightInfo(
+        'PHP OpenDocs',
+        'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/LICENSE'
+    );
+}
+
+function createErrorPage($errorContentsHtml)
+{
+    return new OpenDocs\Page(
+        'error',
+        createDefaultEditInfo(),
+        OpenDocs\ContentLinks::createEmpty(),
+        new OpenDocs\PrevNextLinks(null, null),
+        $contentHtml = $errorContentsHtml,
+        new OpenDocs\CopyrightInfo('PHPOpenDocs', 'https://github.com/PHPOpenDocs/PHPOpenDocs'),
+        new Breadcrumbs()
+    );
+}
+
+/**
+ * Remove the installation directory prefix from a filename
+ */
+function normaliseFilePath(string $file): string
+{
+    if (strpos($file, "/var/app/") === 0) {
+        $file = substr($file, strlen("/var/app/"));
+    }
+
+    return $file;
+}
 
 function convertPageToHtmlResponse(
     \OpenDocs\Section $section,

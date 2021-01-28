@@ -17,7 +17,7 @@ class FullRouteInfo
     public function __construct(
         ServerRequestInterface $serverRequest,
         RouteParams $routeParams
-    ){
+    ) {
         $this->routeParams = $routeParams;
         $this->serverRequest = $serverRequest;
     }
@@ -38,4 +38,3 @@ class FullRouteInfo
         return $this->routeParams;
     }
 }
-

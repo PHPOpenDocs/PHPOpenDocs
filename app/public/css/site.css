@@ -1,6 +1,64 @@
 @charset "UTF-8";
+:root {
+  --background_color: rgb(254, 254, 253);
+  --breadcrumbs_text_color: #000;
+  --breadcrumbs_background_color: #dddfec;
+  --breadcrumbs_border_color: #888;
+  --breadcrumbs_link_color: #33337f;
+  --breadcrumbs_link_hover_color: #AE508D;
+  --content_panel_text_color: #333;
+  --content_panel_background_color: none;
+  --content_links_background_color: #dddfec;
+  --content_links_border_color: rgba(10, 10, 10, 0.2);
+  --content_links_text_color: #000;
+  --content_links_link_color: #33337f;
+  --content_links_link_hover_color: #cb66a5;
+  --code_background: #000;
+  --code_color: #fff;
+  --footer_text_color: #000;
+  --footer_background_color: #c8cee3;
+  --footer_border_color: rgba(128, 128, 128, 0.25);
+  --footer_link_color: #000030;
+  --footer_link_hover_color: #AE508D;
+  --header_panel_text_color: #8892bf;
+  --header_link_color: #8892bf;
+  --header_panel_background: rgb(254, 254, 253);
+  --header_link_hover_color: #AE508D;
+  --prev_next_text_color: #000;
+  --prev_next_background_color: #dddfec;
+  --prev_next_border_color: #888;
+  --prev_next_link_color: #2a2a78;
+  --prev_next_link_hover_color: #AE508D;
+  --standard_text_color: #000;
+  --standard_link_color: #000080;
+  --standard_link_hover_color: #AE508D;
+  --standard_border_color: rgba(128, 128, 128, 0.25);
+  --table_row_border_hover_color: rgba(32, 32, 32, 0.333);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background_color: rgb(20, 20, 20);
+    --breadcrumbs_text_color: #000;
+    --breadcrumbs_link_hover_color: #AE508D;
+    --content_panel_text: #fcfcfc;
+    --content_links_link_color: #33337f;
+    --content_link_link_hover_color: #cb66a5;
+    --code_background: #000;
+    --code_color: #fff;
+    --footer_background_color: #606060;
+    --header_panel_text_color: #bdbdbd;
+    --header_link_color: #b0b0b0;
+    --navigation_background_color: #dddfec;
+    --standard_text_color: #d7d7d7;
+    --standard_link_color: #4b4bd8;
+    --standard_link_hover_color: #cb66a5;
+    --standard_border_color: rgba(83, 83, 83, 0.25);
+    --table_row_border_hover_color: rgba(32, 32, 32, 0.333);
+  }
+}
 .opendocs_wrapper {
-  max-width: 1400px;
+  max-width: 1920px;
   margin: 0 auto;
 }
 
@@ -30,9 +88,8 @@
 }
 
 .opendocs_content_links {
-  max-width: 340px;
   grid-area: content_links;
-  padding: 18px;
+  padding: 5px;
 }
 
 .opendocs_footer {
@@ -43,23 +100,32 @@
 .opendocs_wrapper {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
-  grid-template-areas: "hd hd hd hd   hd   hd   hd   hd   hd" "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next " "main main main main main main content_links content_links content_links " "ft ft ft ft   ft   ft   ft   ft   ft";
+  grid-template-areas: "hd hd hd hd   hd   hd   hd   hd   hd" "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next " "main main main main main main main content_links content_links " "ft ft ft ft   ft   ft   ft   ft   ft";
   flex-direction: column;
   align-items: stretch;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .opendocs_wrapper {
-    grid-template-areas: "hd hd hd hd   hd   hd   hd   hd   hd" "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next " "main main main main main main main main main" "np np np np   np   np   np   np   np" "ft ft ft ft   ft   ft   ft   ft   ft";
+    grid-template-areas: "hd hd hd hd   hd   hd   hd   hd   hd" "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next " "main main main main main main main main main" "content_links content_links content_links content_links content_links content_links content_links content_links content_links" "np np np np   np   np   np   np   np" "ft ft ft ft   ft   ft   ft   ft   ft";
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+@media (max-width: 640px) {
+  .opendocs_wrapper {
+    grid-template-areas: "hd hd hd hd   hd   hd   hd   hd   hd" "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs" "prev_next prev_next prev_next prev_next prev_next prev_next prev_next prev_next prev_next" "main main main main main main main main main" "content_links content_links content_links content_links content_links content_links content_links content_links content_links" "np np np np   np   np   np   np   np" "ft ft ft ft   ft   ft   ft   ft   ft";
+    flex-direction: column;
+    align-items: stretch;
   }
 }
 .opendocs_breadcrumbs {
   padding-top: 8px;
   padding-bottom: 8px;
-  color: #000;
-  background-color: #dddfec;
-  border-top: 1px solid #888;
-  border-bottom: 1px solid #888;
+  color: var(--breadcrumbs_text_color);
+  background-color: var(--breadcrumbs_background_color);
+  border-top: 1px solid var(--breadcrumbs_border_color);
+  border-bottom: 1px solid var(--breadcrumbs_border_color);
 }
 .opendocs_breadcrumbs ul {
   padding-inline-start: 0;
@@ -76,39 +142,51 @@
 .opendocs_breadcrumbs ul li a {
   text-decoration: none;
   padding: 12px;
-  color: #000;
+  color: var(--breadcrumbs_link_color);
   border: 0;
 }
 .opendocs_breadcrumbs ul li a:hover, .opendocs_breadcrumbs ul li a:focus {
-  color: #AE508D;
+  color: var(--breadcrumbs_link_hover_color);
 }
 
 .opendocs_content {
-  letter-spacing: -0.00278rem;
-  background-color: #fefefd;
-  color: #333;
+  background-color: var(--content_panel_background_color);
+  color: var(--content_panel_text_color);
+  line-height: 24px;
 }
 .opendocs_content h1, .opendocs_content h2, .opendocs_content h3, .opendocs_content h4, .opendocs_content h5, .opendocs_content h6 {
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.opendocs_content h1, .opendocs_content h2, .opendocs_content h3, .opendocs_content h4, .opendocs_content h5 {
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--content_panel_border_color);
 }
 .opendocs_content a {
-  color: #000;
+  color: var(--standard_link_color);
 }
 .opendocs_content a:hover, .opendocs_content a:focus {
-  color: #AE508D;
+  color: var(--standard_link_hover_color);
 }
 .opendocs_content p {
   line-height: 1.2;
   margin-block-start: 0.5em;
   margin-block-end: 0.5em;
 }
+.opendocs_content ul {
+  padding-left: 20px;
+}
+.opendocs_content li + li {
+  margin-top: 0.25em;
+}
 
 .opendocs_content_links {
-  color: #000;
+  color: var(--content_links_text_color);
   line-height: 1.6;
   letter-spacing: -0.00278rem;
-  border-left: 1px dotted rgba(10, 10, 10, 0.2);
+  border-left: 1px dotted var(--content_links_border_color);
 }
 .opendocs_content_links ul {
   margin-top: 0px;
@@ -122,11 +200,10 @@
   text-decoration: none;
 }
 .opendocs_content_links ul li a:link, .opendocs_content_links ul li a:visited {
-  color: #000;
+  color: var(--content_links_link_color);
 }
 .opendocs_content_links ul li a:hover, .opendocs_content_links ul li a:focus, .opendocs_content_links ul li #layout-content a:hover, .opendocs_content_links ul li #layout-content a:focus {
-  color: #AE508D;
-  border-color: #AE508D;
+  color: var(--content_links_link_hover_color);
   outline: 0;
 }
 .opendocs_content_links ul li a {
@@ -138,9 +215,9 @@
   padding-left: 0.75rem;
 }
 .opendocs_footer {
-  color: #000;
-  background-color: #c8cee3;
-  border-top: 1px solid #888;
+  color: var(--footer_text_color);
+  background-color: var(--footer_background_color);
+  border-top: 1px solid var(--footer_border_color);
   padding: 10px;
   width: 100%;
   font-weight: bold;
@@ -148,16 +225,16 @@
 .opendocs_footer a {
   text-decoration: none;
   padding: 12px;
-  color: #000;
+  color: var(--footer_link_color);
   border: 0;
 }
 .opendocs_footer a:hover, .opendocs_footer a:focus {
-  color: #AE508D;
+  color: var(--footer_link_hover_color);
 }
 
 .opendocs_header {
-  background-color: #fefefd;
-  color: #8892bf;
+  background-color: var(--header_panel_background);
+  color: var(--header_panel_text_color);
   font-weight: bold;
   font-size: 36px;
   font-size: 2rem;
@@ -178,17 +255,18 @@
 }
 .opendocs_header ul li a {
   text-decoration: none;
-  color: #8892bf;
+  color: var(--header_link_color);
   border: 0;
 }
 .opendocs_header ul li a:hover, .opendocs_header ul li a:focus {
-  color: #AE508D;
+  color: var(--header_link_hover_color);
 }
 
 .opendocs_prev_next {
-  background-color: #dddfec;
-  border-top: 1px solid #888;
-  border-bottom: 1px solid #888;
+  color: var(--prev_next_text_color);
+  background-color: var(--prev_next_background_color);
+  border-top: 1px solid var(--prev_next_border_color);
+  border-bottom: 1px solid var(--prev_next_border_color);
   width: 100%;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -199,16 +277,16 @@
 .opendocs_prev_next a {
   text-decoration: none;
   padding: 12px;
-  color: #000;
+  color: var(--prev_next_link_color);
   border: 0;
 }
 .opendocs_prev_next a:hover, .opendocs_prev_next a:focus {
-  color: #AE508D;
+  color: var(--prev_next_link_hover_color);
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: #fefefd;
+  background-color: var(--background_color);
 }
 
 h1 + h2 {
@@ -237,6 +315,7 @@ body {
   font-size: 1rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0px;
 }
 
 table {
@@ -251,14 +330,14 @@ table tr {
   border-right: 1px solid transparent;
 }
 table tr:hover td {
-  border-top: 1px solid rgba(32, 32, 32, 0.333);
-  border-bottom: 1px solid rgba(32, 32, 32, 0.333);
+  border-top: 1px solid var(--table_row_border_hover_color);
+  border-bottom: 1px solid var(--table_row_border_hover_color);
 }
 table tr:hover td:first-child {
-  border-left: 1px solid rgba(32, 32, 32, 0.333);
+  border-left: 1px solid var(--table_row_border_hover_color);
 }
 table tr:hover td:last-child {
-  border-right: 1px solid rgba(32, 32, 32, 0.333);
+  border-right: 1px solid var(--table_row_border_hover_color);
 }
 table th {
   text-align: left;
@@ -272,13 +351,26 @@ table th, table td {
   padding-bottom: 4px;
   padding-right: 4px;
 }
-table th:first-child,
-table td:first-child {
-  padding-left: 4px;
-  padding-right: 0;
-}
 table tr:nth-child(even) {
   background: rgba(230, 230, 230, 0.5);
+}
+
+.nouns_table td {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 4px;
+}
+.nouns_table a {
+  text-decoration: none;
+}
+
+.verbs_table td {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 4px;
+}
+.verbs_table a {
+  text-decoration: none;
 }
 
 /*# sourceMappingURL=site.css.map */

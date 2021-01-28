@@ -66,8 +66,8 @@ class PeopleList
                 'Locale-independent float to string cast'
             )
             ->addRfc_8_0(
-                    'https://wiki.php.net/rfc/saner-numeric-strings',
-                    'Saner numeric strings'
+                'https://wiki.php.net/rfc/saner-numeric-strings',
+                'Saner numeric strings'
             )
             ->addGithubSponsor('https://github.com/sponsors/Girgias');
 

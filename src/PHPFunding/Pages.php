@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace PHPFunding;
 
-
 use OpenDocs\ContentLinks;
 use OpenDocs\FooterInfo;
 use OpenDocs\Page;
@@ -18,8 +17,8 @@ use PHPFunding\PeopleList;
 use RfcCodexOpenDocs\RfcCodexEntry;
 use PHPFunding\Rfc;
 
-
-class Pages {
+class Pages
+{
 
     private MarkdownRenderer $markdownRenderer;
 
@@ -113,13 +112,11 @@ HTML;
 
         return new Page(
             'Rfc Codex',
-            new URL('https://github.com/PHPOpenDocs/PHPOpenDocs'),
+            createDefaultEditInfo(),
             $this->getContentLinks(),
             new PrevNextLinks(null, null),
             $contents,
-            'Danack',
+            createDefaultCopyrightInfo(),
         );
     }
 }
-
-

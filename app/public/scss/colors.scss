@@ -1,45 +1,84 @@
 
-
-//$standard_text_color: #222222;
-$standard_text_color: #000;
-$standard_link_hover_color: #AE508D;
-$standard_border_color: #888;
-
-$table_row_border_hover_color: rgba(32, 32, 32, 0.333);
-
-$background_colour: rgb(254, 254, 253);
-$color: rgb(204, 204, 204);
-
-//$navigation_background_color: #c8cee3;
-$navigation_background_color: #dddfec;
-
-$prev_next_background: $navigation_background_color;
-$prev_next_border_color: $standard_border_color;
+//@media (prefers-color-scheme: light) {
+  :root {
 
 
-$header_panel_background: $background_colour;
-$header_panel_text: #8892bf;
+    --background_color: rgb(254, 254, 253);
 
-$header_link_color: #8892bf;
-$header_link_hover_color: $standard_link_hover_color;
+    --breadcrumbs_text_color: #000;
+    --breadcrumbs_background_color: #dddfec;
+    --breadcrumbs_border_color: #888;
+    --breadcrumbs_link_color: #33337f;
+    --breadcrumbs_link_hover_color: #AE508D;
 
-$breadcrumbs_background: $navigation_background_color;
+    --content_panel_text_color: #333;
+    --content_panel_background_color: none;
+    //--content_panel_border_color
+    //--content_panel_background_color
 
-$breadcrumbs_link_color: $standard_text_color;
-$breadcrumbs_link_hover_color: $standard_link_hover_color;
+    --content_links_background_color: #dddfec;
+    --content_links_border_color: rgba(10, 10, 10, 0.2);
+    --content_links_text_color: #000;
+    --content_links_link_color: #33337f;
+    --content_links_link_hover_color: #cb66a5;
 
-//$content_panel_background: #fcfcfc;
-$content_panel_background: $background_colour;
-$content_panel_text: #333;
+    --code_background: #000;
+    --code_color: #fff;
 
-$nav_panel_text: $standard_text_color;
+    --footer_text_color: #000;
+    --footer_background_color: #c8cee3;
+    --footer_border_color: rgba(128, 128, 128, 0.25);
+    --footer_link_color: #000030;
+    --footer_link_hover_color: #AE508D;
 
-$footer_background_color: #c8cee3;
-$footer_color: $standard_text_color;
-$footer_border_color: $standard_border_color;
+    --header_panel_text_color: #8892bf;
+    --header_link_color: #8892bf;
+    --header_panel_background: rgb(254, 254, 253);
+    --header_link_hover_color: #AE508D;
 
-$footer_link_color: $standard_text_color;
-$footer_link_hover_color: $standard_link_hover_color;
 
-$code_background: #000;
-$code_color: #fff;
+    --prev_next_text_color: #000;
+    --prev_next_background_color: #dddfec;
+    --prev_next_border_color: #888;
+    --prev_next_link_color: #2a2a78;
+    --prev_next_link_hover_color: #AE508D;
+
+    --standard_text_color: #000;
+    --standard_link_color: #000080;
+    --standard_link_hover_color: #AE508D;
+    --standard_border_color: rgba(128, 128, 128, 0.25);
+
+    --table_row_border_hover_color: rgba(32, 32, 32, 0.333);
+  }
+//}
+
+@media (prefers-color-scheme: dark) {
+:root {
+  --background_color: rgb(20, 20, 20);
+
+  --breadcrumbs_text_color: #000;
+  --breadcrumbs_link_hover_color: #AE508D;
+
+  --content_panel_text: #fcfcfc;
+
+  --content_links_link_color: #33337f;
+  --content_link_link_hover_color: #cb66a5;
+
+  --code_background: #000;
+  --code_color: #fff;
+
+  --footer_background_color: #606060;
+
+  --header_panel_text_color: #bdbdbd;
+  --header_link_color: #b0b0b0;
+
+  --navigation_background_color: #dddfec;
+
+  --standard_text_color: #d7d7d7;
+  --standard_link_color: #4b4bd8;
+  --standard_link_hover_color: #cb66a5;
+  --standard_border_color: rgba(83, 83, 83, 0.25);
+
+  --table_row_border_hover_color: rgba(32, 32, 32, 0.333);
+}
+}

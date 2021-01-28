@@ -17,25 +17,43 @@ use OpenDocs\Page;
 use OpenDocs\URL;
 use OpenDocs\HeaderLink;
 use OpenDocs\HeaderLinks;
+use OpenDocs\CopyrightInfo;
+use OpenDocs\EditInfo;
 
-function createBreadcrumbHtml(Breadcrumbs $breadcrumbs): string
+function fooasdoiasdoi(string $path, string $description)
 {
-    if (count($breadcrumbs->getBreadcrumbs()) === 0) {
+    $li_template = "<li><a href=':attr_link'>:html_description</a></li>";
+    $params = [
+        ':attr_link' => $path,
+        ':html_description' => $description
+    ];
+    return esprintf($li_template, $params);
+}
+
+function createBreadcrumbHtml(
+    ?\OpenDocs\Section $section,
+    Breadcrumbs $breadcrumbs
+): string {
+
+    $prefix = '';
+    $li_parts = [];
+
+    if ($section !== null) {
+        $prefix  = $section->getPrefix();
+        $li_parts[] = fooasdoiasdoi($prefix, $section->getName());
+    }
+
+    foreach ($breadcrumbs->getBreadcrumbs() as $breadcrumb) {
+        $li_parts[] = fooasdoiasdoi(
+            $prefix . $breadcrumb->getPath(),
+            $breadcrumb->getDescription()
+        );
+    }
+
+    if (count($li_parts) === 0) {
         return "";
     }
 
-    $li_template = "<li><a href=':attr_link'>:html_description</a></li>";
-    $li_parts = [];
-
-    foreach ($breadcrumbs->getBreadcrumbs() as $breadcrumb) {
-        $params = [
-            // todo - needs to be relative to content base
-            ':attr_link' => $breadcrumb->getPath(),
-            ':html_description' => $breadcrumb->getDescription()
-        ];
-
-        $li_parts[] = esprintf($li_template, $params);
-    }
 
     return "<ul>" . implode("", $li_parts) . "</ul>";
 }
@@ -94,7 +112,6 @@ function createStandardHeaderLinks(): HeaderLinks
         new HeaderLink("/sections", "Sections"),
         new HeaderLink("/about", "About"),
     ]);
-
 }
 
 
@@ -163,7 +180,7 @@ function createContentLinkLevel1Html(string $sectionPath, ContentLinkLevel1 $con
     }
     else {
         $html = esprintf(
-            '<a href=":attr_path">:html_description</a></span>',
+            '<a href=":attr_path">:html_description</a>',
             [
                 ':html_description' => $contentLinkLevel1->getDescription(),
                 ':attr_path' => $sectionPath . $contentLinkLevel1->getPath(),
@@ -172,11 +189,14 @@ function createContentLinkLevel1Html(string $sectionPath, ContentLinkLevel1 $con
     }
 
     $li_elements = [];
-    foreach ($contentLinkLevel1->getChildren() as $contentLinkLevel2) {
-        $li_elements[] = createContentLinkLevel2Html($sectionPath, $contentLinkLevel2);
-    }
+    $children = $contentLinkLevel1->getChildren();
+    if ($children !== null) {
+        foreach ($children as $contentLinkLevel2) {
+            $li_elements[] = createContentLinkLevel2Html($sectionPath, $contentLinkLevel2);
+        }
 
-    $html .= "<ul class='opendocs_content_links_level_2'>\n" . implode("\n", $li_elements) . "</ul>";
+        $html .= "<ul class='opendocs_content_links_level_2'>\n" . implode("\n", $li_elements) . "</ul>";
+    }
 
     return "<li>" . $html . "</li>";
 }
@@ -184,7 +204,13 @@ function createContentLinkLevel1Html(string $sectionPath, ContentLinkLevel1 $con
 function createContentLinksHtml(string $sectionPath, ContentLinks $contentLinks): string
 {
     $li_elements = [];
-    foreach ($contentLinks->getChildren() as $contentLinkLevel1) {
+    $children = $contentLinks->getChildren();
+
+    if ($children === null) {
+        return "";
+    }
+
+    foreach ($children as $contentLinkLevel1) {
         $li_elements[] = createContentLinkLevel1Html($sectionPath, $contentLinkLevel1);
     }
 
@@ -192,18 +218,23 @@ function createContentLinksHtml(string $sectionPath, ContentLinks $contentLinks)
 }
 
 
-function createFooterHtml(string $copyrightOwner, URL $editUrl): string
-{
+function createFooterHtml(
+    CopyrightInfo $copyrightInfo,
+    EditInfo $editInfo
+): string {
     $html = <<< HTML
-<span class="copyright">© :html_copyright_name</span>
+<span class="copyright">
+  <a href=":attr_copyright_link">© :html_copyright_name</a>
+</span>
 <span class="edit_link">
   <a href=":attr_edit_link">Edit this page</a>
 </span>
 HTML;
 
     $params = [
-        ':html_copyright_name' => $copyrightOwner,
-        ':attr_edit_link' => $editUrl->getUrl()
+        ':html_copyright_name' => $copyrightInfo->getName(),
+        ':attr_copyright_link' => $copyrightInfo->getLink(),
+        ':attr_edit_link' => $editInfo->getLink()
     ];
 
     return esprintf($html, $params);
@@ -226,13 +257,14 @@ function createPageHtml(
     $pageTitle = $page->getTitle() ?? "PHP OpenDocs";
 
     $params = [
+        ':raw_site_css_link' => '/css/site.css?time=' . time(),
         ':html_page_title' => $pageTitle,
         ':raw_top_header' => createPageHeaderHtml($headerLinks),
-        ':raw_breadcrumbs' => createBreadcrumbHtml($breadcrumbs),
+        ':raw_breadcrumbs' => createBreadcrumbHtml($section, $page->getBreadcrumbs()),
         ':raw_prev_next' => createPrevNextHtml($page->getPrevNextLinks()),
         ':raw_content' => $page->getContentHtml(),
         ':raw_nav_content' => createContentLinksHtml($prefix, $page->getContentLinks()),
-        ':raw_footer' => createFooterHtml($page->getCopyrightOwner(), $page->getEditUrl()),
+        ':raw_footer' => createFooterHtml($page->getCopyrightInfo(), $page->getEditInfo()),
     ];
 
     $html = file_get_contents(__DIR__ . "/../templates/standard_page.html");

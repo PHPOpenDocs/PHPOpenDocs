@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace RfcCodexOpenDocs;
 
-
 use OpenDocs\ContentLinks;
+use OpenDocs\CopyrightInfo;
 use OpenDocs\FooterInfo;
 use OpenDocs\Page;
 use OpenDocs\Section;
@@ -15,8 +15,8 @@ use OpenDocs\ContentLinkLevel1;
 use OpenDocs\ContentLinkLevel2;
 use OpenDocs\MarkdownRenderer;
 
-
-class Pages {
+class Pages
+{
 
     private MarkdownRenderer $markdownRenderer;
 
@@ -89,7 +89,6 @@ class Pages {
 
         $list = [];
         foreach ($items as $entry) {
-
             $url = $entry->getFilename();
             if (strpos($url, 'http') !== 0) {
                 $url = '/' . $entry->getPath();
@@ -154,6 +153,8 @@ class Pages {
         return null;
     }
 
+
+
     public function getPage(Section $section, $name): Page
     {
         $contents = $this->getContents($name);
@@ -165,14 +166,14 @@ class Pages {
 
         return new Page(
             'Rfc Codex - ' . $name,
-            new URL('https://github.com/danack/RfcCodex'),
+            //            new URL('https://github.com/danack/RfcCodex'),
+            createDefaultEditInfo(),
             $this->getContentLinks(),
             new PrevNextLinks(null, null),
             $contents,
-            'Danack',
+            new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE')
         );
     }
-
 
     public function getIndexPage(Section $section): Page
     {
@@ -188,13 +189,11 @@ class Pages {
 
         return new Page(
             'Rfc Codex',
-            new URL('https://github.com/danack/RfcCodex'),
+            createDefaultEditInfo(),
             $this->getContentLinks(),
             new PrevNextLinks(null, null),
             $contents,
-            'Danack',
+            new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE')
         );
     }
 }
-
-

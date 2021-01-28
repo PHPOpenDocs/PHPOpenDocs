@@ -16,7 +16,12 @@ return [
     ['/about', 'GET', 'PhpOpenDocs\AppController\Pages::about'],
     ['/sections', 'GET', 'PhpOpenDocs\AppController\Pages::sections'],
 
+    ['/tools', 'GET', 'PhpOpenDocs\AppController\ExternalPages::tools'],
+
     ['/privacy_policy', 'GET', 'PhpOpenDocs\AppController\Pages::privacyPolicy'],
+
+
+
 
 //    ['/rfc_codex{name:.+}', 'GET', 'PhpOpenDocs\AppController\Pages::rfc_codex_item'],
 //    ['/rfc_codex', 'GET', 'PhpOpenDocs\AppController\Pages::rfc_codex'],

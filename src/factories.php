@@ -49,8 +49,7 @@ function createRoutesForApp(\OpenDocs\SectionList $sectionList)//: \SlimAuryn\Ro
             $fullPath = $section->getPrefix() . $route->getPath();
             $routeCallable = $route->getCallable();
             $sectionFn = function (\PhpOpenDocs\FullRouteInfo $fullRouteInfo)
-                use ($section, $routeCallable, $injector)
-            {
+ use ($section, $routeCallable, $injector) {
                 $injector = clone $injector;
                 $injector->share($section);
 
@@ -196,6 +195,15 @@ function createSectionList(): \OpenDocs\SectionList
         'How to give money to people who work on PHP core or documentation.',
         new \PHPFunding\PHPFundingSectionInfo
     );
+
+    $sections[] = new \OpenDocs\Section(
+        '/naming',
+        'Naming things',
+        'Naming things is one of the most difficult problems ever.',
+        new \NamingThings\NamingThingsSectionInfo
+    );
+
+
 
 //    $sections[] = new \OpenDocs\Section(
 //        '/internals',

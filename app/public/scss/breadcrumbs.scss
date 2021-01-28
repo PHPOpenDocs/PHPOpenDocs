@@ -1,19 +1,16 @@
-@use "colors.scss";
-@use "variables.scss";
 
 .opendocs_breadcrumbs {
 
   //padding-top: 5px;
   //padding-bottom: 5px;
 
-  padding-top: variables.$navigation_padding_top;
-  padding-bottom: variables.$navigation_padding_bottom;
+  padding-top: 8px;
+  padding-bottom: 8px;
 
-  color: colors.$standard_text_color;
-  background-color: colors.$breadcrumbs_background;
-  border-top: 1px solid colors.$prev_next_border_color;
-  border-bottom: 1px solid colors.$prev_next_border_color;
-
+  color: var(--breadcrumbs_text_color);
+  background-color: var(--breadcrumbs_background_color);
+  border-top: 1px solid var(--breadcrumbs_border_color);
+  border-bottom: 1px solid var(--breadcrumbs_border_color);
 
   ul {
     padding-inline-start: 0;
@@ -33,13 +30,13 @@
         text-decoration: none;
         padding: 12px;
 
-        color: colors.$breadcrumbs_link_color;
+        color: var(--breadcrumbs_link_color);
         border:0;
         //text-shadow: 0 -0.5px 0 rgba(0, 0, 0, 0.125);
       }
 
       a:hover, a:focus {
-        color: colors.$breadcrumbs_link_hover_color;
+        color: var(--breadcrumbs_link_hover_color);
       }
     }
   }

@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace PhpOpenDocs\AppController;
 
 use OpenDocs\ContentLinks;
+use OpenDocs\CopyrightInfo;
 use OpenDocs\Link;
 use OpenDocs\PrevNextLinks;
 use OpenDocs\URL;
@@ -16,7 +17,7 @@ use OpenDocs\Breadcrumbs;
 use OpenDocs\SectionList;
 use SlimAuryn\Response\StubResponse;
 use RfcCodexOpenDocs\RfcCodex;
-
+use OpenDocs\EditInfo;
 
 class Pages
 {
@@ -94,11 +95,11 @@ class Pages
 
         $page = new \OpenDocs\Page(
             $title = 'PHP OpenDocs',
-            $editUrl = new URL('www.example.com'),
+            createDefaultEditInfo(),
             $contentLinks,
             $prevNextLinks,
             $contentHtml = $examplePage->getPageContent(),
-            $copyrightOwner = 'PHP Open docs'
+            createDefaultCopyrightInfo()
         );
 
         $sectionPath = '/';
@@ -118,11 +119,11 @@ class Pages
 
         $page = new \OpenDocs\Page(
             $title = 'PHP OpenDocs',
-            $editUrl = new URL('www.example.com'),
+            new EditInfo('edit page?', 'www.example.com'),
             ContentLinks::createEmpty(),
             new PrevNextLinks(null, null),
             $contentHtml = $page->getPageContent(),
-            $copyrightOwner = 'PHP OpenDocs'
+            new CopyrightInfo('PHP OpenDocs', 'https://github.com/PHPOpenDocs/PHPOpenDocs/LICENSE')
         );
 
         $html = createPageHtml(
@@ -136,7 +137,6 @@ class Pages
 
     public function privacyPolicy()
     {
-
     }
 
 
@@ -156,11 +156,11 @@ class Pages
 
         $page = new \OpenDocs\Page(
             $title = 'PHP OpenDocs',
-            $editUrl = new URL('www.example.com'),
+            createDefaultEditInfo(),
             ContentLinks::createEmpty(),
             new PrevNextLinks(null, null),
             $contentHtml = $html,
-            $copyrightOwner = 'PHP OpenDocs'
+            new CopyrightInfo('PHP OpenDocs', 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/LICENSE')
         );
 
         $html = createPageHtml(

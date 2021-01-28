@@ -1,100 +1,47 @@
 
-@use "colors.scss";
-
+@import "colors.scss";
 @import "layout.scss";
-
 @import "breadcrumbs.scss";
 @import "content.scss";
 @import "content_links.scss";
 @import "footer.scss";
 @import "header.scss";
 @import "prev_next.scss";
-
-html {
-  scroll-behavior: smooth;
-  background-color: colors.$background_colour;
-  //color: colors.$color;
-}
-
-h1 + h2 {
-  padding-top: 12px;
-}
-
-h2 + h3 {
-  padding-top: 12px;
-}
-
-h3 + h4 {
-  padding-top: 12px;
-}
-h5 + h6 {
-  padding-top: 12px;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial,x-locale-body,sans-serif;
-  font-size: 18px;
-  font-size: 1rem;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import "basic.scss";
 
 
-table {
-  border-collapse: collapse;
-  font-size: 1rem;
-  border: 0px;
-
-  tr {
-    border-top: 1px solid transparent;
-    border-bottom: 1px solid transparent;
-    border-left: 1px solid transparent;
-    border-right: 1px solid transparent;
-  }
-
-  tr:hover td
-  {
-    border-top: 1px solid colors.$table_row_border_hover_color;
-    border-bottom: 1px solid colors.$table_row_border_hover_color;
-  }
-
-  tr:hover td:first-child
-  {
-    border-left: 1px solid colors.$table_row_border_hover_color;
-  }
-  tr:hover td:last-child
-  {
-    border-right: 1px solid colors.$table_row_border_hover_color;
-  }
-
-
-  th {
-    text-align: left;
-    vertical-align: top;
-  }
+.nouns_table {
 
   td {
-    vertical-align: top;
-  }
-
-  th, td {
     padding-top:4px;
     padding-bottom:4px;
     padding-right:4px;
   }
 
-  th:first-child,
-  td:first-child {
-    padding-left:4px;
-    padding-right: 0;
-  }
+  //td:first-child {
+  //  padding-left:4px;
+  //  padding-right: 0;
+  //}
 
-  tr:nth-child(even) {
-    background: rgba(230, 230, 230, 0.5)
+  a {
+    text-decoration: none;
   }
 }
 
+.verbs_table {
+
+  td {
+    padding-top:4px;
+    padding-bottom:4px;
+    padding-right:4px;
+  }
+
+  //td:first-child {
+  //  padding-left:4px;
+  //  padding-right: 0;
+  //}
+
+  a {
+    text-decoration: none;
+  }
+}

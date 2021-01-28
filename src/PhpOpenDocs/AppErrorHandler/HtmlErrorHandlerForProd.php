@@ -20,7 +20,8 @@ class HtmlErrorHandlerForProd implements AppErrorHandler
             \error_log(getTextForException($exception));
             $text = "Sorry, an error occurred. ";
 
-            $page = Page::errorPage(nl2br($text));
+            $page = createErrorPage(nl2br($text));
+//            $page = Page::errorPage(nl2br($text));
             $html = createPageHtml('/blah', $page, new Breadcrumbs);
 
             return $response->withStatus(500)

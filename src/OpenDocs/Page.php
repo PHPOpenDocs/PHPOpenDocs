@@ -9,7 +9,7 @@ class Page
     // The title for SEO
     private string $title;
 
-    private URL $editUrl;
+    private EditInfo $editInfo;
 
     private ContentLinks $contentLinks;
 
@@ -17,45 +17,27 @@ class Page
 
     private string $contentHtml;
 
-    private string $copyrightOwner;
+    private CopyrightInfo $copyrightInfo;
 
-    /**
-     *
-     * @param string $title
-     * @param URL $editUrl
-     * @param ContentLinks $contentLinks
-     * @param PrevNextLinks $prevNextLinks
-     * @param string $contentHtml
-     */
+    private Breadcrumbs $breadcrumbs;
+
     public function __construct(
         string $title,
-        URL $editUrl,
+        EditInfo $editInfo,
         ContentLinks $contentLinks,
         PrevNextLinks $prevNextLinks,
         string $contentHtml,
-        string $copyrightOwner
+        CopyrightInfo $copyrightOwner,
+        Breadcrumbs $breadcrumbs
     ) {
         $this->title = $title;
-        $this->editUrl = $editUrl;
+        $this->editInfo = $editInfo;
         $this->contentLinks = $contentLinks;
         $this->prevNextLinks = $prevNextLinks;
         $this->contentHtml = $contentHtml;
-        $this->copyrightOwner = $copyrightOwner;
+        $this->copyrightInfo = $copyrightOwner;
+        $this->breadcrumbs = $breadcrumbs;
     }
-
-    public static function errorPage($errorContentsHtml)
-    {
-        return new self(
-            'error',
-            new URL('www.example.com'),
-            ContentLinks::createEmpty(),
-            new PrevNextLinks(null, null),
-            $contentHtml = $errorContentsHtml,
-            $copyrightOwner = 'PHPImagick'
-        );
-    }
-
-
 
     /**
      * @return string
@@ -66,11 +48,11 @@ class Page
     }
 
     /**
-     * @return URL
+     * @return EditInfo
      */
-    public function getEditUrl(): URL
+    public function getEditInfo(): EditInfo
     {
-        return $this->editUrl;
+        return $this->editInfo;
     }
 
     /**
@@ -97,11 +79,16 @@ class Page
         return $this->contentHtml;
     }
 
-    /**
-     * @return string
-     */
-    public function getCopyrightOwner(): string
+    public function getCopyrightInfo(): CopyrightInfo
     {
-        return $this->copyrightOwner;
+        return $this->copyrightInfo;
+    }
+
+    /**
+     * @return Breadcrumbs
+     */
+    public function getBreadcrumbs(): Breadcrumbs
+    {
+        return $this->breadcrumbs;
     }
 }

@@ -1,9 +1,6 @@
 
-@use "colors.scss";
-@use "variables.scss";
-
 .opendocs_wrapper {
-  max-width: 1400px;
+  max-width: 1920px;
   margin: 0 auto;
 }
 
@@ -20,7 +17,6 @@
 }
 
 .opendocs_prev_next {
-  //max-width: variables.$right_panel_max_width;
   grid-area: prev_next;
   padding: 18px;
   flex-grow: 1;
@@ -34,9 +30,9 @@
 }
 
 .opendocs_content_links {
-  max-width: variables.$right_panel_max_width;
+  //max-width: 320px;
   grid-area: content_links;
-  padding: 18px;
+  padding: 5px;
 }
 
 .opendocs_footer {
@@ -50,20 +46,42 @@
   grid-template-areas:
         "hd hd hd hd   hd   hd   hd   hd   hd"
         "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next "
-        "main main main main main main content_links content_links content_links "
+        "main main main main main main main content_links content_links "
         "ft ft ft ft   ft   ft   ft   ft   ft";
   flex-direction: column;
   align-items: stretch;
 }
 
-@media (max-width: 600px) {
+
+@media (max-width: 900px) {
   .opendocs_wrapper {
     grid-template-areas:
             "hd hd hd hd   hd   hd   hd   hd   hd"
             "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next "
             "main main main main main main main main main"
+            "content_links content_links content_links content_links content_links content_links content_links content_links content_links"
             "np np np np   np   np   np   np   np"
             "ft ft ft ft   ft   ft   ft   ft   ft";
+
+    flex-direction: column;
+    align-items: stretch;
   }
 }
 
+
+@media (max-width: 640px) {
+  .opendocs_wrapper {
+    grid-template-areas:
+            "hd hd hd hd   hd   hd   hd   hd   hd"
+            "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs"
+            "prev_next prev_next prev_next prev_next prev_next prev_next prev_next prev_next prev_next"
+
+            "main main main main main main main main main"
+            "content_links content_links content_links content_links content_links content_links content_links content_links content_links"
+            "np np np np   np   np   np   np   np"
+            "ft ft ft ft   ft   ft   ft   ft   ft";
+
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

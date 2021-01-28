@@ -44,11 +44,15 @@
     },
     "autoload": {
         "psr-0": {
+            "NamingThings\\": "src/",
             "OpenDocs\\": "src/",
             "PHPFunding\\": "src/",
             "PhpOpenDocs\\": "src/",
             "RfcCodexOpenDocs\\": "src/"
-        }
+        },
+        "files": [
+            "src/NamingThings/functions.php"
+        ]
     },
     "autoload-dev": {
         "psr-0": {

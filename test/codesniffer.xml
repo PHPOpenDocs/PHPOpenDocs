@@ -9,10 +9,8 @@
 
     <exclude-pattern>lib/opcache.php</exclude-pattern>
 
-
-
     <!-- This file has invalid syntax, so can't be parsed.-->
-    <exclude-pattern>*Osf/CommonController/CompileError.php</exclude-pattern>
+    <exclude-pattern>*PhpOpenDocs/AppController/CompileError.php</exclude-pattern>
 
     <exclude-pattern>*migrations*</exclude-pattern>
     <exclude-pattern>*seeds*</exclude-pattern>
@@ -39,8 +37,10 @@
         <exclude-pattern>functions.php</exclude-pattern>
     </rule>
 
-
-
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>*PhpOpenDocs/src/PHPFunding/Pages.php</exclude-pattern>
+        <exclude-pattern>*PhpOpenDocs/src/PHPFunding/PHPPerson.php</exclude-pattern>
+    </rule>
 
     <rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/TypeHints/DeclareStrictTypesSniff.php" >
         <properties>

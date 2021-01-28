@@ -1,13 +1,11 @@
 
-@use "colors.scss";
 
 .opendocs_content_links {
 
-  color: colors.$nav_panel_text;
+  color: var(--content_links_text_color);
   line-height: 1.6;
   letter-spacing: -.00278rem;
-
-  border-left: 1px dotted rgba(10, 10, 10, 0.2);
+  border-left: 1px dotted var(--content_links_border_color);
 
   ul{
     margin-top: 0px;
@@ -22,17 +20,15 @@
       }
 
       a:link, a:visited {
-        color: colors.$standard_text_color;
+        color: var(--content_links_link_color);
       }
 
       a:hover, a:focus, #layout-content a:hover, #layout-content a:focus {
-        color: colors.$standard_link_hover_color;
-        border-color: colors.$standard_link_hover_color;
+        color: var(--content_links_link_hover_color);
         outline: 0;
       }
 
       a {
-        //font-size: .875rem;
         border-bottom: 1px dotted;
         margin-bottom:-1px;
         display:block;

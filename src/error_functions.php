@@ -2,7 +2,6 @@
 
 declare(strict_types = 1);
 
-
 function getExceptionText(\Throwable $exception): string
 {
     $text = "";
@@ -42,11 +41,11 @@ function purgeExceptionMessage(\Throwable $exception): string
         $file = substr($file, strlen("/var/app/"));
     }
 
-    $message .= sprintf(
-        "file %s on line %s",
-        $file,
-        $exception->getLine()
-    );
+//    $message .= sprintf(
+//        "file %s:%s",
+//        $file,
+//        $exception->getLine()
+//    );
 
     return $message;
 }
@@ -59,7 +58,7 @@ function getTextForException(\Throwable $exception): string
 
     do {
         $text .= sprintf(
-            "Exception type:\n  %s\n\nMessage:\n  %s \n\nStack trace:\n%s\n",
+            "Exception type: %s\nMessage:  %s \n\nStack trace:\n%s\n",
             get_class($currentException),
             purgeExceptionMessage($currentException),
             formatLinesWithCount(getExceptionStackAsArray($currentException))
@@ -70,6 +69,12 @@ function getTextForException(\Throwable $exception): string
 
     return $text;
 }
+
+function getStacktraceForException(\Throwable $exception): string
+{
+    return formatLinesWithCount(getExceptionStackAsArray($exception));
+}
+
 
 function saneErrorHandler(
     int $errorNumber,

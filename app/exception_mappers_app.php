@@ -17,7 +17,7 @@ function debuggingCaughtExceptionExceptionMapperApp(
 ) {
     $text = getTextForException($pdoe);
     \error_log($text);
-    $page = Page::errorPage(nl2br($text));
+    $page = createErrorPage(nl2br($text));
     $html = createPageHtml('/blah', $page, new Breadcrumbs);
     $html .= "\n<!-- This is caught in the exception mapper -->";
 
@@ -27,17 +27,17 @@ function debuggingCaughtExceptionExceptionMapperApp(
 function parseErrorMapperForApp(\ParseError $parseError, ResponseInterface $response)
 {
     $string = sprintf(
-        "Parse error: %s\nFile %s\nLine %d",
+        "Parse error at %s:%d\n\n%s",
+        normaliseFilePath($parseError->getFile()),
+        $parseError->getLine(),
         $parseError->getMessage(),
-        $parseError->getFile(),
-        $parseError->getLine()
     );
 
-    $text = getTextForException($parseError);
+    $text = getStacktraceForException($parseError);
 
-    $text = $string . "\n\n\n\n" . $text;
+    $text = $string . "\n\n" . $text;
 
-    $page = Page::errorPage(nl2br($text));
+    $page = createErrorPage(nl2br($text));
     $html = createPageHtml(null, $page, new Breadcrumbs);
 
     return new \SlimAuryn\Response\HtmlResponse($html, [], 500);
