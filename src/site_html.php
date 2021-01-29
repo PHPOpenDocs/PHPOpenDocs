@@ -71,13 +71,13 @@ function createPrevNextHtml(?PrevNextLinks $prevNextLinks): string
     $params = [];
 
     if ($prevLink) {
-        $template .= '<span class="opendocs_prev"><a href=":attr_prev_link">« :html_prev_description</a></span>';
+        $template .= '<span class="opendocs_prev"><a href=":attr_prev_link">«&nbsp;:html_prev_description</a></span>';
         $params[':attr_prev_link'] = $prevLink->getPath();
         $params[':html_prev_description'] = $prevLink->getDescription();
     }
 
     if ($nextLink) {
-        $template .= '<span class="opendocs_next"><a href=":attr_next_link">:html_next_description  »</a></span>';
+        $template .= '<span class="opendocs_next"><a href=":attr_next_link">:html_next_description&nbsp;»</a></span>';
         $params[':attr_next_link'] = $nextLink->getPath();
         $params[':html_next_description'] = $nextLink->getDescription();
     }
@@ -174,7 +174,7 @@ function createContentLinkLevel1Html(string $sectionPath, ContentLinkLevel1 $con
     $path = $contentLinkLevel1->getPath();
     if ($path === null) {
         $html = esprintf(
-            "<span>:html_description</span>",
+            "<div>:html_description</div>",
             [':html_description' => $contentLinkLevel1->getDescription()]
         );
     }

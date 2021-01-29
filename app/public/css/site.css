@@ -64,7 +64,7 @@
 
 .opendocs_header {
   grid-area: hd;
-  padding-left: 18px;
+  padding-left: 24px;
   padding-top: 8px;
   padding-bottom: 8px;
 }
@@ -100,11 +100,20 @@
 .opendocs_wrapper {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
-  grid-template-areas: "hd hd hd hd   hd   hd   hd   hd   hd" "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next " "main main main main main main main content_links content_links " "ft ft ft ft   ft   ft   ft   ft   ft";
+  grid-template-areas: "hd hd hd hd   hd   hd   hd   hd   hd" "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next " "main main main main main main content_links content_links content_links " "ft ft ft ft   ft   ft   ft   ft   ft";
   flex-direction: column;
   align-items: stretch;
 }
 
+@media (max-width: 1200px) {
+  .opendocs_wrapper {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-areas: "hd hd hd hd   hd   hd   hd   hd   hd" "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next " "main main main main main main main content_links content_links " "ft ft ft ft   ft   ft   ft   ft   ft";
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
 @media (max-width: 900px) {
   .opendocs_wrapper {
     grid-template-areas: "hd hd hd hd   hd   hd   hd   hd   hd" "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next " "main main main main main main main main main" "content_links content_links content_links content_links content_links content_links content_links content_links content_links" "np np np np   np   np   np   np   np" "ft ft ft ft   ft   ft   ft   ft   ft";
@@ -220,6 +229,9 @@
 .opendocs_content_links ul li ul {
   padding-left: 0.75rem;
 }
+.opendocs_content_links li:not(:first-child) div {
+  margin-top: 16px;
+}
 .opendocs_footer {
   color: var(--footer_text_color);
   background-color: var(--footer_background_color);
@@ -246,7 +258,7 @@
   font-size: 2rem;
 }
 .opendocs_header ul {
-  padding-inline-start: 0;
+  padding-inline-start: 4px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
@@ -278,7 +290,8 @@
   padding-bottom: 8px;
 }
 .opendocs_prev_next .opendocs_prev_next_container {
-  float: right;
+  display: flex;
+  justify-content: space-between;
 }
 .opendocs_prev_next a {
   text-decoration: none;

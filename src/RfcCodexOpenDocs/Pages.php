@@ -17,9 +17,17 @@ use OpenDocs\ContentLinkLevel1;
 use OpenDocs\ContentLinkLevel2;
 use OpenDocs\MarkdownRenderer;
 
+function makeLink(?RfcCodexEntry $rfcCodexEntry): ?\OpenDocs\Link
+{
+    if ($rfcCodexEntry === null) {
+        return null;
+    }
+
+    return new \OpenDocs\Link($rfcCodexEntry->getPath(), $rfcCodexEntry->getName());
+}
+
 class Pages
 {
-
     private MarkdownRenderer $markdownRenderer;
 
     /**
@@ -27,11 +35,16 @@ class Pages
      */
     private array $under_discussion_entries = [];
 
-
     /**
      * @var RfcCodexEntry[]
      */
     private array $achieved_entries = [];
+
+
+    /**
+     * @var RfcCodexEntry[]
+     */
+    private array $all_entries = [];
 
     public function __construct(MarkdownRenderer $markdownRenderer)
     {
@@ -63,10 +76,13 @@ class Pages
         ];
 
         foreach ($under_discussion_list as $under_discussion) {
-            $this->under_discussion_entries[] = new RfcCodexEntry(
+            $entry = new RfcCodexEntry(
                 $under_discussion[0],
                 $under_discussion[1]
             );
+
+            $this->under_discussion_entries[] = $entry;
+            $this->all_entries[] = $entry;
         }
 
         $achieved_entries_list = [
@@ -79,10 +95,13 @@ class Pages
         ];
 
         foreach ($achieved_entries_list as $achieved) {
-            $this->achieved_entries[] = new RfcCodexEntry(
+            $entry = new RfcCodexEntry(
                 $achieved[0],
                 $achieved[1]
             );
+
+            $this->achieved_entries[] = $entry;
+            $this->all_entries[] = $entry;
         }
     }
 
@@ -155,6 +174,32 @@ class Pages
         return null;
     }
 
+    private function getPrevNextLinks(string $currentName): PrevNextLinks
+    {
+        $previous = null;
+        $previousEntryLink = null;
+        $nextEntryLink = null;
+        foreach ($this->all_entries as $entry) {
+
+            if ($nextEntryLink === null) {
+                if ($previousEntryLink !== null) {
+                    // This is the next one.
+                    $nextEntryLink = $entry;
+                }
+            }
+
+            if (strcasecmp($entry->getPath(), $currentName) === 0) {
+                $previousEntryLink = $previous;
+            }
+            $previous = $entry;
+        }
+
+
+        return new PrevNextLinks(
+            makeLink($previousEntryLink),
+            makeLink($nextEntryLink)
+        );
+    }
 
 
     public function getPage(Section $section, $name): Page
@@ -168,10 +213,9 @@ class Pages
 
         return new Page(
             'Rfc Codex - ' . $name,
-            //            new URL('https://github.com/danack/RfcCodex'),
             createDefaultEditInfo(),
             $this->getContentLinks(),
-            new PrevNextLinks(null, null),
+            $this->getPrevNextLinks($name),
             $contents,
             new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
             $breadcrumbs = new Breadcrumbs(new Breadcrumb($name, $name))

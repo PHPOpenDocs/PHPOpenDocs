@@ -6,7 +6,7 @@
 
 .opendocs_header {
   grid-area: hd;
-  padding-left: 18px;
+  padding-left: 24px;
   padding-top: 8px;
   padding-bottom: 8px;
 }
@@ -15,6 +15,10 @@
   grid-area: breadcrumbs;
   padding: 18px;
 }
+
+//.opendocs_breadcrumbs:empty {
+//  display: none;
+//}
 
 .opendocs_prev_next {
   grid-area: prev_next;
@@ -46,12 +50,25 @@
   grid-template-areas:
         "hd hd hd hd   hd   hd   hd   hd   hd"
         "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next "
-        "main main main main main main main content_links content_links "
+        "main main main main main main content_links content_links content_links "
         "ft ft ft ft   ft   ft   ft   ft   ft";
   flex-direction: column;
   align-items: stretch;
 }
 
+@media (max-width: 1200px) {
+  .opendocs_wrapper {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-areas:
+        "hd hd hd hd   hd   hd   hd   hd   hd"
+        "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next "
+        "main main main main main main main content_links content_links "
+        "ft ft ft ft   ft   ft   ft   ft   ft";
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
 
 @media (max-width: 900px) {
   .opendocs_wrapper {

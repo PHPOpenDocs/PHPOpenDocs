@@ -40,6 +40,10 @@
     }
   }
 
+  li:not(:first-child) div {
+    margin-top: 16px;
+  }
+
   .opendocs_content_links_level_1 {
   }
 

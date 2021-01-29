@@ -11,7 +11,8 @@
   padding-bottom: 8px;
 
   .opendocs_prev_next_container {
-    float: right;
+    display: flex;
+    justify-content: space-between;
   }
 
   .opendocs_prev {
