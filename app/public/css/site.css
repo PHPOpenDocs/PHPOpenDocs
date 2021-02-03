@@ -392,10 +392,6 @@ table tr:nth-child(even) {
 .verbs_table td:first-child {
   padding-left: 4px;
 }
-.nouns_table td:first-child,
-.verbs_table td:first-child {
-  font-weight: bolder;
-}
 .nouns_table th:last-child,
 .nouns_table td:last-child,
 .verbs_table th:last-child,
@@ -404,6 +400,7 @@ table tr:nth-child(even) {
 }
 .nouns_table a.anchor,
 .verbs_table a.anchor {
+  font-weight: bolder;
   text-decoration: none;
   color: var(--content_panel_text_color);
 }
@@ -413,13 +410,35 @@ table tr:nth-child(even) {
 }
 .nouns_table a.anchor::after,
 .verbs_table a.anchor::after {
-  content: " 🔗";
+  content: " 🔗";
   font-size: 0.75em;
   color: transparent;
 }
 .nouns_table a.anchor:hover::after,
 .verbs_table a.anchor:hover::after {
   color: inherit;
+}
+
+.nouns_see_also_wide_display,
+.verbs_see_also_wide_display {
+  display: inherit;
+}
+
+.nouns_see_also_wide_hide,
+.verbs_see_also_wide_hide {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .nouns_see_also_wide_display,
+.verbs_see_also_wide_display {
+    display: none;
+  }
+
+  .nouns_see_also_wide_hide,
+.verbs_see_also_wide_hide {
+    display: initial;
+  }
 }
 
 /*# sourceMappingURL=site.css.map */

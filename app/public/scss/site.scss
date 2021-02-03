@@ -26,7 +26,9 @@
   }
 
   td:first-child {
-    font-weight: bolder;
+    //display: flex;
+    //flex-direction: column;
+    //align-content: stretch;
   }
 
   th:last-child,
@@ -35,6 +37,7 @@
   }
 
   a.anchor {
+    font-weight: bolder;
     text-decoration: none;
     color: var(--content_panel_text_color);
   }
@@ -44,12 +47,37 @@
   }
 
   a.anchor::after {
-    content: " 🔗";
+    // \00a0 = nbsp
+    content: "\00a0🔗";
     font-size: 0.75em;
     color: transparent;
   }
 
   a.anchor:hover::after {
     color: inherit;
+  }
+}
+
+.nouns_see_also_wide_display,
+.verbs_see_also_wide_display {
+  display: inherit;
+}
+
+.nouns_see_also_wide_hide,
+.verbs_see_also_wide_hide {
+  display: none;
+
+}
+
+
+@media (max-width: 1200px) {
+  .nouns_see_also_wide_display,
+  .verbs_see_also_wide_display {
+    display: none;
+  }
+
+  .nouns_see_also_wide_hide,
+  .verbs_see_also_wide_hide {
+    display: initial;
   }
 }

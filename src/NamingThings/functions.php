@@ -108,6 +108,21 @@ function getVerbSeeAlsoLinks($alsos): string
     return implode(',', $links);
 }
 
+
+function getVerbSeeAlsoLinksNarrow($alsos): string
+{
+    if (count($alsos) === 0) {
+        return '';
+    }
+    $links = [];
+    foreach ($alsos as $also) {
+        $links[] = verb_link($also);
+    }
+
+    return "See also " . implode(',', $links);
+}
+
+
 /**
  * @param Verb[] $verbs
  * @return string
@@ -129,9 +144,9 @@ function renderVerbs(array $verbs): string
 <table class='verbs_table'>
   <thead>
     <tr>
-      <th>Name</th>
+      <th >Name</th>
       <th>Description</th>
-      <th style="min-width: 100px">See also</th>    
+      <th style="min-width: 100px" class="verbs_see_also_wide_display">See also</th>    
     </tr>  
   </thead>
 HTML;
@@ -141,22 +156,30 @@ HTML;
     $verb_template = <<< HTML
 <tr>
   <td>
-    <a class='anchor' href="#:attr_verb_name">:html_verb_name</a> 
+    <div>
+      <a class='anchor' href="#:attr_verb_name">:html_verb_name</a>
+    </div>
+    
+    <div class="verbs_see_also_wide_hide">
+      :raw_see_also_narrow
+    </div>
   </td>
   <td>
     :raw_description
   </td>
-  <td>
+  <td class="verbs_see_also_wide_display">
     :raw_see_also
   </td>
 </tr>
 HTML;
+
 
     foreach ($verbs as $verb) {
         $params = [
             ':attr_verb_name' => $verb->getName(),
             ':html_verb_name' => $verb->getName(),
             ':raw_description' => $verb->getDescription(),
+            ':raw_see_also_narrow' => getVerbSeeAlsoLinksNarrow($verb->getAlso()),
             ':raw_see_also' => getVerbSeeAlsoLinks($verb->getAlso()) //implode(',', $verb->getAlso())
         ];
 
