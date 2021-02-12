@@ -203,7 +203,12 @@ function createSectionList(): \OpenDocs\SectionList
         new \NamingThings\NamingThingsSectionInfo
     );
 
-
+    $sections[] = new \OpenDocs\Section(
+        '/work',
+        'Work',
+        'Distributing the work load required to support PHP',
+        new \Work\WorkSectionInfo
+    );
 
 //    $sections[] = new \OpenDocs\Section(
 //        '/internals',

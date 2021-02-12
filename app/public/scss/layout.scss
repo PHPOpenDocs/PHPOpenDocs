@@ -28,7 +28,11 @@
 
 .opendocs_content {
   grid-area: main;
-  padding: 24px;
+  //padding: 24px;
+
+  padding: var(--page_padding_left);
+  //40px
+
   flex-shrink: 1;
   flex-grow: 1;
 }

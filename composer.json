@@ -48,10 +48,12 @@
             "OpenDocs\\": "src/",
             "PHPFunding\\": "src/",
             "PhpOpenDocs\\": "src/",
-            "RfcCodexOpenDocs\\": "src/"
+            "RfcCodexOpenDocs\\": "src/",
+            "Work\\": "src/"
         },
         "files": [
-            "src/NamingThings/functions.php"
+            "src/NamingThings/functions.php",
+            "src/Work/functions.php"
         ]
     },
     "autoload-dev": {

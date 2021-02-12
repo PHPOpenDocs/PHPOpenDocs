@@ -57,6 +57,23 @@
     --table_row_border_hover_color: rgba(32, 32, 32, 0.333);
   }
 }
+:root {
+  --page_padding_left: 24px;
+  --page_padding_right: 24px;
+}
+@media (max-width: 1200px) {
+  :root {
+    --page_padding_left: 12px;
+    --page_padding_right: 12px;
+  }
+}
+@media (max-width: 640px) {
+  :root {
+    --page_padding_left: 2px;
+    --page_padding_right: 2px;
+  }
+}
+
 .opendocs_wrapper {
   max-width: 1920px;
   margin: 0 auto;
@@ -82,7 +99,7 @@
 
 .opendocs_content {
   grid-area: main;
-  padding: 24px;
+  padding: var(--page_padding_left);
   flex-shrink: 1;
   flex-grow: 1;
 }
@@ -376,6 +393,11 @@ table th, table td {
 }
 table tr:nth-child(even) {
   background: rgba(230, 230, 230, 0.5);
+}
+
+.widget_php_bugs_comments {
+  border: 1px solid #444;
+  padding: 8px;
 }
 
 .nouns_table th,

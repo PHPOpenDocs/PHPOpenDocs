@@ -11,14 +11,14 @@ services:
       - .:/var/app
   npm:
     build: containers/npm
-    ports:
-      - 8888:8888
+  #  ports:
+  #    - 8888:8888
     volumes:
       - .:/var/app
   npm_dev_build:
     build: containers/npm_dev_build
-    ports:
-      - 8888:8888
+  #  ports:
+  #    - 8888:8888
     volumes:
       - .:/var/app
   php_fpm:

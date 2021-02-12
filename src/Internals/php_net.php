@@ -11,6 +11,8 @@ declare(strict_types = 1);
 // Gitflow
 //https://wiki.php.net/vcs/gitworkflow
 
+// Generics questions.
+// https://github.com/PHPGenerics/php-generics-rfc/issues
 
 // PHP Community Synergy Initiative @dr4goonis and I plan the next phase and we need you!
 //https://twitter.com/christophrumpel/status/1314570610320855043

@@ -1,5 +1,7 @@
 
 @import "colors.scss";
+@import "variables.scss";
+
 @import "layout.scss";
 @import "breadcrumbs.scss";
 @import "content.scss";
@@ -8,7 +10,7 @@
 @import "header.scss";
 @import "prev_next.scss";
 @import "basic.scss";
-
+@import "comments_panel.scss";
 
 .nouns_table,
 .verbs_table {

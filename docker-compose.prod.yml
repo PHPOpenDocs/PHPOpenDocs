@@ -18,6 +18,9 @@ services:
     volumes:
       - .:/var/app
     entrypoint: ["bash", "/var/app/containers/npm/compile_sass.sh"]
+
+#    NODE_ENV === 'production'
+    
 networks:
   proxy:
     external: true

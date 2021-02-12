@@ -278,6 +278,7 @@ function createPageHtml(
 
     $params = [
         ':raw_site_css_link' => '/css/site.css?time=' . time(),
+        ':raw_site_js_link' => '/js/app.bundle.js?time=' . time(),
         ':html_page_title' => $pageTitle,
         ':raw_top_header' => createPageHeaderHtml($headerLinks),
         ':raw_breadcrumbs' => createBreadcrumbHtml($section, $page->getBreadcrumbs()),

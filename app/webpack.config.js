@@ -25,7 +25,7 @@ module.exports = {
     devtool: 'source-map',
     entry: {
         app: [
-            './tsx/bootstrap.tsx',
+            './public/tsx/bootstrap.tsx',
         ]
         // ,
         // vendor: [

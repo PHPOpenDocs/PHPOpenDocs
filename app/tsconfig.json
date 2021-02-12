@@ -12,7 +12,7 @@
     "target": "ES6"
   },
   "include": [
-    "./tsx/**/**/*.tsx",
-    "./tsx/**/**/*.ts"
+    "./public/tsx/**/**/*.tsx",
+    "./public/tsx/**/**/*.ts"
   ]
 }
