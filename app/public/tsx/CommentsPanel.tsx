@@ -47,7 +47,7 @@ export class CommentsPanel extends Component<CommentsPanelProps, CommentsPanelSt
     // timeout:number = 250; // Initial timeout duration as a class variable
 
     // How often to check for new comments in seconds
-    refresh_rate:number = 10;
+    refresh_rate:number = 60;
 
     // Store the callback so it can be cancelled on manual refresh
     fetchMaxCommentCallback:NodeJS.Timeout = null;
