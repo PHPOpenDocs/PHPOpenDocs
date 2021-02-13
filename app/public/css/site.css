@@ -74,6 +74,23 @@
   }
 }
 
+:root {
+  --page_padding_left: 24px;
+  --page_padding_right: 24px;
+}
+@media (max-width: 1200px) {
+  :root {
+    --page_padding_left: 12px;
+    --page_padding_right: 12px;
+  }
+}
+@media (max-width: 640px) {
+  :root {
+    --page_padding_left: 2px;
+    --page_padding_right: 2px;
+  }
+}
+
 .opendocs_wrapper {
   max-width: 1920px;
   margin: 0 auto;
@@ -81,14 +98,14 @@
 
 .opendocs_header {
   grid-area: hd;
-  padding-left: 24px;
+  padding: var(--page_padding_left);
   padding-top: 8px;
   padding-bottom: 8px;
 }
 
 .opendocs_breadcrumbs {
   grid-area: breadcrumbs;
-  padding: 18px;
+  padding: var(--page_padding_left);
 }
 
 .opendocs_prev_next {
@@ -138,7 +155,7 @@
     align-items: stretch;
   }
 }
-@media (max-width: 640px) {
+@media (max-width: 900px) {
   .opendocs_wrapper {
     grid-template-areas: "hd hd hd hd   hd   hd   hd   hd   hd" "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs" "prev_next prev_next prev_next prev_next prev_next prev_next prev_next prev_next prev_next" "main main main main main main main main main" "content_links content_links content_links content_links content_links content_links content_links content_links content_links" "np np np np   np   np   np   np   np" "ft ft ft ft   ft   ft   ft   ft   ft";
     flex-direction: column;
@@ -158,21 +175,28 @@
   margin: 0px;
 }
 .opendocs_breadcrumbs ul li + li:before {
-  content: "›";
+  content: "››";
 }
 .opendocs_breadcrumbs ul li {
   list-style-type: none;
   float: left;
   font-weight: 400;
+  padding-left: 12px;
 }
 .opendocs_breadcrumbs ul li a {
   text-decoration: none;
-  padding: 12px;
   color: var(--breadcrumbs_link_color);
   border: 0;
+  margin-left: 12px;
 }
 .opendocs_breadcrumbs ul li a:hover, .opendocs_breadcrumbs ul li a:focus {
   color: var(--breadcrumbs_link_hover_color);
+}
+.opendocs_breadcrumbs ul li:first-child {
+  padding-left: 0px;
+}
+.opendocs_breadcrumbs ul li:first-child a {
+  margin-left: 0px;
 }
 
 .opendocs_content {
@@ -267,26 +291,55 @@
   color: var(--footer_link_hover_color);
 }
 
+:root {
+  --page_padding_left: 24px;
+  --page_padding_right: 24px;
+}
+@media (max-width: 1200px) {
+  :root {
+    --page_padding_left: 12px;
+    --page_padding_right: 12px;
+  }
+}
+@media (max-width: 640px) {
+  :root {
+    --page_padding_left: 2px;
+    --page_padding_right: 2px;
+  }
+}
+
 .opendocs_header {
   background-color: var(--header_panel_background);
   color: var(--header_panel_text_color);
   font-weight: bold;
   font-size: 36px;
-  font-size: 2rem;
+}
+@media (max-width: 1200px) {
+  .opendocs_header {
+    font-size: 30px;
+  }
+}
+@media (max-width: 900px) {
+  .opendocs_header {
+    font-size: 24px;
+  }
+}
+@media (max-width: 640px) {
+  .opendocs_header {
+    font-size: 18px;
+  }
 }
 .opendocs_header ul {
-  padding-inline-start: 4px;
+  padding-inline-start: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
-}
-.opendocs_header ul li:first-child {
-  padding-left: 0px;
+  padding: 0px;
 }
 .opendocs_header ul li {
   list-style-type: none;
   float: left;
   font-weight: 400;
-  padding: 12px;
+  padding-left: 12px;
 }
 .opendocs_header ul li a {
   text-decoration: none;
@@ -295,6 +348,9 @@
 }
 .opendocs_header ul li a:hover, .opendocs_header ul li a:focus {
   color: var(--header_link_hover_color);
+}
+.opendocs_header ul li:first-child {
+  padding-left: 0px;
 }
 
 .opendocs_prev_next {
@@ -323,10 +379,6 @@
 html {
   scroll-behavior: smooth;
   background-color: var(--background_color);
-}
-
-h1, h2, h3, h4, h5, h6, p {
-  padding-left: 4px;
 }
 
 h1 + h2 {

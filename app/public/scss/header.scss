@@ -1,4 +1,6 @@
 
+@import "variables.scss";
+
 .opendocs_header {
 
   background-color: var(--header_panel_background);
@@ -6,34 +8,47 @@
 
   font-weight: bold;
   font-size: 36px;
-  font-size: 2rem;
+
+  @media (max-width: $screen_break_large) {
+    font-size: 30px;
+  }
+
+  @media (max-width: $screen_break_medium) {
+    font-size: 24px;
+  }
+
+  @media (max-width: $screen_break_small) {
+    font-size: 18px;
+  }
 
   ul {
-    padding-inline-start: 4px;
-    //padding: 0px;
+    padding-inline-start: 0px;
     margin-top: 0px;
     margin-bottom: 0px;
-
-    li:first-child {
-      padding-left: 0px;
-    }
+    padding: 0px;
 
     li {
       list-style-type: none;
       float: left;
       font-weight: 400;
-      padding: 12px;
+      //padding: 12px;
+      padding-left: 12px;
 
       a {
         text-decoration: none;
         color: var(--header_link_color);
         border:0;
-        //text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+        //text-shadow: 5 -1px 0 rgba(0, 0, 0, 0.25);
       }
 
       a:hover, a:focus {
         color: var(--header_link_hover_color);
       }
     }
+
+    li:first-child {
+      padding-left: 0px;
+    }
+
   }
 }

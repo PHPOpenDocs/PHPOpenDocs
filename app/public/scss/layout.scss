@@ -1,4 +1,7 @@
 
+@import "variables.scss";
+
+
 .opendocs_wrapper {
   max-width: 1920px;
   margin: 0 auto;
@@ -6,14 +9,16 @@
 
 .opendocs_header {
   grid-area: hd;
-  padding-left: 24px;
+  //padding-left: 24px;
+  padding: var(--page_padding_left);
   padding-top: 8px;
   padding-bottom: 8px;
 }
 
 .opendocs_breadcrumbs {
   grid-area: breadcrumbs;
-  padding: 18px;
+  //padding: 18px;
+  padding: var(--page_padding_left);
 }
 
 //.opendocs_breadcrumbs:empty {
@@ -31,14 +36,12 @@
   //padding: 24px;
 
   padding: var(--page_padding_left);
-  //40px
 
   flex-shrink: 1;
   flex-grow: 1;
 }
 
 .opendocs_content_links {
-  //max-width: 320px;
   grid-area: content_links;
   padding: 5px;
 }
@@ -48,6 +51,7 @@
   flex-shrink: 0;
 }
 
+// This is default, for screens larger than $screen_break_large
 .opendocs_wrapper {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
@@ -60,7 +64,7 @@
   align-items: stretch;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: $screen_break_large) {
   .opendocs_wrapper {
     display: grid;
     grid-template-columns: repeat(9, 1fr);
@@ -74,7 +78,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: $screen_break_medium) {
   .opendocs_wrapper {
     grid-template-areas:
             "hd hd hd hd   hd   hd   hd   hd   hd"
@@ -90,7 +94,8 @@
 }
 
 
-@media (max-width: 640px) {
+
+@media (max-width: $screen_break_medium) {
   .opendocs_wrapper {
     grid-template-areas:
             "hd hd hd hd   hd   hd   hd   hd   hd"
