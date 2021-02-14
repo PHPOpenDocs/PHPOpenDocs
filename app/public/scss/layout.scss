@@ -27,8 +27,13 @@
 
 .opendocs_prev_next {
   grid-area: prev_next;
-  padding: 18px;
+  //padding: 18px;
   flex-grow: 1;
+
+  @media (max-width: 640px) {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
 }
 
 .opendocs_content {
@@ -70,7 +75,7 @@
     grid-template-columns: repeat(9, 1fr);
     grid-template-areas:
         "hd hd hd hd   hd   hd   hd   hd   hd"
-        "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next "
+        "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next prev_next "
         "main main main main main main main content_links content_links "
         "ft ft ft ft   ft   ft   ft   ft   ft";
     flex-direction: column;
@@ -95,7 +100,7 @@
 
 
 
-@media (max-width: $screen_break_medium) {
+@media (max-width: $screen_break_small) {
   .opendocs_wrapper {
     grid-template-areas:
             "hd hd hd hd   hd   hd   hd   hd   hd"

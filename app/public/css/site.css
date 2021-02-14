@@ -110,8 +110,13 @@
 
 .opendocs_prev_next {
   grid-area: prev_next;
-  padding: 18px;
   flex-grow: 1;
+}
+@media (max-width: 640px) {
+  .opendocs_prev_next {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
 }
 
 .opendocs_content {
@@ -143,7 +148,7 @@
   .opendocs_wrapper {
     display: grid;
     grid-template-columns: repeat(9, 1fr);
-    grid-template-areas: "hd hd hd hd   hd   hd   hd   hd   hd" "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next " "main main main main main main main content_links content_links " "ft ft ft ft   ft   ft   ft   ft   ft";
+    grid-template-areas: "hd hd hd hd   hd   hd   hd   hd   hd" "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs prev_next prev_next prev_next prev_next " "main main main main main main main content_links content_links " "ft ft ft ft   ft   ft   ft   ft   ft";
     flex-direction: column;
     align-items: stretch;
   }
@@ -155,7 +160,7 @@
     align-items: stretch;
   }
 }
-@media (max-width: 900px) {
+@media (max-width: 640px) {
   .opendocs_wrapper {
     grid-template-areas: "hd hd hd hd   hd   hd   hd   hd   hd" "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs" "prev_next prev_next prev_next prev_next prev_next prev_next prev_next prev_next prev_next" "main main main main main main main main main" "content_links content_links content_links content_links content_links content_links content_links content_links content_links" "np np np np   np   np   np   np   np" "ft ft ft ft   ft   ft   ft   ft   ft";
     flex-direction: column;
@@ -368,7 +373,6 @@
 }
 .opendocs_prev_next a {
   text-decoration: none;
-  padding: 12px;
   color: var(--prev_next_link_color);
   border: 0;
 }
@@ -451,6 +455,9 @@ table tr:nth-child(even) {
   border: 1px solid #444;
   padding: 8px;
 }
+.widget_php_bugs_comments .error {
+  color: #dd4b4b;
+}
 
 .nouns_table th,
 .nouns_table td,
@@ -491,11 +498,6 @@ table tr:nth-child(even) {
 .nouns_table a.anchor:hover::after,
 .verbs_table a.anchor:hover::after {
   color: inherit;
-}
-
-.nouns_see_also_wide_display,
-.verbs_see_also_wide_display {
-  display: inherit;
 }
 
 .nouns_see_also_wide_hide,
