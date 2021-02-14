@@ -1,6 +1,5 @@
 import {h, Component} from "preact";
 
-
 let api_urls = {
     production: 'https://bugs.php.net',
     development: 'http://127.0.0.1:8080'
@@ -26,16 +25,19 @@ interface Comment {
 
 interface CommentsPanelState {
     max_comment_id: number|null;
-    comments: Array<Comment>
+    comments: Array<Comment>;
+    last_error: any;
 }
 
 function getDefaultState(/*initialControlParams: object*/): CommentsPanelState {
     return {
         max_comment_id: null,
-        comments: []
+        comments: [],
+        last_error: null
     };
 }
 
+// Example data
 // http://127.0.0.1/api.php?type=comment_details&comment_id=1
 // {"comment_id":1,"error":"bug report is private", "bug_id": 3}
 // {"comment_id":1,"email":"asda.. at bar dot com", "bug_id": 3}
@@ -44,10 +46,8 @@ function getDefaultState(/*initialControlParams: object*/): CommentsPanelState {
 
 export class CommentsPanel extends Component<CommentsPanelProps, CommentsPanelState> {
 
-    // timeout:number = 250; // Initial timeout duration as a class variable
-
     // How often to check for new comments in seconds
-    refresh_rate:number = 60;
+    refresh_rate:number = 20;
 
     // Store the callback so it can be cancelled on manual refresh
     fetchMaxCommentCallback:NodeJS.Timeout = null;
@@ -90,16 +90,19 @@ export class CommentsPanel extends Component<CommentsPanelProps, CommentsPanelSt
         this.maxLoadedCommentId = this.maxCommentId;
     }
 
+    processFetchCommentError(error: any) {
+        console.log('processFetchCommentError:', error);
+        this.setState({last_error: error})
+    }
+
     fetchComment(commentId: number) {
-        console.log("Need to load comment " + commentId);
-
+        console.log("Need to fetch comment " + commentId);
         let url = api_url + '/api.php?type=comment_details&comment_id=' + commentId;
-
         fetch(url)
             .then(response => response.json())
             .then(data => this.processCommentData(commentId, data))
-            .catch(function(error) {                        // catch
-                console.log('Request failed', error);
+            .catch((error) => {
+                this.setState({last_error: "Failed to fetchComment " + commentId});
             });
     }
 
@@ -124,12 +127,11 @@ export class CommentsPanel extends Component<CommentsPanelProps, CommentsPanelSt
     fetchMaxCommentData() {
         let url = api_url + '/api.php?type=max_comment_id';
         fetch(url)
-            .then(response => response.json())
-            .then(data => this.processMaxCommentData(data))
-            .catch(function(error) {                        // catch
-                console.log('Request failed', error);
-            });
-
+          .then(response => response.json())
+          .then(data => this.processMaxCommentData(data))
+          .catch((error) => {
+            this.setState({last_error: "Failed to fetchMaxCommentData"});
+          });
 
         //call check function after timeout
         // @ts-ignore: Timeout blah blah
@@ -137,7 +139,7 @@ export class CommentsPanel extends Component<CommentsPanelProps, CommentsPanelSt
             () => this.fetchMaxCommentData(),
             this.refresh_rate * 1000
         );
-        console.log("Should refresh");
+        // console.log("Should refresh");
     }
 
     componentDidMount() {
@@ -189,10 +191,18 @@ export class CommentsPanel extends Component<CommentsPanelProps, CommentsPanelSt
 
     render(props: CommentsPanelProps, state: CommentsPanelState) {
         let comments_block = this.renderComments();
+        let error_block = <span>&nbsp;</span>;
+        if (this.state.last_error != null) {
+            error_block = <div class="error">Last error: {this.state.last_error}</div>
+        }
+
         return  <div class='comments_panel_react'>
-            <span>
+            <div>
                 {comments_block}
-            </span>
+            </div>
+
+            {error_block}
+
         </div>;
     }
 }

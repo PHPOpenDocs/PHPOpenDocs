@@ -71,9 +71,9 @@ HTML;
     $verb_template = <<< HTML
 <tr>
   <td>
-    <a class='anchor' href="#:attr_noun_name">:html_noun_name</a> 
+    <a class='anchor' href="#:attr_noun_name" id=":attr_noun_name">:html_noun_name</a>
   </td>
-  <td>
+  <td class="nouns_see_also_wide_penultimate_cell">
     :raw_description
   </td>
   <td>
@@ -157,14 +157,14 @@ HTML;
 <tr>
   <td>
     <div>
-      <a class='anchor' href="#:attr_verb_name">:html_verb_name</a>
+      <a class='anchor' href="#:attr_verb_name" id=":attr_verb_name">:html_verb_name</a>
     </div>
     
     <div class="verbs_see_also_wide_hide">
       :raw_see_also_narrow
     </div>
   </td>
-  <td>
+  <td class="verbs_see_also_wide_penultimate_cell">
     :raw_description
   </td>
   <td class="verbs_see_also_wide_display">
@@ -172,6 +172,8 @@ HTML;
   </td>
 </tr>
 HTML;
+
+
 
 
     foreach ($verbs as $verb) {

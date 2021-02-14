@@ -515,6 +515,11 @@ table tr:nth-child(even) {
 .verbs_see_also_wide_hide {
     display: initial;
   }
+
+  .nouns_see_also_wide_penultimate_cell:hover,
+.verbs_see_also_wide_penultimate_cell:hover {
+    border-right: 1px solid var(--table_row_border_hover_color);
+  }
 }
 
 /*# sourceMappingURL=site.css.map */

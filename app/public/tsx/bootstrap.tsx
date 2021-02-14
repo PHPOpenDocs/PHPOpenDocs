@@ -2,12 +2,10 @@ import { h, render } from "preact";
 import { MotionsPanel } from "./MotionsPanel";
 import { CommentsPanel } from "./CommentsPanel";
 
-
 import initByClass from "widgety";
 import type { WidgetClassBinding } from "widgety";
 
 import { startMessageProcessing } from "danack-message";
-
 
 let panels: WidgetClassBinding[] = [
     {
@@ -18,9 +16,6 @@ let panels: WidgetClassBinding[] = [
         class: 'widget_php_bugs_comments',
         component: CommentsPanel
     },
-
-
-
 ];
 
 initByClass(panels, h, render);
