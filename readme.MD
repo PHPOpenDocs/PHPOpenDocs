@@ -35,3 +35,17 @@ The site should be up at:
 
 Just push to main and it should appear quite soon...
 
+
+
+docker-compose exec php_fpm php vendor/bin/phpunit -c test/phpunit.xml
+
+
+docker-compose exec php_fpm_debug php vendor/bin/phpunit -c test/phpunit.xml
+
+docker rm $(docker ps -a -q)
+docker rmi $(docker images -q)
+docker network rm $(docker network ls -q)
+
+docker kill $(docker ps -q)
+
+docker exec -it example_web_admin_1 bash

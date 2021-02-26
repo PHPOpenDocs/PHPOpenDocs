@@ -17,6 +17,9 @@ parameters:
 #    - src/functions.php
 #    - src/site_html.php
 
+includes:
+    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
+
   excludes_analyse:
     - *injectionParams/*
     - *PhpOpenDocs/InjectionParams.php

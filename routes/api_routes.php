@@ -15,29 +15,32 @@ namespace ASVoting\Route;
 return [
 //    ['/', 'GET', 'ASVoting\ApiController\Vote::index'],
 
-    ['/', 'GET', 'ASVoting\ApiController\Motions::getProposedMotions'],
+    ['/', 'GET', 'PhpOpenDocs\ApiController\Index::getRouteList'],
 
-    ['/motions', 'GET', 'ASVoting\ApiController\Motions::getProposedMotions'],
-    [
-        '/motions_voting',
-        'GET',
-        'ASVoting\ApiController\Motions::getMotionsBeingVotedOn'
-    ],
+    ['/PhpBugsMaxComment', 'GET', '\Work\ApiController\Bugs::getPhpBugsMaxComment'],
 
 
-    // TIFF
-//    ['/motions/vote', 'POST', 'ASVoting\ApiController\Vote::postVote'],
+
+
+//    ['/motions', 'GET', 'ASVoting\ApiController\Motions::getProposedMotions'],
+//    [
+//        '/motions_voting',
+//        'GET',
+//        'ASVoting\ApiController\Motions::getMotionsBeingVotedOn'
+//    ],
+
+
 
 
 //    ['/csp/test', 'GET', 'Osf\CommonController\ContentSecurityPolicy::getTestPage'],
 //    ['/csp', 'POST', 'Osf\CommonController\ContentSecurityPolicy::postReport'],
 //  ['/projects/{project_name:.+}', 'GET', '\Osf\AppController\Projects::getProject'],
 
-    ['/test/caught_exception', 'GET', 'ASVoting\ApiController\Debug::testCaughtException'],
-    ['/test/uncaught_exception', 'GET', 'ASVoting\ApiController\Debug::testUncaughtException'],
-    ['/test/xdebug', 'GET', 'ASVoting\ApiController\Debug::testXdebugWorking'],
+    ['/test/caught_exception', 'GET', 'PhpOpenDocs\ApiController\Debug::testCaughtException'],
+    ['/test/uncaught_exception', 'GET', 'PhpOpenDocs\ApiController\Debug::testUncaughtException'],
+    ['/test/xdebug', 'GET', 'PhpOpenDocs\ApiController\Debug::testXdebugWorking'],
 
 
-    ['/{any:.*}', 'GET', 'Osf\ApiController\HealthCheck::get'],
+    ['/{any:.*}', 'GET', 'PhpOpenDocs\ApiController\HealthCheck::get'],
 ];
 

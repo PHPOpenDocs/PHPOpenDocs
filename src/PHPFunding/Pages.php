@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace PHPFunding;
 
+use OpenDocs\Breadcrumbs;
 use OpenDocs\ContentLinks;
 use OpenDocs\FooterInfo;
 use OpenDocs\Page;
@@ -117,6 +118,7 @@ HTML;
             new PrevNextLinks(null, null),
             $contents,
             createDefaultCopyrightInfo(),
+            new Breadcrumbs()
         );
     }
 }

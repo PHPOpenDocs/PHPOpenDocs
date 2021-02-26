@@ -159,6 +159,21 @@ function createSlimContainer(): \Slim\Container
     return $container;
 }
 
+/**
+ * @return Redis
+ * @throws Exception
+ */
+function createRedis()
+{
+    $redisInfo = getConfig(Config::EXAMPLE_REDIS_INFO);
+
+    $redis = new Redis();
+    $redis->connect($redisInfo['host'], $redisInfo['port']);
+    $redis->auth($redisInfo['password']);
+    $redis->ping();
+
+    return $redis;
+}
 
 function createHtmlAppErrorHandler(\Auryn\Injector $injector) : \PhpOpenDocs\AppErrorHandler\AppErrorHandler
 {
@@ -176,6 +191,55 @@ function createJsonAppErrorHandler(\Auryn\Injector $injector) : \PhpOpenDocs\App
     }
 
     return $injector->make(\PhpOpenDocs\AppErrorHandler\JsonErrorHandlerForLocalDev::class);
+}
+
+/**
+ * Creates the ExceptionMiddleware that converts all known app exceptions
+ * to nicely formatted pages for the api
+ */
+function createExceptionMiddlewareForApi(\Auryn\Injector $injector)
+{
+    $exceptionHandlers = [
+        \Params\Exception\ValidationException::class => 'paramsValidationExceptionMapperApi',
+//        \ASVoting\Exception\DebuggingCaughtException::class => 'debuggingCaughtExceptionExceptionMapperForApi',
+        //        \ParseError::class => 'parseErrorMapper',
+//        \PDOException::class => 'pdoExceptionMapper',
+    ];
+
+    return new \SlimAuryn\ExceptionMiddleware(
+        $exceptionHandlers,
+        getResultMappers($injector)
+    );
+}
+
+function createSlimAppForApi(
+    Injector $injector,
+    \Slim\Container $container,
+    \PhpOpenDocs\AppErrorHandler\AppErrorHandler $appErrorHandler
+) {
+    // quality code.
+    $container['foundHandler'] = $injector->make(\SlimAuryn\SlimAurynInvokerFactory::class);
+
+    // TODO - this shouldn't be used in production.
+    $container['errorHandler'] = $appErrorHandler;
+
+    $container['phpErrorHandler'] = $appErrorHandler;
+//        function ($container) {
+//        return $container['errorHandler'];
+//    };
+
+    $app = new \Slim\App($container);
+
+    $app->add($injector->make(\SlimAuryn\ExceptionMiddleware::class));
+    $app->add($injector->make(\PhpOpenDocs\Middleware\MemoryCheckMiddleware::class));
+    $app->add($injector->make(\PhpOpenDocs\Middleware\AllowAllCors::class));
+
+    return $app;
+}
+
+function createRoutesForApi()
+{
+    return new \SlimAuryn\Routes(__DIR__ . '/../routes/api_routes.php');
 }
 
 function createSectionList(): \OpenDocs\SectionList

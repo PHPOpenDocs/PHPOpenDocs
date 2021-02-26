@@ -52,6 +52,29 @@ CONFIG;
 }
 
 
+$apiNormalBlock = createServerBlock(
+    $portStrings   = ['80', '8000'],
+    $domains = [
+        '*.api.phpopendocs.com',
+        'api.phpopendocs.com'
+    ],
+    $root = '/var/app/api/public',
+    $indexFilename = 'index.php',
+    $phpBackend = 'php_fpm:9000',
+    'api normal block'
+);
+
+$apiDebugBlock = createServerBlock(
+    $portStrings   = ['8001'],
+    $domains = [
+        '*.api.phpopendocs.com',
+        'api.phpopendocs.com'
+    ],
+    $root = '/var/app/api/public',
+    $indexFilename = 'index.php',
+    $phpBackend = 'php_fpm_debug:9000',
+    'api debug block'
+);
 
 
 $appNormalBlock = createServerBlock(
@@ -59,8 +82,6 @@ $appNormalBlock = createServerBlock(
     $domains = [
         '*.phpopendocs.com',
         'phpopendocs.com',
-        '*.phpopendocs.com',
-        'phpopendocs.com'
     ],
     $root = '/var/app/app/public',
     $indexFilename = 'index.php',
@@ -72,7 +93,7 @@ $appDebugBlock = createServerBlock(
     $portStrings   = ['8001'],
     $domains = [
         '*.phpopendocs.com',
-        'phpopendocs.com'
+        'phpopendocs.com',
     ],
     $root = '/var/app/app/public',
     $indexFilename = 'index.php',
@@ -126,6 +147,11 @@ log_format main '\$http_x_real_ip - \$remote_user [\$time_local] '
     gzip_proxied any;
     #Set what content types may be gzipped.
     gzip_types text/plain text/css application/json application/javascript application/x-javascript text/javascript text/xml application/xml application/rss+xml application/atom+xml application/rdf+xml;
+
+
+$apiNormalBlock
+
+$apiDebugBlock
 
 $appNormalBlock
 

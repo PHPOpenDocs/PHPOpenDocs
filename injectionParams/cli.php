@@ -9,7 +9,7 @@ if (function_exists('injectionParams') == false) {
     {
         // These classes will only be created once by the injector.
         $shares = [
-            \Doctrine\ORM\EntityManager::class,
+//            \Doctrine\ORM\EntityManager::class,
             \Redis::class,
 //            \Airbrake\Notifier::class
         ];
@@ -17,6 +17,10 @@ if (function_exists('injectionParams') == false) {
         // Alias interfaces (or classes) to the actual types that should be used
         // where they are required.
         $aliases = [
+            \PhpOpenDocs\Repo\PhpBugsFetcher\PhpBugsFetcher::class =>
+              \PhpOpenDocs\Repo\PhpBugsFetcher\CurlPhpBugsFetcher::class,
+            \PhpOpenDocs\Repo\PhpBugsStorage\PhpBugsStorage::class =>
+              \PhpOpenDocs\Repo\PhpBugsStorage\RedisPhpBugsStorage::class,
         ];
 
 //        $environment = getConfig(Config::OSF_ENVIRONMENT);
@@ -28,7 +32,7 @@ if (function_exists('injectionParams') == false) {
         // Delegate the creation of types to callables.
         $delegates = [
 //            \PDO::class => 'createPDO',
-//            \Redis::class => 'createRedis',
+            \Redis::class => 'createRedis',
 //            \Doctrine\ORM\EntityManager::class => 'createDoctrineEntityManager',
 
         ];

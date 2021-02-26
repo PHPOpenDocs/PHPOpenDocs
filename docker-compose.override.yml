@@ -17,9 +17,12 @@ services:
   php_fpm_debug:
     environment:
       - ENV_DESCRIPTION=default,local
-#  supervisord:
-#    ports:
-#      - "8081:8081"
+  redis:
+    ports:
+      - "6379:6379"
+  supervisord:
+    ports:
+      - "8002:8080"
   varnish:
     depends_on:
       - nginx
@@ -29,3 +32,5 @@ services:
       - "80:80"
     environment:
       - ENV_DESCRIPTION=default,local
+
+

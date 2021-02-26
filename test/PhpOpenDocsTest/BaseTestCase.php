@@ -2,9 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace PHPOpenDocsTest;
+namespace PhpOpenDocsTest;
 
 use PHPUnit\Framework\TestCase;
+use Auryn\Injector;
 
 /**
  * Class TestBase
@@ -16,10 +17,13 @@ class BaseTestCase extends TestCase
 {
     private $startLevel = null;
 
+    private Injector $injector;
+
     public function setup()
     {
         $this->startLevel = ob_get_level();
         ob_start();
+        $this->injector = createInjector();
     }
 
     public function teardown()
@@ -50,5 +54,15 @@ class BaseTestCase extends TestCase
         //Basically despite having:
         //<exclude>*/BaseTestCase.php</exclude>
         //in the phpunit.xml file it still thinks this file is a test class.
+    }
+
+    /**
+     * @template T of Foo
+     * @param class-string<T> $class
+     * @return T
+     */
+    public function make(string $class)
+    {
+        return $this->injector->make($class);
     }
 }

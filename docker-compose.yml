@@ -35,6 +35,7 @@ services:
     environment:
       - COMPOSER_CACHE_DIR=/var/app/var/cache/composer
       - COMPOSER_ALLOW_SUPERUSER=1
+      - PHP_IDE_CONFIG="serverName=PHP_OPENDOCS_DEBUG"
     depends_on:
       - php_fpm
     networks:
@@ -51,6 +52,19 @@ services:
       default_network:
         aliases:
           - internal.phpopendocs.com
+  redis:
+    image: redis:6.0.10
+    volumes:
+      - .:/var/app
+    command: ["redis-server", "/var/app/containers/redis/config/redis.conf"]
+    networks:
+      default_network:
+  supervisord:
+    build: containers/supervisord
+    depends_on:
+      - redis
+    volumes:
+      - .:/var/app
   varnish:
     build: containers/varnish
     environment:

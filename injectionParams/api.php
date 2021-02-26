@@ -7,8 +7,7 @@ function injectionParams() : InjectionParams
     // These classes will only be created once by the injector.
     $shares = [
         \Auryn\Injector::class,
-        \Doctrine\ORM\EntityManager::class,
-
+//        \Doctrine\ORM\EntityManager::class,
     ];
 
     // Alias interfaces (or classes) to the actual types that should be used
@@ -16,23 +15,20 @@ function injectionParams() : InjectionParams
     $aliases = [
         \VarMap\VarMap::class => \VarMap\Psr7VarMap::class,
 
+        \PhpOpenDocs\Repo\PhpBugsStorage\PhpBugsStorage::class =>
+            \PhpOpenDocs\Repo\PhpBugsStorage\RedisPhpBugsStorage::class,
    ];
 
     // Delegate the creation of types to callables.
     $delegates = [
-        \Psr\Log\LoggerInterface::class => 'createLogger',
-        \PDO::class => 'createPDO',
-        \Doctrine\ORM\EntityManager::class => 'createDoctrineEntityManager',
         \Redis::class => 'createRedis',
-
-
+        \PhpOpenDocs\Service\MemoryWarningCheck\MemoryWarningCheck::class => 'createMemoryWarningCheck',
         \SlimAuryn\ExceptionMiddleware::class => 'createExceptionMiddlewareForApi',
         \SlimAuryn\SlimAurynInvokerFactory::class => 'createSlimAurynInvokerFactory',
-
         \Slim\App::class => 'createSlimAppForApi',
         \SlimAuryn\Routes::class => 'createRoutesForApi',
 
-        \Osf\AppErrorHandler\AppErrorHandler::class =>
+        \PhpOpenDocs\AppErrorHandler\AppErrorHandler::class =>
 'createJsonAppErrorHandler',
     ];
 

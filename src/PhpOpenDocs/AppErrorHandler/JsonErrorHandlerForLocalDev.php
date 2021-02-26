@@ -23,7 +23,7 @@ class JsonErrorHandlerForLocalDev implements AppErrorHandler
 
             return $response->withStatus(500)
                 ->withHeader('Content-Type', 'application/json')
-                ->write(json_encode_safe($data));
+                ->write(json_encode_safe($data, JSON_PRETTY_PRINT));
         };
     }
 }

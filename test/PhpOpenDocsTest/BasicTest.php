@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace PHPOpenDocsTest;
+namespace PhpOpenDocsTest;
 
 use OpenDocs\ContentLinks;
 
