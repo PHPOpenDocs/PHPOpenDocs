@@ -39,4 +39,17 @@ class App
     // has been seeded with test data.
     const TEST_ADMIN_USERNAME = "admin@example.com";
     const TEST_ADMIN_PASSWORD = 'password12345';
+
+    public static function getAssetSuffix()
+    {
+        $forcesRefresh = Config::get(\PhpOpenDocs\Config::PHPOPENDOCS_ASSETS_FORCE_REFRESH);
+
+        if ($forcesRefresh) {
+            return '?time=' . time();
+        }
+
+        $sha = Config::get(\PhpOpenDocs\Config::PHPOPENDOCS_COMMIT_SHA);
+
+        return "?version=" . $sha;
+    }
 }

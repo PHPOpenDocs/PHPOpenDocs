@@ -13,14 +13,14 @@ services:
       - ENV_DESCRIPTION=default,prod
   npm_build:
     build: containers/npm
-    ports:
-      - 8888:8888
+    # we don't set as production, as that is for serving node requests, not building stuff.
+    #environment:
+    #  - NODE_ENV=production
+    entrypoint: ["bash", "/var/app/containers/npm/build_prod_assets.sh"]
     volumes:
       - .:/var/app
-    entrypoint: ["bash", "/var/app/containers/npm/compile_sass.sh"]
-
-#    NODE_ENV === 'production'
-    
 networks:
   proxy:
     external: true
+
+    entrypoint: ["php", "-d", "memory_limit=-1", "vendor/bin/phpunit"]

@@ -19,6 +19,14 @@ class Config
 
     const PHPOPENDOCS_ENVIRONMENT = ['phpopendocs', 'env'];
 
+    const PHPOPENDOCS_ASSETS_FORCE_REFRESH = ['phpopendocs', 'assets_force_refresh'];
+
+    const PHPOPENDOCS_COMMIT_SHA = ['phpopendocs', 'sha'];
+
+
+
+
+
 //    const OSF_ALLOWED_ACCESS_CIDRS = ['phpopendocs', 'allowed_access_cidrs'];
 
     // This is used for naming the server for external services. e.g.
@@ -31,7 +39,7 @@ class Config
      * @return string
      * @throws \Exception
      */
-    public static function get(array $index): string
+    public static function get(array $index)
     {
         return getConfig($index);
     }

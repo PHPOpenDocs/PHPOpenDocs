@@ -22,6 +22,11 @@ function getConfig(array $indexes)
     if ($options === null) {
         require __DIR__ . '/../config.php';
         require __DIR__ . '/../autoconf.php';
+
+        $staticConfigOptions = getStaticConfigOptions();
+        $generatedConfigOptions = getGeneratedConfigOptions();
+
+        $options = array_merge_recursive($staticConfigOptions, $generatedConfigOptions);
     }
 
     $data = $options;

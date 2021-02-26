@@ -20,7 +20,7 @@ use OpenDocs\HeaderLinks;
 use OpenDocs\CopyrightInfo;
 use OpenDocs\EditInfo;
 
-function fooasdoiasdoi(string $path, string $description)
+function createBreadcrumbPart(string $path, string $description)
 {
     $li_template = "<li><a href=':attr_link'>:html_description</a></li>";
     $params = [
@@ -40,11 +40,11 @@ function createBreadcrumbHtml(
 
     if ($section !== null) {
         $prefix  = $section->getPrefix();
-        $li_parts[] = fooasdoiasdoi($prefix, $section->getName());
+        $li_parts[] = createBreadcrumbPart($prefix, $section->getName());
     }
 
     foreach ($breadcrumbs->getBreadcrumbs() as $breadcrumb) {
-        $li_parts[] = fooasdoiasdoi(
+        $li_parts[] = createBreadcrumbPart(
             $prefix . $breadcrumb->getPath(),
             $breadcrumb->getDescription()
         );
@@ -276,9 +276,12 @@ function createPageHtml(
 
     $pageTitle = $page->getTitle() ?? "PHP OpenDocs";
 
+    $assetSuffix = \PhpOpenDocs\App::getAssetSuffix();
+
+
     $params = [
-        ':raw_site_css_link' => '/css/site.css?time=' . time(),
-        ':raw_site_js_link' => '/js/app.bundle.js?time=' . time(),
+        ':raw_site_css_link' => '/css/site.css' . $assetSuffix,
+        ':raw_site_js_link' => '/js/app.bundle.js' . $assetSuffix,
         ':html_page_title' => $pageTitle,
         ':raw_top_header' => createPageHeaderHtml($headerLinks),
         ':raw_breadcrumbs' => createBreadcrumbHtml($section, $page->getBreadcrumbs()),

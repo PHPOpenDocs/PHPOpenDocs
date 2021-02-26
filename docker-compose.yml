@@ -21,6 +21,7 @@ services:
   #    - 8888:8888
     volumes:
       - .:/var/app
+
   php_fpm:
     build: containers/php_fpm
     environment:

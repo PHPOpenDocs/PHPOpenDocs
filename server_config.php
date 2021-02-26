@@ -18,6 +18,8 @@ $default = [
 
     'twig.cache' => 'true',
     'twig.debug' => 'false',
+
+    'assets_force_refresh' => false,
 ];
 
 // Settings for local development.
@@ -30,6 +32,8 @@ $local = [
     'php.opcache.validate_timestamps' => 1,
     'twig.cache' => 'false',
     'twig.debug' => 'true',
+
+    'assets_force_refresh' => 'true',
 ];
 
 // Settings for the report generator

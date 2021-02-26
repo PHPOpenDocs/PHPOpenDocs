@@ -1,5 +1,3 @@
 This NPM container is for compiling the javascript.
 
-TODO - make this run a bit more automatically.
-
-Currently disabled for reasons.
+This only runs in production, to build the production assets.
