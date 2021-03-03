@@ -12,6 +12,7 @@ require_once __DIR__ . '/error_functions.php';
 require_once __DIR__ . '/site_html.php';
 require_once __DIR__ . '/slim_functions.php';
 require_once __DIR__ . '/../injectionParams/section.php';
+require __DIR__ . "/../config.generated.php";
 
 use SlimAuryn\ExceptionMiddleware;
 use SlimAuryn\Routes;

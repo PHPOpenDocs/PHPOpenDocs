@@ -6,42 +6,45 @@ namespace PhpOpenDocs;
 
 class Config
 {
-    const ENVIRONMENT_LOCAL = 'local';
-    const ENVIRONMENT_PROD = 'prod';
 
-    const EXAMPLE_DATABASE_INFO = ['phpopendocs', 'database'];
+//    const EXAMPLE_DATABASE_INFO = 'phpopendocs.database';
 
-    const EXAMPLE_REDIS_INFO = ['phpopendocs', 'redis'];
+    const PHPOPENDOCS_REDIS_INFO = 'phpopendocs.redis';
 
-    const EXAMPLE_EXCEPTION_LOGGING = ['phpopendocs', 'exception_logging'];
+//    const EXAMPLE_EXCEPTION_LOGGING = ['phpopendocs', 'exception_logging'];
 
-    const PHPOPENDOCS_CORS_ALLOW_ORIGIN = ['phpopendocs', 'cors', 'allow_origin'];
+//    const PHPOPENDOCS_CORS_ALLOW_ORIGIN = 'phpopendocs.cors.allow_origin';
 
-    const PHPOPENDOCS_ENVIRONMENT = ['phpopendocs', 'env'];
+    const PHPOPENDOCS_ENVIRONMENT = 'phpopendocs.env';
 
-    const PHPOPENDOCS_ASSETS_FORCE_REFRESH = ['phpopendocs', 'assets_force_refresh'];
+    const PHPOPENDOCS_ASSETS_FORCE_REFRESH = 'phpopendocs.assets_force_refresh';
 
-    const PHPOPENDOCS_COMMIT_SHA = ['phpopendocs', 'sha'];
-
-
-
+    const PHPOPENDOCS_COMMIT_SHA = 'phpopendocs.sha';
 
 
 //    const OSF_ALLOWED_ACCESS_CIDRS = ['phpopendocs', 'allowed_access_cidrs'];
 
     // This is used for naming the server for external services. e.g.
     // Google authenticator. It should have a unique name per environment
-    const PHPOPENDOCS_SERVER_NAME = ['phpopendocs', 'server_name'];
-
+    // const PHPOPENDOCS_SERVER_NAME = 'phpopendocs.server_name';
 
     /**
-     * @param string[] $index
-     * @return string
+     * @param $key
+     * @return mixed
      * @throws \Exception
      */
-    public static function get(array $index)
+    public static function get($key)
     {
-        return getConfig($index);
+        static $values = null;
+        if ($values === null) {
+            $values = getGeneratedConfig();
+        }
+
+        if (array_key_exists($key, $values) == false) {
+            throw new \Exception("No value for " . $key);
+        }
+
+        return $values[$key];
     }
 
     public static function testValuesArePresent(): void
@@ -50,23 +53,23 @@ class Config
         $constants = $rc->getConstants();
 
         foreach ($constants as $constant) {
-            $value = getConfig($constant);
+            $value = self::get($constant);
         }
     }
 
-    public function getCorsAllowOriginForApi(): string
-    {
-        return $this->get(self::PHPOPENDOCS_CORS_ALLOW_ORIGIN);
-    }
+//    public function getCorsAllowOriginForApi(): string
+//    {
+//        return self::get(self::PHPOPENDOCS_CORS_ALLOW_ORIGIN);
+//    }
 
     public static function getEnvironment(): string
     {
-        return getConfig(self::PHPOPENDOCS_ENVIRONMENT);
+        return self::get(self::PHPOPENDOCS_ENVIRONMENT);
     }
 
     public static function isProductionEnv(): bool
     {
-        if (self::getEnvironment() === Config::ENVIRONMENT_LOCAL) {
+        if (self::getEnvironment() === App::ENVIRONMENT_LOCAL) {
             return false;
         }
 

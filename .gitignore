@@ -5,4 +5,13 @@ containers/php_fpm/config/php.ini
 containers/varnish/config/default.vcl
 /var/
 
-autoconf.php
+app/public/css/site.css
+app/public/css/site.css.map
+app/public/css/site.css.gz
+
+
+app/public/js/app.bundle.js
+app/public/js/app.bundle.js.map
+app/public/js/app.bundle.js.gz
+app/public/js/app.bundle.js.map.gz
+/config.generated.php

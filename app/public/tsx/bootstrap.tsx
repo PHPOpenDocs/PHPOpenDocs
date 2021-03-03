@@ -22,7 +22,7 @@ initByClass(panels, h, render);
 
 startMessageProcessing();
 
-console.log("bootstrap finished");
+console.log("Bootstrap finished");
 
 
 

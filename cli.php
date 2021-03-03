@@ -15,6 +15,8 @@ require __DIR__ . '/src/functions.php';
 require __DIR__ . '/src/error_functions.php';
 require __DIR__ . '/src/exception_mappers_cli.php';
 require __DIR__ . "/cli/cli_commands.php";
+require __DIR__ . "/config.generated.php";
+
 
 set_time_limit(20);
 
@@ -35,9 +37,8 @@ try {
 }
 catch (\Exception $e) {
 
-
     echo getTextForException($e);
-
+    echo "\n";
 //    $output = new BufferedOutput();
 //    $console->renderException($e, $output);
 //    echo $output->fetch();

@@ -10,7 +10,7 @@
     ],
     "require": {
         "danack/rfc-codex": "0.0.2",
-        "danack/configurator": "1.0.0",
+        "danack/configurator": "1.1.0",
         "danack/console": "^2.6",
         "danack/esprintf": "^1.0.0",
         "danack/looping-exec": "^0.2.0",
@@ -66,6 +66,7 @@
     "config": {
         "platform": {
             "php": "7.4"
-        }
+        },
+        "platform-check": false
     }
 }

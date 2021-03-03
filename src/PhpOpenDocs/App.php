@@ -39,6 +39,8 @@ class App
     // has been seeded with test data.
     const TEST_ADMIN_USERNAME = "admin@example.com";
     const TEST_ADMIN_PASSWORD = 'password12345';
+    public const ENVIRONMENT_LOCAL = 'local';
+    public const ENVIRONMENT_PROD = 'prod';
 
     public static function getAssetSuffix()
     {

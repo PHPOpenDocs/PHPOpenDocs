@@ -11,9 +11,9 @@ declare (strict_types = 1);
  */
 
 use Auryn\Injector;
+use PhpOpenDocs\App;
 use PhpOpenDocs\Config;
 use Psr\Http\Message\ResponseInterface;
-use SlimAuryn\ExceptionMiddleware;
 
 function forbidden(\Auryn\Injector $injector): void
 {
@@ -27,7 +27,7 @@ function createMemoryWarningCheck(
 ) : \PhpOpenDocs\Service\MemoryWarningCheck\MemoryWarningCheck {
     $env = Config::getEnvironment();
 
-    if ($env === Config::ENVIRONMENT_LOCAL) {
+    if ($env === App::ENVIRONMENT_LOCAL) {
         return $injector->make(\PhpOpenDocs\Service\MemoryWarningCheck\DevEnvironmentMemoryWarning::class);
     }
 
@@ -165,7 +165,7 @@ function createSlimContainer(): \Slim\Container
  */
 function createRedis()
 {
-    $redisInfo = getConfig(Config::EXAMPLE_REDIS_INFO);
+    $redisInfo = Config::get(Config::PHPOPENDOCS_REDIS_INFO);
 
     $redis = new Redis();
     $redis->connect($redisInfo['host'], $redisInfo['port']);

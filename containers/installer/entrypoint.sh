@@ -10,10 +10,10 @@ echo "ENV_TO_USE is ${ENV_TO_USE}";
 php composer.phar install
 
 # Generate config settings used per environment
-php vendor/bin/configurate \
-    -p server_config.php \
-    autoconf.source.php \
-    autoconf.php \
+php vendor/bin/classconfig \
+    -p config.source.php \
+    "PhpOpenDocs\\Config" \
+    config.generated.php \
     $ENV_TO_USE
 
 # php cli.php misc:wait_for_db

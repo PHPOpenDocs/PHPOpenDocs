@@ -5,6 +5,9 @@ services:
 #      - "9222:9222"
 #    environment:
 #      - CHROME_ARGS=--disable-web-security
+  installer:
+    environment:
+      - ENV_DESCRIPTION=default,local
   nginx:
     environment:
       - ENV_DESCRIPTION=default,local

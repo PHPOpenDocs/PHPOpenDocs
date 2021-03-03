@@ -9,15 +9,15 @@ echo "ENV_TO_USE is ${ENV_TO_USE}";
 
 
 # Generate config settings used per environment
-php vendor/bin/configurate \
-    -p server_config.php \
-    autoconf.source.php \
-    autoconf.php \
+php vendor/bin/classconfig \
+    -p config.source.php \
+    "PhpOpenDocs\\Config" \
+    config.generated.php \
     $ENV_TO_USE
 
 # Generate nginx config file for the centos,dev environment
 php vendor/bin/configurate \
-    -p server_config.php \
+    -p config.source.php \
     containers/php_fpm/config/fpm.conf.php \
     containers/php_fpm/config/fpm.conf \
     $ENV_TO_USE
@@ -25,7 +25,7 @@ php vendor/bin/configurate \
 
 # Generate nginx config file for the centos,dev environment
 php vendor/bin/configurate \
-    -p server_config.php \
+    -p config.source.php \
     containers/php_fpm/config/php.ini.php \
     containers/php_fpm/config/php.ini \
     $ENV_TO_USE
