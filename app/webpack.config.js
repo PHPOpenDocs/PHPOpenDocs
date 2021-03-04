@@ -18,7 +18,7 @@ const options = commandLineArgs(
   {partial: false}
 );
 
-const TimestampWebpackPlugin = require('timestamp-webpack-plugin');
+// const TimestampWebpackPlugin = require('timestamp-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
@@ -27,11 +27,6 @@ module.exports = {
         app: [
             './public/tsx/bootstrap.tsx',
         ]
-        // ,
-        // vendor: [
-        //   'react',
-        //   'react-dom'
-        // ]
     },
     module: {
         rules: [
@@ -82,16 +77,14 @@ module.exports = {
 
         new CompressionPlugin(),
 
+        new webpack.EnvironmentPlugin({
+            // NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
+            PHP_WEB_BUGS_BASE_URL: undefined,
+        }),
 
         new webpack.optimize.LimitChunkCountPlugin({
             maxChunks: 1,
         }),
-
-        // new webpack.ProvidePlugin({
-        //     $: "jquery",
-        //     jQuery: "jquery",
-        //     "window.jQuery": "jquery"
-        // })
     ],
     resolve: {
         extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
@@ -101,12 +94,4 @@ module.exports = {
             "react-dom": "preact/compat"
         }
     },
-    // // When importing a module whose path matches one of the following, just
-    // // assume a corresponding global variable exists and use that instead.
-    // // This is important because it allows us to avoid bundling all of our
-    // // dependencies, which allows browsers to cache those libraries between builds.
-    // externals: {
-    //     "react": "React",
-    //     "react-dom": "ReactDOM"
-    // }
 };

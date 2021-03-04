@@ -14,6 +14,12 @@ services:
     ports:
       - "8000:8000"
       - "8001:8001"
+  npm:
+    environment:
+      - PHP_WEB_BUGS_BASE_URL="http://127.0.0.1:8080"
+  npm_dev_build:
+    environment:
+      - PHP_WEB_BUGS_BASE_URL="http://127.0.0.1:8080"
   php_fpm:
     environment:
       - ENV_DESCRIPTION=default,local

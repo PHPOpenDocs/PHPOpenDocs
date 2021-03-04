@@ -1,19 +1,10 @@
 import {h, Component} from "preact";
 
-let api_urls = {
-    production: 'https://bugs.php.net',
-    development: 'http://127.0.0.1:8080'
-};
 
-// check environment mode
-let environment = process.env.NODE_ENV === 'production' ? 'production' : 'development';
-
-// @ts-ignore:int blah blah
-let api_url: string = api_urls[environment];
+let api_url: string = process.env.PHP_WEB_BUGS_BASE_URL;
 
 export interface CommentsPanelProps {
-    // api_url: string;
-    // initialControlParams: object;
+    // no properties currently
 }
 
 interface Comment {
@@ -116,6 +107,11 @@ export class CommentsPanel extends Component<CommentsPanelProps, CommentsPanelSt
             error: data.error ?? null,
             email: data.email ?? null,
         };
+
+        if (comment.email !== null) {
+            comment.email = comment.email.replace(' &#x64;&#111;&#x74; ', '.');
+            comment.email = comment.email.replace(' &#x61;&#116; ', '@');
+        }
 
         let newComments: Array<Comment> = this.state.comments;
         newComments.unshift(comment);

@@ -14,7 +14,8 @@ RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee -a /
 RUN curl -L https://packages.sury.org/php/apt.gpg | apt-key add -
 
 RUN  apt-get update -qq \
-    && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y php7.4 \
+    && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+    git php7.4 \
     php7.4-common php7.4-cli \
     php7.4-mysql php7.4-curl php7.4-xml php7.4-mbstring \
     php7.4-intl php7.4-redis php7.4-zip

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "432afecadf2b149ddbe22cbe25c98cfb",
+    "content-hash": "e69d8deeeb86df3ea01e4f1f1284ca58",
     "packages": [
         {
             "name": "brick/math",
@@ -430,16 +430,16 @@
         },
         {
             "name": "danack/looping-exec",
-            "version": "0.2.0",
+            "version": "0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Danack/LoopingExec.git",
-                "reference": "fd2ccda32413a115ca9536ee121614b9277059df"
+                "reference": "ffcb149d41f71fb23b2db016588c835567fe6d1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Danack/LoopingExec/zipball/fd2ccda32413a115ca9536ee121614b9277059df",
-                "reference": "fd2ccda32413a115ca9536ee121614b9277059df",
+                "url": "https://api.github.com/repos/Danack/LoopingExec/zipball/ffcb149d41f71fb23b2db016588c835567fe6d1d",
+                "reference": "ffcb149d41f71fb23b2db016588c835567fe6d1d",
                 "shasum": ""
             },
             "require": {
@@ -474,9 +474,15 @@
             "description": "A function for running code in a loop.",
             "support": {
                 "issues": "https://github.com/Danack/LoopingExec/issues",
-                "source": "https://github.com/Danack/LoopingExec/tree/0.2.0"
+                "source": "https://github.com/Danack/LoopingExec/tree/0.3.0"
             },
-            "time": "2020-12-14T18:16:37+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/Danack",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-03-03T17:59:34+00:00"
         },
         {
             "name": "danack/params",

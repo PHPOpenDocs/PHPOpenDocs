@@ -6,6 +6,11 @@ use PhpOpenDocs\Config;
 
 $sha = `git rev-parse HEAD`;
 
+if ($sha === null) {
+    echo "Failed to read sha from git. Is git installed in container?";
+    exit(-1);
+}
+
 $sha = trim($sha);
 
 
@@ -24,6 +29,14 @@ $default = [
 
     Config::PHPOPENDOCS_ASSETS_FORCE_REFRESH => false,
     Config::PHPOPENDOCS_COMMIT_SHA => $sha,
+    Config::PHPOPENDOCS_ENVIRONMENT => 'prod',
+
+    Config::PHPOPENDOCS_REDIS_INFO => [
+        'host' => 'redis',
+        'password' => 'ePvDZpYTXzT5N9xAPu24',
+        'port' => 6379
+    ],
+
 //    'phpopendocs.allowed_access_cidrs' => [
 //        '86.7.192.0/24',
 //        '10.0.0.0/8',
@@ -60,11 +73,6 @@ $local = [
     // $options['phpopendocs']['app_domain'] = 'http://local.app.phpopendocs.com';
 ];
 
-// Settings for the report generator
-// $report_worker = [
-//     // The reports generator runs out of memory
-//     'php.memory_limit' => getenv('php.memory_limit') ?: '1024M'
-// ];
 
 $varnish_debug = [
     'varnish.pass_all_requests' => false

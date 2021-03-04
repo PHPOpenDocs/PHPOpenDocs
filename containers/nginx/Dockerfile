@@ -4,7 +4,7 @@ USER root
 
 RUN apt-get update -qq \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y nginx \
-    ca-certificates wget curl \
+    ca-certificates wget curl git \
     lsb-release apt-transport-https gnupg
 
 # Install 3rd party PHP 7.4 packages
