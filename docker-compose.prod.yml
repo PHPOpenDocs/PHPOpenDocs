@@ -4,7 +4,7 @@ services:
     build: containers/npm
     environment:
       # we don't set NODE_ENV as production, as that is for serving node requests, not building stuff.
-      - PHP_WEB_BUGS_BASE_URL="https://bugs.php.net"
+      - PHP_WEB_BUGS_BASE_URL=https://bugs.php.net
     entrypoint: ["bash", "/var/app/containers/npm/build_prod_assets.sh"]
     volumes:
       - .:/var/app
