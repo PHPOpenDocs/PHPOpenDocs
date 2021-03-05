@@ -5,6 +5,8 @@ containers/php_fpm/config/php.ini
 containers/varnish/config/default.vcl
 /var/
 
+
+app/node_modules/
 app/public/css/site.css
 app/public/css/site.css.map
 app/public/css/site.css.gz
