@@ -104,6 +104,7 @@ $appDebugBlock = createServerBlock(
 if (${'system.build_debug_php_containers'} === false ||
     ${'system.build_debug_php_containers'} === 'false') {
     $appDebugBlock = '';
+    $apiDebugBlock = '';
 }
 
 
