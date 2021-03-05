@@ -24,11 +24,11 @@ class Pages
     {
         $page = new \OpenDocs\Page(
             $title = 'PHP OpenDocs',
-            $editUrl = new URL('www.example.com'),
+            createDefaultEditInfo(),
             ContentLinks::createEmpty(),
             new PrevNextLinks(null, null),
             $contentHtml = "404, you know the score.",
-            $copyrightOwner = 'PHP OpenDocs',
+            createDefaultCopyrightInfo(),
             new Breadcrumbs()
         );
 
@@ -124,7 +124,7 @@ class Pages
             ContentLinks::createEmpty(),
             new PrevNextLinks(null, null),
             $contentHtml = $page->getPageContent(),
-            new CopyrightInfo('PHP OpenDocs', 'https://github.com/PHPOpenDocs/PHPOpenDocs/LICENSE'),
+            createDefaultCopyrightInfo(),
             new Breadcrumbs()
         );
 
@@ -162,7 +162,7 @@ class Pages
             ContentLinks::createEmpty(),
             new PrevNextLinks(null, null),
             $contentHtml = $html,
-            new CopyrightInfo('PHP OpenDocs', 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/LICENSE'),
+            createDefaultCopyrightInfo(),
             new Breadcrumbs()
         );
 

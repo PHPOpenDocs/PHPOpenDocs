@@ -17,6 +17,8 @@ function injectionParams() : InjectionParams
 
         \PhpOpenDocs\Repo\PhpBugsStorage\PhpBugsStorage::class =>
             \PhpOpenDocs\Repo\PhpBugsStorage\RedisPhpBugsStorage::class,
+        \PhpOpenDocs\Service\TooMuchMemoryNotifier\TooMuchMemoryNotifier::class =>
+            \PhpOpenDocs\Service\TooMuchMemoryNotifier\NullTooMuchMemoryNotifier::class,
    ];
 
     // Delegate the creation of types to callables.

@@ -16,10 +16,10 @@ services:
       - "8001:8001"
   npm:
     environment:
-      - PHP_WEB_BUGS_BASE_URL="http://127.0.0.1:8080"
+      - PHP_WEB_BUGS_BASE_URL=http://local.api.phpopendocs.com
   npm_dev_build:
     environment:
-      - PHP_WEB_BUGS_BASE_URL="http://127.0.0.1:8080"
+      - PHP_WEB_BUGS_BASE_URL=http://local.api.phpopendocs.com
   php_fpm:
     environment:
       - ENV_DESCRIPTION=default,local
