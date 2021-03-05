@@ -23,6 +23,7 @@ services:
       - .:/var/app
   php_fpm:
     build: containers/php_fpm
+    image: phpopendocs_php_fpm
     environment:
       - COMPOSER_CACHE_DIR=/var/app/var/cache/composer
       - COMPOSER_ALLOW_SUPERUSER=1
