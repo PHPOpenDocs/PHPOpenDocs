@@ -1,6 +1,7 @@
 /vendor/
 
 containers/nginx/config/nginx.conf
+containers/php_fpm/config/fpm.conf
 containers/php_fpm/config/php.ini
 containers/varnish/config/default.vcl
 /var/
