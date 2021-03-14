@@ -15,7 +15,7 @@ namespace ASVoting\Route;
 return [
 //    ['/', 'GET', 'ASVoting\ApiController\Vote::index'],
 
-    ['/', 'GET', 'PhpOpenDocs\ApiController\Index::getRouteList'],
+
 
     ['/PhpBugsMaxComment', 'GET', '\Work\ApiController\Bugs::getPhpBugsMaxComment'],
 
@@ -41,6 +41,11 @@ return [
     ['/test/xdebug', 'GET', 'PhpOpenDocs\ApiController\Debug::testXdebugWorking'],
 
 
-    ['/{any:.*}', 'GET', 'PhpOpenDocs\ApiController\HealthCheck::get'],
+
+    ['/status', 'GET', 'PhpOpenDocs\ApiController\HealthCheck::get'],
+
+
+    ['/{any:.+}', 'GET', 'PhpOpenDocs\ApiController\HealthCheck::get'],
+    ['/', 'GET', 'PhpOpenDocs\ApiController\Index::getRouteList'],
 ];
 

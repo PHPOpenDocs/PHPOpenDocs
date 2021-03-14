@@ -117,13 +117,15 @@ function createStandardHeaderLinks(): HeaderLinks
 
 function createContentLinkLevel3Html(string $sectionPath, ContentLinkLevel3 $contentLinkLevel3): string
 {
-    $template = '<li><a href=":attr_path">:html_description</a></li>';
+    $template = '<div><a href=":attr_path">:html_description</a></div>';
     $params = [
         ':html_description' => $contentLinkLevel3->getDescription(),
         ':attr_path' => $sectionPath . $contentLinkLevel3->getPath(),
     ];
 
-    return esprintf($template, $params);
+    $html = esprintf($template, $params);
+
+    return "<div class='opendocs_content_link_level_3'>" . $html . "</div>";
 }
 
 function getUrl($sectionPath, $path)
@@ -141,7 +143,7 @@ function createContentLinkLevel2Html(string $sectionPath, ContentLinkLevel2 $con
     $path = $contentLinkLevel2->getPath();
     if ($path === null) {
         $html = esprintf(
-            "<span>:html_description</span>",
+            ":html_description",
             [':html_description' => $contentLinkLevel2->getDescription()]
         );
     }
@@ -155,6 +157,8 @@ function createContentLinkLevel2Html(string $sectionPath, ContentLinkLevel2 $con
         );
     }
 
+    $html = "<div class='opendocs_content_link_level_2'>" . $html . "</div>";
+
     $children = $contentLinkLevel2->getChildren();
 
     if ($children === null) {
@@ -166,7 +170,7 @@ function createContentLinkLevel2Html(string $sectionPath, ContentLinkLevel2 $con
         $li_elements[] = createContentLinkLevel3Html($sectionPath, $child);
     }
 
-    return "<li>" . $html . "<ul class='opendocs_content_links_level_3'>". implode("\n", $li_elements) . "</ul></li>";
+    return $html . implode("\n", $li_elements);
 }
 
 function createContentLinkLevel1Html(string $sectionPath, ContentLinkLevel1 $contentLinkLevel1): string
@@ -174,13 +178,13 @@ function createContentLinkLevel1Html(string $sectionPath, ContentLinkLevel1 $con
     $path = $contentLinkLevel1->getPath();
     if ($path === null) {
         $html = esprintf(
-            "<div>:html_description</div>",
+            ":html_description",
             [':html_description' => $contentLinkLevel1->getDescription()]
         );
     }
     else {
         $html = esprintf(
-            '<a href=":attr_path">:html_description</a>',
+            "<a href=':attr_path'>:html_description</a>",
             [
                 ':html_description' => $contentLinkLevel1->getDescription(),
                 ':attr_path' => $sectionPath . $contentLinkLevel1->getPath(),
@@ -188,17 +192,27 @@ function createContentLinkLevel1Html(string $sectionPath, ContentLinkLevel1 $con
         );
     }
 
+    $html = "<div class='opendocs_content_link_level_1'>" . $html . "</div>";
+
+
     $li_elements = [];
     $children = $contentLinkLevel1->getChildren();
     if ($children !== null) {
         foreach ($children as $contentLinkLevel2) {
-            $li_elements[] = createContentLinkLevel2Html($sectionPath, $contentLinkLevel2);
+            $li_elements[] = createContentLinkLevel2Html(
+                $sectionPath,
+                $contentLinkLevel2
+            );
         }
 
-        $html .= "<ul class='opendocs_content_links_level_2'>\n" . implode("\n", $li_elements) . "</ul>";
+
+//        $html .= "<div class='opendocs_content_links_level_2'>\n" . implode("\n", $li_elements) . "</div>";
     }
 
-    return "<li>" . $html . "</li>";
+    return $html . implode("\n", $li_elements);
+
+
+//    return "<div>" . $html . "</div>";
 }
 
 function createContentLinksHtml(string $sectionPath, ContentLinks $contentLinks): string
@@ -211,10 +225,18 @@ function createContentLinksHtml(string $sectionPath, ContentLinks $contentLinks)
     }
 
     foreach ($children as $contentLinkLevel1) {
-        $li_elements[] = createContentLinkLevel1Html($sectionPath, $contentLinkLevel1);
+        $li_elements[] = createContentLinkLevel1Html(
+            $sectionPath,
+            $contentLinkLevel1
+        );
     }
 
-    return "<ul class='opendocs_content_links_level_1'>\n" . implode("\n", $li_elements) . "</ul>";
+    return implode("\n", $li_elements);
+
+//    return sprintf(
+//        "<div class='opendocs_content_links'>%s</div>",
+//        implode("\n", $li_elements)
+//    );
 }
 
 
@@ -249,7 +271,6 @@ function createFooterHtml(
   :raw_edit_links
 </span>
 HTML;
-
 
     $params = [
         ':html_copyright_name' => $copyrightInfo->getName(),

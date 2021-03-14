@@ -1,5 +1,4 @@
 
-
 .opendocs_content_links {
 
   color: var(--content_links_text_color);
@@ -7,37 +6,42 @@
   letter-spacing: -.00278rem;
   border-left: 1px dotted var(--content_links_border_color);
 
-  ul{
-    margin-top: 0px;
-    padding-left: 0;
-
-    li {
-      list-style-type: none;
-      margin: 0;
-
-      a {
-        text-decoration: none;
-      }
-
-      a:link, a:visited {
-        color: var(--content_links_link_color);
-      }
-
-      a:hover, a:focus, #layout-content a:hover, #layout-content a:focus {
-        color: var(--content_links_link_hover_color);
-        outline: 0;
-      }
-
-      a {
-        border-bottom: 1px dotted;
-        margin-bottom:-1px;
-        display:block;
-      }
-
-      ul {
-        padding-left: 0.75rem;
-      }
+  .opendocs_content_link_level_1,
+  .opendocs_content_link_level_2,
+  .opendocs_content_link_level_3 {
+    a {
+      text-decoration: none;
     }
+
+    a:link, a:visited {
+      color: var(--content_links_link_color);
+    }
+
+    a:hover, a:focus, #layout-content a:hover, #layout-content a:focus {
+      color: var(--content_links_link_hover_color);
+      outline: 0;
+    }
+
+    a {
+      border-bottom: 1px dotted;
+      border-color: rgba(128, 128, 128, 0.25);
+      margin-bottom:-1px;
+      display:block;
+    }
+  }
+
+  .opendocs_content_link_level_1:not(:first-child) {
+    padding-top: 16px;
+  }
+
+  .opendocs_content_link_level_1 {
+    padding-left: 0.25rem;
+  }
+  .opendocs_content_link_level_2 {
+    padding-left: 0.5rem;
+  }
+  .opendocs_content_link_level_3 {
+    padding-left: 0.75rem;
   }
 
   li:not(:first-child) div {
