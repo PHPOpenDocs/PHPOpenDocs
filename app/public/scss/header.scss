@@ -21,34 +21,25 @@
     font-size: 18px;
   }
 
-  ul {
-    padding-inline-start: 0px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    padding: 0px;
+  span {
+    list-style-type: none;
+    float: left;
+    font-weight: 400;
+    padding-left: 12px;
 
-    li {
-      list-style-type: none;
-      float: left;
-      font-weight: 400;
-      //padding: 12px;
-      padding-left: 12px;
-
-      a {
-        text-decoration: none;
-        color: var(--header_link_color);
-        border:0;
-        //text-shadow: 5 -1px 0 rgba(0, 0, 0, 0.25);
-      }
-
-      a:hover, a:focus {
-        color: var(--header_link_hover_color);
-      }
+    a {
+      text-decoration: none;
+      color: var(--header_link_color);
+      border:0;
+      //text-shadow: 5 -1px 0 rgba(0, 0, 0, 0.25);
     }
 
-    li:first-child {
-      padding-left: 0px;
+    a:hover, a:focus {
+      color: var(--header_link_hover_color);
     }
+  }
 
+  span:first-child {
+    padding-left: 0px;
   }
 }

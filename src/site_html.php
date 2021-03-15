@@ -87,9 +87,8 @@ function createPrevNextHtml(?PrevNextLinks $prevNextLinks): string
 
 function createPageHeaderHtml(HeaderLinks $headerLinks) : string
 {
-
-    $template = '<li><a href=":attr_path">:html_description</a></li>';
-    $html = "<ul>";
+    $template = '<span><a href=":attr_path">:html_description</a></span>';
+    $html = "";
 
     foreach ($headerLinks->getHeaderLinks() as $headerLink) {
         $params = [
@@ -98,8 +97,6 @@ function createPageHeaderHtml(HeaderLinks $headerLinks) : string
         ];
         $html .= esprintf($template, $params);
     }
-
-    $html .= "<ul>";
 
     return $html;
 }
@@ -281,6 +278,40 @@ HTML;
     return esprintf($html, $params);
 }
 
+function getPageLayoutHtml(): string
+{
+    return <<< HTML
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>:html_page_title</title>
+  <link rel="stylesheet" href=":raw_site_css_link">
+</head>
+
+<body>
+  <div class="opendocs_wrapper">
+    <div class="opendocs_header">:raw_top_header</div>
+    <div class="opendocs_breadcrumbs">:raw_breadcrumbs</div>
+    <div class="opendocs_prev_next">:raw_prev_next</div>
+    <div class="opendocs_content_links">:raw_nav_content</div>
+    <div class="opendocs_content">:raw_content</div>
+    <div class="opendocs_footer">:raw_footer</div>
+  </div>
+</body>
+
+<script src=':raw_site_js_link'></script>
+</html>
+HTML;
+
+
+}
+
 
 function createPageHtml(
     ?\OpenDocs\Section $section,
@@ -299,7 +330,6 @@ function createPageHtml(
 
     $assetSuffix = \PhpOpenDocs\App::getAssetSuffix();
 
-
     $params = [
         ':raw_site_css_link' => '/css/site.css' . $assetSuffix,
         ':raw_site_js_link' => '/js/app.bundle.js' . $assetSuffix,
@@ -312,7 +342,5 @@ function createPageHtml(
         ':raw_footer' => createFooterHtml($page->getCopyrightInfo(), $page->getEditInfo()),
     ];
 
-    $html = file_get_contents(__DIR__ . "/../templates/standard_page.html");
-
-    return esprintf($html, $params);
+    return esprintf(getPageLayoutHtml(), $params);
 }
