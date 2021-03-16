@@ -8,7 +8,7 @@ class ExamplePage
 {
     public function getPageContent(): string
     {
-        $html = <<< HTML
+        $html = <<< 'HTML'
 
 <h2>
   Hello, I am the page content.
@@ -17,6 +17,18 @@ class ExamplePage
 <p>
 This is a place holder page, that has all the bits filled out, so I can play with the SCSS. Maybe click on the sections.
 </p>
+
+
+<pre><code class="php">&lt;?php
+
+function calculateDimensions($inputValue) {
+    // do some maths.
+    return [$width, $height];
+}
+
+
+[$width, $height] = calculateDimensions($inputValue);
+</code></pre>
 
 <p>
 Lets have some Lorem ipsum to fill out the page a bit. And test if the auto-deployer is working.

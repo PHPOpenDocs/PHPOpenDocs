@@ -1,6 +1,7 @@
 
 @import "colors.scss";
 @import "variables.scss";
+@import "fonts.scss";
 
 @import "layout.scss";
 @import "breadcrumbs.scss";
@@ -11,6 +12,23 @@
 @import "prev_next.scss";
 @import "basic.scss";
 @import "comments_panel.scss";
+@import "code.scss";
 
+// todo move this to it's own repo
 @import "naming_things.scss";
 
+body {
+  font-family: RobotoFlex, Arial, x-locale-body, sans-serif;
+  font-variation-settings: 'wght' 400;
+  font-size: 18px;
+  font-size: 1rem;
+}
+
+th {
+  font-family: Jost, Arial, x-locale-body, sans-serif;
+  font-weight: 600;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Jost, Arial, x-locale-body, sans-serif;
+}

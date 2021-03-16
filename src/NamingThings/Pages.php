@@ -87,7 +87,6 @@ The word 'standard' is in quotes because these are just guidelines. They absolut
 Please note these suggestions are for naming things in terms that <em>programmers</em> would understand. For code that is dealing with business problems, you should probably use domain specific names that non-programmers would understand. 
 </p>
 
-
 <h2>Some other resources</h2>
 <p>
     <ul>
@@ -111,8 +110,6 @@ Please note these suggestions are for naming things in terms that <em>programmer
       <li>
         <a href="http://source-code-wordle.de/">Words used in Source Code</a> by Markus Meyer
       </li>
-      
-      
     </ul>
 </p>
 

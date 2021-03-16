@@ -1,0 +1,14 @@
+pre code {
+  display: inline-block;
+  white-space: pre;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+  max-width: 100%;
+  min-width: 100px;
+  padding: 4px 4px 4px 4px;
+  line-height: 1.2em;
+  margin-bottom: 0px;
+  background: #222;
+  color: white;
+  font-size: 1.2em;
+}

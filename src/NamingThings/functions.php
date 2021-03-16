@@ -173,9 +173,6 @@ HTML;
 </tr>
 HTML;
 
-
-
-
     foreach ($verbs as $verb) {
         $params = [
             ':attr_verb_name' => $verb->getName(),
@@ -194,9 +191,7 @@ HTML;
 
 <h2>Bad names</h2>
 
-
 Maybe we should have a list of bad names here e.g. 'make'... is that 'create' or is it 'execute'?
-
 HTML;
 
     $content .= $bad_functions;

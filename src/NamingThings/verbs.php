@@ -12,7 +12,7 @@ $verbs = [];
 ////    ['']
 //);
 
-$acquireReleaseDifference = " Acquire/release differ from open/close in that acquire/release typically indicate that the underlying resource has a limit of how many times it can be opened at once, whereas for open/close the underlying resource can (theoretically) be opened as many times as needed at once.";
+$acquireReleaseDifference = "Acquire/release differ from open/close in that acquire/release typically indicate that the underlying resource has a limit of how many times it can be opened at once, whereas for open/close the underlying resource can (theoretically) be opened as many times as needed at once.";
 
 
 
@@ -168,7 +168,7 @@ $verbs[] = Verb(
 // $verbs[] = Verb('disconnect', '', []);
 // $verbs[] = Verb('discover', '', []);
 // $verbs[] = Verb('dismiss', '', []);
-// $verbs[] = Verb('dispatch', '', []);
+$verbs[] = Verb('dispatch', '', ['execute']);
 // $verbs[] = Verb('display', '', []);
 // $verbs[] = Verb('dispose', '', []);
 // $verbs[] = Verb('distance', '', []);
@@ -204,7 +204,7 @@ $verbs[] = Verb(
 // $verbs[] = Verb('evaluate', '', []);
 // $verbs[] = Verb('except', '', []);
 // $verbs[] = Verb('exclude', '', []);
-// $verbs[] = Verb('execute', '', []);
+$verbs[] = Verb('execute', '', ['dispatch']);
 // $verbs[] = Verb('exit', '', []);
 // $verbs[] = Verb('expand', '', []);
 // $verbs[] = Verb('expect', '', []);
@@ -228,8 +228,6 @@ $verbs[] = Verb(
     "Attempts to locate a piece of data from a containing storage type. If the containing storage does not contain any data by the name parameter, very likely to return null."
 );
 
-
-// $verbs[] = Verb('find', '', []);
 // $verbs[] = Verb('finish', '', []);
 // $verbs[] = Verb('fire', '', []);
 // $verbs[] = Verb('fit', '', []);
@@ -262,7 +260,6 @@ $verbs[] = Verb(
 
 // $verbs[] = Verb('get in', '', []);
 // $verbs[] = Verb('get word', '', []);
-// $verbs[] = Verb('get', '', []);
 // $verbs[] = Verb('go back', '', []);
 // $verbs[] = Verb('go forward', '', []);
 // $verbs[] = Verb('go to', '', []);
@@ -392,7 +389,7 @@ $verbs[] = Verb(
 // $verbs[] = Verb('plain', '', []);
 // $verbs[] = Verb('play', '', []);
 // $verbs[] = Verb('point', '', []);
-// $verbs[] = Verb('pop', '', []);
+$verbs[] = Verb('pop', 'Take an item from a container e.g. array, list, queue, or stack.', ['push']);
 // $verbs[] = Verb('populate', '', []);
 // $verbs[] = Verb('position', '', []);
 // $verbs[] = Verb('post', '', []);
@@ -412,7 +409,7 @@ $verbs[] = Verb(
 // $verbs[] = Verb('prune', '', []);
 // $verbs[] = Verb('publish', '', []);
 // $verbs[] = Verb('purge', '', []);
-// $verbs[] = Verb('push', '', []);
+ $verbs[] = Verb('push', 'Add an item into a container e.g. array, list, queue, or stack.', ['pop']);
 // $verbs[] = Verb('put', '', []);
 // $verbs[] = Verb('query', '', []);
 // $verbs[] = Verb('queue', '', []);
@@ -443,7 +440,6 @@ $verbs[] = Verb(
     ['acquire']
 );
 
-// $verbs[] = Verb('release', '', []);
 // $verbs[] = Verb('reload', '', []);
 // $verbs[] = Verb('remap', '', []);
 // $verbs[] = Verb('remove', '', []);
