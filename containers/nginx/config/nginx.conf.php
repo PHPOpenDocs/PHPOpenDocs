@@ -25,12 +25,27 @@ function createServerBlock(
 $portsInfo
         root $root;
 
+        location ~* ^(.+).(ttf)$ {
+            access_log on;
+            try_files \$uri /$indexFilename?file=$1.$2&q=\$uri&\$args;
+            add_header Pragma public;
+            add_header Cache-Control "public";
+            add_header Cache-Control "no-transform";
+            add_header Cache-Control "max-age=86400";
+            add_header Cache-Control "s-maxage=7200";
+            #add_header XDJA "ttfblock";
+        }
+
         location ~* ^(.+).(bmp|bz2|css|gif|doc|gz|html|ico|jpg|jpeg|js|mid|midi|png|rtf|rar|pdf|ppt|tar|tgz|txt|wav|xls|zip)$ {
             #access_log off;
         try_files \$uri /$indexFilename?file=$1.$2&q=\$uri&\$args;
             expires 20m;
             add_header Pragma public;
-            add_header Cache-Control "public, no-transform, max-age=1200, s-maxage=300";
+            add_header Cache-Control "public";
+            add_header Cache-Control "no-transform";
+            add_header Cache-Control "max-age=1200";
+            add_header Cache-Control "s-maxage=300";
+            #add_header XDJA "otherblock";
         }
 
         location / {
@@ -44,6 +59,7 @@ $portsInfo
             fastcgi_param SCRIPT_FILENAME \$document_root/\$fastcgi_script_name;
             fastcgi_read_timeout 300;
             fastcgi_pass $phpBackend;
+            #add_header DJA "phpblock";
         }
     }
 CONFIG;
