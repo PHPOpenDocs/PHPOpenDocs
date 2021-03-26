@@ -20,8 +20,7 @@ $fn = function (CSPViolationStorage $cspvStorage) : HtmlResponse
         createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
         Breadcrumbs::fromArray([
             '/system' => 'System',
-//            '/system/csp_violations' => 'CSP violations'
-            'CSP violations'
+            '/system/csp_violations' => 'CSP violations'
         ])
     );
     $html = createPageHtml(
