@@ -25,8 +25,10 @@ function injectionParams()
         \PhpOpenDocs\CSPViolation\CSPViolationStorage::class =>
             \PhpOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
 
-        \OpenDocs\MarkdownRenderer::class =>
-            \OpenDocs\Standard\MichelfMarkdownRenderer::class
+//        \OpenDocs\MarkdownRenderer\MarkdownRenderer::class =>
+//            \OpenDocs\MarkdownRenderer\MichelfMarkdownRenderer::class,
+        \OpenDocs\MarkdownRenderer\MarkdownRenderer::class =>
+            \OpenDocs\MarkdownRenderer\CommonMarkRenderer::class,
     ];
 
     // Delegate the creation of types to callables.
@@ -40,7 +42,10 @@ function injectionParams()
         \Slim\Container::class => 'createSlimContainer',
         \Slim\App::class => 'createSlimAppForApp',
         \PhpOpenDocs\AppErrorHandler\AppErrorHandler::class => 'createHtmlAppErrorHandler',
+        \PhpOpenDocs\Data\ApiDomain::class => 'createApiDomain',
+        \Redis::class => 'createRedis',
     ];
+
 
 
     // Define some params that can be injected purely by name.

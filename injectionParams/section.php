@@ -11,7 +11,7 @@ function getSectionInjectionParams()
     // Alias interfaces (or classes) to the actual types that should be used
     // where they are required.
     $aliases = [
-        \OpenDocs\MarkdownRenderer::class => \OpenDocs\Standard\MichelfMarkdownRenderer::class,
+        \OpenDocs\MarkdownRenderer\MarkdownRenderer::class => \OpenDocs\MarkdownRenderer\CommonMarkRenderer::class,
     ];
 
     // Delegate the creation of types to callables.

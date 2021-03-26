@@ -19,7 +19,7 @@ return [
 
     ['/PhpBugsMaxComment', 'GET', '\Work\ApiController\Bugs::getPhpBugsMaxComment'],
 
-
+    ['/csp_violation', 'POST', 'PhpOpenDocs\AppController\ContentSecurityPolicy::postReport'],
 
 
 //    ['/motions', 'GET', 'ASVoting\ApiController\Motions::getProposedMotions'],
@@ -28,8 +28,6 @@ return [
 //        'GET',
 //        'ASVoting\ApiController\Motions::getMotionsBeingVotedOn'
 //    ],
-
-
 
 
 //    ['/csp/test', 'GET', 'Osf\CommonController\ContentSecurityPolicy::getTestPage'],

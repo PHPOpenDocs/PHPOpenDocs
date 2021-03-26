@@ -20,8 +20,14 @@ return [
 
     ['/privacy_policy', 'GET', 'PhpOpenDocs\AppController\Pages::privacyPolicy'],
 
+//    ['/system', 'GET', 'PhpOpenDocs\AppController\System::indexPage'],
+    ['/system/htmltest', 'GET', 'PhpOpenDocs\AppController\Pages::htmlTest'],
 
 
+//    ['/system/csp_reports', 'GET', 'PhpOpenDocs\AppController\System::getReports'],
+    ['/system/csp_test', 'GET', 'PhpOpenDocs\AppController\ContentSecurityPolicy::getTestPage'],
+
+    ['/system/csp_clear', 'GET', 'PhpOpenDocs\AppController\ContentSecurityPolicy::clearReports'],
 
 //    ['/rfc_codex{name:.+}', 'GET', 'PhpOpenDocs\AppController\Pages::rfc_codex_item'],
 //    ['/rfc_codex', 'GET', 'PhpOpenDocs\AppController\Pages::rfc_codex'],
@@ -31,6 +37,10 @@ return [
     ['/test/caught_exception', 'GET', 'PhpOpenDocs\AppController\Debug::testCaughtException'],
     ['/test/uncaught_exception', 'GET', 'PhpOpenDocs\AppController\Debug::testUncaughtException'],
     ['/test/compile_error', 'GET', 'PhpOpenDocs\AppController\CompileError::deliberateCompileError'],
+
+
+
+
 
 
 

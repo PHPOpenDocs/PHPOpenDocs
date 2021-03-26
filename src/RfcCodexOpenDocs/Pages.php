@@ -6,16 +6,14 @@ namespace RfcCodexOpenDocs;
 
 use OpenDocs\Breadcrumb;
 use OpenDocs\Breadcrumbs;
-use OpenDocs\ContentLinks;
-use OpenDocs\CopyrightInfo;
-use OpenDocs\FooterInfo;
-use OpenDocs\Page;
-use OpenDocs\Section;
-use OpenDocs\PrevNextLinks;
-use OpenDocs\URL;
 use OpenDocs\ContentLinkLevel1;
 use OpenDocs\ContentLinkLevel2;
-use OpenDocs\MarkdownRenderer;
+use OpenDocs\ContentLinks;
+use OpenDocs\CopyrightInfo;
+use OpenDocs\MarkdownRenderer\MarkdownRenderer;
+use OpenDocs\Page;
+use OpenDocs\PrevNextLinks;
+use OpenDocs\Section;
 
 function makeLink(?RfcCodexEntry $rfcCodexEntry): ?\OpenDocs\Link
 {
@@ -107,7 +105,6 @@ class Pages
 
     private function makeList(string $name, $items)
     {
-
         $list = [];
         foreach ($items as $entry) {
             $url = $entry->getFilename();

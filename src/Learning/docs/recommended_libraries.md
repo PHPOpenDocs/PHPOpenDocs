@@ -13,5 +13,16 @@ You can also decode those ids back. This is useful in bundling several parameter
 
 
 
+https://github.com/Roave/SecurityAdvisories
+
+https://github.com/beberlei/assert (not a tool, but a good one)
+
 Monolog
 
+
+
+## Misc stuff
+
+
+
+https://github.com/Roave/SecurityAdvisories

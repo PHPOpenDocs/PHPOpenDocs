@@ -5,4 +5,4 @@
 
 docker-compose up --build installer
 
-docker-compose up --build varnish nginx php_fpm php_fpm_debug npm npm_dev_build
+docker-compose up --build varnish nginx php_fpm php_fpm_debug npm npm_dev_build redis

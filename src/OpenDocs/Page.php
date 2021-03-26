@@ -39,6 +39,43 @@ class Page
         $this->breadcrumbs = $breadcrumbs;
     }
 
+    public static function createFromHtml(
+        string $title,
+        string $contentHtml
+    ): Page {
+        $page = new \OpenDocs\Page(
+            $title,
+            createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
+            ContentLinks::createEmpty(),
+            new PrevNextLinks(null, null),
+            $contentHtml,
+            createDefaultCopyrightInfo(),
+            new Breadcrumbs()
+        );
+
+        return $page;
+    }
+
+    public static function createFromHtmlEx(
+        string $title,
+        string $contentHtml,
+        EditInfo $editInfo,
+        \OpenDocs\Breadcrumbs $breadcrumbs
+    ): Page {
+        $page = new \OpenDocs\Page(
+            $title,
+            $editInfo, //createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
+            ContentLinks::createEmpty(),
+            new PrevNextLinks(null, null),
+            $contentHtml,
+            createDefaultCopyrightInfo(),
+            $breadcrumbs//new Breadcrumbs()
+        );
+
+        return $page;
+    }
+
+
     /**
      * @return string
      */

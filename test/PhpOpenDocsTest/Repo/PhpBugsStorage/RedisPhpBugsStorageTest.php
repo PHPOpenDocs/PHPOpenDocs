@@ -10,6 +10,17 @@ use PhpOpenDocsTest\BaseTestCase;
 
 class RedisPhpBugsStorageTest extends BaseTestCase
 {
+    public function setup()
+    {
+        parent::setup();
+
+        if (class_exists(\Redis::class) !== true) {
+            $this->markTestSkipped('nope');
+        }
+    }
+
+
+
     /**
      * @group wip
      */

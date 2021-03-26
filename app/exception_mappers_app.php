@@ -18,7 +18,7 @@ function debuggingCaughtExceptionExceptionMapperApp(
     $text = getTextForException($pdoe);
     \error_log($text);
     $page = createErrorPage(nl2br($text));
-    $html = createPageHtml('/blah', $page, new Breadcrumbs);
+    $html = createPageHtml('/blah', $page);
     $html .= "\n<!-- This is caught in the exception mapper -->";
 
     return new \SlimAuryn\Response\HtmlResponse($html, [], 512);
@@ -38,7 +38,7 @@ function parseErrorMapperForApp(\ParseError $parseError, ResponseInterface $resp
     $text = $string . "\n\n" . $text;
 
     $page = createErrorPage(nl2br($text));
-    $html = createPageHtml(null, $page, new Breadcrumbs);
+    $html = createPageHtml(null, $page);
 
     return new \SlimAuryn\Response\HtmlResponse($html, [], 500);
 }

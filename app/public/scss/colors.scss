@@ -21,8 +21,8 @@
     --content_links_link_color: #33337f;
     --content_links_link_hover_color: #cb66a5;
 
-    --code_background: #000;
-    --code_color: #fff;
+    --code_background: #f6f6f6;
+    --code_color: #000;
 
     --footer_text_color: #000;
     --footer_background_color: #c8cee3;
@@ -49,7 +49,6 @@
 
     --table_row_border_hover_color: rgba(32, 32, 32, 0.333);
   }
-//}
 
 @media (prefers-color-scheme: dark) {
 :root {

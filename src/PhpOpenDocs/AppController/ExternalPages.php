@@ -37,8 +37,7 @@ class ExternalPages
 
         $html = createPageHtml(
             null,
-            $page,
-            $breadcrumbs = new Breadcrumbs()
+            $page
         );
 
         return new HtmlResponse($html);

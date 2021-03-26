@@ -6,17 +6,10 @@ namespace PHPFunding;
 
 use OpenDocs\Breadcrumbs;
 use OpenDocs\ContentLinks;
-use OpenDocs\FooterInfo;
+use OpenDocs\MarkdownRenderer\MarkdownRenderer;
 use OpenDocs\Page;
-use OpenDocs\Section;
 use OpenDocs\PrevNextLinks;
-use OpenDocs\URL;
-use OpenDocs\ContentLinkLevel1;
-use OpenDocs\ContentLinkLevel2;
-use OpenDocs\MarkdownRenderer;
-use PHPFunding\PeopleList;
-use RfcCodexOpenDocs\RfcCodexEntry;
-use PHPFunding\Rfc;
+use OpenDocs\Section;
 
 class Pages
 {

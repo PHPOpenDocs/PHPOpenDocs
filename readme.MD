@@ -36,9 +36,9 @@ The site should be up at:
 Just push to main and it should appear quite soon...
 
 
+## Random docker things to run
 
 docker-compose exec php_fpm php vendor/bin/phpunit -c test/phpunit.xml
-
 
 docker-compose exec php_fpm_debug php vendor/bin/phpunit -c test/phpunit.xml
 
@@ -49,3 +49,8 @@ docker network rm $(docker network ls -q)
 docker kill $(docker ps -q)
 
 docker exec -it example_web_admin_1 bash
+
+
+## Useful links
+
+https://domchristie.github.io/turndown/

@@ -14,8 +14,15 @@ class Breadcrumbs
         $this->breadcrumbs = $breadcrumbs;
     }
 
+    public static function fromArray(array $breadcrumbData): self
+    {
+        $breadcrumbs = [];
+        foreach ($breadcrumbData as $path => $description) {
+            $breadcrumbs[] = new Breadcrumb($path, $description);
+        }
 
-
+        return new self(...$breadcrumbs);
+    }
 
     /**
      * @return Breadcrumb[]

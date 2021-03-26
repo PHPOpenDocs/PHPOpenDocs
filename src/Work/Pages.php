@@ -17,30 +17,6 @@ use OpenDocs\Section;
 
 class Pages
 {
-//    public function getNounsPage(): Page
-//    {
-//        $nouns = require(__DIR__ . "/nouns.php");
-//
-//        $contents = renderNouns($nouns);
-//
-//        return new Page(
-//            'Naming things - nouns',
-//            createEditInfo2(
-//                'Edit page', __FILE__, __LINE__,
-//                'Edit nouns', __DIR__ . "/nouns.php", null
-//            ),
-//            $this->getContentLinks(),
-//            new PrevNextLinks(null, null),
-//            $contents,
-//            new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
-//            $breadcrumbs = new Breadcrumbs(
-//                new Breadcrumb('/nouns', 'Nouns'),
-//            )
-//        );
-//    }
-
-
-
     public function getIndexPage(Section $section): Page
     {
         $words = <<< HTML
@@ -56,7 +32,6 @@ This page helps distribute the workload of PHP, by showing people work that need
 <div class="widget_php_bugs_comments">
 
 </div>
-
 
 HTML;
 

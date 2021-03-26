@@ -9,6 +9,8 @@ declare(strict_types = 1);
 use OpenDocs\Breadcrumbs;
 use OpenDocs\CopyrightInfo;
 use OpenDocs\EditInfo;
+use OpenDocs\SectionList;
+use PhpOpenDocs\Data\ContentPolicyViolationReport;
 use SlimAuryn\Response\HtmlResponse;
 
 /**
@@ -527,13 +529,14 @@ function renderTable($headers, $rows)
 {
     $thead = '';
     foreach ($headers as $header) {
-        $thead .= sprintf("<td>%s</td>\n", $header);
+        $thead .= sprintf("<th>%s</th>\n", $header);
     }
 
     $tbody = '';
     foreach ($rows as $row) {
         $tbody .= "<tr>\n";
-        foreach ($row as $value) {
+        foreach ($headers as $key) {
+            $value = $row[$key];
             $tbody .= sprintf("<td>%s</td>\n", $value);
         }
 
@@ -739,10 +742,8 @@ function convertPageToHtmlResponse(
 
     $html = createPageHtml(
         $section,
-        $page,
-        $breadcrumbs = new Breadcrumbs()
+        $page
     );
-
 
     return new HtmlResponse($html);
 }
@@ -754,9 +755,51 @@ function createPHPOpenDocsEditInfo(string $description, string $file, ?int $line
 
     $link = 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/' . $path;
 
-    if ($link !== null) {
+    if ($line !== null) {
         $link .= '#L' . $line;
     }
 
     return new EditInfo([$description => $link]);
+}
+
+function getSectionHtml(SectionList $sectionList): string
+{
+    $html = '';
+    $sectionTemplate = "<a href=':attr_link'>:html_name</a><p>:html_description</p>";
+
+    foreach ($sectionList->getSections() as $section) {
+        $params = [
+            ':attr_link' => $section->getPrefix(),
+            ':html_name' => $section->getName(),
+            ':html_description' => $section->getPurpose()
+        ];
+        $html .= esprintf($sectionTemplate, $params);
+    }
+
+    return $html;
+}
+
+
+/**
+ * @param ContentPolicyViolationReport[] $reports
+ */
+function formatCSPViolationReportsToHtml(array $reports): string
+{
+    if (count($reports) === 0) {
+        return 'There are no CSP violation reports. \o/';
+    }
+
+    $headers = [
+        "document-uri",
+        "blocked-uri",
+        "violated-directive",
+        "effective-directive"
+    ];
+
+    $data = [];
+    foreach ($reports as $report) {
+        $data[] = $report->toArray();
+    }
+
+    return renderTable($headers, $data);
 }

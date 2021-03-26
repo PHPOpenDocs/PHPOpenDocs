@@ -6,40 +6,60 @@
 
   h1, h2, h3, h4, h5, h6 {
     margin-top: 0px;
-    margin-bottom: 0px;
+    margin-bottom: 16px;
     font-weight: 400;
     line-height: 1.25;
-    //display: inline-block;
   }
 
-  h1, h2, h3, h4, h5 {
-    //padding-bottom: .3em;
+  h1 {
     margin-bottom: 0.5em;
-    //border-bottom: 1px solid var(--content_panel_border_color);
   }
 
   h2, h3, h4, h5 {
-    //text-decoration: underline;
-    //border-bottom: red;
-    border-bottom: 1px rgba(32, 32, 32, 0.25) dotted;
+    text-decoration: underline;
   }
 
-  h1:not(:first-child),
-  h2:not(:first-child),
-  h3:not(:first-child),
-  h4:not(:first-child),
-  h5:not(:first-child) {
-    padding-top: 12px;
+  // p + h1 would this ever be needed?
+
+  a + h2,
+  p + h2 {
+    margin-top: 24px;
   }
 
-  //p + h1,
-  //p + h2,
-  //p + h3,
-  //p + h4 {
-  //  margin-top: 12px;
-  //}
+  a + h3,
+  p + h3 {
+    margin-top: 16px;
+  }
 
-  a {
+  a + h4,
+  p + h4 {
+    margin-top: 8px;
+  }
+
+  h1 + h2,
+  h2 + h3,
+  h3 + h4,
+  h4 + h5 {
+    margin-top: 8px;
+  }
+
+  h1 {
+    font-size: 2.4em;
+  }
+  h2 {
+    font-size: 1.8em;
+  }
+  h3 {
+    font-size: 1.4em;
+  }
+  h4{
+    font-size: 1.2em;
+  }
+  h5 {
+    font-size: 1.1em;
+  }
+
+a {
     color: var(--standard_link_color);
   }
 
@@ -48,23 +68,47 @@
   }
 
   p {
-    line-height: 1.2;
+    //line-height: 1.2;
     margin-block-start: 0.5em;
     margin-block-end: 0.5em;
   }
 
   ul {
-    //margin-block-start: 0;
     padding-left: 20px;
+    line-height: 20px;
   }
-
-  // A list where the first words are a link
-  //ul { //.link_list {
-  //  list-style-type: none;
-  //  padding-left: 0px;
-  //}
 
   li+li {
     margin-top: .25em;
   }
+  code {
+    font-family: Inconsolata, monospace;
+  }
+
+  // h1:hover .anchor .octicon-link,
+
+  h1 .heading-permalink,
+  h2 .heading-permalink,
+  h3 .heading-permalink,
+  h4 .heading-permalink,
+  h5 .heading-permalink,
+  h6 .heading-permalink{
+    visibility: hidden;
+    //font-size: 14px;
+    //text-decoration: none;
+  }
+
+
+  h1:hover .heading-permalink,
+  h2:hover .heading-permalink,
+  h3:hover .heading-permalink,
+  h4:hover .heading-permalink,
+  h5:hover .heading-permalink,
+  h6:hover .heading-permalink{
+    visibility: visible;
+  }
+
+
+
+
 }

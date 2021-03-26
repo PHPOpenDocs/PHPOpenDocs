@@ -22,7 +22,7 @@ class HtmlErrorHandlerForProd implements AppErrorHandler
 
             $page = createErrorPage(nl2br($text));
 //            $page = Page::errorPage(nl2br($text));
-            $html = createPageHtml(null, $page, new Breadcrumbs);
+            $html = createPageHtml(null, $page);
 
             return $response->withStatus(500)
                 ->withHeader('Content-Type', 'text/html')

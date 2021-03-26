@@ -19,7 +19,12 @@ function injectionParams() : InjectionParams
             \PhpOpenDocs\Repo\PhpBugsStorage\RedisPhpBugsStorage::class,
         \PhpOpenDocs\Service\TooMuchMemoryNotifier\TooMuchMemoryNotifier::class =>
             \PhpOpenDocs\Service\TooMuchMemoryNotifier\NullTooMuchMemoryNotifier::class,
-   ];
+
+        \PhpOpenDocs\CSPViolation\CSPViolationStorage::class =>
+            \PhpOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
+
+        \PhpOpenDocs\JsonInput\JsonInput::class => \PhpOpenDocs\JsonInput\InputJsonInput::class,
+    ];
 
     // Delegate the creation of types to callables.
     $delegates = [
@@ -29,9 +34,7 @@ function injectionParams() : InjectionParams
         \SlimAuryn\SlimAurynInvokerFactory::class => 'createSlimAurynInvokerFactory',
         \Slim\App::class => 'createSlimAppForApi',
         \SlimAuryn\Routes::class => 'createRoutesForApi',
-
-        \PhpOpenDocs\AppErrorHandler\AppErrorHandler::class =>
-'createJsonAppErrorHandler',
+        \PhpOpenDocs\AppErrorHandler\AppErrorHandler::class => 'createJsonAppErrorHandler',
     ];
 
     // Define some params that can be injected purely by name.

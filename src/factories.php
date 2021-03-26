@@ -139,7 +139,7 @@ function createSlimAppForApp(
 
     $app = new \Slim\App($container);
     $app->add($injector->make(\SlimAuryn\ExceptionMiddleware::class));
-//    $app->add($injector->make(\PhpOpenDocs\Middleware\ContentSecurityPolicyMiddleware::class));
+    $app->add($injector->make(\PhpOpenDocs\Middleware\ContentSecurityPolicyMiddleware::class));
 //    $app->add($injector->make(\PhpOpenDocs\Middleware\BadHeaderMiddleware::class));
 //    $app->add($injector->make(\PhpOpenDocs\Middleware\AllowedAccessMiddleware::class));
     $app->add($injector->make(\PhpOpenDocs\Middleware\MemoryCheckMiddleware::class));
@@ -247,6 +247,20 @@ function createSectionList(): \OpenDocs\SectionList
     $sections = [];
 
     $sections[] = new \OpenDocs\Section(
+        '/learning',
+        'Learning',
+        'So you want/have been forced to learn PHP?',
+        new \Learning\LearningSectionInfo
+    );
+
+    $sections[] = new \OpenDocs\Section(
+        '/naming',
+        'Naming things',
+        'Naming things is one of the most difficult problems ever.',
+        new \NamingThings\NamingThingsSectionInfo
+    );
+
+    $sections[] = new \OpenDocs\Section(
         '/rfc_codex',
         'RFC Codex',
         "Discussions ideas for how PHP can be improved, why some ideas haven't come to fruition yet.",
@@ -260,12 +274,6 @@ function createSectionList(): \OpenDocs\SectionList
         new \PHPFunding\PHPFundingSectionInfo
     );
 
-    $sections[] = new \OpenDocs\Section(
-        '/naming',
-        'Naming things',
-        'Naming things is one of the most difficult problems ever.',
-        new \NamingThings\NamingThingsSectionInfo
-    );
 
     $sections[] = new \OpenDocs\Section(
         '/work',
@@ -281,4 +289,13 @@ function createSectionList(): \OpenDocs\SectionList
 //    );
 
     return new \OpenDocs\SectionList($sections);
+}
+
+function createApiDomain(Config $config)
+{
+    if ($config->isProductionEnv()) {
+        return new \PhpOpenDocs\Data\ApiDomain("https://api.phpopendocs.com");
+    }
+
+    return new \PhpOpenDocs\Data\ApiDomain("http://local.api.phpopendocs.com");
 }

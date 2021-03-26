@@ -34,14 +34,43 @@ class Pages
 
         $html = createPageHtml(
             null,
-            $page,
-            $breadcrumbs = new Breadcrumbs()
+            $page
         );
 
         return new HtmlResponse($html);
     }
 
-    public function index(): StubResponse
+
+
+    public function index(SectionList $sectionList): StubResponse
+    {
+        $html  = <<< HTML
+
+<h3>Hello</h3>
+<p>
+Not much here yet.
+Maybe check out the proposed sections...
+</p>
+HTML;
+
+        $html .= getSectionHtml($sectionList);
+
+
+        $html .= "<p>Oh, and there's the <a href='/system'>system page</a></p>";
+
+        $page = \OpenDocs\Page::createFromHtml(
+            'Index',
+            $html
+        );
+        $html = createPageHtml(
+            null,
+            $page
+        );
+
+        return new HtmlResponse($html);
+    }
+
+    public function htmlTest(): StubResponse
     {
         $examplePage = new ExamplePage();
 
@@ -103,11 +132,9 @@ class Pages
             new Breadcrumbs()
         );
 
-        $sectionPath = '/';
         $html = createPageHtml(
             null,
-            $page,
-            $breadcrumbs
+            $page
         );
         return new HtmlResponse($html);
     }
@@ -130,8 +157,7 @@ class Pages
 
         $html = createPageHtml(
             null,
-            $page,
-            $breadcrumbs = new Breadcrumbs()
+            $page
         );
 
         return new HtmlResponse($html);
@@ -144,17 +170,7 @@ class Pages
 
     public function sections(SectionList $sectionList): StubResponse
     {
-        $html = '';
-        $sectionTemplate = "<a href=':attr_link'>:html_name</a><p>:html_description</p>";
-
-        foreach ($sectionList->getSections() as $section) {
-            $params = [
-                ':attr_link' => $section->getPrefix(),
-                ':html_name' => $section->getName(),
-                ':html_description' => $section->getPurpose()
-            ];
-            $html .= esprintf($sectionTemplate, $params);
-        }
+        $html = getSectionHtml($sectionList);
 
         $page = new \OpenDocs\Page(
             $title = 'PHP OpenDocs',
@@ -168,8 +184,7 @@ class Pages
 
         $html = createPageHtml(
             null,
-            $page,
-            $breadcrumbs = new Breadcrumbs()
+            $page
         );
 
         return new HtmlResponse($html);

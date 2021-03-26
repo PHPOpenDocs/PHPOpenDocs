@@ -37,18 +37,18 @@ class ContentSecurityPolicyMiddleware
         $response = $next($request, $response);
 
         $connectSrcDomains = [
-            'https://checkout.stripe.com',
-            'https://api.stripe.com',
+//            'https://checkout.stripe.com',
+//            'https://api.stripe.com',
             $this->apiDomain->getDomain()
         ];
 
         $scriptSrcDomains = [
-            'https://js.stripe.com/'
+//            'https://js.stripe.com/'
         ];
 
         $frameSrcDomains = [
-            'https://js.stripe.com',
-            'https://hooks.stripe.com',
+//            'https://js.stripe.com',
+//            'https://hooks.stripe.com',
         ];
 
         $cspLines = [];
@@ -71,7 +71,7 @@ class ContentSecurityPolicyMiddleware
         );
         $cspLines[] = "object-src *";
         $cspLines[] = "style-src 'self'";
-        $cspLines[] = "report-uri /csp";
+        $cspLines[] = "report-uri " . $this->apiDomain->getDomain() . "/csp_violation";
 
         $response = $response->withHeader(
             'Content-Security-Policy',

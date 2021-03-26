@@ -19,6 +19,7 @@ use OpenDocs\HeaderLink;
 use OpenDocs\HeaderLinks;
 use OpenDocs\CopyrightInfo;
 use OpenDocs\EditInfo;
+use SlimAuryn\Response\HtmlResponse;
 
 function createBreadcrumbPart(string $path, string $description)
 {
@@ -316,11 +317,18 @@ HTML;
 
 }
 
-
-function createPageHtml(
+function createPageHtmlResponse(
     ?\OpenDocs\Section $section,
     Page $page,
     Breadcrumbs $breadcrumbs
+): HtmlResponse {
+    $html = createPageHtml($section, $page);
+    return new HtmlResponse($html);
+}
+
+function createPageHtml(
+    ?\OpenDocs\Section $section,
+    Page $page
 ): string {
 
     $headerLinks = createStandardHeaderLinks();

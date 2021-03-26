@@ -49,7 +49,13 @@ $portsInfo
         }
 
         location / {
-            try_files \$uri /$indexFilename?q=\$uri&\$args;
+            try_files \$uri \$uri.php \$uri/index.php /$indexFilename?q=\$uri&\$args;
+            fastcgi_param HTTP_PROXY "";
+            include /var/app/containers/nginx/config/fastcgi.conf;
+            fastcgi_param SCRIPT_FILENAME \$document_root/\$fastcgi_script_name;
+            fastcgi_read_timeout 300;
+            fastcgi_pass php_fpm:9000;
+            add_header DJA "php_file";
         }
 
         location /$indexFilename {
@@ -59,7 +65,7 @@ $portsInfo
             fastcgi_param SCRIPT_FILENAME \$document_root/\$fastcgi_script_name;
             fastcgi_read_timeout 300;
             fastcgi_pass $phpBackend;
-            #add_header DJA "phpblock";
+            #add_header DJA "php_front_controller";
         }
     }
 CONFIG;
