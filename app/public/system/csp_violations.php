@@ -13,7 +13,7 @@ $fn = function (CSPViolationStorage $cspvStorage) : HtmlResponse
     $html = <<< HTML
 <h1>CSP violations report</h1>
 
-<p>This site isn</p>
+<p>This site has a quite locked down Content Security Policy. If there are every some entries below, other than for the test page, they...should be fixed.</p>
 
 HTML;
 

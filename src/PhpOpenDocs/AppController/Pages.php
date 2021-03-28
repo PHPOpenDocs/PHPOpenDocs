@@ -55,6 +55,7 @@ Things to do before going live:
 <ul>
     <li>Actually split at least one of the sections off into a separate repo.</li>
     <li>Implement a build system, and a page to show the status of the build system.</li>
+    <li>Go through and make sure all of the edit links are working...</li>
     <li>Get someone to review CSS. And then someone to do colours for dark mode.</li>
     <li>Broken link checker.</li>
     <li>Write some instructions on how to create pages, sections or other stuff...</li>
