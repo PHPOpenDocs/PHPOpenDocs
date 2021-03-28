@@ -57,8 +57,7 @@ $local = [
 
 // Redis connection settings
     Config::PHPOPENDOCS_REDIS_INFO => [
-//        'host' => $dockerHost,
-        'host' => '10.254.254.254',
+        'host' => 'redis',
         'password' => 'ePvDZpYTXzT5N9xAPu24',
         'port' => 6379
     ],

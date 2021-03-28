@@ -6,11 +6,9 @@ namespace NamingThings;
 
 use OpenDocs\Breadcrumb;
 use OpenDocs\Breadcrumbs;
-use OpenDocs\ContentLinkLevel1;
-use OpenDocs\ContentLinkLevel2;
 use OpenDocs\ContentLinks;
 use OpenDocs\CopyrightInfo;
-use OpenDocs\GetRoute;
+use OpenDocs\ContentLink;
 use OpenDocs\Page;
 use OpenDocs\PrevNextLinks;
 use OpenDocs\Section;
@@ -30,7 +28,7 @@ class Pages
                 'Edit nouns', __DIR__ . "/nouns.php", null
             ),
             $this->getContentLinks(),
-            new PrevNextLinks(null, null),
+            createPrevNextLinksFromContentLinks($this->getContentLinks(), "/nouns"),
             $contents,
             new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
             $breadcrumbs = new Breadcrumbs(
@@ -52,7 +50,7 @@ class Pages
                 'Edit verbs', __DIR__ . "/verbs.php", null
             ),
             $this->getContentLinks(),
-            new PrevNextLinks(null, null),
+            createPrevNextLinksFromContentLinks($this->getContentLinks(), "/verbs"),
             $contents,
             new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
             $breadcrumbs = new Breadcrumbs(
@@ -133,20 +131,15 @@ HTML;
         );
     }
 
-    public function getContentLinks(): ContentLinks
+    /**
+     * @return ContentLink[]
+     */
+    public function getContentLinks(): array
     {
-        $nouns = new ContentLinkLevel1(
-            "/nouns",
-            "Nouns",
-            null
-        );
-
-        $verbs = new ContentLinkLevel1(
-            "/verbs",
-            "Verbs",
-            null
-        );
-
-        return new ContentLinks([$nouns, $verbs]);
+        return [
+            ContentLink::Level1(null, "Naming things"),
+            ContentLink::Level2("/nouns", "Nouns"),
+            ContentLink::Level2("/verbs", "Verbs"),
+        ];
     }
 }

@@ -21,21 +21,6 @@ class Pages
         $this->markdownRenderer = $markdownRenderer;
     }
 
-    public function getContentLinks(): ContentLinks
-    {
-//        $underDiscussion = $this->makeList(
-//            'Under discussion',
-//            $this->under_discussion_entries
-//        );
-
-//        $achieved = $this->makeList(
-//            'Ideas that overcame their challenges',
-//            $this->achieved_entries
-//        );
-
-
-        return new ContentLinks([]);
-    }
 
     public function renderPhp8_0_funding(PeopleList $peopleList)
     {
@@ -101,13 +86,12 @@ HTML;
 
     public function getIndexPage(Section $section, PeopleList $peopleList): Page
     {
-
         $contents = $this->renderPhp8_0_funding($peopleList);
 
         return new Page(
             'Rfc Codex',
             createDefaultEditInfo(),
-            $this->getContentLinks(),
+            [],
             new PrevNextLinks(null, null),
             $contents,
             createDefaultCopyrightInfo(),

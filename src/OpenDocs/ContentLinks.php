@@ -4,24 +4,19 @@ declare(strict_types = 1);
 
 namespace OpenDocs;
 
-use Params\Create\CreateFromArray;
-use Params\ExtractRule\GetArrayOfType;
-use Params\InputParameter;
 
 class ContentLinks
 {
-    use CreateFromArray;
-
-    /** @var ContentLinkLevel1[]  */
-    private array $children;
+    /** @var ContentLink[]  */
+    private array $links;
 
     /**
      *
-     * @param ContentLinkLevel1[] $children
+     * @param ContentLink[] $children
      */
     public function __construct(array $children)
     {
-        $this->children = $children;
+        $this->links = $children;
     }
 
     public static function createEmpty()
@@ -30,25 +25,10 @@ class ContentLinks
     }
 
     /**
-     * @return \Params\InputParameter[]
+     * @return ContentLink[]
      */
-    public static function getInputParameterList(): array
+    public function getLinks(): array
     {
-        return [
-            // TODO - InputParameter is a bad name
-            new InputParameter(
-                // TODO - why does this need children...
-                'children',
-                new GetArrayOfType(ContentLinkLevel1::class),
-            ),
-        ];
-    }
-
-    /**
-     * @return ContentLinkLevel1[]
-     */
-    public function getChildren(): array
-    {
-        return $this->children;
+        return $this->links;
     }
 }

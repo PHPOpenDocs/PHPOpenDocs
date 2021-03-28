@@ -168,7 +168,11 @@ function createRedis()
     $redisInfo = Config::get(Config::PHPOPENDOCS_REDIS_INFO);
 
     $redis = new Redis();
-    $redis->connect($redisInfo['host'], $redisInfo['port']);
+    $redis->connect(
+        $redisInfo['host'],
+        $redisInfo['port'],
+        $timeout = 2.0
+    );
     $redis->auth($redisInfo['password']);
     $redis->ping();
 

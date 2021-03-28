@@ -713,7 +713,7 @@ function createErrorPage($errorContentsHtml)
     return new OpenDocs\Page(
         'error',
         createDefaultEditInfo(),
-        OpenDocs\ContentLinks::createEmpty(),
+        [],
         new OpenDocs\PrevNextLinks(null, null),
         $contentHtml = $errorContentsHtml,
         new OpenDocs\CopyrightInfo('PHPOpenDocs', 'https://github.com/PHPOpenDocs/PHPOpenDocs'),
@@ -802,4 +802,43 @@ function formatCSPViolationReportsToHtml(array $reports): string
     }
 
     return renderTable($headers, $data);
+}
+
+/**
+ * @param \OpenDocs\ContentLink[] $contentLinks
+ * @param string $currentPosition
+ * @return \OpenDocs\PrevNextLinks
+ */
+function createPrevNextLinksFromContentLinks(
+    array $contentLinks,
+    string $currentPosition
+) {
+    $currentLink = null;
+    $previousLink = null;
+    $nextLink = null;
+
+    foreach ($contentLinks as $link) {
+        if ($nextLink === null && $previousLink !== null) {
+            $nextLink = $link;
+        }
+
+        if ($link->getPath() === $currentPosition) {
+            if ($currentLink !== null && $currentLink->getPath() !== null) {
+                $previousLink = $link;
+            }
+        }
+
+        $currentLink = $link;
+    }
+
+    return new OpenDocs\PrevNextLinks($previousLink, $nextLink);
+}
+
+function createLinkInfo(string $currentPosition, $contentLinks): OpenDocs\LinkInfo
+{
+    $prevNext = createPrevNextLinksFromContentLinks($contentLinks, $currentPosition);
+    return new \OpenDocs\LinkInfo(
+        $prevNext,
+        $contentLinks,
+    );
 }

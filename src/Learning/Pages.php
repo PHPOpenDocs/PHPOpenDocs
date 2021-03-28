@@ -114,7 +114,7 @@ class Pages
         return new Page(
             'PHP for people who know how to code.' ,
             createDefaultEditInfo(),
-            $this->getContentLinks(),
+            [],
             new PrevNextLinks(null, null),
             $contents,
             new CopyrightInfo(
@@ -122,38 +122,10 @@ class Pages
                 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'
             ),
             $breadcrumbs = new Breadcrumbs(new Breadcrumb(
-                '/php_for_people_who_know_how_to_code', 'jane')
+                '/php_for_people_who_know_how_to_code', 'PHP for people who know how to program')
             )
         );
     }
-
-    public function getJavaAntipatterns(
-        Section $section,
-        MarkdownRenderer $markdownRenderer
-    ) {
-        echo "nope.";
-        exit(0);
-        $fullPath = __DIR__ . "/docs/archive_java_exception_antipatterns.md";
-        $markdown = file_get_contents($fullPath);
-        $contents = $markdownRenderer->render($markdown);
-
-        return new Page(
-            'Java Exception Antipatterns' ,
-            createDefaultEditInfo(),
-            $this->getContentLinks(),
-            new PrevNextLinks(null, null),
-            $contents,
-            new CopyrightInfo(
-                'Tim McCune',
-                'https://github.com/Danack/RfcCodex/blob/master/LICENSE'
-            ),
-            $breadcrumbs = new Breadcrumbs(new Breadcrumb(
-                '/php_for_people_who_know_how_to_code', 'Java Exception Antipatterns')
-            )
-        );
-    }
-
-
 
 
     public function getIndexPage(Section $section): Page
@@ -197,7 +169,7 @@ HTML;
         return new Page(
             'Learning PHP',
             createEditInfo('Edit page', __FILE__, __LINE__ - 33),
-            $this->getContentLinks(),
+            [],
             new PrevNextLinks(null, null),
             $content,
             new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
@@ -207,18 +179,6 @@ HTML;
 
     public function getContentLinks(): ContentLinks
     {
-//        $nouns = new ContentLinkLevel1(
-//            "/nouns",
-//            "Nouns",
-//            null
-//        );
-
-//        $verbs = new ContentLinkLevel1(
-//            "/verbs",
-//            "Verbs",
-//            null
-//        );
-
         return new ContentLinks([]);
     }
 }

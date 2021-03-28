@@ -14,15 +14,8 @@ use OpenDocs\MarkdownRenderer\MarkdownRenderer;
 use OpenDocs\Page;
 use OpenDocs\PrevNextLinks;
 use OpenDocs\Section;
+use OpenDocs\ContentLink;
 
-function makeLink(?RfcCodexEntry $rfcCodexEntry): ?\OpenDocs\Link
-{
-    if ($rfcCodexEntry === null) {
-        return null;
-    }
-
-    return new \OpenDocs\Link($rfcCodexEntry->getPath(), $rfcCodexEntry->getName());
-}
 
 class Pages
 {
@@ -103,43 +96,32 @@ class Pages
         }
     }
 
-    private function makeList(string $name, $items)
-    {
-        $list = [];
-        foreach ($items as $entry) {
-            $url = $entry->getFilename();
-            if (strpos($url, 'http') !== 0) {
-                $url = '/' . $entry->getPath();
-            }
 
-            $list[] = new ContentLinkLevel2(
-                $url,
-                $entry->getName(),
-                null
+    /**
+     * @return ContentLink[]
+     */
+    public function getContentLinks(): array
+    {
+        $links = [];
+
+        $links[] = ContentLink::level1(null, 'Under discussion');
+
+        foreach ($this->under_discussion_entries as $under_discussion_entry) {
+            $links[] = ContentLink::level2(
+                '/' . $under_discussion_entry->getPath(),
+                $under_discussion_entry->getName()
             );
         }
 
-        return new ContentLinkLevel1(
-            null,
-            $name,
-            $list
-        );
-    }
+        $links[] = ContentLink::level1(null, 'Ideas that overcame their challenges');;
+        foreach ($this->achieved_entries as $achieved_entry) {
+            $links[] = ContentLink::level2(
+                '/' . $achieved_entry->getPath(),
+                $achieved_entry->getName()
+            );
+        }
 
-    public function getContentLinks(): ContentLinks
-    {
-        $underDiscussion = $this->makeList(
-            'Under discussion',
-            $this->under_discussion_entries
-        );
-
-        $achieved = $this->makeList(
-            'Ideas that overcame their challenges',
-            $this->achieved_entries
-        );
-
-
-        return new ContentLinks([$underDiscussion, $achieved]);
+        return $links;
     }
 
 
@@ -171,34 +153,6 @@ class Pages
         return null;
     }
 
-    private function getPrevNextLinks(string $currentName): PrevNextLinks
-    {
-        $previous = null;
-        $previousEntryLink = null;
-        $nextEntryLink = null;
-        foreach ($this->all_entries as $entry) {
-
-            if ($nextEntryLink === null) {
-                if ($previousEntryLink !== null) {
-                    // This is the next one.
-                    $nextEntryLink = $entry;
-                }
-            }
-
-            if (strcasecmp($entry->getPath(), $currentName) === 0) {
-                $previousEntryLink = $previous;
-            }
-            $previous = $entry;
-        }
-
-
-        return new PrevNextLinks(
-            makeLink($previousEntryLink),
-            makeLink($nextEntryLink)
-        );
-    }
-
-
     public function getPage(Section $section, $name): Page
     {
         $contents = $this->getContents($name);
@@ -212,7 +166,7 @@ class Pages
             'Rfc Codex - ' . $name,
             createDefaultEditInfo(),
             $this->getContentLinks(),
-            $this->getPrevNextLinks($name),
+            createPrevNextLinksFromContentLinks($this->getContentLinks(), $name), //$this->getPrevNextLinks($name),
             $contents,
             new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
             $breadcrumbs = new Breadcrumbs(new Breadcrumb($name, $name))

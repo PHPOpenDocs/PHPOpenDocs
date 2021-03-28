@@ -7,18 +7,14 @@
 declare(strict_types = 1);
 
 use OpenDocs\Breadcrumbs;
-use OpenDocs\PrevNextLinks;
+use OpenDocs\ContentLink;
 use OpenDocs\ContentLinks;
-use OpenDocs\ContentLinkLevel1;
-use OpenDocs\ContentLinkLevel2;
-use OpenDocs\ContentLinkLevel3;
-use OpenDocs\FooterInfo;
-use OpenDocs\Page;
-use OpenDocs\URL;
-use OpenDocs\HeaderLink;
-use OpenDocs\HeaderLinks;
 use OpenDocs\CopyrightInfo;
 use OpenDocs\EditInfo;
+use OpenDocs\HeaderLink;
+use OpenDocs\HeaderLinks;
+use OpenDocs\Page;
+use OpenDocs\PrevNextLinks;
 use SlimAuryn\Response\HtmlResponse;
 
 function createBreadcrumbPart(string $path, string $description)
@@ -112,20 +108,6 @@ function createStandardHeaderLinks(): HeaderLinks
     ]);
 }
 
-
-function createContentLinkLevel3Html(string $sectionPath, ContentLinkLevel3 $contentLinkLevel3): string
-{
-    $template = '<div><a href=":attr_path">:html_description</a></div>';
-    $params = [
-        ':html_description' => $contentLinkLevel3->getDescription(),
-        ':attr_path' => $sectionPath . $contentLinkLevel3->getPath(),
-    ];
-
-    $html = esprintf($template, $params);
-
-    return "<div class='opendocs_content_link_level_3'>" . $html . "</div>";
-}
-
 function getUrl($sectionPath, $path)
 {
     // It's an external url
@@ -136,107 +118,46 @@ function getUrl($sectionPath, $path)
     return $sectionPath . $path;
 }
 
-function createContentLinkLevel2Html(string $sectionPath, ContentLinkLevel2 $contentLinkLevel2): string
+function createContentLinkHtml(string $sectionPath, ContentLink $contentLink): string
 {
-    $path = $contentLinkLevel2->getPath();
-    if ($path === null) {
-        $html = esprintf(
-            ":html_description",
-            [':html_description' => $contentLinkLevel2->getDescription()]
-        );
-    }
-    else {
-        $html = esprintf(
-            '<a href=":attr_path">:html_description</a></span>',
+    if ($contentLink->getPath() === null) {
+        return esprintf(
+            "<div class='opendocs_content_link_level_:attr_level'>:html_description</div>",
             [
-                ':html_description' => $contentLinkLevel2->getDescription(),
-                ':attr_path' => getUrl($sectionPath, $contentLinkLevel2->getPath()),
+                ':html_description' => $contentLink->getDescription(),
+                ':attr_level' => $contentLink->getLevel()
             ]
         );
     }
 
-    $html = "<div class='opendocs_content_link_level_2'>" . $html . "</div>";
-
-    $children = $contentLinkLevel2->getChildren();
-
-    if ($children === null) {
-        return $html;
-    }
-
-    $li_elements = [];
-    foreach ($children as $child) {
-        $li_elements[] = createContentLinkLevel3Html($sectionPath, $child);
-    }
-
-    return $html . implode("\n", $li_elements);
+    return esprintf(
+        "<div class='opendocs_content_link_level_:attr_level'><a href=':attr_path'>:html_description</a></div>",
+        [
+            ':html_description' => $contentLink->getDescription(),
+            ':attr_path' => $sectionPath . $contentLink->getPath(),
+            ':attr_level' => $contentLink->getLevel()
+        ]
+    );
 }
 
-function createContentLinkLevel1Html(string $sectionPath, ContentLinkLevel1 $contentLinkLevel1): string
-{
-    $path = $contentLinkLevel1->getPath();
-    if ($path === null) {
-        $html = esprintf(
-            ":html_description",
-            [':html_description' => $contentLinkLevel1->getDescription()]
-        );
-    }
-    else {
-        $html = esprintf(
-            "<a href=':attr_path'>:html_description</a>",
-            [
-                ':html_description' => $contentLinkLevel1->getDescription(),
-                ':attr_path' => $sectionPath . $contentLinkLevel1->getPath(),
-            ]
-        );
-    }
-
-    $html = "<div class='opendocs_content_link_level_1'>" . $html . "</div>";
-
-
-    $li_elements = [];
-    $children = $contentLinkLevel1->getChildren();
-    if ($children !== null) {
-        foreach ($children as $contentLinkLevel2) {
-            $li_elements[] = createContentLinkLevel2Html(
-                $sectionPath,
-                $contentLinkLevel2
-            );
-        }
-
-
-//        $html .= "<div class='opendocs_content_links_level_2'>\n" . implode("\n", $li_elements) . "</div>";
-    }
-
-    return $html . implode("\n", $li_elements);
-
-
-//    return "<div>" . $html . "</div>";
-}
-
-function createContentLinksHtml(string $sectionPath, ContentLinks $contentLinks): string
+/**
+ * @param string $sectionPath
+ * @param ContentLink[] $contentLinks
+ * @return string
+ */
+function createContentLinksHtml(string $sectionPath, array $contentLinks): string
 {
     $li_elements = [];
-    $children = $contentLinks->getChildren();
 
-    if ($children === null) {
-        return "";
-    }
-
-    foreach ($children as $contentLinkLevel1) {
-        $li_elements[] = createContentLinkLevel1Html(
+    foreach ($contentLinks as $contentLink) {
+        $li_elements[] = createContentLinkHtml(
             $sectionPath,
-            $contentLinkLevel1
+            $contentLink
         );
     }
 
     return implode("\n", $li_elements);
-
-//    return sprintf(
-//        "<div class='opendocs_content_links'>%s</div>",
-//        implode("\n", $li_elements)
-//    );
 }
-
 
 /**
  * @param array<string, string> $namesWithLinks

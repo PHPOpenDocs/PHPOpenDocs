@@ -11,7 +11,7 @@ class Page
 
     private EditInfo $editInfo;
 
-    private ContentLinks $contentLinks;
+    private array $contentLinks;
 
     private PrevNextLinks $prevNextLinks;
 
@@ -21,10 +21,20 @@ class Page
 
     private Breadcrumbs $breadcrumbs;
 
+    /**
+     * Page constructor.
+     * @param string $title
+     * @param EditInfo $editInfo
+     * @param ContentLink[] $contentLinks
+     * @param PrevNextLinks $prevNextLinks
+     * @param string $contentHtml
+     * @param CopyrightInfo $copyrightOwner
+     * @param Breadcrumbs $breadcrumbs
+     */
     public function __construct(
         string $title,
         EditInfo $editInfo,
-        ContentLinks $contentLinks,
+        array $contentLinks,
         PrevNextLinks $prevNextLinks,
         string $contentHtml,
         CopyrightInfo $copyrightOwner,
@@ -46,7 +56,7 @@ class Page
         $page = new \OpenDocs\Page(
             $title,
             createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
-            ContentLinks::createEmpty(),
+            [],
             new PrevNextLinks(null, null),
             $contentHtml,
             createDefaultCopyrightInfo(),
@@ -65,7 +75,7 @@ class Page
         $page = new \OpenDocs\Page(
             $title,
             $editInfo, //createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
-            ContentLinks::createEmpty(),
+            [],
             new PrevNextLinks(null, null),
             $contentHtml,
             createDefaultCopyrightInfo(),
@@ -114,9 +124,9 @@ class Page
     }
 
     /**
-     * @return ContentLinks
+     * @return ContentLink[]
      */
-    public function getContentLinks(): ContentLinks
+    public function getContentLinks(): array
     {
         return $this->contentLinks;
     }

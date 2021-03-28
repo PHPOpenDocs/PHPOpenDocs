@@ -10,9 +10,20 @@ use SlimAuryn\Response\HtmlResponse;
 
 $fn = function (CSPViolationStorage $cspvStorage) : HtmlResponse
 {
-    $reports = $cspvStorage->getReports();
+    $html = <<< HTML
+<h1>CSP violations report</h1>
 
-    $html = formatCSPViolationReportsToHtml($reports);
+<p>This site isn</p>
+
+HTML;
+
+    try {
+        $reports = $cspvStorage->getReports();
+        $html .= formatCSPViolationReportsToHtml($reports);
+    }
+    catch (\RedisException $redisException) {
+        $html .= "<p>Redis is having a problem: " . $redisException->getMessage() . "</p>";
+    }
 
     $page = \OpenDocs\Page::createFromHtmlEx(
         'System',

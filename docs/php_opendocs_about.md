@@ -19,7 +19,7 @@ Each section should be in a separate repo, so that any suggestions of edits, cor
 
 ### Site must be self-contained
 
-All of the content for the site should be self-contained after being deployed (i.e. no dynamic fetching of content after deployment). This is so that the site can be archived, shipped on CD, inspected for appropriate content. The site will redeploy itself every day, 
+All of the content for the site should be self-contained after being deployed (i.e. no dynamic fetching of content after deployment). This is so that the site can be archived, shipped on CD, inspected for appropriate content. 
 
 ### Content should be forkable
 

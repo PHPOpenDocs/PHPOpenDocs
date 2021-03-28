@@ -4,21 +4,8 @@ declare(strict_types = 1);
 
 namespace OpenDocs;
 
-use Params\ExtractRule\GetArrayOfTypeOrNull;
-use Params\ExtractRule\GetOptionalString;
-use Params\ExtractRule\GetString;
-use Params\InputParameter;
-use Params\ProcessRule\MinLength;
-use Params\ProcessRule\MaxLength;
-use Params\Create\CreateFromArray;
-use Params\ExtractRule\GetArrayOfType;
-use Params\InputParameterList;
-use Params\ProcessRule\SkipIfNull;
-
 class ContentLink
 {
-//    use CreateFromArray;
-
     private ?string $path;
 
     private string $description;
@@ -41,7 +28,6 @@ class ContentLink
         $this->level = $level;
     }
 
-
     public static function level1(?string $path, string $description)
     {
         return new self($path, $description, 1);
@@ -55,5 +41,29 @@ class ContentLink
     public static function level3(?string $path, string $description)
     {
         return new self($path, $description, 3);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPath(): ?string
+    {
+        return $this->path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLevel(): int
+    {
+        return $this->level;
     }
 }

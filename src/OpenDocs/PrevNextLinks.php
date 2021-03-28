@@ -6,24 +6,24 @@ namespace OpenDocs;
 
 class PrevNextLinks
 {
-    private ?Link $prevLink;
+    private ?ContentLink $prevLink;
 
-    private ?Link $nextLink;
+    private ?ContentLink $nextLink;
 
     public function __construct(
-        ?Link $prev,
-        ?Link $next
+        ?ContentLink $prev,
+        ?ContentLink $next
     ) {
         $this->prevLink = $prev;
         $this->nextLink = $next;
     }
 
-    public function getPrevLink(): ?Link
+    public function getPrevLink(): ?ContentLink
     {
         return $this->prevLink;
     }
 
-    public function getNextLink(): ?Link
+    public function getNextLink(): ?ContentLink
     {
         return $this->nextLink;
     }

@@ -13,7 +13,7 @@ class LinkInfo
     /**
      *
      * @param PrevNextLinks $prevNextLinks
-     * @param ContentLinks $contentLinks
+     * @param ContentLink[] $contentLinks
      */
     public function __construct(
         PrevNextLinks $prevNextLinks,
@@ -29,7 +29,10 @@ class LinkInfo
         return $this->prevNextLinks;
     }
 
-    public function getContentLinks(): ContentLinks
+    /**
+     * @return ContentLink[]
+     */
+    public function getContentLinks(): array
     {
         return $this->contentLinks;
     }
