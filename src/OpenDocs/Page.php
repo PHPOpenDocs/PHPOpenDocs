@@ -75,6 +75,27 @@ class Page
         return $page;
     }
 
+    public static function createFromHtmlEx2(
+        string $title,
+        string $contentHtml,
+        EditInfo $editInfo,
+        \OpenDocs\Breadcrumbs $breadcrumbs,
+        CopyrightInfo $copyrightInfo,
+        \OpenDocs\LinkInfo $linkInfo
+    ): Page {
+        $page = new \OpenDocs\Page(
+            $title,
+            $editInfo,
+            $linkInfo->getContentLinks(),
+            $linkInfo->getPrevNextLinks(),
+            $contentHtml,
+            $copyrightInfo,
+            $breadcrumbs
+        );
+
+        return $page;
+    }
+
 
     /**
      * @return string

@@ -35,7 +35,9 @@ class ContentLinks
     public static function getInputParameterList(): array
     {
         return [
+            // TODO - InputParameter is a bad name
             new InputParameter(
+                // TODO - why does this need children...
                 'children',
                 new GetArrayOfType(ContentLinkLevel1::class),
             ),

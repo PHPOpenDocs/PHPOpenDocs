@@ -12,6 +12,14 @@ function injectionParams()
         \PhpOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
         \PhpOpenDocs\Service\RequestNonce::class,
         \OpenDocs\SectionList::class,
+
+        new \Learning\LearningSection(
+            '/learning',
+            'Learning',
+            'So you want/have been forced to learn PHP?',
+            new \Learning\LearningSectionInfo
+        ),
+
     ];
 
     // Alias interfaces (or classes) to the actual types that should be used

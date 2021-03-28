@@ -131,7 +131,8 @@ class Pages
         Section $section,
         MarkdownRenderer $markdownRenderer
     ) {
-
+        echo "nope.";
+        exit(0);
         $fullPath = __DIR__ . "/docs/archive_java_exception_antipatterns.md";
         $markdown = file_get_contents($fullPath);
         $contents = $markdownRenderer->render($markdown);
