@@ -1,8 +1,12 @@
 # About PHP OpenDocs
 
-One of the problems with the PHP manual site is that it is a monolithic repo, which results in all curation decisions needing to go through a single nexus.
+This is an experiment in making a community site for PHP related content.
 
-Instead of having all content under a single repo, OpenDocs is an experiment in delegating responsibility for each section of a website to separate organisations.
+Although the PHP manual has been around since the dawn of time, it has never been a place for user-submitted content.
+
+One of the problems with the PHP manual site is that it is a monolithic repo, which results in all curation decisions needing to go through a single nexus. This is  a general problem with content websites, as over time people grow bored with maintaining them.
+
+Instead of having all content under a single repo, PHPOpenDocs is an experiment in delegating responsibility for each section of a website to separate organisations.
 
 All of the content should be related to PHP or closely related technologies, but other than that, pretty much anything goes.
 
@@ -17,9 +21,11 @@ Each section should be in a separate repo, so that any suggestions of edits, cor
 
 All of the content for the site should be self-contained after being deployed (i.e. no dynamic fetching of content after deployment). This is so that the site can be archived, shipped on CD, inspected for appropriate content. The site will redeploy itself every day, 
 
-### Content must be forkable
+### Content should be forkable
 
 At some point people may just disagree with how a particular section is maintained. Rather than leading to a fight for control over the repo that contains that section, it should be possible for people to fork that content, and maintain it how they prefer it to be maintained.
+
+For some people/projects this might not be appropriate (e.g. for commercial reasons), and non-forkable content may be accepted on a case-by-case basic.
 
 ### Content must be remixable
 

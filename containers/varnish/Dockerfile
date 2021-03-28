@@ -9,9 +9,16 @@ RUN apt-get update -qq \
     wget curl varnish libmaxminddb0 psmisc \
     ca-certificates lsb-release apt-transport-https gnupg bsdmainutils
 
-# Install 3rd party PHP 7.2 packages
+
+RUN apt-key del B188E2B695BD4743
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee -a /etc/apt/sources.list.d/php.list
-RUN curl -L https://packages.sury.org/php/apt.gpg | apt-key add -
+
+# RUN curl -L https://packages.sury.org/php/apt.gpg | apt-key add -
+
+
+
 
 RUN  apt-get update -qq \
     && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
