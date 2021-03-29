@@ -45,7 +45,7 @@
   }
 
   h1 {
-    font-size: 2.4em;
+    font-size: 2.0em;
   }
   h2 {
     font-size: 1.6em;
@@ -57,7 +57,7 @@
     font-size: 1.2em;
   }
   h5 {
-    font-size: 1.1em;
+    font-size: 1.0em;
   }
 
 a {
@@ -79,8 +79,9 @@ a {
   }
 
   li+li {
-    margin-top: .25em;
+    padding-top: 12px;
   }
+
   code {
     font-family: Inconsolata, monospace;
   }

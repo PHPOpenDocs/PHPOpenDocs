@@ -7,32 +7,9 @@ require_once __DIR__ . "/../../../src/web_bootstrap.php";
 use Learning\LearningSection;
 use OpenDocs\Breadcrumbs;
 use OpenDocs\ContentLink;
-use OpenDocs\ContentLinks;
 use OpenDocs\CopyrightInfo;
-use OpenDocs\LinkInfo;
 use OpenDocs\MarkdownRenderer\MarkdownRenderer;
-use OpenDocs\PrevNextLinks;
-
-function getLearningContentLinks(): ContentLinks
-{
-    // 'description' => "Basic resources why this not here?",
-    $links = [
-        ContentLink::level1(null, "Best practices"),
-        ContentLink::level2('/best_practice_exceptions', 'Exceptions'),
-        ContentLink::level2('/best_practice_interfaces_for_external_apis', "Interfaces for external apis"),
-        ContentLink::level1(null, "Good docs"),
-        ContentLink::level2('/java_exception_antipatterns', "Java exception anti-patterns"),
-    ];
-//   'path' => 'https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/',
-//   'description' => "Falsehoods Programmers Believe About Names",
-
-//   'path' => 'https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/',
-//  'description' => "What Color is Your Function?",
-
-    return new \OpenDocs\ContentLinks($links);
-}
-
-
+use function Learning\getLearningContentLinks;
 
 
 $fn = function (
@@ -40,8 +17,7 @@ $fn = function (
     MarkdownRenderer $markdownRenderer
 ) {
     $fullPath = __DIR__ . "/../../../src/Learning/docs/archive_java_exception_antipatterns.md";
-    $markdown = file_get_contents($fullPath);
-    $html = $markdownRenderer->render($markdown);
+    $html = $markdownRenderer->renderFile($fullPath);
 
     $contentLinks = getLearningContentLinks();
 

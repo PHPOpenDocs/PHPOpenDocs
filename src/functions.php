@@ -225,6 +225,7 @@ function fetchUri(string $uri, string $method, array $queryParams = [], string $
 
     curl_setopt($curl, CURLOPT_URL, $uri . $query);
     curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 
     $allHeaders = [];
 
@@ -834,7 +835,7 @@ function createPrevNextLinksFromContentLinks(
     return new OpenDocs\PrevNextLinks($previousLink, $nextLink);
 }
 
-function createLinkInfo(string $currentPosition, $contentLinks): OpenDocs\LinkInfo
+function createLinkInfo(string $currentPosition, array $contentLinks): OpenDocs\LinkInfo
 {
     $prevNext = createPrevNextLinksFromContentLinks($contentLinks, $currentPosition);
     return new \OpenDocs\LinkInfo(

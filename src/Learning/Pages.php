@@ -6,7 +6,7 @@ namespace Learning;
 
 use OpenDocs\Breadcrumb;
 use OpenDocs\Breadcrumbs;
-use OpenDocs\ContentLinks;
+
 use OpenDocs\CopyrightInfo;
 use OpenDocs\MarkdownRenderer\MarkdownRenderer;
 use OpenDocs\Page;
@@ -22,13 +22,13 @@ function getBestPractices()
     $bestPractices[] = new BestPractice(
         "Exceptions",
         "How to use exceptions successfully, and avoid bad patterns.",
-        "best_practice_exceptions.md"
+        "best_practice_exceptions"
     );
 
     $bestPractices[] = new BestPractice(
         "Interfaces for external apis",
         "People make several common mistakes when using external apis.",
-        "best_practice_interfaces_for_external_apis.md"
+        "best_practice_interfaces_for_external_apis"
     );
 
     return $bestPractices;
@@ -177,8 +177,4 @@ HTML;
         );
     }
 
-    public function getContentLinks(): ContentLinks
-    {
-        return new ContentLinks([]);
-    }
 }

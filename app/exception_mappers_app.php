@@ -42,3 +42,22 @@ function parseErrorMapperForApp(\ParseError $parseError, ResponseInterface $resp
 
     return new \SlimAuryn\Response\HtmlResponse($html, [], 500);
 }
+
+function renderMarkdownRendererException(
+    \OpenDocs\MarkdownRenderer\MarkdownRendererException $markdownRendererException,
+    ResponseInterface $response
+) {
+    $string = sprintf(
+        "MarkdownRendererException at %s:%d\n\n%s",
+        normaliseFilePath($markdownRendererException->getFile()),
+        $markdownRendererException->getLine(),
+        $markdownRendererException->getMessage(),
+    );
+
+
+    $page = createErrorPage(nl2br($string));
+    $html = createPageHtml(null, $page);
+
+    return new \SlimAuryn\Response\HtmlResponse($html, [], 500);
+}
+

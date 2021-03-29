@@ -8,7 +8,8 @@ class LinkInfo
 {
     private PrevNextLinks $prevNextLinks;
 
-    private ContentLinks $contentLinks;
+    /** @var ContentLink[] */
+    private array $contentLinks;
 
     /**
      *
@@ -17,7 +18,7 @@ class LinkInfo
      */
     public function __construct(
         PrevNextLinks $prevNextLinks,
-        ContentLinks $contentLinks
+        array $contentLinks
     ) {
         $this->prevNextLinks = $prevNextLinks;
         $this->contentLinks = $contentLinks;

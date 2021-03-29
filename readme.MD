@@ -26,7 +26,7 @@ The site should be up at:
 ## Where stuff is
 
 * Site CSS generated from: app/public/scss
-* Basic routes: routes/app_routes.php
+* Basic routes: routes/app_routes.php or 
 * Where pages are converted into HTML src/site_html.php
 * Section list: createSectionList in src/factories.php:180
 * Injection params: injectionParams/app.php
@@ -38,19 +38,30 @@ Just push to main and it should appear quite soon...
 
 ## Random docker things to run
 
-docker-compose exec php_fpm php vendor/bin/phpunit -c test/phpunit.xml
+Bashing into a box
+```
+docker exec -it example_web_admin_1 bash
+```
 
-docker-compose exec php_fpm_debug php vendor/bin/phpunit -c test/phpunit.xml
+Running tests:
+```
+docker-compose exec phpopendocs_php_fpm_1 php vendor/bin/phpunit -c test/phpunit.xml
+docker-compose exec phpopendocs_php_fpm_debug_1 php vendor/bin/phpunit -c test/phpunit.xml
+```
 
+Kill all running docker boxes:
+```
+docker kill $(docker ps -q)
+```
+
+Remove all docker images:
+```
 docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
 docker network rm $(docker network ls -q)
-
-docker kill $(docker ps -q)
-
-docker exec -it example_web_admin_1 bash
+```
 
 
-## Useful links
+## Useful/random links
 
-https://domchristie.github.io/turndown/
+https://domchristie.github.io/turndown/ - convert html into markdown

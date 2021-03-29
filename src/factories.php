@@ -85,6 +85,9 @@ function createExceptionMiddlewareForApp(\Auryn\Injector $injector): \SlimAuryn\
         // We don't use this. All forms are api based.
         /// \Params\Exception\ValidationException::class => 'foo',
         \PhpOpenDocs\Exception\DebuggingCaughtException::class => 'debuggingCaughtExceptionExceptionMapperApp',
+
+        \OpenDocs\MarkdownRenderer\MarkdownRendererException::class => 'renderMarkdownRendererException',
+
         \ParseError::class => 'parseErrorMapperForApp',
     ];
 

@@ -74,12 +74,12 @@ class Page
     ): Page {
         $page = new \OpenDocs\Page(
             $title,
-            $editInfo, //createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
+            $editInfo,
             [],
             new PrevNextLinks(null, null),
             $contentHtml,
             createDefaultCopyrightInfo(),
-            $breadcrumbs//new Breadcrumbs()
+            $breadcrumbs
         );
 
         return $page;
@@ -105,7 +105,6 @@ class Page
 
         return $page;
     }
-
 
     /**
      * @return string

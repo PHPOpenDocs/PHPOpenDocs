@@ -5,7 +5,25 @@ declare(strict_types = 1);
 namespace Learning;
 
 use OpenDocs\EditInfo;
+use OpenDocs\ContentLink;
 
+
+function getLearningContentLinks(): array
+{
+    // 'description' => "Basic resources why this not here?",
+    return [
+        ContentLink::level1(null, "Best practices"),
+        ContentLink::level2('/best_practice_exceptions', 'Exceptions'),
+        ContentLink::level2('/best_practice_interfaces_for_external_apis', "Interfaces for external apis"),
+        ContentLink::level1(null, "Good docs"),
+        ContentLink::level2('/java_exception_antipatterns', "Java exception anti-patterns"),
+    ];
+//   'path' => 'https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/',
+//   'description' => "Falsehoods Programmers Believe About Names",
+
+//   'path' => 'https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/',
+//  'description' => "What Color is Your Function?",
+}
 
 function createEditInfo(string $description, string $file, ?int $line): EditInfo
 {

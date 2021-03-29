@@ -20,3 +20,4 @@ app/public/js/app.bundle.js.map.gz
 /config.generated.php
 /debug.php
 deadish
+.idea/

@@ -24,7 +24,7 @@ class ExternalPages
         $page = new \OpenDocs\Page(
             $title = 'PHP OpenDocs',
             $editUrl = new URL('www.example.com'),
-            ContentLinks::createEmpty(),
+            [],
             new PrevNextLinks(null, null),
             $contentHtml = $page->getPageContent(),
             new CopyrightInfo('Exakat', 'https://github.com/exakat/php-static-analysis-tools/blob/master/LICENSE.md')

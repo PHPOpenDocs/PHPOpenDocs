@@ -15,6 +15,18 @@ use League\CommonMark\Normalizer\SlugNormalizer;
 
 class CommonMarkRenderer implements MarkdownRenderer
 {
+
+    public function renderFile(string $filepath): string
+    {
+        $markdown = @file_get_contents($filepath);
+
+        if ($markdown === false) {
+            throw MarkdownRendererException::fileNotFound($filepath);
+        }
+
+        return $this->render($markdown);
+    }
+
     public function render(string $markdown): string
     {
         $environment = Environment::createGFMEnvironment();

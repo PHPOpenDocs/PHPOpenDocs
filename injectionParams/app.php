@@ -27,16 +27,23 @@ function injectionParams()
     $aliases = [
         \VarMap\VarMap::class => \VarMap\Psr7VarMap::class,
         \PhpOpenDocs\Service\TooMuchMemoryNotifier\TooMuchMemoryNotifier::class =>
-        \PhpOpenDocs\Service\TooMuchMemoryNotifier\NullTooMuchMemoryNotifier::class,
+            \PhpOpenDocs\Service\TooMuchMemoryNotifier\NullTooMuchMemoryNotifier::class,
         \PhpOpenDocs\CSPViolation\CSPViolationReporter::class =>
-        \PhpOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
+            \PhpOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
         \PhpOpenDocs\CSPViolation\CSPViolationStorage::class =>
             \PhpOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
 
-//        \OpenDocs\MarkdownRenderer\MarkdownRenderer::class =>
-//            \OpenDocs\MarkdownRenderer\MichelfMarkdownRenderer::class,
         \OpenDocs\MarkdownRenderer\MarkdownRenderer::class =>
             \OpenDocs\MarkdownRenderer\CommonMarkRenderer::class,
+
+//        \OpenDocs\UrlFetcher\UrlFetcher::class =>
+//            \OpenDocs\UrlFetcher\CurlUrlFetcher::class,
+
+        \OpenDocs\UrlFetcher\UrlFetcher::class =>
+        \OpenDocs\UrlFetcher\RedisCachedUrlFetcher::class,
+
+        \OpenDocs\ExternalMarkdownRenderer\ExternalMarkdownRenderer::class =>
+            \OpenDocs\ExternalMarkdownRenderer\StandardExternalMarkdownRenderer::class
     ];
 
     // Delegate the creation of types to callables.
