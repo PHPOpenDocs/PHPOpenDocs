@@ -6,15 +6,43 @@ namespace OpenDocs\UrlFetcher;
 
 class UrlFetcherException extends \Exception
 {
-    const RESPONSE_NOT_OK = "Response code %s is not ok.";
+    const RESPONSE_NOT_OK = "Response code %s is not ok for uri %s";
 
-    public static function notOk(int $statusCode)
+    private int $statusCode;
+    private string $uri;
+
+    public function __construct(int $statusCode, string $uri, string $message)
+    {
+        $this->statusCode = $statusCode;
+        $this->uri = $uri;
+
+        parent::__construct($message);
+    }
+
+    public static function notOk(int $statusCode, string $uri)
     {
         $message = sprintf(
             self::RESPONSE_NOT_OK,
-            $statusCode
+            $statusCode,
+            $uri
         );
 
-        return new self($message);
+        return new self($statusCode, $uri, $message);
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatusCode(): int
+    {
+        return $this->statusCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUri(): string
+    {
+        return $this->uri;
     }
 }

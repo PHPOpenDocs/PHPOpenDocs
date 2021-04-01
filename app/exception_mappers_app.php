@@ -40,7 +40,7 @@ function parseErrorMapperForApp(\ParseError $parseError, ResponseInterface $resp
     $page = createErrorPage(nl2br($text));
     $html = createPageHtml(null, $page);
 
-    return new \SlimAuryn\Response\HtmlResponse($html, [], 500);
+    return new \SlimAuryn\Response\HtmlNoCacheResponse($html, [], 500);
 }
 
 function renderMarkdownRendererException(
@@ -54,10 +54,23 @@ function renderMarkdownRendererException(
         $markdownRendererException->getMessage(),
     );
 
+    $page = createErrorPage(nl2br($string));
+    $html = createPageHtml(null, $page);
+
+    return new \SlimAuryn\Response\HtmlNoCacheResponse($html, [], 500);
+}
+
+function renderUrlFetcherException(\OpenDocs\UrlFetcher\UrlFetcherException $urlFetcherException)
+{
+    $string = sprintf(
+        "UrlFetcherException failed to fetch uri %s status code %d",
+        $urlFetcherException->getUri(),
+        $urlFetcherException->getStatusCode()
+    );
 
     $page = createErrorPage(nl2br($string));
     $html = createPageHtml(null, $page);
 
-    return new \SlimAuryn\Response\HtmlResponse($html, [], 500);
-}
+    return new \SlimAuryn\Response\HtmlNoCacheResponse($html, [], 500);
 
+}

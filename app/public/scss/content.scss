@@ -2,7 +2,8 @@
 .opendocs_content {
   background-color: var(--content_panel_background_color);
   color: var(--content_panel_text_color);
-  line-height: 24px;
+
+  line-height: 20px;
 
   h1, h2, h3, h4, h5, h6 {
     margin-top: 0px;
@@ -21,6 +22,10 @@
   }
 
   // p + h1 would this ever be needed?
+
+  p + p {
+    padding-top: 8px;
+  }
 
   a + h2,
   p + h2 {
