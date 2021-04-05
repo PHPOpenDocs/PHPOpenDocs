@@ -7,14 +7,12 @@ namespace PhpOpenDocs\AppController;
 use OpenDocs\Breadcrumb;
 use OpenDocs\Breadcrumbs;
 use OpenDocs\ContentLink;
-use OpenDocs\ContentLinks;
 use OpenDocs\PrevNextLinks;
 use OpenDocs\SectionList;
 use PhpOpenDocs\ExamplePage;
 use PhpOpenDocs\MarkdownPage;
 use SlimAuryn\Response\HtmlResponse;
 use SlimAuryn\Response\StubResponse;
-
 
 class Pages
 {
@@ -27,7 +25,8 @@ class Pages
             new PrevNextLinks(null, null),
             $contentHtml = "404, you know the score.",
             createDefaultCopyrightInfo(),
-            new Breadcrumbs()
+            new Breadcrumbs(),
+            null
         );
 
         $html = createPageHtml(
@@ -70,7 +69,8 @@ HTML;
 
         $page = \OpenDocs\Page::createFromHtml(
             'Index',
-            $html
+            $html,
+            null
         );
         $html = createPageHtml(
             null,
@@ -115,7 +115,8 @@ HTML;
             $prevNextLinks,
             $contentHtml = $examplePage->getPageContent(),
             createDefaultCopyrightInfo(),
-            $breadcrumbs
+            $breadcrumbs,
+            null
         );
 
         $html = createPageHtml(
@@ -138,7 +139,8 @@ HTML;
             new PrevNextLinks(null, null),
             $contentHtml = $page->getPageContent(),
             createDefaultCopyrightInfo(),
-            new Breadcrumbs()
+            new Breadcrumbs(),
+            null
         );
 
         $html = createPageHtml(
@@ -165,7 +167,8 @@ HTML;
             new PrevNextLinks(null, null),
             $contentHtml = $html,
             createDefaultCopyrightInfo(),
-            new Breadcrumbs()
+            new Breadcrumbs(),
+            null
         );
 
         $html = createPageHtml(

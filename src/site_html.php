@@ -234,8 +234,6 @@ function getPageLayoutHtml(): string
 <script src=':raw_site_js_link'></script>
 </html>
 HTML;
-
-
 }
 
 function createPageHtmlResponse(
@@ -246,6 +244,12 @@ function createPageHtmlResponse(
     $html = createPageHtml($section, $page);
     return new HtmlResponse($html);
 }
+
+function createPageHtmlFromPage(Page $page)
+{
+    return createPageHtml($page->getSection(), $page);
+}
+
 
 function createPageHtml(
     ?\OpenDocs\Section $section,

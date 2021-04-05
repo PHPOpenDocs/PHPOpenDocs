@@ -31,4 +31,9 @@ class EditInfo
     {
         return $this->namesWithLinks;
     }
+
+    public function addNameWithLink(string $name, string $link)
+    {
+        $this->namesWithLinks[$name] = $link;
+    }
 }

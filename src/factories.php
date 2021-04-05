@@ -53,9 +53,40 @@ function createRoutesForApp(\OpenDocs\SectionList $sectionList)//: \SlimAuryn\Ro
                 $injector = clone $injector;
                 $injector->share($section);
 
+                $breadcrumbsFactory = new \OpenDocs\BreadcrumbsFactory($section);
+                $injector->share($breadcrumbsFactory);
                 foreach ($fullRouteInfo->getRouteParams()->getAll() as $key => $value) {
                     $injector->defineParam($key, $value);
                 }
+
+                $injector->share(new \Learning\LearningSection(
+                    '/learning',
+                    'Learning',
+                    'So you want/have been forced to learn PHP?',
+                    new \Learning\LearningSectionInfo
+                ));
+                $injector->share(new \NamingThings\NamingThingsSection(
+                    '/naming',
+                    'Naming',
+                    'Naming things',
+                    new \PhpOpenDocs\NamingThingsSectionInfo
+                ));
+
+                $injector->share(new \PhpOpenDocs\SystemSection(
+                    '/system',
+                    'System',
+                    'Site system stuff...',
+                    new \PhpOpenDocs\SystemSectionInfo
+                ));
+
+                $injector->share(new \PhpOpenDocs\RfcCodexSection(
+                    '/rfc_codex',
+                    'RFC Codex',
+                    "Discussions ideas for how PHP can be improved, why some ideas haven't come to fruition yet.",
+                    new \RfcCodexOpenDocs\RfcCodexSectionInfo()
+                ));
+
+
 
                 $page = $injector->execute($routeCallable);
 
@@ -82,10 +113,8 @@ function createRoutesForApp(\OpenDocs\SectionList $sectionList)//: \SlimAuryn\Ro
 function createExceptionMiddlewareForApp(\Auryn\Injector $injector): \SlimAuryn\ExceptionMiddleware
 {
     $exceptionHandlers = [
-        // We don't use this. All forms are api based.
-        /// \Params\Exception\ValidationException::class => 'foo',
         \PhpOpenDocs\Exception\DebuggingCaughtException::class => 'debuggingCaughtExceptionExceptionMapperApp',
-
+        \Auryn\InjectionException::class => 'renderAurynInjectionException',
         \OpenDocs\MarkdownRenderer\MarkdownRendererException::class => 'renderMarkdownRendererException',
 
         \ParseError::class => 'parseErrorMapperForApp',
@@ -99,6 +128,22 @@ function createExceptionMiddlewareForApp(\Auryn\Injector $injector): \SlimAuryn\
     );
 }
 
+function mapOpenDocsPageToPsr7(
+    \OpenDocs\Page $page,
+    \Psr\Http\Message\ResponseInterface $response
+) {
+    $html = createPageHtml(
+        $page->getSection(),
+        $page
+    );
+
+    $htmlResponse = new \SlimAuryn\Response\HtmlResponse($html);
+
+    return SlimAuryn\ResponseMapper\ResponseMapper::mapStubResponseToPsr7(
+        $htmlResponse,
+        $response
+    );
+}
 
 /**
  * Creates the objects that map StubResponse into PSR7 responses
@@ -108,7 +153,7 @@ function getResultMappers(\Auryn\Injector $injector)
 {
     return [
         \SlimAuryn\Response\StubResponse::class => '\SlimAuryn\ResponseMapper\ResponseMapper::mapStubResponseToPsr7',
-//        \PhpOpenDocs\Response\MarkdownResponse::class => $markdownResponseMapperFn,
+        \OpenDocs\Page::class => 'mapOpenDocsPageToPsr7',
         ResponseInterface::class => 'SlimAuryn\ResponseMapper\ResponseMapper::passThroughResponse',
         'string' => 'convertStringToHtmlResponse',
     ];
@@ -306,3 +351,44 @@ function createApiDomain(Config $config)
 
     return new \PhpOpenDocs\Data\ApiDomain("http://local.api.phpopendocs.com");
 }
+
+function createLearningSection()
+{
+    return new \Learning\LearningSection(
+        '/learning',
+        'Learning',
+        'So you want/have been forced to learn PHP?',
+        new \Learning\LearningSectionInfo
+    );
+}
+
+function createNamingThingsSection()
+{
+    return new \NamingThings\NamingThingsSection(
+        '/naming',
+        'Naming',
+        'Naming things',
+        new \PhpOpenDocs\NamingThingsSectionInfo
+    );
+}
+
+function createSystemSection()
+{
+    return new \PhpOpenDocs\SystemSection(
+        '/system',
+        'System',
+        'Site system stuff...',
+        new \PhpOpenDocs\SystemSectionInfo
+    );
+}
+
+function createRfcCodexSection()
+{
+    return new \PhpOpenDocs\RfcCodexSection(
+        '/rfc_codex',
+        'RFC Codex',
+        "Discussions ideas for how PHP can be improved, why some ideas haven't come to fruition yet.",
+        new \RfcCodexOpenDocs\RfcCodexSectionInfo()
+    );
+}
+

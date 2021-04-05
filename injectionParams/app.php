@@ -19,6 +19,27 @@ function injectionParams()
             'So you want/have been forced to learn PHP?',
             new \Learning\LearningSectionInfo
         ),
+        new \NamingThings\NamingThingsSection(
+            '/naming',
+            'Naming',
+            'Naming things',
+            new \PhpOpenDocs\NamingThingsSectionInfo
+        ),
+
+        new \PhpOpenDocs\SystemSection(
+            '/system',
+            'System',
+            'Site system stuff...',
+            new \PhpOpenDocs\SystemSectionInfo
+        ),
+
+        new \PhpOpenDocs\RfcCodexSection(
+            '/rfc_codex',
+            'RFC Codex',
+            "Discussions ideas for how PHP can be improved, why some ideas haven't come to fruition yet.",
+            new \RfcCodexOpenDocs\RfcCodexSectionInfo()
+        ),
+
 
     ];
 
@@ -32,16 +53,10 @@ function injectionParams()
             \PhpOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
         \PhpOpenDocs\CSPViolation\CSPViolationStorage::class =>
             \PhpOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
-
         \OpenDocs\MarkdownRenderer\MarkdownRenderer::class =>
             \OpenDocs\MarkdownRenderer\CommonMarkRenderer::class,
-
-//        \OpenDocs\UrlFetcher\UrlFetcher::class =>
-//            \OpenDocs\UrlFetcher\CurlUrlFetcher::class,
-
         \OpenDocs\UrlFetcher\UrlFetcher::class =>
-        \OpenDocs\UrlFetcher\RedisCachedUrlFetcher::class,
-
+            \OpenDocs\UrlFetcher\RedisCachedUrlFetcher::class,
         \OpenDocs\ExternalMarkdownRenderer\ExternalMarkdownRenderer::class =>
             \OpenDocs\ExternalMarkdownRenderer\StandardExternalMarkdownRenderer::class
     ];
@@ -60,8 +75,6 @@ function injectionParams()
         \PhpOpenDocs\Data\ApiDomain::class => 'createApiDomain',
         \Redis::class => 'createRedis',
     ];
-
-
 
     // Define some params that can be injected purely by name.
     $params = [];

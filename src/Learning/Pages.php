@@ -112,7 +112,7 @@ class Pages
         $contents = $markdownRenderer->render($markdown);
 
         return new Page(
-            'PHP for people who know how to code.' ,
+            'PHP for people who know how to code.',
             createDefaultEditInfo(),
             [],
             new PrevNextLinks(null, null),
@@ -122,59 +122,58 @@ class Pages
                 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'
             ),
             $breadcrumbs = new Breadcrumbs(new Breadcrumb(
-                '/php_for_people_who_know_how_to_code', 'PHP for people who know how to program')
-            )
+                '/php_for_people_who_know_how_to_code', 'PHP for people who know how to program'
+            ))
         );
     }
 
 
-    public function getIndexPage(Section $section): Page
-    {
-        $words = <<< HTML
-
-<h1>Learning PHP</h1>
-
-<p>
-So you want to learn some PHP ?
-</p>
-
-<h2>Info for people who already know how to code</h2>
-
-<a href=":attr_link_1">PHP for people who know how to code</a>
-
-
-<h2>Library recommendations</h2>
-
-<h2>Best practices</h2>
-<ul>
-:raw_best_practices
-</ul>
-
-<h2>Good docs</h2>
-<ul>
-:raw_good_docs
-</ul>
-
-HTML;
-
-        $params = [
-            ":attr_link_1" => $section->getPrefix() . '/php_for_people_who_know_how_to_code',
-            ':raw_best_practices' => generateBestPracticesHtml(),
-            ':raw_good_docs' => generateGoodDocsHtml($section)
-        ];
-
-        $content = esprintf($words, $params);
-
-
-        return new Page(
-            'Learning PHP',
-            createEditInfo('Edit page', __FILE__, __LINE__ - 33),
-            [],
-            new PrevNextLinks(null, null),
-            $content,
-            new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
-            $breadcrumbs = new Breadcrumbs()
-        );
-    }
-
+//    public function getIndexPage(Section $section): Page
+//    {
+//        $words = <<< HTML
+//
+//<h1>Learning PHP</h1>
+//
+//<p>
+//So you want to learn some PHP ?
+//</p>
+//
+//<h2>Info for people who already know how to code</h2>
+//
+//<a href=":attr_link_1">PHP for people who know how to code</a>
+//
+//
+//<h2>Library recommendations</h2>
+//
+//<h2>Best practices</h2>
+//<ul>
+//:raw_best_practices
+//</ul>
+//
+//<h2>Good docs</h2>
+//<ul>
+//:raw_good_docs
+//</ul>
+//
+//HTML;
+//
+//        $params = [
+//            ":attr_link_1" => $section->getPrefix() . '/php_for_people_who_know_how_to_code',
+//            ':raw_best_practices' => generateBestPracticesHtml(),
+//            ':raw_good_docs' => generateGoodDocsHtml($section)
+//        ];
+//
+//        $content = esprintf($words, $params);
+//
+//
+//        return new Page(
+//            'Learning PHP',
+//            createEditInfo('Edit page', __FILE__, __LINE__ - 33),
+//            [],
+//            new PrevNextLinks(null, null),
+//            $content,
+//            new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
+//            $breadcrumbs = new Breadcrumbs()
+//        );
+//    }
 }

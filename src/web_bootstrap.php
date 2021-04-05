@@ -5,20 +5,16 @@ declare(strict_types = 1);
 error_reporting(E_ALL);
 
 require_once __DIR__ . "/../vendor/autoload.php";
-
-require __DIR__ . "/../injectionParams/app.php";
+require_once __DIR__ . "/../injectionParams/app.php";
 require_once __DIR__ . '/../app/exception_mappers_app.php';
-//require_once __DIR__ . "/serve_request.php";
-
 require_once __DIR__ . '/factories.php';
 require_once __DIR__ . '/functions.php';
 require_once __DIR__ . '/error_functions.php';
 require_once __DIR__ . '/site_html.php';
 require_once __DIR__ . '/slim_functions.php';
 require_once __DIR__ . '/../injectionParams/section.php';
-require __DIR__ . "/../config.generated.php";
+require_once __DIR__ . "/../config.generated.php";
 
-use SlimAuryn\Routes;
 use Slim\Http\Request;
 
 set_error_handler('saneErrorHandler');
@@ -30,8 +26,7 @@ function showPage(\OpenDocs\Page $page)
     $injectionParams->addToInjector($injector);
     $injector->share($injector);
 
-    $callable = function () use ($page)
-    {
+    $callable = function () use ($page) {
         $html = createPageHtml(
             null,
             $page
@@ -61,6 +56,19 @@ function showPage(\OpenDocs\Page $page)
     exit(0);
 }
 
+function showLearningResponse($callable)
+{
+    $injector = new Auryn\Injector();
+    $injectionParams = injectionParams();
+    $injectionParams->addToInjector($injector);
+    $injector->share($injector);
+    $section = $injector->make(\Learning\LearningSection::class);
+    $breadcrumbsFactory = new \OpenDocs\BreadcrumbsFactory($section);
+    $injector->share($breadcrumbsFactory);
+
+    showResponseInternal($callable, $injector);
+}
+
 function showResponse($callable)
 {
     $injector = new Auryn\Injector();
@@ -68,6 +76,11 @@ function showResponse($callable)
     $injectionParams->addToInjector($injector);
     $injector->share($injector);
 
+    showResponseInternal($callable, $injector);
+}
+
+function showResponseInternal($callable, Auryn\Injector $injector)
+{
     try {
         $container = new \Slim\Container();
         $container['request'] = function ($container) {

@@ -4,12 +4,14 @@ declare(strict_types = 1);
 
 require_once __DIR__ . "/../../../src/web_bootstrap.php";
 
-use OpenDocs\Breadcrumbs;
 use PhpOpenDocs\CSPViolation\CSPViolationStorage;
-use SlimAuryn\Response\HtmlResponse;
+use OpenDocs\Page;
 
-$fn = function (CSPViolationStorage $cspvStorage) : HtmlResponse
-{
+$fn = function (
+    CSPViolationStorage $cspvStorage,
+    \OpenDocs\BreadcrumbsFactory $breadcrumbsFactory
+): Page {
+
     $html = <<< HTML
 <h1>CSP violations report</h1>
 
@@ -29,17 +31,9 @@ HTML;
         'System',
         $html,
         createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
-        Breadcrumbs::fromArray([
-            '/system' => 'System',
-            '/system/csp_violations' => 'CSP violations'
-        ])
+        $breadcrumbsFactory->createFromArray(['/csp_violations' => 'CSP violations'])
     );
-    $html = createPageHtml(
-        null,
-        $page
-    );
-
-    return new HtmlResponse($html);
+    return $page;
 };
 
-showResponse($fn);
+showLearningResponse($fn);

@@ -15,7 +15,14 @@ or
 
 Then:
 
-`docker-compose up --build npm_dev_build varnish`
+`sh runLocal.sh`
+
+or
+
+`sh runLocalPhp.sh`
+
+to not bring up the SCSS or JavaScript builders, in case you're on a low power system, or aren't going to be touching them.
+
 
 The site should be up at:
 
@@ -26,7 +33,7 @@ The site should be up at:
 ## Where stuff is
 
 * Site CSS generated from: app/public/scss
-* Basic routes: routes/app_routes.php or 
+* Basic routes: routes/app_routes.php or as php files in public path.
 * Where pages are converted into HTML src/site_html.php
 * Section list: createSectionList in src/factories.php:180
 * Injection params: injectionParams/app.php

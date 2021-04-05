@@ -45,6 +45,37 @@ function setupSlimAurynInvoker(
         $injector->defineParam($key, $value);
     }
 
+
+    $injector->share(new \Learning\LearningSection(
+        '/learning',
+        'Learning',
+        'So you want/have been forced to learn PHP?',
+        new \Learning\LearningSectionInfo
+    ));
+    $injector->share(new \NamingThings\NamingThingsSection(
+            '/naming',
+            'Naming',
+            'Naming things',
+            new \PhpOpenDocs\NamingThingsSectionInfo
+        ));
+
+    $injector->share(new \PhpOpenDocs\SystemSection(
+            '/system',
+            'System',
+            'Site system stuff...',
+            new \PhpOpenDocs\SystemSectionInfo
+        ));
+
+    $injector->share(new \PhpOpenDocs\RfcCodexSection(
+            '/rfc_codex',
+            'RFC Codex',
+            "Discussions ideas for how PHP can be improved, why some ideas haven't come to fruition yet.",
+            new \RfcCodexOpenDocs\RfcCodexSectionInfo()
+    ));
+
+
+
+
     $invokerRouteParams = new RouteParams($routeArguments);
     $injector->share($invokerRouteParams);
 

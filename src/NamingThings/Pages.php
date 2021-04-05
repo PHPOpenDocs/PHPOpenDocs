@@ -4,18 +4,17 @@ declare(strict_types = 1);
 
 namespace NamingThings;
 
+use NamingThings\NamingThingsSection;
 use OpenDocs\Breadcrumb;
 use OpenDocs\Breadcrumbs;
-use OpenDocs\ContentLinks;
 use OpenDocs\CopyrightInfo;
 use OpenDocs\ContentLink;
 use OpenDocs\Page;
 use OpenDocs\PrevNextLinks;
-use OpenDocs\Section;
 
 class Pages
 {
-    public function getNounsPage(): Page
+    public function getNounsPage(NamingThingsSection $namingThingsSection): Page
     {
         $nouns = require(__DIR__ . "/nouns.php");
 
@@ -33,11 +32,12 @@ class Pages
             new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
             $breadcrumbs = new Breadcrumbs(
                 new Breadcrumb('/nouns', 'Nouns'),
-            )
+            ),
+            $namingThingsSection
         );
     }
 
-    public function getVerbsPage(): Page
+    public function getVerbsPage(NamingThingsSection $namingThingsSection): Page
     {
         $verbs = require(__DIR__ . "/verbs.php");
 
@@ -55,11 +55,12 @@ class Pages
             new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
             $breadcrumbs = new Breadcrumbs(
                 new Breadcrumb('/verbs', 'Verbs'),
-            )
+            ),
+            $namingThingsSection
         );
     }
 
-    public function getIndexPage(Section $section): Page
+    public function getIndexPage(NamingThingsSection $section): Page
     {
         $words = <<< HTML
 
@@ -127,7 +128,8 @@ HTML;
             new PrevNextLinks(null, null),
             $contents,
             new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
-            $breadcrumbs = new Breadcrumbs()
+            $breadcrumbs = new Breadcrumbs(),
+            $section
         );
     }
 

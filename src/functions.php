@@ -718,7 +718,8 @@ function createErrorPage($errorContentsHtml)
         new OpenDocs\PrevNextLinks(null, null),
         $contentHtml = $errorContentsHtml,
         new OpenDocs\CopyrightInfo('PHPOpenDocs', 'https://github.com/PHPOpenDocs/PHPOpenDocs'),
-        new Breadcrumbs()
+        new Breadcrumbs(),
+        null
     );
 }
 

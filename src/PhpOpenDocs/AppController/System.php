@@ -9,11 +9,11 @@ use PhpOpenDocs\CSPViolation\CSPViolationStorage;
 use PhpOpenDocs\Data\ContentPolicyViolationReport;
 use SlimAuryn\Response\HtmlResponse;
 use SlimAuryn\Response\JsonNoCacheResponse;
-
+use PhpOpenDocs\SystemSection;
 
 class System
 {
-    public function indexPage(): HtmlResponse
+    public function indexPage(SystemSection $section): HtmlResponse
     {
         $html  = <<< HTML
 
@@ -29,17 +29,18 @@ HTML;
 
         $page = \OpenDocs\Page::createFromHtml(
             'System',
-            $html
+            $html,
+            $section
         );
         $html = createPageHtml(
-            null,
+            $section,
             $page
         );
 
         return new HtmlResponse($html);
     }
 
-    public function getReports(CSPViolationStorage $csppvStorage) : HtmlResponse
+    public function getReports(SystemSection $section, CSPViolationStorage $csppvStorage) : HtmlResponse
     {
         $reports = $csppvStorage->getReports();
 
@@ -47,10 +48,11 @@ HTML;
 
         $page = \OpenDocs\Page::createFromHtml(
             'System',
-            $html
+            $html,
+            $section
         );
         $html = createPageHtml(
-            null,
+            $section,
             $page
         );
 

@@ -6,16 +6,12 @@ namespace RfcCodexOpenDocs;
 
 use OpenDocs\Breadcrumb;
 use OpenDocs\Breadcrumbs;
-use OpenDocs\ContentLinkLevel1;
-use OpenDocs\ContentLinkLevel2;
-use OpenDocs\ContentLinks;
 use OpenDocs\CopyrightInfo;
 use OpenDocs\MarkdownRenderer\MarkdownRenderer;
 use OpenDocs\Page;
 use OpenDocs\PrevNextLinks;
-use OpenDocs\Section;
 use OpenDocs\ContentLink;
-
+use PhpOpenDocs\RfcCodexSection;
 
 class Pages
 {
@@ -51,7 +47,7 @@ class Pages
             ['Call site error or exception control', 'call_site_error_exception_control.md'],
             ['Class scoping improvements', 'class_scoping_improvements.md'],
             ['Consistent callables', 'consistent_callables.md'],
-            ['Enums', 'enums.md'],
+
             ['Generics', 'generics.md'],
             ['Immutable', 'immutable.md'],
             ['Method overloading', 'method_overloading.md'],
@@ -80,6 +76,7 @@ class Pages
             ['Annotations', 'annotations.md'],
             ['Briefer closure syntax', 'briefer_closure_syntax.md'],
             ['Co- and contra-variance', 'co_and_contra_variance.md'],
+            ['Enums', 'enums.md'],
             ['Named params', 'named_params.md'],
             ['Null short-circuiting', 'https://wiki.php.net/rfc/nullsafe_operator'],
             ['Union types', 'union_types.md'],
@@ -113,7 +110,8 @@ class Pages
             );
         }
 
-        $links[] = ContentLink::level1(null, 'Ideas that overcame their challenges');;
+        $links[] = ContentLink::level1(null, 'Ideas that overcame their challenges');
+        ;
         foreach ($this->achieved_entries as $achieved_entry) {
             $links[] = ContentLink::level2(
                 '/' . $achieved_entry->getPath(),
@@ -153,7 +151,7 @@ class Pages
         return null;
     }
 
-    public function getPage(Section $section, $name): Page
+    public function getPage(RfcCodexSection $section, $name): Page
     {
         $contents = $this->getContents($name);
 
@@ -163,17 +161,18 @@ class Pages
         }
 
         return new Page(
-            'Rfc Codex - ' . $name,
+            'RFC Codex - ' . $name,
             createDefaultEditInfo(),
             $this->getContentLinks(),
-            createPrevNextLinksFromContentLinks($this->getContentLinks(), $name), //$this->getPrevNextLinks($name),
+            createPrevNextLinksFromContentLinks($this->getContentLinks(), $name),
             $contents,
             new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
-            $breadcrumbs = new Breadcrumbs(new Breadcrumb($name, $name))
+            $breadcrumbs = new Breadcrumbs(new Breadcrumb($name, $name)),
+            $section
         );
     }
 
-    public function getIndexPage(Section $section): Page
+    public function getIndexPage(RfcCodexSection $section): Page
     {
         $fullPath = __DIR__ . "/../../vendor/danack/rfc-codex/rfc_codex.md";
         $markdown = file_get_contents($fullPath);
@@ -192,7 +191,8 @@ class Pages
             new PrevNextLinks(null, null),
             $contents,
             new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
-            $breadcrumbs = new Breadcrumbs()
+            $breadcrumbs = new Breadcrumbs(),
+            $section
         );
     }
 }

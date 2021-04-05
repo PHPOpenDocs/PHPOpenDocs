@@ -6,7 +6,6 @@ namespace Work;
 
 use OpenDocs\EditInfo;
 
-
 function createEditInfo(string $description, string $file, ?int $line): EditInfo
 {
     $path = normaliseFilePath($file);
@@ -21,10 +20,13 @@ function createEditInfo(string $description, string $file, ?int $line): EditInfo
 }
 
 function createEditInfo2(
-    string $description1, string $file1, ?int $line1,
-    string $description2, string $file2, ?int $line2
-): EditInfo
-{
+    string $description1,
+    string $file1,
+    ?int $line1,
+    string $description2,
+    string $file2,
+    ?int $line2
+): EditInfo {
     $path = normaliseFilePath($file1);
     $link1 = 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/' . $path;
     if ($line1 !== null) {
@@ -39,4 +41,3 @@ function createEditInfo2(
 
     return new EditInfo([$description1 => $link1, $description2 => $link2]);
 }
-

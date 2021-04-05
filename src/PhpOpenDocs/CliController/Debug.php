@@ -6,7 +6,6 @@ namespace PhpOpenDocs\CliController;
 
 use SlimAuryn\Response\HtmlResponse;
 
-
 class Debug
 {
     public function hello()

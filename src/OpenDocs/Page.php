@@ -21,6 +21,8 @@ class Page
 
     private Breadcrumbs $breadcrumbs;
 
+    private ?Section $section;
+
     /**
      * Page constructor.
      * @param string $title
@@ -38,7 +40,8 @@ class Page
         PrevNextLinks $prevNextLinks,
         string $contentHtml,
         CopyrightInfo $copyrightOwner,
-        Breadcrumbs $breadcrumbs
+        Breadcrumbs $breadcrumbs,
+        ?Section $section
     ) {
         $this->title = $title;
         $this->editInfo = $editInfo;
@@ -47,11 +50,13 @@ class Page
         $this->contentHtml = $contentHtml;
         $this->copyrightInfo = $copyrightOwner;
         $this->breadcrumbs = $breadcrumbs;
+        $this->section = $section;
     }
 
     public static function createFromHtml(
         string $title,
-        string $contentHtml
+        string $contentHtml,
+        ?Section $section
     ): Page {
         $page = new \OpenDocs\Page(
             $title,
@@ -60,7 +65,8 @@ class Page
             new PrevNextLinks(null, null),
             $contentHtml,
             createDefaultCopyrightInfo(),
-            new Breadcrumbs()
+            new Breadcrumbs(),
+            $section
         );
 
         return $page;
@@ -91,7 +97,8 @@ class Page
         EditInfo $editInfo,
         \OpenDocs\Breadcrumbs $breadcrumbs,
         CopyrightInfo $copyrightInfo,
-        \OpenDocs\LinkInfo $linkInfo
+        \OpenDocs\LinkInfo $linkInfo,
+        Section $section
     ): Page {
         $page = new \OpenDocs\Page(
             $title,
@@ -100,7 +107,8 @@ class Page
             $linkInfo->getPrevNextLinks(),
             $contentHtml,
             $copyrightInfo,
-            $breadcrumbs
+            $breadcrumbs,
+            $section
         );
 
         return $page;
@@ -157,5 +165,13 @@ class Page
     public function getBreadcrumbs(): Breadcrumbs
     {
         return $this->breadcrumbs;
+    }
+
+    /**
+     * @return Section|null
+     */
+    public function getSection(): ?Section
+    {
+        return $this->section;
     }
 }

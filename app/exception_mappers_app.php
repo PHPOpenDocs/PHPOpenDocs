@@ -43,6 +43,29 @@ function parseErrorMapperForApp(\ParseError $parseError, ResponseInterface $resp
     return new \SlimAuryn\Response\HtmlNoCacheResponse($html, [], 500);
 }
 
+function renderAurynInjectionException(
+    \Auryn\InjectionException $injectionException,
+    ResponseInterface $response
+) {
+
+    $text = 'Error creating dependency:<br/>';
+
+    foreach ($injectionException->dependencyChain as $dependency) {
+        $text .= "&nbsp;&nbsp;" . $dependency . "<br/>";
+    }
+
+    $text .= "<br/>";
+    $text .= $injectionException->getMessage();
+    $text .= "<br/>";
+    $text .= getStacktraceForException($injectionException);
+
+    $page = createErrorPage(nl2br($text));
+    $html = createPageHtml(null, $page);
+
+    return new \SlimAuryn\Response\HtmlNoCacheResponse($html, [], 500);
+
+}
+
 function renderMarkdownRendererException(
     \OpenDocs\MarkdownRenderer\MarkdownRendererException $markdownRendererException,
     ResponseInterface $response
