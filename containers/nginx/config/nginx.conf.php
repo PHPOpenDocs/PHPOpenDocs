@@ -36,7 +36,7 @@ $portsInfo
             #add_header XDJA "ttfblock";
         }
 
-        location ~* ^(.+).(bmp|bz2|css|gif|doc|gz|html|ico|jpg|jpeg|js|mid|midi|png|rtf|rar|pdf|ppt|tar|tgz|txt|wav|xls|zip)$ {
+        location ~* ^(.+).(bmp|bz2|css|gif|doc|gz|html|ico|jpg|jpeg|js|mid|midi|pcap|png|rtf|rar|pdf|ppt|tar|tgz|txt|wav|xls|zip)$ {
             #access_log off;
         try_files \$uri /$indexFilename?file=$1.$2&q=\$uri&\$args;
             expires 20m;
