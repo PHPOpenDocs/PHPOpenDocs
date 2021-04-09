@@ -1,10 +1,4 @@
 
-
-//$right_panel_max_width: 340px;
-//
-//$navigation_padding_top: 8px;
-//$navigation_padding_bottom: 8px;
-
 $screen_break_large: 1200px;
 $screen_break_medium: 900px;
 $screen_break_small: 640px;
@@ -13,15 +7,14 @@ $screen_break_small: 640px;
   --page_padding_left: 24px;
   --page_padding_right: 24px;
 
-
   @media (max-width: 1200px) {
-  --page_padding_left: 12px;
-  --page_padding_right: 12px;
-}
+    --page_padding_left: 12px;
+    --page_padding_right: 12px;
+  }
 
   @media (max-width: 640px) {
-    --page_padding_left: 2px;
-    --page_padding_right: 2px;
+    --page_padding_left: 4px;
+    --page_padding_right: 4px;
   }
 }
 

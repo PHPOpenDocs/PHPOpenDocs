@@ -17,7 +17,6 @@ Creating a base exception for your library, and then extending all other excepti
 ## Catch exceptions from code you are calling and rethrow more specific
 
 ```php
-
 class RedisFoo implements Foo
 {
     public function __construct(\Redis $redis)
@@ -57,7 +56,9 @@ One programmer might use it like this:
 
 ```php
 if ($foo > MAX_FOO) { 
-    throw new InvalidValueException("Value foo is too big, max is " . MAX_FOO . " but got " . $foo);
+    throw new InvalidValueException(
+      "Value foo is too big, max is " . MAX_FOO . " but got " . $foo
+    );
 }
 ```
 
@@ -71,7 +72,6 @@ if ($foo > MAX_FOO) {
 By adding a static named constructor, the details of the message can be inside the exception 
 
 ```php
-
 class InvalidValueException extends \Exception
 {
     public static tooBig(int $max, int $actual)
@@ -104,7 +104,6 @@ This allows you to test messages are correct.
 
 
 ```php
-
 class BarTest extends TestCase
 {
     public function testFooTooLarge()
@@ -123,7 +122,6 @@ This is bad for a couple of reasons:
 
 
 ```php
-
 class InvalidValueException extends \Exception
 {
     const VALUE_TOO_BIG_MESSAGE = "Value %s is too big, max allowed is %s";
@@ -139,7 +137,6 @@ class InvalidValueException extends \Exception
     }
 }
 
-
 class BarTest extends TestCase
 {
     public function testFooTooLarge()
@@ -151,7 +148,6 @@ class BarTest extends TestCase
         bar(4000);
     }
 } 
-
 ```
 
 The function `templateStringToRegExp` is available from the library [danack/php-unit-helper](https://packagist.org/packages/danack/php-unit-helper), or you could just copy/paste it if you don't want an extra dependency.

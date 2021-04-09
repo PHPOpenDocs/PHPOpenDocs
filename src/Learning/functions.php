@@ -21,8 +21,8 @@ function getLearningContentLinks(): array
 
         ContentLink::level1('/debugging', "Debugging"),
         ContentLink::level2('/debugging/xdebug.php', 'Xdebug'),
-        ContentLink::level2('/debugging/', 'GDB'),
-        ContentLink::level2('/debugging/', 'Strace'),
+        ContentLink::level2('/debugging/gdb', 'GDB'),
+        ContentLink::level2('/debugging/strace', 'Strace'),
         ContentLink::level2('/debugging/valgrind.php', 'Valgrind'),
         ContentLink::level2('/debugging/wireshark.php', 'Wireshark'),
 

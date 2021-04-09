@@ -1,20 +1,15 @@
 # Valgrind
 
-Valgrind is a suite of tools including a memory usage error checker and a performance measurement tool.
+Valgrind is a suite of tools including a memory usage error checker and a performance measurement tool. It's also a very convenient way of getting a stack trace for when programs [segfault](https://en.wikipedia.org/wiki/Segmentation_fault).
 
 
 ## Simple segfault stacktrace dump
 
-```
-valgrind php segfault_example.php
+The simplest use for valgrind is to generate a [stack trace](https://en.wikipedia.org/wiki/Stack_trace).
 
-root@0878dc0d6903:/var/app/example/learning# valgrind php segfault_example.php
-==63== Memcheck, a memory error detector
-==63== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
-==63== Using Valgrind-3.12.0.SVN and LibVEX; rerun with -h for copyright info
-==63== Command: php segfault_example.php
-==63==
-==63==
+Running a test PHP script through valgrind with the command `valgrind php segfault_example.php` gives this output:
+
+```
 ==63== Process terminating with default action of signal 11 (SIGSEGV)
 ==63==    at 0x6B5E317: kill (syscall-template.S:84)
 ==63==    by 0x12376C32: ??? (in /usr/lib/php/20190902/posix.so)
@@ -29,29 +24,86 @@ root@0878dc0d6903:/var/app/example/learning# valgrind php segfault_example.php
 ==63==    by 0x39D2B2: zend_execute_scripts (in /usr/bin/php7.4)
 ==63==    by 0x339A4F: php_execute_script (in /usr/bin/php7.4)
 ==63==
-==63== HEAP SUMMARY:
-==63==     in use at exit: 3,248,412 bytes in 31,184 blocks
-==63==   total heap usage: 34,841 allocs, 3,657 frees, 4,714,564 bytes allocated
-==63==
-==63== LEAK SUMMARY:
-==63==    definitely lost: 360 bytes in 15 blocks
-==63==    indirectly lost: 0 bytes in 0 blocks
-==63==      possibly lost: 2,391,728 bytes in 18,675 blocks
-==63==    still reachable: 856,324 bytes in 12,494 blocks
-==63==         suppressed: 0 bytes in 0 blocks
-==63== Rerun with --leak-check=full to see details of leaked memory
-==63==
-==63== For counts of detected and suppressed errors, rerun with: -v
-==63== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 474 from 37)
-
 ```
 
-## Invalid memory usage
+## Memcheck
+
+Valgrind detects many types of errors related to memory allocation or usage that are common bugs in C/C++ programs.
+
+This is really useful when developing PHP extensions as it can help track down bugs in your code.
 
 
+### Detecting reads of unitialized memory
 
 
+```
+==13745== Conditional jump or move depends on uninitialised value(s)
+==13745==    at 0x4F14676: DistortImage (quantum.h:92)
+==13745==    by 0x5589D47: MogrifyImage (mogrify.c:1428)
+==13745==    by 0x558D22A: MogrifyImages (mogrify.c:8848)
+==13745==    by 0x550FCBB: ConvertImageCommand (convert.c:3239)
+==13745==    by 0x55B2BDF: MagickCommandGenesis (mogrify.c:168)
+==13745==    by 0x400984: main (convert.c:81)
+```
+
+This error message is telling us that a bit of code is reading from a memory location that has been allocated, but not written to. Which means the value read will be a random piece of data.
+
+
+### Detecting memory leaks
+
+One of the common problems with PHP extension is forgetting to free memory. The memcheck part of valgrind will 
+
+```
+==19200== 1 bytes in 1 blocks are still reachable in loss record 1 of 90
+==19200==    at 0x4C28F9F: malloc (vg_replace_malloc.c:236)
+==19200==    by 0x6CE8091: strdup (strdup.c:43)
+==19200==    by 0x54AF652: el_init (in /usr/lib/x86_64-linux-gnu/libedit.so.2.11)
+==19200==    by 0x54A2C8C: rl_initialize (in /usr/lib/x86_64-linux-gnu/libedit.so.2.11)
+==19200==    by 0x72F468: zm_startup_readline (in /usr/bin/php5)
+==19200==    by 0x69919D: zend_startup_module_ex (in /usr/bin/php5)
+==19200==    by 0x6A5253: zend_hash_apply (in /usr/bin/php5)
+==19200==    by 0x69CE99: zend_startup_modules (in /usr/bin/php5)
+==19200==    by 0x64530F: php_module_startup (in /usr/bin/php5)
+==19200==    by 0x72F72C: php_cli_startup (in /usr/bin/php5)
+==19200==    by 0x42B217: main (in /usr/bin/php5)
+==19200==
+==19200== 1 bytes in 1 blocks are still reachable in loss record 2 of 90
+==19200==    at 0x4C279F2: calloc (vg_replace_malloc.c:467)
+==19200==    by 0x54A2AF5: rl_initialize (in /usr/lib/x86_64-linux-gnu/libedit.so.2.11)
+==19200==    by 0x72F468: zm_startup_readline (in /usr/bin/php5)
+==19200==    by 0x69919D: zend_startup_module_ex (in /usr/bin/php5)
+==19200==    by 0x6A5253: zend_hash_apply (in /usr/bin/php5)
+==19200==    by 0x69CE99: zend_startup_modules (in /usr/bin/php5)
+==19200==    by 0x64530F: php_module_startup (in /usr/bin/php5)
+==19200==    by 0x72F72C: php_cli_startup (in /usr/bin/php5)
+==19200==    by 0x42B217: main (in /usr/bin/php5)
+```
+
+The full capabilities of memcheck are quite complex. Reading the [fine valgrind manual](https://www.valgrind.org/docs/manual/mc-manual.html) is recommended.
+
+
+### Memory check in PHP 
+
+The PHP test suite can use
 php runtests.php -m
+
+https://bugs.php.net/bugs-getting-valgrind-log.php
+
+
+
+
+
+The full detail
+
+
+
+--track-origins=yes
+
+
+
+
+
+
 
 
 ## Performance measurement
@@ -59,8 +111,6 @@ php runtests.php -m
 Valgrind can be used to measure the number of instructions run by a program. Note, this is not strictly an accurate measurement of performance, but is usually a good indicator of whether a change will be slower or faster.
 
 For example, for the [Closure::fromCallable RFC](https://wiki.php.net/rfc/closurefromcallable) I made two scrips that use either `Closure` or `callable` as the parameter type.
-
-
 
 ```
 # valgrind --tool=callgrind php perf_callable.php
@@ -99,8 +149,7 @@ OK==48==
 |Closure      |   96,614,788 |
 |Difference   |   19,521,595 |
 
-i.e. using callgrind we can see that 
-
+i.e. using callgrind we can see that using callable as the parameter type instead of Closure is about 20% slower.
 
 Note, callgrind measurements should probably be done without Xdebug enabled, as it seems to drastically increase the number of instructions that are run for the same PHP script.
 

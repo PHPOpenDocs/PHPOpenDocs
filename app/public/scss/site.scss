@@ -21,7 +21,6 @@ body {
   font-family: SourceSansPro-Regular, Arial, x-locale-body, sans-serif;
   font-variation-settings: 'wght' 400;
   font-size: 16px;
-  //font-size: 1rem;
 }
 
 th {
@@ -33,6 +32,37 @@ h1, h2, h3, h4, h5, h6 {
   font-family: Manrope, Arial, x-locale-body, sans-serif;
 }
 
-//Cabin
-//Lato
-//Raleway
+.width_above_large,
+.width_medium_to_large,
+.width_small_to_medium,
+.width_below_small {
+  display: none;
+}
+
+@media (min-width: $screen_break_large) {
+  .width_above_large {
+    display: inline-block;
+  }
+}
+
+@media (max-width: $screen_break_large) {
+  @media (min-width: $screen_break_medium) {
+    .width_medium_to_large {
+      display: inline-block;
+    }
+  }
+}
+
+@media (max-width: $screen_break_medium) {
+  @media (min-width: $screen_break_small) {
+    .width_small_to_medium {
+      display: inline-block;
+    }
+  }
+}
+
+@media (max-width: $screen_break_small) {
+  .width_below_small {
+    display: inline-block;
+  }
+}

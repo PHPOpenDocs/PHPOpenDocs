@@ -19,6 +19,17 @@ This is a place holder page, that has all the bits filled out, so I can play wit
 </p>
 
 
+<h2>Size test</h2>
+<p>This should tell you what the screen size is:</p>
+
+<div class="width_above_large">above screen_break_large </div>
+<div class="width_medium_to_large">width_medium_to_large </div>
+<div class="width_small_to_medium">small_to_medium </div>
+<div class="width_below_small">small_to_medium </div>
+
+
+<h2>Code test</h2>
+
 <pre><code class="php">&lt;?php
 
 function calculateDimensions($inputValue) {
@@ -29,6 +40,10 @@ function calculateDimensions($inputValue) {
 
 [$width, $height] = calculateDimensions($inputValue);
 </code></pre>
+
+<p>I am open to the idea of using a code highlighter....but at the same time, unhighlighted code looks so much more.....authorative.</p>
+
+<h2>Nice block of text</h2>
 
 <p>
 Lets have some Lorem ipsum to fill out the page a bit. And test if the auto-deployer is working.

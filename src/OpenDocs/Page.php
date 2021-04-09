@@ -85,7 +85,8 @@ class Page
             new PrevNextLinks(null, null),
             $contentHtml,
             createDefaultCopyrightInfo(),
-            $breadcrumbs
+            $breadcrumbs,
+            null
         );
 
         return $page;

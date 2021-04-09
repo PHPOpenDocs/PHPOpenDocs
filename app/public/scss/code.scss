@@ -21,4 +21,8 @@ pre code {
   @media (min-width: $screen_break_medium) {
     padding: 6px 24px 6px 6px;
   }
+
+  @media (min-width: $screen_break_small) {
+    padding: 3px 12px 3px 3px;
+  }
 }
