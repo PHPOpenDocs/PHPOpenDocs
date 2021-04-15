@@ -24,7 +24,11 @@
 
     a {
       border-bottom: 1px dotted;
-      border-color: rgba(128, 128, 128, 0.25);
+      //border-color: rgba(128, 128, 128, 0.25);
+      border-color: var(--content_links_border_color);
+
+
+
       margin-bottom:-1px;
       display:block;
     }

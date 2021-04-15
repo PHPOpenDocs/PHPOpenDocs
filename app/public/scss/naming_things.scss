@@ -13,21 +13,21 @@
 
   th:first-child,
   td:first-child {
-    padding-left:4px;
+    padding-left:0px;
   }
 
 
   @media (max-width: $screen_break_small) {
     th,
     td {
-      padding-top: 4px;
+      padding-top: 0px;
       padding-bottom: 4px;
-      padding-right: 2px;
+      padding-right: 0px;
     }
 
     th:first-child,
     td:first-child {
-      padding-left: 2px;
+      padding-left: 0px;
     }
   }
 
@@ -60,6 +60,8 @@
 .nouns_see_also_wide_display,
 .verbs_see_also_wide_display {
   //display: inherit;
+  min-width: 100px;
+  //color: red;
 }
 
 .nouns_see_also_wide_hide,

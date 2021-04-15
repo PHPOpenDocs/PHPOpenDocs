@@ -41,7 +41,8 @@
 .opendocs_content {
   grid-area: mc;
   padding: var(--page_padding_left);
-  overflow-x: scroll;
+  overflow-x: auto;
+  //overflow-y: auto;
 }
 
 .opendocs_content_links {

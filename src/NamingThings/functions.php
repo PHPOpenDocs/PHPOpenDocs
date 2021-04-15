@@ -149,7 +149,7 @@ function renderVerbs(array $verbs): string
     <tr>
       <th >Name</th>
       <th>Description</th>
-      <th style="min-width: 100px" class="verbs_see_also_wide_display">See also</th>    
+      <th class="verbs_see_also_wide_display">See also</th>    
     </tr>  
   </thead>
 HTML;

@@ -20,13 +20,24 @@ This is a place holder page, that has all the bits filled out, so I can play wit
 
 
 <h2>Size test</h2>
-<p>This should tell you what the screen size is:</p>
 
-<div class="width_above_large">above screen_break_large </div>
-<div class="width_medium_to_large">width_medium_to_large </div>
-<div class="width_small_to_medium">small_to_medium </div>
-<div class="width_below_small">small_to_medium </div>
+<p>This site uses several screen widths for choosing how to layout the page. They are $screen_break_large, $screen_break_medium and $screen_break_small in the sass.</p>
 
+<p>The current screen size is:</p>
+
+<div class="width_above_large">above $screen_break_large</div>
+<div class="width_medium_to_large">between $screen_break_medium and $screen_break_large</div>
+<div class="width_small_to_medium">between $screen_break_small and $screen_break_medium</div>
+<div class="width_below_small">below $screen_break_small</div>
+
+<h2>General things</h2>
+
+<p>Here is a <a href="">link so that we can see</a> the colors.</p>
+<ul>
+  <li>Here is</li>
+  <li>a list</li>
+  <li>of items</li>
+</ul>
 
 <h2>Code test</h2>
 

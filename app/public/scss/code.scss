@@ -15,7 +15,7 @@ pre code {
   background: var(--code_background);
   color: var(--code_color);
 
-  border: 1px solid rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--code_border_color);
   font-size: 0.9em;
 
   @media (min-width: $screen_break_medium) {

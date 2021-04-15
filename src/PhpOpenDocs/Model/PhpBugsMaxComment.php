@@ -20,7 +20,7 @@ class PhpBugsMaxComment
         $this->maxCommentId = $maxCommentId;
     }
 
-    public  function toArray()
+    public function toArray()
     {
         return ['max_comment_id' => $this->maxCommentId];
     }

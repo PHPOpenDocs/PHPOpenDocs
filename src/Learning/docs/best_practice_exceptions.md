@@ -84,7 +84,6 @@ class InvalidValueException extends \Exception
         return new InvalidValueException($message);
     }
 }
-
 ```
 
 Now whenever a programmer wants to throw that exception, they can use the named constructor.
