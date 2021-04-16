@@ -5,6 +5,38 @@ The recommendations below are patterns of how to use exceptions in ways that wil
 
 ## Set previous when catching and re-throwing
 
+A mistake people make when first using exception is to not pass the previous  
+
+```php
+ try {
+    foo();
+ }
+ catch (\TypeError $te) {
+    throw new FooException("Something went wrong calling foo");
+ } 
+```
+
+Because the original exception is not set as the previous exception, all information about the stack trace inside the foo function call is lost.
+
+
+```php
+ try {
+    foo();
+ }
+ catch (\TypeError $te) {
+    throw new FooException(
+        "Something went wrong calling foo",
+        $te->getCode(),
+        $te
+    );
+ } 
+```
+
+
+
+
+
+If you don't do this, you will lose information about the exact cause of the exception.
 
 
 ## Common base exception per library
@@ -155,9 +187,107 @@ The function `templateStringToRegExp` is available from the library [danack/php-
 
 ## Don't use exceptions for flow control
 
-TODO - words....
+TL:DR version, don't use exceptions for flow control. Except when you really want to.
+
+### What is using exception for flow control
+
+```php
+class User {
+
+    array $data;
+
+    public function __construct($data)
+    {
+        $this->data = $data;
+    }
+
+    public function getValue(string $key)
+    {
+        if (array_key_exists($name, $this->data) !== true) {
+            throw new KeyNotAvailableException(
+                "Key $key is not set"
+            );
+        }
+    }
+}
+
+function sayHello(User $user) {
+    try {
+        $name = $user->getValue('name');
+    }
+    catch (KeyNotAvailableException $knae) {
+        $name = 'friend'
+    }
+    
+    return sprintf("Hello %s", $name)
+}
+```
+
+This code can be modified to check if the value is going to be available first:
+
+```php
+class User {
+
+    array $data;
+
+    public function __construct($data)
+    {
+        $this->data = $data;
+    }
+    
+    public function hasValue(string $key)
+    {
+        return array_key_exists($name, $this->data);
+    }
+
+    public function getValue(string $key)
+    {
+        if (array_key_exists($name, $this->data) !== true) {
+            throw new KeyNotAvailableException(
+                "Key $key is not set"
+            );
+        }
+    }
+}
+
+function sayHello(User $user)
+{
+    $name = 'friend'
+
+    if ($user->hasValue('name') === true) {
+        $name = $user->getValue('name');
+    }
+
+    return sprintf("Hello %s", $name)
+}
+```
+
+This avoids an exception being part of the normal code flow.
+
+
+### Why shouldn't you use exceptions for flow control
+
+There isn't an absolutely concrete reason to not use exceptions for flow control other than "a lot of people don't like code that does that".
+
+Although that is a statement of personal preference, when a significant number of people, including (probably) most senior developers, have the same opinion about a coding pattern, it is probably good advice to follow that advice.  
+
+
+### Are there any exceptions to this rule?
+
+Yes.
+
+Developing software costs money, and sometimes doing everything the 'right' way costs more than taking a shortcut.
+
+When you have a deep chain of functions, and you know that none of the functions in the middle are going to be able to handle an exception, it can save a significant amount of complexity, and time, to take the short cut of using an exception for flow control.
+
+
+
+
+
 
 ## Further reading
+
+
 
 [Exception-Handling Antipatterns](/java_exception_antipatterns) by Tim McCune.
 

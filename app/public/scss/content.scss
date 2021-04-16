@@ -5,8 +5,12 @@
 
   line-height: 20px;
 
+  h1 {
+    margin-block-start: 0.5em;
+  }
+
   h1, h2, h3, h4, h5, h6 {
-    margin-top: 0px;
+    //margin-top: 0px;
     margin-bottom: 8px;
     font-weight: 400;
     line-height: 1.25;
@@ -18,54 +22,116 @@
 
   h1, h2, h3, h4, h5 {
     text-decoration-line: none;
-    //text-decoration-color: rgba(0, 0, 0, 0.5);
   }
-
-  // p + h1 would this ever be needed?
 
   p + p {
     padding-top: 8px;
   }
 
-  a + h2,
-  p + h2 {
-    margin-top: 24px;
+  //
+  //@media (min-width: $screen_break_medium) {
+  //  // p + h1 would this ever be needed?
+  //  h2 {
+  //    margin-top: 12px;
+  //  }
+  //
+  //  h3 {
+  //    margin-top: 8px;
+  //  }
+  //
+  //  h4 {
+  //    margin-top: 4px;
+  //  }
+  //}
+
+
+  @media (min-width: $screen_break_medium) {
+    h1 {
+      font-size: 1.6em;
+    }
+
+    h2 {
+      margin-top: 16px;
+      font-size: 1.4em;
+    }
+
+    h3 {
+      margin-top: 8px;
+      font-size: 1.2em;
+    }
+
+    h4 {
+      margin-top: 4px;
+      font-size: 1.1em;
+    }
+    h5 {
+      font-size: 1.0em;
+    }
   }
 
-  a + h3,
-  p + h3 {
-    margin-top: 16px;
+
+  @media (min-width: $screen_break_large) {
+    h1 {
+      font-size: 2.0em;
+    }
+
+    h2 {
+      margin-top: 24px;
+      font-size: 1.6em;
+    }
+
+    h3 {
+      margin-top: 16px;
+      font-size: 1.4em;
+    }
+
+    h4 {
+      margin-top: 8px;
+      font-size: 1.2em;
+    }
+    h5 {
+      font-size: 1.0em;
+    }
   }
 
-  a + h4,
-  p + h4 {
-    margin-top: 8px;
-  }
+  //h1 + h2,
+  //h2 + h3,
+  //h3 + h4,
+  //h4 + h5 {
+  //  margin-top: 8px;
+  //}
 
-  h1 + h2,
-  h2 + h3,
-  h3 + h4,
-  h4 + h5 {
-    margin-top: 8px;
-  }
+  //h1 {
+  //  font-size: 2.0em;
+  //}
+  //h2 {
+  //  font-size: 1.6em;
+  //}
+  //h3 {
+  //  font-size: 1.4em;
+  //}
+  //h4{
+  //  font-size: 1.2em;
+  //}
+  //h5 {
+  //  font-size: 1.0em;
+  //}
 
-  h1 {
-    font-size: 2.0em;
-  }
-  h2 {
-    font-size: 1.6em;
-  }
-  h3 {
-    font-size: 1.4em;
-  }
-  h4{
-    font-size: 1.2em;
-  }
-  h5 {
-    font-size: 1.0em;
-  }
+  //@media (max-width: $screen_break_medium) {
+  //  //@media (min-width: $screen_break_small) {
+  //  //  .width_small_to_medium {
+  //  //    display: inline-block;
+  //  //  }
+  //  //}
+  //}
+  //
+  //@media (max-width: $screen_break_small) {
+  //
+  //}
 
-a {
+
+
+  a {
     color: var(--standard_link_color);
   }
 

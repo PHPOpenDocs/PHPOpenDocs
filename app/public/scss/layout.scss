@@ -40,7 +40,7 @@
 
 .opendocs_content {
   grid-area: mc;
-  padding: var(--page_padding_left);
+  padding-left: var(--page_padding_left);
   overflow-x: auto;
   //overflow-y: auto;
 }

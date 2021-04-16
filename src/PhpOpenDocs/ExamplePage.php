@@ -10,6 +10,10 @@ class ExamplePage
     {
         $html = <<< 'HTML'
 
+<h1>This is a H1 title</h1>
+
+<p>This is some text.</p>
+
 <h2>
   Hello, I am the page content.
 </h2>
@@ -63,6 +67,47 @@ Lets have some Lorem ipsum to fill out the page a bit. And test if the auto-depl
 <p>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam lacinia quam quis est ultrices vehicula. Nulla et sagittis eros. Etiam aliquet justo sit amet cursus volutpat. Fusce et ipsum vel quam commodo dapibus. Nullam vitae urna elit. Vivamus placerat odio molestie sapien facilisis, et venenatis ante fermentum. Suspendisse hendrerit sit amet ex ut ornare. Suspendisse porta arcu vitae elit tristique condimentum vitae in tortor. Fusce molestie sapien vel est interdum, et aliquet nunc vestibulum. Nam efficitur tempus libero sit amet rhoncus. Nulla facilisi.
 </p>
+
+
+<h1>H1 title</h1>
+<h2>H2 title</h2>
+<h3>H3 title</h3>
+<h4>H4 title</h4>
+<h5>H5 title</h5>
+
+
+<h1>H1 title</h1>
+<p>With some paragraph text between the next one</p>
+<h2>H2 title</h2>
+<p>With some paragraph text between the next one</p>
+<h3>H3 title</h3>
+<p>With some paragraph text between the next one</p>
+<h4>H4 title</h4>
+<p>With some paragraph text between the next one</p>
+<h5>H5 title</h5>
+<p>With some paragraph text between the next one</p>
+
+
+<h1>H1 title</h1>
+<p>With some paragraph text between the next one</p>
+<h1>H1 title</h1>
+
+<h2>H2 title</h2>
+<p>With some paragraph text between the next one</p>
+<h2>H2 title</h2>
+
+<h3>H3 title</h3>
+<p>With some paragraph text between the next one</p>
+<h3>H3 title</h3>
+
+<h4>H4 title</h4>
+<p>With some paragraph text between the next one</p>
+<h4>H4 title</h4>
+
+<h5>H5 title</h5>
+<p>With some paragraph text between the next one</p>
+<h5>H5 title</h5>
+
 
 
 HTML;
