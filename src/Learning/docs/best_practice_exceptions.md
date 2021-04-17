@@ -5,7 +5,7 @@ The recommendations below are patterns of how to use exceptions in ways that wil
 
 ## Set previous when catching and re-throwing
 
-A mistake people make when first using exception is to not pass the previous  
+A mistake people make when first using exception is to not pass the previous exception when catching and throwing a more specific exeption.
 
 ```php
  try {
@@ -18,6 +18,7 @@ A mistake people make when first using exception is to not pass the previous
 
 Because the original exception is not set as the previous exception, all information about the stack trace inside the foo function call is lost.
 
+Simply by setting the previous exception when throwing the new exception all the information is retained.
 
 ```php
  try {
@@ -32,11 +33,8 @@ Because the original exception is not set as the previous exception, all informa
  } 
 ```
 
+This can be enforced with a [PHPStan strict rule](https://github.com/thecodingmachine/phpstan-strict-rules/blob/master/src/Rules/Exceptions/ThrowMustBundlePreviousExceptionRule.php) or a [TheCodeMachine strict rules](https://github.com/thecodingmachine/phpstan-strict-rules) altenative. Or both.
 
-
-
-
-If you don't do this, you will lose information about the exact cause of the exception.
 
 
 ## Common base exception per library
@@ -48,6 +46,17 @@ Creating a base exception for your library, and then extending all other excepti
 
 ## Catch exceptions from code you are calling and rethrow more specific
 
+Imagine we have an interface in our code that performs some operation that returns a particular type:
+
+```php
+interface Foo
+{
+    public function bar(): Quux;
+}
+```
+
+And we have a simple implementation that uses Redis as the storage:
+
 ```php
 class RedisFoo implements Foo
 {
@@ -56,11 +65,65 @@ class RedisFoo implements Foo
         $this->redis = $redis;
     }
     
-    public function bar()
+    public function bar(): Quux
+    {
+        $data = $this->redis->get('quux');
+        if ($data === false) {
+            return Quux::createNew();
+        }
+        
+        return Quux::createFromString($data);
+    }   
+}
+```
+This code works and is fine until it comes to be used. 
+
+
+```php
+function process(Foo $foo)
+{
+    try {
+        $foo->bar();
+    }
+    catch (\RedisException $re) {
+        // do something appropriate here.
+    }    
+}
+```
+
+Because the calling code has to catch a RedisException this is an 'implementation leak'. If the underlying implementation is switching to use MemCache then the calling code would also need to be updated to catch the appropriate MemCache exception:
+
+```php
+function process(Foo $foo)
+{
+    try {
+        $foo->bar();
+    }
+    catch (\RedisException|MemCacheException $re) {
+        // do something appropriate here.
+    }    
+}
+```
+
+We can fix this by catching the RedisException inside the implementation code and then throwing an exception specific to our library:
+
+```php
+class RedisFoo implements Foo
+{
+    public function __construct(\Redis $redis)
+    {
+        $this->redis = $redis;
+    }
+    
+    public function bar(): Quux
     {
         try {
-            // Any 
-            $this->redis->set('quux', 5);
+            $data = $this->redis->get('quux');
+            if ($data === false) {
+                return Quux::createNew();
+            }
+            
+            return Quux::createFromString($data);
         }
         catch (\RedisException $e) {
             throw FooException::fromPrevious(
@@ -72,6 +135,8 @@ class RedisFoo implements Foo
     }   
 }
 ```
+
+Now the calling code never needs to change which exception it catches.
 
 ## Use static/named constructor methods
 
@@ -280,14 +345,9 @@ Developing software costs money, and sometimes doing everything the 'right' way 
 
 When you have a deep chain of functions, and you know that none of the functions in the middle are going to be able to handle an exception, it can save a significant amount of complexity, and time, to take the short cut of using an exception for flow control.
 
-
-
-
-
+One reasonable example is [here](https://blog.jooq.org/2013/04/28/rare-uses-of-a-controlflowexception/). Although it would be possible to rewrite that code to not use an exception, that would also involve making the code more complex, and having to write significantly more tests, than using an exception as a global 'goto'. 
 
 ## Further reading
-
-
 
 [Exception-Handling Antipatterns](/java_exception_antipatterns) by Tim McCune.
 
