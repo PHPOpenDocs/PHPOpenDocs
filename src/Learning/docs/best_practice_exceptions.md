@@ -3,7 +3,7 @@
 
 The recommendations below are patterns of how to use exceptions in ways that will be appreciated by whoever has to maintain your application.  
 
-## Set previous when catching and re-throwing
+## Always set previous when catching and re-throwing
 
 A mistake people make when first using exception is to not pass the previous exception when catching and throwing a more specific exeption.
 
@@ -256,6 +256,8 @@ TL:DR version, don't use exceptions for flow control. Except when you really wan
 
 ### What is using exception for flow control
 
+Imagine we have some code that allows us to retrieve values and we use it to 'say hello' to a user:
+
 ```php
 class User {
 
@@ -287,6 +289,10 @@ function sayHello(User $user) {
     return sprintf("Hello %s", $name)
 }
 ```
+
+In that code, if the name of the user is not available, an exception is thrown and caught almost immediately. i.e. the flow of which operations are called is controlled by an exception.
+
+
 
 This code can be modified to check if the value is going to be available first:
 

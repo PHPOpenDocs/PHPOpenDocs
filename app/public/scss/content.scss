@@ -45,7 +45,7 @@
   //}
 
 
-  @media (min-width: $screen_break_medium) {
+  //@media (min-width: $screen_break_medium) {
     h1 {
       font-size: 1.6em;
     }
@@ -67,7 +67,7 @@
     h5 {
       font-size: 1.0em;
     }
-  }
+  //}
 
 
   @media (min-width: $screen_break_large) {
@@ -94,41 +94,30 @@
     }
   }
 
-  //h1 + h2,
-  //h2 + h3,
-  //h3 + h4,
-  //h4 + h5 {
-  //  margin-top: 8px;
-  //}
-
-  //h1 {
-  //  font-size: 2.0em;
-  //}
-  //h2 {
-  //  font-size: 1.6em;
-  //}
-  //h3 {
-  //  font-size: 1.4em;
-  //}
-  //h4{
-  //  font-size: 1.2em;
-  //}
-  //h5 {
-  //  font-size: 1.0em;
-  //}
-
-  //@media (max-width: $screen_break_medium) {
-  //  //@media (min-width: $screen_break_small) {
-  //  //  .width_small_to_medium {
-  //  //    display: inline-block;
-  //  //  }
-  //  //}
-  //}
-  //
   //@media (max-width: $screen_break_small) {
-  //
+  //  h1 {
+  //    font-size: 1.4em;
+  //  }
+  //  h2 {
+  //    font-size: 1.2em;
+  //  }
+  //  h3 {
+  //    font-size: 1.1em;
+  //  }
+  //  h4{
+  //    font-size: 1.05em;
+  //  }
+  //  h5 {
+  //    font-size: 1.0em;
+  //  }
   //}
 
+  //h1 { font-size: 3em; line-height: 1; margin-bottom: 0.5em; }
+  //h2 { font-size: 2em; margin-bottom: 0.75em; }
+  //h3 { font-size: 1.5em; line-height: 1; margin-bottom: 1em; }
+  //h4 { font-size: 1.2em; line-height: 1.25; margin-bottom: 1.25em; }
+  //h5 { font-size: 1em; font-weight: bold; margin-bottom: 1.5em; }
+  //h6 { font-size: 1em; font-weight: bold; }
 
 
   a {

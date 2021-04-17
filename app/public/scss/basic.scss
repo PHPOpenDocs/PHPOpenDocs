@@ -1,9 +1,10 @@
 
+// Global resets of standard HTML elements
+
 html {
   scroll-behavior: smooth;
   background-color: var(--background_color);
 }
-
 
 * {
   box-sizing: border-box;
@@ -14,7 +15,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   margin: 0px;
 }
-
 
 table {
   border-collapse: collapse;

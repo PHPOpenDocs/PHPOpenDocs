@@ -1,4 +1,7 @@
 
+// contains all color related variables and css selector
+// for using them based on user preference
+
 //@media (prefers-color-scheme: light) {
 :root {
 
@@ -97,7 +100,6 @@
 
     --content_panel_background_color: none;
     --content_panel_text_color: #d6d6d6;
-
 
     --footer_background_color: #{$color_primary_subtle};
     --footer_border_color: rgba(128, 128, 128, 0.25);

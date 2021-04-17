@@ -69,22 +69,22 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam lacinia quam qu
 </p>
 
 
-<h1>H1 title</h1>
-<h2>H2 title</h2>
-<h3>H3 title</h3>
-<h4>H4 title</h4>
-<h5>H5 title</h5>
+<h1>H1 title with some more words so we can see how it looks when wrapped</h1>
+<h2>H2 title with some more words so we can see how it looks when wrapped</h2>
+<h3>H3 title with some more words so we can see how it looks when wrapped</h3>
+<h4>H4 title with some more words so we can see how it looks when wrapped</h4>
+<h5>H5 title with some more words so we can see how it looks when wrapped</h5>
 
 
-<h1>H1 title</h1>
+<h1>H1 title with some more words so we can see how it looks when wrapped</h1>
 <p>With some paragraph text between the next one</p>
-<h2>H2 title</h2>
+<h2>H2 title with some more words so we can see how it looks when wrapped</h2>
 <p>With some paragraph text between the next one</p>
-<h3>H3 title</h3>
+<h3>H3 title with some more words so we can see how it looks when wrapped</h3>
 <p>With some paragraph text between the next one</p>
-<h4>H4 title</h4>
+<h4>H4 title with some more words so we can see how it looks when wrapped</h4>
 <p>With some paragraph text between the next one</p>
-<h5>H5 title</h5>
+<h5>H5 title with some more words so we can see how it looks when wrapped</h5>
 <p>With some paragraph text between the next one</p>
 
 
