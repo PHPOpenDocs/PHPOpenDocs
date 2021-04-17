@@ -28,23 +28,6 @@
     padding-top: 8px;
   }
 
-  //
-  //@media (min-width: $screen_break_medium) {
-  //  // p + h1 would this ever be needed?
-  //  h2 {
-  //    margin-top: 12px;
-  //  }
-  //
-  //  h3 {
-  //    margin-top: 8px;
-  //  }
-  //
-  //  h4 {
-  //    margin-top: 4px;
-  //  }
-  //}
-
-
   //@media (min-width: $screen_break_medium) {
     h1 {
       font-size: 1.6em;
@@ -56,15 +39,16 @@
     }
 
     h3 {
-      margin-top: 8px;
+      margin-top: 16px;
       font-size: 1.2em;
     }
 
     h4 {
-      margin-top: 4px;
+      margin-top: 8px;
       font-size: 1.1em;
     }
     h5 {
+      margin-top: 8px;
       font-size: 1.0em;
     }
   //}
@@ -93,32 +77,6 @@
       font-size: 1.0em;
     }
   }
-
-  //@media (max-width: $screen_break_small) {
-  //  h1 {
-  //    font-size: 1.4em;
-  //  }
-  //  h2 {
-  //    font-size: 1.2em;
-  //  }
-  //  h3 {
-  //    font-size: 1.1em;
-  //  }
-  //  h4{
-  //    font-size: 1.05em;
-  //  }
-  //  h5 {
-  //    font-size: 1.0em;
-  //  }
-  //}
-
-  //h1 { font-size: 3em; line-height: 1; margin-bottom: 0.5em; }
-  //h2 { font-size: 2em; margin-bottom: 0.75em; }
-  //h3 { font-size: 1.5em; line-height: 1; margin-bottom: 1em; }
-  //h4 { font-size: 1.2em; line-height: 1.25; margin-bottom: 1.25em; }
-  //h5 { font-size: 1em; font-weight: bold; margin-bottom: 1.5em; }
-  //h6 { font-size: 1em; font-weight: bold; }
-
 
   a {
     color: var(--standard_link_color);
@@ -153,8 +111,6 @@
   h5 .heading-permalink,
   h6 .heading-permalink{
     visibility: hidden;
-    //font-size: 14px;
-    //text-decoration: none;
   }
 
   h1:hover .heading-permalink,
