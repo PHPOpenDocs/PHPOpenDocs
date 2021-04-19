@@ -91,7 +91,7 @@ function process(Foo $foo)
 }
 ```
 
-Because the calling code has to catch a RedisException this is an 'implementation leak'. If the underlying implementation is switching to use MemCache then the calling code would also need to be updated to catch the appropriate MemCache exception:
+Because the calling code has to catch a RedisException this is an 'implementation leak'. If the underlying implementation is switched to use MemCache instead of Redis, then the calling code would also need to be updated to catch the appropriate MemCache exception:
 
 ```php
 function process(Foo $foo)
@@ -104,6 +104,8 @@ function process(Foo $foo)
     }    
 }
 ```
+
+Having to change the calling code, when an internal implementation detail is changed is bad.
 
 We can fix this by catching the RedisException inside the implementation code and then throwing an exception specific to our library:
 
