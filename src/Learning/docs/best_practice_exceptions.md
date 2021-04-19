@@ -21,16 +21,16 @@ Because the original exception is not set as the previous exception, all informa
 Simply by setting the previous exception when throwing the new exception all the information is retained.
 
 ```php
- try {
-    foo();
- }
- catch (\TypeError $te) {
-    throw new FooException(
-        "Something went wrong calling foo",
-        $te->getCode(),
-        $te
-    );
- } 
+try {
+   foo();
+}
+catch (\TypeError $te) {
+   throw new FooException(
+       "Something went wrong calling foo",
+       $te->getCode(),
+       $te
+   );
+} 
 ```
 
 This can be enforced with a [PHPStan strict rule](https://github.com/thecodingmachine/phpstan-strict-rules/blob/master/src/Rules/Exceptions/ThrowMustBundlePreviousExceptionRule.php) or a [TheCodeMachine strict rules](https://github.com/thecodingmachine/phpstan-strict-rules) altenative. Or both.
