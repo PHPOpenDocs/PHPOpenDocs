@@ -28,6 +28,19 @@ This is a place holder page, that has all the bits filled out, so I can play wit
 </p>
 
 
+<pre>wat<code class="php">&lt;?php
+
+function calculateDimensions($inputValue) {
+    // do some maths.
+    return [$width, $height];
+}
+
+
+[$width, $height] = calculateDimensions($inputValue);
+</code>the heck</pre>
+
+
+
 <h2>Size test</h2>
 
 <p>This site uses several screen widths for choosing how to layout the page. They are $screen_break_large, $screen_break_medium and $screen_break_small in the sass.</p>
