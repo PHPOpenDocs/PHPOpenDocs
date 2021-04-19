@@ -11,7 +11,7 @@ pre code {
   min-width: 100px;
 
   line-height: 1.2em;
-  margin-bottom: 0px;
+  margin: 0px;
   background: var(--code_background);
   color: var(--code_color);
 
@@ -27,6 +27,6 @@ pre code {
   }
 
   @media (max-width: $screen_break_small) {
-    padding: 2px 6px 2px 2px;
+    padding: 2px;
   }
 }
