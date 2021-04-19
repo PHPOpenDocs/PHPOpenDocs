@@ -15,6 +15,7 @@ class System
 {
     public function indexPage(SystemSection $section): HtmlResponse
     {
+
         $html  = <<< HTML
 
 <h3>System stuff</h3>

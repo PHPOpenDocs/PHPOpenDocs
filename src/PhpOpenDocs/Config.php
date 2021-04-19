@@ -62,6 +62,11 @@ class Config
 //        return self::get(self::PHPOPENDOCS_CORS_ALLOW_ORIGIN);
 //    }
 
+    public static function getVersion(): string
+    {
+        return self::get(self::PHPOPENDOCS_ENVIRONMENT) . "_" . self::get(self::PHPOPENDOCS_COMMIT_SHA);
+    }
+
     public static function getEnvironment(): string
     {
         return self::get(self::PHPOPENDOCS_ENVIRONMENT);
