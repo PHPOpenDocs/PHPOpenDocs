@@ -27,6 +27,29 @@ HTML;
 This is a place holder page, that has all the bits filled out, so I can play with the SCSS. Maybe click on the sections.
 </p>
 
+<div>Inside div:<br/>
+<pre><code class="php">&lt;?php
+
+function calculateDimensions($inputValue) {
+    // do some maths.
+    return [$width, $height];
+}
+
+[$width, $height] = calculateDimensions($inputValue);
+</code></pre>
+</div>
+
+outide div
+<pre><code class="php">&lt;?php
+
+function calculateDimensions($inputValue) {
+    // do some maths.
+    return [$width, $height];
+}
+
+[$width, $height] = calculateDimensions($inputValue);
+</code></pre>
+
 
 <pre>wat<code class="php">&lt;?php
 
