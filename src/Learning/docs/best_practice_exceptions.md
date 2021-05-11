@@ -76,7 +76,7 @@ class RedisFoo implements Foo
     }   
 }
 ```
-This code works and is fine until it comes to be used. 
+This code works and looks fine, but contains a nasty aspect that is revealed when someone uses it: 
 
 
 ```php
@@ -85,13 +85,13 @@ function process(Foo $foo)
     try {
         $foo->bar();
     }
-    catch (\RedisException $re) {
+    catch (RedisException $re) {
         // do something appropriate here.
     }    
 }
 ```
 
-Because the calling code has to catch a RedisException this is an 'implementation leak'. If the underlying implementation is switched to use MemCache instead of Redis, then the calling code would also need to be updated to catch the appropriate MemCache exception:
+As the calling code has to catch a RedisException this is an 'implementation leak'. If the underlying implementation is switched to use MemCache instead of Redis, then the calling code would also need to be updated to catch the appropriate MemCache exception:
 
 ```php
 function process(Foo $foo)
@@ -99,7 +99,7 @@ function process(Foo $foo)
     try {
         $foo->bar();
     }
-    catch (\RedisException|MemCacheException $re) {
+    catch (RedisException|MemCacheException $re) {
         // do something appropriate here.
     }    
 }
@@ -168,7 +168,7 @@ if ($foo > MAX_FOO) {
 }
 ```
 
-By adding a static named constructor, the details of the message can be inside the exception 
+By adding a static named constructor, the details of the message can be inside the exception:
 
 ```php
 class InvalidValueException extends \Exception
@@ -193,21 +193,33 @@ if ($foo > MAX_FOO) {
 }
 ```
 
-Not only does that standardise the message in the exception, is also means the programmer doesn't need to think about what to write in the message. And the less thinking required, the better.
+Not only does that standardise the message in the exception, it also means the programmer doesn't need to think about what to write in the message. And the less thinking required, the better.
 
 
-## Use class constant for messages
+## Define exception messages as class constants
 
-This allows you to test messages are correct.
-
+Most developers start by writing exception messages inline in the place where they are used:
 
 ```php
+
+define("MAX_FOO", 100);
+
+function bar(int $foo)
+{
+    if ($foo > MAX_FOO) { 
+        throw new InvalidValueException(
+          "Value for foo is too big, max is " . MAX_FOO . " but got " . $foo
+        );
+        // ...
+    }
+}
+
 class BarTest extends TestCase
 {
     public function testFooTooLarge()
     {
         $this->expectException(InvalidValueException::class);
-        $this->expectExceptionMessageRegExp("#Value .* is too big, max allowed is .*#");
+        $this->expectExceptionMessageRegExp("#Value for foo is too big, max is .* but got .*#");
         bar(4000);
     }
 } 
@@ -215,9 +227,10 @@ class BarTest extends TestCase
 
 This is bad for a couple of reasons:
 
-* It's duplication of the message text. Which means that the test is fragile as if the text ever changes, the test will start failing.
+* It's duplication of the message text, which means that the test is fragile. When someone changes the text used in the exception, the test will start failing and the test will need to be updated.
 * It requires effort. Copying the message text and formatting it for regexp takes a non-trivial amount of time.
 
+Rather than defining exception messages inline, it's better to move them to be class constants:
 
 ```php
 class InvalidValueException extends \Exception
@@ -235,6 +248,14 @@ class InvalidValueException extends \Exception
     }
 }
 
+function bar(int $foo)
+{
+    if ($foo > MAX_FOO) { 
+        throw InvalidValueException::tooBig(MAX_FOO, 100)
+    }
+    // ...
+}
+
 class BarTest extends TestCase
 {
     public function testFooTooLarge()
@@ -248,15 +269,18 @@ class BarTest extends TestCase
 } 
 ```
 
-The function `templateStringToRegExp` is available from the library [danack/php-unit-helper](https://packagist.org/packages/danack/php-unit-helper), or you could just copy/paste it if you don't want an extra dependency.
+The test can reference the exception message from the class constant. 
 
+Now if the text for the exception message is ever updated, the test will use the updated version without the test having to be updated separately.
+
+The function `templateStringToRegExp` is available from the library [danack/php-unit-helper](https://packagist.org/packages/danack/php-unit-helper), or you could just copy/paste it if you don't want an extra dependency.
 
 
 ## Don't use exceptions for flow control
 
 TL:DR version, don't use exceptions for flow control. Except when you really want to.
 
-### What is using exception for flow control
+### What is 'using exceptions for flow control' ?
 
 Imagine we have some code that allows us to retrieve values and we use it to 'say hello' to a user:
 
@@ -338,12 +362,11 @@ function sayHello(User $user)
 This avoids an exception being part of the normal code flow.
 
 
-### Why shouldn't you use exceptions for flow control
+### Why do people think using exceptions for flow control is wrong?
 
-There isn't an absolutely concrete reason to not use exceptions for flow control other than "a lot of people don't like code that does that".
+There isn't a single absolutely concrete reason to not use exceptions for flow control other than "a lot of people don't like code that does that".
 
-Although that is a statement of personal preference, when a significant number of people, including (probably) most senior developers, have the same opinion about a coding pattern, it is probably good advice to follow that advice.  
-
+Although that is a statement of personal preference, when a significant number of people, including (probably) most senior developers, have the same opinion about a coding pattern, it is probably a good idea to follow that advice.  
 
 ### Are there any exceptions to this rule?
 
@@ -351,9 +374,9 @@ Yes.
 
 Developing software costs money, and sometimes doing everything the 'right' way costs more than taking a shortcut.
 
-When you have a deep chain of functions, and you know that none of the functions in the middle are going to be able to handle an exception, it can save a significant amount of complexity, and time, to take the short cut of using an exception for flow control.
+When you have a deep chain of functions, and you know that none of the functions in the middle are going to be able to handle an exception, it can save a significant amount of complexity, and time, to take the shortcut of using an exception for flow control.
 
-One reasonable example is [here](https://blog.jooq.org/2013/04/28/rare-uses-of-a-controlflowexception/). Although it would be possible to rewrite that code to not use an exception, that would also involve making the code more complex, and having to write significantly more tests, than using an exception as a global 'goto'. 
+There's at least one reasonable example [of using an exception for flow control](https://blog.jooq.org/2013/04/28/rare-uses-of-a-controlflowexception/). Although it would be possible to rewrite the code discussed in that link to not use an exception, that would also involve making the code more complex, and having to write significantly more tests, than using an exception as a global 'goto'. 
 
 ## Further reading
 
