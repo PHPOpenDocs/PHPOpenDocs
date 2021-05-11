@@ -201,7 +201,6 @@ Not only does that standardise the message in the exception, it also means the p
 Most developers start by writing exception messages inline in the place where they are used:
 
 ```php
-
 define("MAX_FOO", 100);
 
 function bar(int $foo)
