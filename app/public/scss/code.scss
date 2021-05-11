@@ -32,5 +32,9 @@ pre {
     @media (max-width: $screen_break_small) {
       padding: 2px;
     }
+
+    @media (min-width: $screen_break_large) {
+      padding: 12px 24px 12px 12px;
+    }
   }
 }
