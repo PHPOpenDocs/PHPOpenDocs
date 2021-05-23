@@ -31,11 +31,11 @@ $default = [
     Config::PHPOPENDOCS_COMMIT_SHA => $sha,
 //    Config::PHPOPENDOCS_ENVIRONMENT => 'prod',
 //
-//    Config::PHPOPENDOCS_REDIS_INFO => [
-//        'host' => 'redis',
-//        'password' => 'ePvDZpYTXzT5N9xAPu24',
-//        'port' => 6379
-//    ],
+    Config::PHPOPENDOCS_REDIS_INFO => [
+        'host' => 'redis',
+        'password' => 'ePvDZpYTXzT5N9xAPu24',
+        'port' => 6379
+    ],
 
 //    'phpopendocs.allowed_access_cidrs' => [
 //        '86.7.192.0/24',
@@ -55,12 +55,12 @@ $local = [
     'php.display_errors' => 'On',
     'php.opcache.validate_timestamps' => 1,
 
-// Redis connection settings
-    Config::PHPOPENDOCS_REDIS_INFO => [
-        'host' => 'redis',
-        'password' => 'ePvDZpYTXzT5N9xAPu24',
-        'port' => 6379
-    ],
+//// Redis connection settings
+//    Config::PHPOPENDOCS_REDIS_INFO => [
+//        'host' => 'redis',
+//        'password' => 'ePvDZpYTXzT5N9xAPu24',
+//        'port' => 6379
+//    ],
 
 
 //    const PHPOPENDOCS_CORS_ALLOW_ORIGIN = 'http://local.phpopendocs.com';

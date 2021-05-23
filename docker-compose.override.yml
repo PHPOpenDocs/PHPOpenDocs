@@ -18,6 +18,8 @@ services:
     environment:
       - PHP_WEB_BUGS_BASE_URL=http://local.api.phpopendocs.com
   npm_dev_build:
+    ports:
+      - 8888:8888
     environment:
       - PHP_WEB_BUGS_BASE_URL=http://local.api.phpopendocs.com
   php_fpm:
