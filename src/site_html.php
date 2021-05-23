@@ -166,7 +166,7 @@ function createEditLinks(array $namesWithLinks): string
 {
     $html_snippets = [];
 
-    $template = '<a href=":attr_edit_link">:html_description</a>';
+    $template = '<a href=":attr_edit_link" target="_blank" rel="noopener noreferrer">:html_description</a>';
 
     foreach ($namesWithLinks as $name => $link) {
         $html_snippets[] = esprintf(
@@ -184,7 +184,7 @@ function createFooterHtml(
 ): string {
     $html = <<< HTML
 <span class="copyright">
-  <a href=":attr_copyright_link">© :html_copyright_name</a>
+  <a href=":attr_copyright_link" target="_blank" rel="noopener noreferrer">© :html_copyright_name</a>
 </span>
 <span class="edit_link">
   :raw_edit_links

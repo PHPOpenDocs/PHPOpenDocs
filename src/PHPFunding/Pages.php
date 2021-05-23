@@ -10,6 +10,8 @@ use OpenDocs\Page;
 use OpenDocs\PrevNextLinks;
 use OpenDocs\Section;
 
+use function PHPFunding\createEditInfo;
+
 class Pages
 {
 
@@ -64,7 +66,6 @@ HTML;
 
 <p>
 This is the list of RFCs that were passed for PHP 8, the authors involved with them, and links to their sponsors page.
-<b>TODO</b> still need to add the declined RFCs.
 </p>
 
 <table>
@@ -77,6 +78,13 @@ This is the list of RFCs that were passed for PHP 8, the authors involved with t
   </thead>
   <tbody>$rowString</tbody>
 </table>
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+<b>TODO</b> still need to add the declined RFCs.
 
 HTML;
 
@@ -100,8 +108,8 @@ HTML;
 
         return new Page(
             'Sponsoring PHP Internals',
-            createDefaultEditInfo(),
-            [],
+            createEditInfo('Edit page', __FILE__, __LINE__),
+            getFundingContentLinks(),
             new PrevNextLinks(null, null),
             $contents,
             createDefaultCopyrightInfo(),
@@ -116,8 +124,8 @@ HTML;
 
         return new Page(
             'Sponsoring Userland',
-            createDefaultEditInfo(),
-            [],
+            createEditInfo('Edit page', __FILE__, __LINE__),
+            getFundingContentLinks(),
             new PrevNextLinks(null, null),
             $contents,
             createDefaultCopyrightInfo(),
@@ -132,8 +140,8 @@ HTML;
 
         return new Page(
             'Sponsoring extensions',
-            createDefaultEditInfo(),
-            [],
+            createEditInfo('Edit page', __FILE__, __LINE__),
+            getFundingContentLinks(),
             new PrevNextLinks(null, null),
             $contents,
             createDefaultCopyrightInfo(),
@@ -176,8 +184,8 @@ HTML;
 
         return new Page(
             'Sponsoring PHP',
-            createDefaultEditInfo(),
-            [],
+            createEditInfo('Edit page', __FILE__, __LINE__ - 33),
+            getFundingContentLinks(),
             new PrevNextLinks(null, null),
             $contents,
             createDefaultCopyrightInfo(),

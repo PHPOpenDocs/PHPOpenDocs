@@ -59,7 +59,10 @@
         "files": [
             "src/Learning/functions.php",
             "src/NamingThings/functions.php",
-            "src/Work/functions.php"
+            "src/Work/functions.php",
+            "src/PhpOpenDocs/functions.php",
+            "src/PHPFunding/functions.php"
+
         ]
     },
     "autoload-dev": {
