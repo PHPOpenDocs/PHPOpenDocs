@@ -29,8 +29,8 @@ $default = [
 
 //    Config::PHPOPENDOCS_ASSETS_FORCE_REFRESH => false,
     Config::PHPOPENDOCS_COMMIT_SHA => $sha,
-//    Config::PHPOPENDOCS_ENVIRONMENT => 'prod',
-//
+
+
     Config::PHPOPENDOCS_REDIS_INFO => [
         'host' => 'redis',
         'password' => 'ePvDZpYTXzT5N9xAPu24',
@@ -72,6 +72,9 @@ $local = [
     // $options['phpopendocs']['app_domain'] = 'http://local.app.phpopendocs.com';
 ];
 
+$prod = [
+    Config::PHPOPENDOCS_ENVIRONMENT => 'prod',
+];
 
 $varnish_debug = [
     'varnish.pass_all_requests' => false
