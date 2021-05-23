@@ -95,7 +95,8 @@ HTML;
             new PrevNextLinks(null, null),
             $contents,
             createDefaultCopyrightInfo(),
-            new Breadcrumbs()
+            new Breadcrumbs(),
+            $section
         );
     }
 }
