@@ -14,6 +14,10 @@ class Breadcrumbs
         $this->breadcrumbs = $breadcrumbs;
     }
 
+    /**
+     * @param array<string, string> $breadcrumbData Array of paths with description
+     * @return static
+     */
     public static function fromArray(array $breadcrumbData): self
     {
         $breadcrumbs = [];

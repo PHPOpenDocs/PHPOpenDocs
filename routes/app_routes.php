@@ -39,11 +39,6 @@ return [
     ['/test/compile_error', 'GET', 'PhpOpenDocs\AppController\CompileError::deliberateCompileError'],
 
 
-
-
-
-
-
     // TODO - actually make a 404 page
     ['/{any:.*}', 'GET', 'PhpOpenDocs\AppController\Pages::get404Page'],
 ];
