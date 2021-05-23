@@ -27,7 +27,7 @@ $default = [
     'php.post_max_size' => '1M',
     'php.opcache.validate_timestamps' => 0,
 
-//    Config::PHPOPENDOCS_ASSETS_FORCE_REFRESH => false,
+    Config::PHPOPENDOCS_ASSETS_FORCE_REFRESH => false,
     Config::PHPOPENDOCS_COMMIT_SHA => $sha,
 
 
