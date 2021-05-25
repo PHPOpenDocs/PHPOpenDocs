@@ -232,15 +232,14 @@ HTML;
   <li><a href=":attr_userland_link">Userland</a> - these are libraries written in PHP that you probably install through Composer.</li>
 </ul>
 
-
 HTML;
 
         $contents = esprintf(
             $contents,
             [
                 ":attr_internals_link" => $section->getPrefix() . '/internals',
-                ":attr_extensions_link" => $section->getPrefix() . '/userland',
-                ":attr_userland_link" => $section->getPrefix() . '/extensions',
+                ":attr_extensions_link" => $section->getPrefix() . '/extensions',
+                ":attr_userland_link" => $section->getPrefix() . '/userland',
             ]
         );
 
