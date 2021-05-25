@@ -11,6 +11,7 @@ use League\CommonMark\Environment;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkRenderer;
 use League\CommonMark\Normalizer\SlugNormalizer;
+use League\CommonMark\MarkdownConverter;
 
 class CommonMarkRenderer implements MarkdownRenderer
 {
@@ -30,7 +31,6 @@ class CommonMarkRenderer implements MarkdownRenderer
     {
         $environment = Environment::createGFMEnvironment();
 
-// Add this extension
         $environment->addExtension(new HeadingPermalinkExtension());
 
         $params = [
@@ -44,14 +44,9 @@ class CommonMarkRenderer implements MarkdownRenderer
             ],
         ];
 
-        // Set your configuration
-        $config = [
-            // Extension defaults are shown below
-            // If you're happy with the defaults, feel free to remove them from this array
+        $environment->mergeConfig($params);
 
-        ];
-
-        $converter = new GithubFlavoredMarkdownConverter($params, $environment);
+        $converter = new MarkdownConverter($environment);
 
         return $converter->convertToHtml($markdown);
     }
