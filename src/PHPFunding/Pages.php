@@ -81,10 +81,6 @@ This is the list of RFCs that were passed for PHP 8, the authors involved with t
 
 <br/>
 <br/>
-<br/>
-<br/>
-
-<b>TODO</b> still need to add the declined RFCs.
 
 HTML;
 
@@ -92,9 +88,71 @@ HTML;
     }
 
 
-    public function renderExtensionsFunding()
+    public function renderExtensionsFunding(ExtensionList $extensionList)
     {
-        return "<b>Sha-mone extensions.</b>";
+        $sponsorLinkFn = function (SponsorLink $sponsorLink) {
+            $linkTemplate = "<a href=':attr_url'>:html_name</a>";
+
+            $params = [
+                ':attr_url' => $sponsorLink->getUrl(),
+                ':html_name' => $sponsorLink->getName(),
+            ];
+
+            return esprintf($linkTemplate, $params);
+        };
+
+        $maintainerFn = function (Maintainer $maintainer) use ($sponsorLinkFn) {
+            $sponsorLinks = array_map($sponsorLinkFn, $maintainer->getSponsorLinks());
+
+            $linkTemplate = "<tr><td>:html_name</td><td>:raw_sponsor_links</td></tr>";
+            $params = [
+                ':html_name' => $maintainer->getName(),
+                ':raw_sponsor_links' => implode(", ", $sponsorLinks)
+            ];
+
+            return esprintf($linkTemplate, $params);
+        };
+
+        $extensionFn = function (PHPExtension $phpExtension) use ($maintainerFn) {
+            $maintainersHtmlArray = array_map($maintainerFn, $phpExtension->getMaintainers());
+
+            $linkTemplate = <<< HTML
+<h2>:html_name</h2>
+<table class="funding_extensions">
+    <tbody>:raw_maintiner_info</tbody>
+</table>
+
+HTML;
+
+            $params = [
+                ':html_name' => $phpExtension->getName(),
+                ":attr_nuber_of_maintainers" => count($phpExtension->getMaintainers()),
+                ':raw_maintiner_info' => implode("", $maintainersHtmlArray)
+            ];
+
+            return esprintf($linkTemplate, $params);
+        };
+
+        $rows = array_map($extensionFn, $extensionList->getExtensions());
+
+        $extensionsInfo = implode("", $rows);
+
+        $html = <<< HTML
+
+<h1>Extensions</h1>
+
+<p>
+The PHP extensions are C libraries that are (mostly) maintained separately from PHP core.
+</p>
+
+$extensionsInfo
+
+<br/>
+<br/>
+
+HTML;
+
+        return $html;
     }
 
     public function renderUserlandFunding()
@@ -134,13 +192,17 @@ HTML;
         );
     }
 
-    public function getExtensionPage(Section $section): Page
+    public function getExtensionPage(Section $section, ExtensionList $extensionList): Page
     {
-        $contents = $this->renderExtensionsFunding();
+        $contents = $this->renderExtensionsFunding($extensionList);
+
+        $editInfo = createEditInfo('Edit page', __FILE__, __LINE__);
+        $listEditInfo = createEditInfo('Edit list', __DIR__ . "src/PHPFunding/ExtensionList.php", 24);
+        $editInfo->addEditInfo($listEditInfo);
 
         return new Page(
             'Sponsoring extensions',
-            createEditInfo('Edit page', __FILE__, __LINE__),
+            $editInfo,
             getFundingContentLinks(),
             new PrevNextLinks(null, null),
             $contents,

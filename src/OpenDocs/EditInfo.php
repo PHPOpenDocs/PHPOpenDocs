@@ -36,4 +36,11 @@ class EditInfo
     {
         $this->namesWithLinks[$name] = $link;
     }
+
+    public function addEditInfo(EditInfo $editInfo)
+    {
+        foreach ($editInfo->getNamesWithLinks() as $name => $link) {
+            $this->namesWithLinks[$name] = $link;
+        }
+    }
 }
