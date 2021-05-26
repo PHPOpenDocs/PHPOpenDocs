@@ -14,7 +14,6 @@ use function PHPFunding\createEditInfo;
 
 class Pages
 {
-
     private MarkdownRenderer $markdownRenderer;
 
     public function __construct(MarkdownRenderer $markdownRenderer)
@@ -22,8 +21,7 @@ class Pages
         $this->markdownRenderer = $markdownRenderer;
     }
 
-
-    public function renderPhp8_0_funding(PeopleList $peopleList)
+    public function renderPhpFunding(PeopleList $peopleList, $version)
     {
         $rows = [];
 
@@ -39,7 +37,23 @@ HTML;
 
         foreach ($peopleList->getPeople() as $person) {
             $workItemsList = [];
-            foreach ($person->getWorkItems() as $workItem) {
+
+            if ($version === '8_0') {
+                $workItems = $person->getWorkItems_8_0();
+            }
+            else if ($version === '8_1') {
+                $workItems = $person->getWorkItems_8_1();
+            }
+            else {
+                throw new \Exception("Unknown version string [$version]. Either 8_0 or 8_1 are known.");
+            }
+
+
+            if (count($workItems) === 0) {
+                continue;
+            }
+
+            foreach ($workItems as $workItem) {
                 $params = [
                     ':attr_link' => $workItem->getUrl(),
                     ':html_description' => $workItem->getDescription()
@@ -64,9 +78,8 @@ HTML;
 
         $html = <<< HTML
 
-<p>
-This is the list of RFCs that were passed for PHP 8, the authors involved with them, and links to their sponsors page.
-</p>
+
+
 
 <table>
   <thead>
@@ -121,7 +134,6 @@ HTML;
 <table class="funding_extensions">
     <tbody>:raw_maintiner_info</tbody>
 </table>
-
 HTML;
 
             $params = [
@@ -162,11 +174,24 @@ HTML;
 
     public function getInternalsPage(Section $section, PeopleList $peopleList): Page
     {
-        $contents = $this->renderPhp8_0_funding($peopleList);
+        $contents = <<< HTML
+<p>
+    This is the list of RFCs that were passed for PHP 8, the authors involved with them, and links to their sponsors page.
+</p>
+HTML;
+
+        $contents .= "<h2>PHP 8.1</h2>";
+        $contents .= $this->renderPhpFunding($peopleList, "8_1");
+
+        $contents .= "<h2>PHP 8.0</h2>";
+        $contents .= $this->renderPhpFunding($peopleList, "8_0");
+
+        $editInfo = createEditInfo('Edit page', __FILE__, __LINE__);
+        $editInfo->addEditInfo(createEditInfo("Edit people list", __DIR__ . '/PeopleList.php', 20));
 
         return new Page(
             'Sponsoring PHP Internals',
-            createEditInfo('Edit page', __FILE__, __LINE__),
+            $editInfo,
             getFundingContentLinks(),
             new PrevNextLinks(null, null),
             $contents,

@@ -17,15 +17,17 @@ class LearningSectionInfo implements SectionInfo
 // php_for_people_who_know_how_to_code.md
 // recommended_libraries.md
 
+        // No routes - just php files in app/public/learning
+
         return [
-            new GetRoute(
-                '/php_for_people_who_know_how_to_code',
-                'Learning\Pages::getPhpForPeopleWhoCanCode'
-            ),
-            new GetRoute(
-                '/java_exception_antipatterns',
-                'Learning\Pages::getJavaAntipatterns'
-            ),
+//            new GetRoute(
+//                '/php_for_people_who_know_how_to_code',
+//                'Learning\Pages::getPhpForPeopleWhoCanCode'
+//            ),
+//            new GetRoute(
+//                '/java_exception_antipatterns',
+//                'Learning\Pages::getJavaAntipatterns'
+//            ),
 
             new GetRoute('', 'Learning\Pages::getIndexPage'),
         ];

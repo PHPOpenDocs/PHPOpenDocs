@@ -103,29 +103,32 @@ function generateBestPracticesHtml()
 class Pages
 {
 
-    public function getPhpForPeopleWhoCanCode(
-        Section $section,
-        MarkdownRenderer $markdownRenderer
-    ) {
-        $fullPath = __DIR__ . "/docs/php_for_people_who_know_how_to_code.md";
-        $markdown = file_get_contents($fullPath);
-        $contents = $markdownRenderer->render($markdown);
-
-        return new Page(
-            'PHP for people who know how to code.',
-            createDefaultEditInfo(),
-            [],
-            new PrevNextLinks(null, null),
-            $contents,
-            new CopyrightInfo(
-                'Danack',
-                'https://github.com/Danack/RfcCodex/blob/master/LICENSE'
-            ),
-            $breadcrumbs = new Breadcrumbs(new Breadcrumb(
-                '/php_for_people_who_know_how_to_code', 'PHP for people who know how to program'
-            ))
-        );
-    }
+//    public function getPhpForPeopleWhoCanCode(
+//        Section $section,
+//        MarkdownRenderer $markdownRenderer
+//    ) {
+//        $fullPath = __DIR__ . "/docs/php_for_people_who_know_how_to_code.md";
+//        $markdown = file_get_contents($fullPath);
+//        $contents = $markdownRenderer->render($markdown);
+//
+//        echo "shoam";
+//        exit(0);
+//
+//        return new Page(
+//            'PHP for people who know how to code.',
+//            createDefaultEditInfo(),
+//            [],
+//            new PrevNextLinks(null, null),
+//            $contents,
+//            new CopyrightInfo(
+//                'Danack',
+//                'https://github.com/Danack/RfcCodex/blob/master/LICENSE'
+//            ),
+//            $breadcrumbs = new Breadcrumbs(new Breadcrumb(
+//                '/php_for_people_who_know_how_to_code', 'PHP for people who know how to program'
+//            ))
+//        );
+//    }
 
 
 //    public function getIndexPage(Section $section): Page

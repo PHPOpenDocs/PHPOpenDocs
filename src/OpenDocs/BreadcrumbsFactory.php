@@ -20,15 +20,16 @@ class BreadcrumbsFactory
     // TODO - move to section.
     public function createFromArray(array $subParts)
     {
-        $allParts = [
-            $this->currentSection->getPrefix() => $this->currentSection->getName(),
-        ];
-        foreach ($subParts as $key => $value) {
-            $path = $this->currentSection->getPrefix() . $key;
+//        $allParts = [
+//            $this->currentSection->getPrefix() => $this->currentSection->getName(),
+//        ];
 
-            $allParts[$path] = $value;
-        }
+//        foreach ($subParts as $key => $value) {
+//            $path = $this->currentSection->getPrefix() . $key;
+//
+//            $allParts[$path] = $value;
+//        }
 
-        return Breadcrumbs::fromArray($allParts);
+        return Breadcrumbs::fromArray($subParts);
     }
 }

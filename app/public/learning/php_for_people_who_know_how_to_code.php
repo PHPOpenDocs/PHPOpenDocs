@@ -5,6 +5,7 @@ declare(strict_types = 1);
 require_once __DIR__ . "/../../../src/web_bootstrap.php";
 
 use Learning\LearningSection;
+use OpenDocs\Breadcrumbs;
 use OpenDocs\MarkdownRenderer\MarkdownRenderer;
 use OpenDocs\BreadcrumbsFactory;
 use function Learning\getLearningContentLinks;
@@ -24,7 +25,7 @@ $fn = function (
         'Best practice exceptions',
         $html,
         createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
-        $breadcrumbsFactory->createFromArray([
+        Breadcrumbs::fromArray([
             '/php_for_people_who_know_how_to_code' => 'PHP for people who know how to program'
         ]),
         createLearningDefaultCopyrightInfo(),
@@ -33,7 +34,6 @@ $fn = function (
     );
 
     return $page;
-    //return convertPageToHtmlResponse($section, $page);
 };
 
 showLearningResponse($fn);

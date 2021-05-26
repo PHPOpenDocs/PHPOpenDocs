@@ -22,6 +22,10 @@ class PeopleList
     {
         $people = [];
 
+        $people[] = (new PHPPerson('Aaron Piotrowski'))
+            ->addRfc_8_1('https://wiki.php.net/rfc/fibers', 'Fibres')
+            ->addGithubSponsor('https://github.com/amphp');
+
         $people[] = (new PHPPerson('AllenJB'))
             ->addRfc_8_0('https://wiki.php.net/rfc/pdo_default_errmode', 'Change Default PDO Error Mode');
 
@@ -41,12 +45,30 @@ class PeopleList
             ->addRfc_8_0('https://wiki.php.net/rfc/mixed_type_v2', 'Mixed Type v2')
             ->addGithubSponsor('https://github.com/sponsors/Danack');
 
+        $people[] = (new PHPPerson('David Gebler'))
+            ->addRfc_8_1('https://wiki.php.net/rfc/fsync_function', 'fsync() Function');
+
         $people[] = (new PHPPerson('Derick Rethans'))
             ->addRfc_8_0(
                 'https://wiki.php.net/rfc/shorter_attribute_syntax_change',
                 'Shorter Attribute Syntax Change'
             )
             ->addGithubSponsor('https://github.com/sponsors/derickr');
+
+        $people[] = (new PHPPerson('Dharman')) // Kamil Tekiela, dharman
+            ->addRfc_8_1(
+               'https://wiki.php.net/rfc/mysqli_default_errmode',
+               'Change Default mysqli Error Mode',
+            )
+            ->addRfc_8_1(
+               'https://wiki.php.net/rfc/mysqli_fetch_column',
+               'Add fetch_column method to mysqli',
+            )
+            ->addRfc_8_1(
+               'https://wiki.php.net/rfc/mysqli_bind_in_execute', 'Mysqli bind in execute'
+            );
+            //->addGithubSponsor('');https://github.com/kamil-tekiela
+
 
         $people[] = (new PHPPerson('Dmitry Stogov'))
             ->addRfc_8_0('https://wiki.php.net/rfc/jit', 'JIT');
@@ -69,6 +91,10 @@ class PeopleList
                 'https://wiki.php.net/rfc/saner-numeric-strings',
                 'Saner numeric strings'
             )
+            ->addRfc_8_1(
+                'https://wiki.php.net/rfc/explicit_octal_notation',
+                'Explicit octal integer literal notation'
+            )
             ->addGithubSponsor('https://github.com/sponsors/Girgias');
 
 
@@ -78,6 +104,10 @@ class PeopleList
             ->addRfc_8_0('https://wiki.php.net/rfc/nullsafe_operator', 'Nullsafe operator')
             ->addGithubSponsor("https://github.com/sponsors/iluuu1994");
 
+        $people[] = (new PHPPerson('Larry Garfield'))
+            ->addRfc_8_1('https://wiki.php.net/rfc/enumerations', 'Enumerations')
+            ->addGithubSponsor("https://github.com/sponsors/Crell");
+
         $people[] = (new PHPPerson('Mark Randall'))
             ->addRfc_8_0('https://wiki.php.net/rfc/get_debug_type', 'get_debug_type');
 
@@ -85,12 +115,23 @@ class PeopleList
             ->addRfc_8_0('https://wiki.php.net/rfc/attributes_v2', 'Attributes v2')
             ->addRfc_8_0('https://wiki.php.net/rfc/shorter_attribute_syntax', 'Shorter Attribute Syntax');
 
+        $people[] = (new PHPPerson('Matt Brown'))
+            ->addRfc_8_1('https://wiki.php.net/rfc/noreturn_type', 'noreturn type');
+            // https://github.com/muglug
+
+
         $people[] = (new PHPPerson('Máté Kocsis'))
             ->addRfc_8_0(
                 'https://wiki.php.net/rfc/locale_independent_float_to_string',
                 'Locale-independent float to string cast'
             )
-            ->addRfc_8_0('https://wiki.php.net/rfc/mixed_type_v2', 'Mixed Type v2');
+            ->addRfc_8_0('https://wiki.php.net/rfc/mixed_type_v2', 'Mixed Type v2')
+            ->addRfc_8_1(
+                'https://wiki.php.net/rfc/internal_method_return_types',
+                'Add return type declarations for internal methods'
+            );
+        //https://github.com/kocsismate
+
 
         $people[] = (new PHPPerson('Max Semenik'))
             ->addRfc_8_0('https://wiki.php.net/rfc/non-capturing_catches', 'non-capturing catches');
@@ -142,7 +183,20 @@ class PeopleList
                 'Treat namespaced names as single token'
             )
             ->addRfc_8_0('https://wiki.php.net/rfc/named_params', 'Named Arguments')
-            ->addRfc_8_0('https://wiki.php.net/rfc/engine_warnings', 'Reclassifying engine warnings');
+            ->addRfc_8_0('https://wiki.php.net/rfc/engine_warnings', 'Reclassifying engine warnings')
+
+            ->addRfc_8_1(
+                'https://wiki.php.net/rfc/deprecate_null_to_scalar_internal_arg',
+                'Deprecate passing null to non-nullable arguments of internal functions'
+            )
+            ->addRfc_8_1('https://wiki.php.net/rfc/array_unpacking_string_keys',  'Array unpacking with string keys')
+            ->addRfc_8_1('https://wiki.php.net/rfc/restrict_globals_usage', 'Restrict $GLOBALS usage')
+            ->addRfc_8_1('https://wiki.php.net/rfc/phase_out_serializable', 'Phasing out Serializable')
+            ->addRfc_8_1('https://wiki.php.net/rfc/static_variable_inheritance','Static variables in inherited methods')
+        ;
+
+        $people[] = (new PHPPerson('Ondřej Mirtes'))
+            ->addRfc_8_1('https://wiki.php.net/rfc/noreturn_type', 'noreturn type');
 
         $people[] = (new PHPPerson('Pedro Magalhães'))
             ->addRfc_8_0('https://wiki.php.net/rfc/negative_array_index', 'Arrays starting with a negative index')
@@ -157,9 +211,6 @@ class PeopleList
         $people[] = (new PHPPerson('Sara Golemon'))
             ->addRfc_8_0('https://wiki.php.net/todo/php80#release_managers', 'PHP 8 Release Manager')
             ->addGithubSponsor('https://github.com/sponsors/sgolemon');
-
-
-
 
         $people[] = (new PHPPerson('Theodore Brown'))
             ->addRfc_8_0(
@@ -186,7 +237,8 @@ class PeopleList
             ->addRfc_8_0(
                 'https://wiki.php.net/rfc/phar_stop_autoloading_metadata',
                 "Don't automatically unserialize Phar metadata outside getMetadata()"
-            );
+            )
+            ->addRfc_8_1('https://wiki.php.net/rfc/is_list', 'Add array_is_list(array $array): bool');
 
         $people[] = (new PHPPerson('Will Hudgins'))
             ->addRfc_8_0(
