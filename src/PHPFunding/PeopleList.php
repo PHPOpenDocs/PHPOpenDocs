@@ -24,7 +24,7 @@ class PeopleList
 
         $people[] = (new PHPPerson('Aaron Piotrowski'))
             ->addRfc_8_1('https://wiki.php.net/rfc/fibers', 'Fibres')
-            ->addGithubSponsor('https://github.com/amphp');
+            ->addGithubSponsor('https://github.com/sponsors/amphp');
 
         $people[] = (new PHPPerson('AllenJB'))
             ->addRfc_8_0('https://wiki.php.net/rfc/pdo_default_errmode', 'Change Default PDO Error Mode');
