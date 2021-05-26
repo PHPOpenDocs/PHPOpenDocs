@@ -18,7 +18,7 @@ $fn = function (
 
     $contentLinks = getLearningContentLinks();
 
-    $editInfo = createPHPOpenDocsEditInfo('Edit page', __FILE__, null);
+    $editInfo = createPHPOpenDocsEditInfo('Edit page', __FILE__, __LINE__ - 5);
     $editInfo->addNameWithLink(
         "Edit content",
         "https://raw.githubusercontent.com/exakat/php-static-analysis-tools/master/README.md"
