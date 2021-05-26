@@ -21,7 +21,7 @@ $fn = function (
     $editInfo = createPHPOpenDocsEditInfo('Edit page', __FILE__, __LINE__ - 5);
     $editInfo->addNameWithLink(
         "Edit content",
-        "https://raw.githubusercontent.com/exakat/php-static-analysis-tools/master/README.md"
+        "https://github.com/exakat/php-static-analysis-tools/blob/master/README.md"
     );
 
     $page = \OpenDocs\Page::createFromHtmlEx2(
