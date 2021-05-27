@@ -1,8 +1,10 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
+
 
 namespace PHPFunding;
+
 
 class ExtensionList
 {
@@ -41,8 +43,16 @@ class ExtensionList
         $this->extensions[] = (new PHPExtension("APCu"))->
             addMaintainer("Joe Watkins", [])->
             addMaintainer("Anatol Belski", [])->
-            addMaintainer("Remi Collet ", ['Remi homepage' => 'https://blog.remirepo.net/'])->
+            addMaintainer("Remi Collet", ['Remi homepage' => 'https://blog.remirepo.net/'])->
             addMaintainer("Nikita Popov", [])
+        ;
+        
+        $this->extensions[] = (new PHPExtension("Swoole"))->
+           addMaintainer("Swoole Team", ['Github' => 'https://github.com/sponsors/swoole'])->
+           addMaintainer("Rango", ['Github' => 'https://github.com/matyhtf'])->
+           addMaintainer("Twosee", ['Github' => 'https://github.com/twose'])->
+           addMaintainer("CodingHuang", ['Github' => 'https://github.com/huanghantao'])->
+           addMaintainer("Luffy", ['Github' => 'https://github.com/sy-records'])
         ;
 
 //        $this->extensions[] = (new PHPExtension(""))->
@@ -57,12 +67,6 @@ class ExtensionList
 //            "mongo",
 //            "memcache",
 //            "APC",
-//        $this->extensions[] = (new PHPExtension("Swoole"))->
-//            addMaintainer("Shen Zhe", [])->
-//            addMaintainer("Han Tianfeng", [])->
-//            addMaintainer("QiHao ChenCao", [])->
-//            addMaintainer("Lufei", [/* https://github.com/sy-records*/])
-//        ;
 //            "amqp",
 //            "mcrypt",
 //            "ssh2",
@@ -108,4 +112,5 @@ class ExtensionList
     {
         return $this->extensions;
     }
+
 }
