@@ -36,7 +36,6 @@ $fn = function (
     );
 
     return $page;
-    //return convertPageToHtmlResponse($section, $page);
 };
 
 showLearningResponse($fn);

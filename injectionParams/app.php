@@ -12,33 +12,38 @@ function injectionParams()
         \PhpOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
         \PhpOpenDocs\Service\RequestNonce::class,
         \OpenDocs\SectionList::class,
+        createInternalsSection(),
+        createLearningSection(),
+        createNamingThingsSection(),
+        createSystemSection(),
+        createRfcCodexSection(),
 
-        new \Learning\LearningSection(
-            '/learning',
-            'Learning',
-            'So you want/have been forced to learn PHP?',
-            new \Learning\LearningSectionInfo
-        ),
-        new \NamingThings\NamingThingsSection(
-            '/naming',
-            'Naming',
-            'Naming things',
-            new \PhpOpenDocs\NamingThingsSectionInfo
-        ),
+//        new \Learning\LearningSection(
+//            '/learning',
+//            'Learning',
+//            'So you want/have been forced to learn PHP?',
+//            new \Learning\LearningSectionInfo
+//        ),
+//        new \NamingThings\NamingThingsSection(
+//            '/naming',
+//            'Naming',
+//            'Naming things',
+//            new \PhpOpenDocs\NamingThingsSectionInfo
+//        ),
 
-        new \PhpOpenDocs\SystemSection(
-            '/system',
-            'System',
-            'Site system stuff...',
-            new \PhpOpenDocs\SystemSectionInfo
-        ),
+//        new \PhpOpenDocs\SystemSection(
+//            '/system',
+//            'System',
+//            'Site system stuff...',
+//            new \PhpOpenDocs\SystemSectionInfo
+//        ),
 
-        new \PhpOpenDocs\RfcCodexSection(
-            '/rfc_codex',
-            'RFC Codex',
-            "Discussions ideas for how PHP can be improved, why some ideas haven't come to fruition yet.",
-            new \RfcCodexOpenDocs\RfcCodexSectionInfo()
-        ),
+//        new \PhpOpenDocs\RfcCodexSection(
+//            '/rfc_codex',
+//            'RFC Codex',
+//            "Discussions ideas for how PHP can be improved, why some ideas haven't come to fruition yet.",
+//            new \RfcCodexOpenDocs\RfcCodexSectionInfo()
+//        ),
 
 
     ];

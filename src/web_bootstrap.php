@@ -56,6 +56,19 @@ function showPage(\OpenDocs\Page $page)
     exit(0);
 }
 
+function showInternalsResponse($callable)
+{
+    $injector = new Auryn\Injector();
+    $injectionParams = injectionParams();
+    $injectionParams->addToInjector($injector);
+    $injector->share($injector);
+    $section = $injector->make(\Internals\InternalsSection::class);
+    $breadcrumbsFactory = new \OpenDocs\BreadcrumbsFactory($section);
+    $injector->share($breadcrumbsFactory);
+
+    showResponseInternal($callable, $injector);
+}
+
 function showLearningResponse($callable)
 {
     $injector = new Auryn\Injector();

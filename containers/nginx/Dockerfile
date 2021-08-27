@@ -19,7 +19,6 @@ RUN  apt-get update -qq \
 
 WORKDIR /var/app
 
-# CMD ["/usr/sbin/nginx", "-c", "/var/app/containers/nginx/config/nginx.conf"]
 CMD sh /var/app/containers/nginx/entrypoint.sh
 
 # For debugging, rather than having the container exit immediately,

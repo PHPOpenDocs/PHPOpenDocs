@@ -72,6 +72,8 @@ function createRoutesForApp(\OpenDocs\SectionList $sectionList)//: \SlimAuryn\Ro
                     new \PhpOpenDocs\NamingThingsSectionInfo
                 ));
 
+                $injector->share(createInternalsSection());
+
                 $injector->share(new \PhpOpenDocs\SystemSection(
                     '/system',
                     'System',
@@ -298,12 +300,14 @@ function createSectionList(): \OpenDocs\SectionList
 {
     $sections = [];
 
-    $sections[] = new \OpenDocs\Section(
-        '/learning',
-        'Learning',
-        'So you want/have been forced to learn PHP?',
-        new \Learning\LearningSectionInfo
-    );
+    $sections[] = createLearningSection();
+
+//        new \OpenDocs\Section(
+//        '/learning',
+//        'Learning',
+//        'So you want/have been forced to learn PHP?',
+//        new \Learning\LearningSectionInfo
+//    );
 
     $sections[] = new \OpenDocs\Section(
         '/naming',
@@ -334,11 +338,7 @@ function createSectionList(): \OpenDocs\SectionList
         new \Work\WorkSectionInfo
     );
 
-//    $sections[] = new \OpenDocs\Section(
-//        '/internals',
-//        'Internals',
-//        "Scary details of how PHP works internally, and how to write internal or extension code."
-//    );
+    $sections[] = createInternalsSection();
 
     return new \OpenDocs\SectionList($sections);
 }
@@ -350,6 +350,17 @@ function createApiDomain(Config $config)
     }
 
     return new \PhpOpenDocs\Data\ApiDomain("http://local.api.phpopendocs.com");
+}
+
+
+function createInternalsSection()
+{
+    return new \Internals\InternalsSection(
+        '/internals',
+        'Internals',
+        'Info about PHP core development',
+        new \Internals\InternalsSectionInfo()
+    );
 }
 
 function createLearningSection()

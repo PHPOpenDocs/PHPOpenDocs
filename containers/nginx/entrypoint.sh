@@ -14,6 +14,5 @@ php vendor/bin/configurate \
     containers/nginx/config/nginx.conf \
     $ENV_TO_USE
 
-
-
+# tail -f /var/app/readme.MD
 /usr/sbin/nginx -c /var/app/containers/nginx/config/nginx.conf

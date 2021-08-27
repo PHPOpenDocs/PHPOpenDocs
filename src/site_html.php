@@ -79,6 +79,14 @@ function createPrevNextHtml(?PrevNextLinks $prevNextLinks): string
         $params[':html_next_description'] = $nextLink->getDescription();
     }
 
+    try {
+        esprintf($template, $params);
+    }
+    catch (Zend\Escaper\Exception\RuntimeException $re) {
+        var_dump($params);
+        exit(0);
+    }
+
     return "<span class='opendocs_prev_next_container'>" . esprintf($template, $params) ."</span>";
 }
 
@@ -266,6 +274,8 @@ function createPageHtml(
     $pageTitle = $page->getTitle() ?? "PHP OpenDocs";
 
     $assetSuffix = \PhpOpenDocs\App::getAssetSuffix();
+
+
 
     $params = [
         ':raw_site_css_link' => '/css/site.css' . $assetSuffix,

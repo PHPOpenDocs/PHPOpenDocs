@@ -806,6 +806,25 @@ function formatCSPViolationReportsToHtml(array $reports): string
     return renderTable($headers, $data);
 }
 
+function getPreviousLink(array $contentLinks, string $currentPosition)
+{
+    $currentLink = null;
+
+    // Loop forward through the links to find the previous link.
+    foreach ($contentLinks as $link) {
+        if ($link->getPath() === $currentPosition) {
+            return $currentLink;
+        }
+        // a link is only clickable if the path of it is not null
+        // aka avoid unclickable section headers
+        if ($link->getPath() !== null) {
+            $currentLink = $link;
+        }
+    }
+
+    return null;
+}
+
 /**
  * @param \OpenDocs\ContentLink[] $contentLinks
  * @param string $currentPosition
@@ -815,23 +834,17 @@ function createPrevNextLinksFromContentLinks(
     array $contentLinks,
     string $currentPosition
 ) {
-    $currentLink = null;
-    $previousLink = null;
-    $nextLink = null;
 
-    foreach ($contentLinks as $link) {
-        if ($nextLink === null && $previousLink !== null) {
-            $nextLink = $link;
-        }
+    $previousLink = getPreviousLink(
+        $contentLinks,
+        $currentPosition
+    );
 
-        if ($link->getPath() === $currentPosition) {
-            if ($currentLink !== null && $currentLink->getPath() !== null) {
-                $previousLink = $link;
-            }
-        }
-
-        $currentLink = $link;
-    }
+    // Loop backwards through the links to find the next link.
+    $nextLink = getPreviousLink(
+        array_reverse($contentLinks),
+        $currentPosition
+    );
 
     return new OpenDocs\PrevNextLinks($previousLink, $nextLink);
 }
