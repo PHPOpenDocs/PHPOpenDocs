@@ -3,6 +3,7 @@
 declare(strict_types = 1);
 
 use Auryn\Injector;
+use OpenDocs\ContentLink;
 use Slim\Http\Body;
 use Slim\Http\Headers;
 use Slim\Http\Request;
@@ -13,7 +14,7 @@ require_once(__DIR__.'/../vendor/autoload.php');
 require_once __DIR__ . '/../injectionParams/cli_test.php';
 require_once __DIR__ . '/../src/functions.php';
 require_once __DIR__ . '/../src/factories.php';
-
+require_once __DIR__ . '/../config.generated.php';
 
 /**
  * @param array $testAliases
@@ -90,4 +91,19 @@ function createHttpRequest(string $url)
     $request = new Request($method, $uri, $headers, $cookies, $serverParams, $body);
 
     return $request;
+}
+
+
+function  getTestContentLinks(): array
+{
+    return [
+        ContentLink::level1(null, "Best practices"),
+
+        ContentLink::level2('/mailing_list', 'Mailing list etiquette'),
+        ContentLink::level2('/rfc_attitudes', 'RFC attitudes'),
+        ContentLink::level2('/rfc_etiquette', 'RFC etiquette'),
+
+        ContentLink::level1(null, "Technical"),
+        ContentLink::level2('/php_parameter_parsing', 'PHP Parameter parsing'),
+    ];
 }
