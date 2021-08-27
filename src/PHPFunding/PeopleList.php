@@ -29,6 +29,8 @@ class PeopleList
         $people[] = (new PHPPerson('AllenJB'))
             ->addRfc_8_0('https://wiki.php.net/rfc/pdo_default_errmode', 'Change Default PDO Error Mode');
 
+        // https://github.com/sponsors/ramsey
+
         $people[] = (new PHPPerson('Benjamin Eberlei'))
             ->addRfc_8_0(
                 'https://wiki.php.net/rfc/dom_living_standard_api',
@@ -125,6 +127,10 @@ class PeopleList
                 'https://wiki.php.net/rfc/partial_function_application',
                 'Partial Function Application'
             )
+            ->addRfc_8_1(
+                'https://wiki.php.net/rfc/first_class_callable_syntax',
+                'First-class callable syntax'
+            )
             ->addGithubSponsor("https://github.com/sponsors/krakjoe");
 
         $people[] = (new PHPPerson('Larry Garfield'))
@@ -140,6 +146,13 @@ class PeopleList
 
         $people[] = (new PHPPerson('Mark Randall'))
             ->addRfc_8_0('https://wiki.php.net/rfc/get_debug_type', 'get_debug_type');
+
+        $people[] = (new PHPPerson('Marco Pivetta aka Ocramius'))
+            ->addRfc_8_1(
+                'https://wiki.php.net/rfc/make-reflection-setaccessible-no-op',
+                'Make reflection setAccessible() no-op'
+            )
+            ->addGithubSponsor("https://github.com/sponsors/Ocramius");
 
         $people[] = (new PHPPerson('Martin Schröder'))
             ->addRfc_8_0('https://wiki.php.net/rfc/attributes_v2', 'Attributes v2')
@@ -230,8 +243,22 @@ class PeopleList
             ->addRfc_8_1('https://wiki.php.net/rfc/array_unpacking_string_keys',  'Array unpacking with string keys')
             ->addRfc_8_1('https://wiki.php.net/rfc/restrict_globals_usage', 'Restrict $GLOBALS usage')
             ->addRfc_8_1('https://wiki.php.net/rfc/phase_out_serializable', 'Phasing out Serializable')
-            ->addRfc_8_1('https://wiki.php.net/rfc/static_variable_inheritance','Static variables in inherited methods')
+            ->addRfc_8_1(
+                'https://wiki.php.net/rfc/static_variable_inheritance',
+                'Static variables in inherited methods'
+            )
+            ->addRfc_8_1(
+                'https://wiki.php.net/rfc/readonly_properties_v2',
+                'Readonly properties 2.0'
+            )
+            ->addRfc_8_1(
+                'https://wiki.php.net/rfc/first_class_callable_syntax',
+                'First-class callable syntax'
+            )
         ;
+
+
+
 
         $people[] = (new PHPPerson('Ondřej Mirtes'))
             ->addRfc_8_1('https://wiki.php.net/rfc/noreturn_type', 'noreturn type')
@@ -283,7 +310,10 @@ class PeopleList
                 'https://wiki.php.net/rfc/phar_stop_autoloading_metadata',
                 "Don't automatically unserialize Phar metadata outside getMetadata()"
             )
-            ->addRfc_8_1('https://wiki.php.net/rfc/is_list', 'Add array_is_list(array $array): bool');
+            ->addRfc_8_1(
+                'https://wiki.php.net/rfc/is_list',
+                'Add array_is_list(array $array): bool'
+            );
 
         $people[] = (new PHPPerson('Will Hudgins'))
             ->addRfc_8_0(
