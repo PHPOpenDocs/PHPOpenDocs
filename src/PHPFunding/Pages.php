@@ -169,7 +169,7 @@ HTML;
 
     public function renderUserlandFunding()
     {
-        return "<b>Sha-mone userland.</b>";
+        return "<b>todo</b> - trawl <a href='https://packagist.org/explore/popular.json'>the top packages</a> and extract the sponsoring info.";
     }
 
     public function getInternalsPage(Section $section, PeopleList $peopleList): Page

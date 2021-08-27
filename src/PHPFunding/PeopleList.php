@@ -65,8 +65,17 @@ class PeopleList
                'Add fetch_column method to mysqli',
             )
             ->addRfc_8_1(
-               'https://wiki.php.net/rfc/mysqli_bind_in_execute', 'Mysqli bind in execute'
+               'https://wiki.php.net/rfc/mysqli_bind_in_execute',
+               'Mysqli bind in execute'
+            )
+            ->addRfc_8_1(
+                'https://wiki.php.net/rfc/autovivification_false',
+                'Deprecate autovivification on false'
             );
+
+
+
+
             //->addGithubSponsor('');https://github.com/kamil-tekiela
 
 
@@ -95,8 +104,15 @@ class PeopleList
                 'https://wiki.php.net/rfc/explicit_octal_notation',
                 'Explicit octal integer literal notation'
             )
+            ->addRfc_8_1(
+                'https://wiki.php.net/rfc/pure-intersection-types',
+                'Pure intersection types'
+            )
+            ->addRfc_8_1(
+                'https://wiki.php.net/rfc/implicit-float-int-deprecate',
+                'Deprecate implicit non-integer-compatible float to int conversions'
+            )
             ->addGithubSponsor('https://github.com/sponsors/Girgias');
-
 
         $people[] = (new PHPPerson('Ilija Tovilo'))
             ->addRfc_8_0('https://wiki.php.net/rfc/throw_expression', 'throw expression')
@@ -136,6 +152,14 @@ class PeopleList
 
         $people[] = (new PHPPerson('Max Semenik'))
             ->addRfc_8_0('https://wiki.php.net/rfc/non-capturing_catches', 'non-capturing catches');
+
+        $people[] = (new PHPPerson('deltragon/Mel Dafert'))
+            ->addRfc_8_1(
+                'https://wiki.php.net/rfc/intldatetimepatterngenerator',
+                'Add IntlDatePatternGenerator'
+            );
+
+
 
         $people[] = (new PHPPerson('Nicolas Grekas'))
             ->addRfc_8_0('https://wiki.php.net/rfc/stringable', 'Add Stringable interface');
@@ -197,7 +221,8 @@ class PeopleList
         ;
 
         $people[] = (new PHPPerson('Ondřej Mirtes'))
-            ->addRfc_8_1('https://wiki.php.net/rfc/noreturn_type', 'noreturn type');
+            ->addRfc_8_1('https://wiki.php.net/rfc/noreturn_type', 'noreturn type')
+            ->addGithubSponsor('https://github.com/sponsors/ondrejmirtes');;
 
         $people[] = (new PHPPerson('Pedro Magalhães'))
             ->addRfc_8_0('https://wiki.php.net/rfc/negative_array_index', 'Arrays starting with a negative index')
