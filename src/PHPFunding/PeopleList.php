@@ -55,7 +55,7 @@ class PeopleList
             )
             ->addGithubSponsor('https://github.com/sponsors/derickr');
 
-        $people[] = (new PHPPerson('Dharman')) // Kamil Tekiela, dharman
+        $people[] = (new PHPPerson('Kamil Tekiela aka Dharman'))
             ->addRfc_8_1(
                'https://wiki.php.net/rfc/mysqli_default_errmode',
                'Change Default mysqli Error Mode',
@@ -72,12 +72,7 @@ class PeopleList
                 'https://wiki.php.net/rfc/autovivification_false',
                 'Deprecate autovivification on false'
             );
-
-
-
-
-            //->addGithubSponsor('');https://github.com/kamil-tekiela
-
+        //->addGithubSponsor('');https://github.com/kamil-tekiela
 
         $people[] = (new PHPPerson('Dmitry Stogov'))
             ->addRfc_8_0('https://wiki.php.net/rfc/jit', 'JIT');
@@ -121,9 +116,27 @@ class PeopleList
             ->addRfc_8_1('https://wiki.php.net/rfc/enumerations', 'Enumerations')
             ->addGithubSponsor("https://github.com/sponsors/iluuu1994");
 
+        $people[] = (new PHPPerson('Joe Watkins aka Krakjoe '))
+            ->addRfc_8_1(
+                'https://wiki.php.net/rfc/is_literal',
+                'is_Literal'
+            )
+            ->addRfc_8_1(
+                'https://wiki.php.net/rfc/partial_function_application',
+                'Partial Function Application'
+            )
+            ->addGithubSponsor("https://github.com/sponsors/krakjoe");
+
         $people[] = (new PHPPerson('Larry Garfield'))
             ->addRfc_8_1('https://wiki.php.net/rfc/enumerations', 'Enumerations')
+            ->addRfc_8_1('https://wiki.php.net/rfc/pipe-operator-v2', 'Pipe Operator v2')
             ->addGithubSponsor("https://github.com/sponsors/Crell");
+
+        $people[] = (new PHPPerson('Levi Morrison '))
+            ->addRfc_8_1(
+                'https://wiki.php.net/rfc/partial_function_application',
+                'Partial Function Application'
+            );
 
         $people[] = (new PHPPerson('Mark Randall'))
             ->addRfc_8_0('https://wiki.php.net/rfc/get_debug_type', 'get_debug_type');
@@ -136,7 +149,6 @@ class PeopleList
             ->addRfc_8_1('https://wiki.php.net/rfc/noreturn_type', 'noreturn type');
             // https://github.com/muglug
 
-
         $people[] = (new PHPPerson('Máté Kocsis'))
             ->addRfc_8_0(
                 'https://wiki.php.net/rfc/locale_independent_float_to_string',
@@ -146,9 +158,12 @@ class PeopleList
             ->addRfc_8_1(
                 'https://wiki.php.net/rfc/internal_method_return_types',
                 'Add return type declarations for internal methods'
+            )
+            ->addRfc_8_1(
+                'https://wiki.php.net/rfc/is_literal',
+                'Is_Literal'
             );
         //https://github.com/kocsismate
-
 
         $people[] = (new PHPPerson('Max Semenik'))
             ->addRfc_8_0('https://wiki.php.net/rfc/non-capturing_catches', 'non-capturing catches');
@@ -158,8 +173,6 @@ class PeopleList
                 'https://wiki.php.net/rfc/intldatetimepatterngenerator',
                 'Add IntlDatePatternGenerator'
             );
-
-
 
         $people[] = (new PHPPerson('Nicolas Grekas'))
             ->addRfc_8_0('https://wiki.php.net/rfc/stringable', 'Add Stringable interface');
@@ -223,6 +236,12 @@ class PeopleList
         $people[] = (new PHPPerson('Ondřej Mirtes'))
             ->addRfc_8_1('https://wiki.php.net/rfc/noreturn_type', 'noreturn type')
             ->addGithubSponsor('https://github.com/sponsors/ondrejmirtes');;
+
+        $people[] = (new PHPPerson('Paul Crovella'))
+            ->addRfc_8_1(
+                'https://wiki.php.net/rfc/partial_function_application',
+                'Partial Function Application'
+            );
 
         $people[] = (new PHPPerson('Pedro Magalhães'))
             ->addRfc_8_0('https://wiki.php.net/rfc/negative_array_index', 'Arrays starting with a negative index')
