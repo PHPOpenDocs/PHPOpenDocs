@@ -44,10 +44,12 @@ HTML;
             else if ($version === '8_1') {
                 $workItems = $person->getWorkItems_8_1();
             }
+            else if ($version === 'misc') {
+                $workItems = $person->getWorkItemsMisc();
+            }
             else {
                 throw new \Exception("Unknown version string [$version]. Either 8_0 or 8_1 are known.");
             }
-
 
             if (count($workItems) === 0) {
                 continue;
@@ -180,6 +182,7 @@ HTML;
 </p>
 HTML;
 
+
         $contents .= "<h2>PHP 8.1</h2>";
         $contents .= $this->renderPhpFunding($peopleList, "8_1");
 
@@ -267,6 +270,10 @@ HTML;
                 ":attr_userland_link" => $section->getPrefix() . '/userland',
             ]
         );
+
+        $contents .= "<h2>Misc people that deserve sponsoring</h2>";
+        $contents .= $this->renderPhpFunding($peopleList, "misc");
+
 
         return new Page(
             'Sponsoring PHP',

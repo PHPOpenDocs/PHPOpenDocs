@@ -2,6 +2,9 @@
 
 declare(strict_types = 1);
 
+
+https://wiki.php.net/internals/references
+
 # Contributing to PHP
 //http://git.php.net/?p=php-src.git;a=blob;f=CONTRIBUTING.md;hb=HEAD
 

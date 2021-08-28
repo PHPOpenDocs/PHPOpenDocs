@@ -257,9 +257,6 @@ class PeopleList
             )
         ;
 
-
-
-
         $people[] = (new PHPPerson('Ondřej Mirtes'))
             ->addRfc_8_1('https://wiki.php.net/rfc/noreturn_type', 'noreturn type')
             ->addGithubSponsor('https://github.com/sponsors/ondrejmirtes');;
@@ -283,6 +280,30 @@ class PeopleList
         $people[] = (new PHPPerson('Sara Golemon'))
             ->addRfc_8_0('https://wiki.php.net/todo/php80#release_managers', 'PHP 8 Release Manager')
             ->addGithubSponsor('https://github.com/sponsors/sgolemon');
+
+
+        $people[] = (new PHPPerson('Shivam Mathur'))
+            ->addMisc(
+                'https://github.com/shivammathur/setup-php',
+                'setup-php'
+            )
+            ->addMisc(
+                'https://github.com/shivammathur/homebrew-php',
+                'homebrew-php'
+            )
+            ->addMisc(
+                'https://github.com/shivammathur/homebrew-extensions',
+                'homebrew-extensions'
+            )
+            ->addMisc(
+                'https://github.com/shivammathur/php-builder',
+                'php-builder'
+            )
+            ->addMisc(
+                'https://github.com/shivammathur/php-builder-windows',
+                'php-builder-windows'
+            )
+            ->addGithubSponsor('https://github.com/sponsors/shivammathur');
 
         $people[] = (new PHPPerson('Theodore Brown'))
             ->addRfc_8_0(
