@@ -35,6 +35,22 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
 }
 
+blockquote {
+  quotes: "“" "”" "‘" "’";
+  background: #f9f9f9;
+  font-style: italic;
+}
+
+
+blockquote::before {
+  content: open-quote;
+}
+blockquote::after {
+  content: close-quote;
+}
+
+
+
 // TODO - move the below to a system.css
 
 .width_above_large,
