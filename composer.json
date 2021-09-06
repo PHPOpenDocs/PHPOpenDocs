@@ -51,6 +51,7 @@
         "psr-0": {
             "Internals\\": "src/",
             "Learning\\": "src/",
+            "Merch\\": "src/",
             "NamingThings\\": "src/",
             "OpenDocs\\": "src/",
             "PHPFunding\\": "src/",
@@ -65,7 +66,6 @@
             "src/Work/functions.php",
             "src/PhpOpenDocs/functions.php",
             "src/PHPFunding/functions.php"
-
         ]
     },
     "autoload-dev": {

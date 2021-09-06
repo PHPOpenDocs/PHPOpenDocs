@@ -14,38 +14,10 @@ function injectionParams()
         \OpenDocs\SectionList::class,
         createInternalsSection(),
         createLearningSection(),
+        createMerchSection(),
         createNamingThingsSection(),
         createSystemSection(),
         createRfcCodexSection(),
-
-//        new \Learning\LearningSection(
-//            '/learning',
-//            'Learning',
-//            'So you want/have been forced to learn PHP?',
-//            new \Learning\LearningSectionInfo
-//        ),
-//        new \NamingThings\NamingThingsSection(
-//            '/naming',
-//            'Naming',
-//            'Naming things',
-//            new \PhpOpenDocs\NamingThingsSectionInfo
-//        ),
-
-//        new \PhpOpenDocs\SystemSection(
-//            '/system',
-//            'System',
-//            'Site system stuff...',
-//            new \PhpOpenDocs\SystemSectionInfo
-//        ),
-
-//        new \PhpOpenDocs\RfcCodexSection(
-//            '/rfc_codex',
-//            'RFC Codex',
-//            "Discussions ideas for how PHP can be improved, why some ideas haven't come to fruition yet.",
-//            new \RfcCodexOpenDocs\RfcCodexSectionInfo()
-//        ),
-
-
     ];
 
     // Alias interfaces (or classes) to the actual types that should be used

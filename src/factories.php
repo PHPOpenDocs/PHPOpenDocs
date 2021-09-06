@@ -373,6 +373,18 @@ function createLearningSection()
     );
 }
 
+function createMerchSection()
+{
+    return new \Merch\MerchSection(
+        '/merch',
+        'Merch',
+        'PHP related things to buy',
+        new \Merch\MerchSectionInfo()
+    );
+}
+
+
+
 function createNamingThingsSection()
 {
     return new \NamingThings\NamingThingsSection(

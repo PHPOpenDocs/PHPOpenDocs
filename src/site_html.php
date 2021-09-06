@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 use OpenDocs\Breadcrumbs;
 use OpenDocs\ContentLink;
-use OpenDocs\ContentLinks;
 use OpenDocs\CopyrightInfo;
 use OpenDocs\EditInfo;
 use OpenDocs\HeaderLink;
@@ -113,6 +112,7 @@ function createStandardHeaderLinks(): HeaderLinks
         new HeaderLink("/", "Home"),
         new HeaderLink("/sections", "Sections"),
         new HeaderLink("/about", "About"),
+        new HeaderLink("/merch", "Merch"),
     ]);
 }
 
