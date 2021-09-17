@@ -63,7 +63,6 @@ function calculateDimensions($inputValue) {
 <p>I am open to the idea of using a code highlighter....but at the same time, unhighlighted code looks so much more.....authorative.</p>
 
 <h2>Nice block of text</h2>
-w
 <p>
 Lets have some Lorem ipsum to fill out the page a bit. And test if the auto-deployer is working.
 </p>

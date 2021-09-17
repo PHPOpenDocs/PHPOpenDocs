@@ -28,53 +28,45 @@
     padding-top: 8px;
   }
 
-  //@media (min-width: $screen_break_medium) {
-    h1 {
-      font-size: 1.6em;
-    }
-
-    h2 {
-      margin-top: 16px;
-      font-size: 1.4em;
-    }
-
-    h3 {
-      margin-top: 16px;
-      font-size: 1.2em;
-    }
-
-    h4 {
-      margin-top: 8px;
-      font-size: 1.1em;
-    }
-    h5 {
-      margin-top: 8px;
-      font-size: 1.0em;
-    }
-  //}
+  // These are applied by default
+  h1 {
+    font-size: 2.4em;
+  }
+  h2 {
+    margin-top: 16px;
+    font-size: 2.0em;
+  }
+  h3 {
+    margin-top: 16px;
+    font-size: 1.6em;
+  }
+  h4 {
+    margin-top: 8px;
+    font-size: 1.2em;
+  }
+  h5 {
+    margin-top: 8px;
+    font-size: 1.0em;
+  }
 
 
   @media (min-width: $screen_break_large) {
+    // Customise margin on larger devices.
     h1 {
-      font-size: 2.0em;
     }
 
     h2 {
       margin-top: 24px;
-      font-size: 1.6em;
     }
 
     h3 {
       margin-top: 16px;
-      font-size: 1.4em;
     }
 
     h4 {
       margin-top: 8px;
-      font-size: 1.2em;
     }
     h5 {
-      font-size: 1.0em;
     }
   }
 
