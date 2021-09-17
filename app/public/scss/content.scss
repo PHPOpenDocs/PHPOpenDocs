@@ -10,7 +10,6 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    //margin-top: 0px;
     margin-bottom: 8px;
     font-weight: 400;
     line-height: 1.25;
@@ -20,7 +19,14 @@
     margin-bottom: 8px;
   }
 
-  h1, h2, h3, h4, h5 {
+  h1, h2 {
+    text-decoration-line: underline;
+    text-decoration-thickness: 0.1px;
+    text-underline-offset: 0.15em;
+    text-decoration-color: var(--content_panel_text_color_semi_transparent);
+  }
+
+  h3, h4, h5 {
     text-decoration-line: none;
   }
 

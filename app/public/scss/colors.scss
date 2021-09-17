@@ -41,6 +41,7 @@
 
   --content_panel_background_color: none;
   --content_panel_text_color: #202020;
+  --content_panel_text_color_semi_transparent: #2020202f;
 
   --footer_background_color: #{$color_primary_subtle};
   --footer_border_color: rgba(128, 128, 128, 0.25);
@@ -100,6 +101,7 @@
 
     --content_panel_background_color: none;
     --content_panel_text_color: #d6d6d6;
+    --content_panel_text_color_semi_transparent: #d6d6d62f;
 
     --footer_background_color: #{$color_primary_subtle};
     --footer_border_color: rgba(128, 128, 128, 0.25);
