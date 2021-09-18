@@ -1,5 +1,7 @@
-//
-//
+// Custom fonts are defined in here, to make them available
+// for use elsewhere. e.g. in site.scss
+// If a font isn't wokring, make sure the font file is
+// actually in source control
 
 @font-face {
   font-family: 'Cabin';
@@ -36,7 +38,6 @@
   font-display: swap;
 }
 
-
 @font-face {
   font-family: 'Inconsolata';
   src: url('/fonts/Inconsolata-Regular.ttf') format('truetype supports variations'),
@@ -64,8 +65,6 @@
   font-display: swap;
 }
 
-
-
 @font-face {
   font-family: 'Lato';
   src: url('/fonts/Lato-Regular.ttf') format('truetype supports variations'),
@@ -83,8 +82,6 @@
   //font-stretch: 25% 151%;
   font-display: swap;
 }
-
-
 
 @font-face {
   font-family: 'Raleway';
