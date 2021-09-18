@@ -224,8 +224,8 @@ function getPageLayoutHtml(): string
   <title>:html_page_title</title>
   <link rel="stylesheet" href=":raw_site_css_link">
   
-  <link href="/fonts/Jost-VariableFont_wght.ttf" rel="preload">
-  <link href="/fonts/RobotoFlex[slnt,wdth,wght,opsz].ttf" rel="preload">
+  <link href="/fonts/Cabin-VariableFont_wdth,wght.ttf" rel="preload" as="font" crossorigin="anonymous">
+<!--  <link href="/fonts/SourceSansPro-Regular.ttf" rel="preload" as="font" crossorigin="anonymous">-->
 </head>
 
 <body>

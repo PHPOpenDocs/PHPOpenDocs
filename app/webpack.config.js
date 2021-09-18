@@ -22,7 +22,7 @@ const options = commandLineArgs(
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
-    devtool: 'source-map',
+    devtool: false,
     entry: {
         app: [
             './public/tsx/bootstrap.tsx',
@@ -74,6 +74,12 @@ module.exports = {
         //     analyzerMode: options.analyze === "enabled" ? 'static': "server",
         //     openAnalyzer: false
         // })
+
+        new webpack.SourceMapDevToolPlugin({
+            filename: '[name].bundle.map',
+            // publicPath: "http://local.phpopendocs.com/js/app.bundle.js.map"
+            sourceRoot: "/var/app/app/public"
+        }),
 
         new CompressionPlugin(),
 
