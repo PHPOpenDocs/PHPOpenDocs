@@ -60,14 +60,8 @@ function get_thomas_example_html()
     return "<ul>" . implode("\n", $thomas_example_entries) . "</ul>";
 }
 
-
-
-
 function get_dmitry_example_html()
 {
-
-
-
     $dmitry_examples = [
         "https://www.zend.com/setting-up-your-php-build-environment" => "Setting up Your PHP Build Environment on Linux",
         "https://www.zend.com/generating-php-extension-skeleton" => "Generating a PHP Extension Skeleton",
@@ -100,11 +94,7 @@ function get_dmitry_example_html()
 
 
     return "<ul>" . implode("\n", $dmitry_example_entries) . "</ul>";
-
 }
-
-
-
 
 $fn = function (
     InternalsSection $section,
@@ -118,7 +108,7 @@ $fn = function (
 <h1>PHP internals info</h1>
 
 <p>
-The PHP programming langauge is written (mostly) in C. 
+The PHP programming language is written (mostly) in C. The resources below cover both how to modify the PHP language and it's core library, as well as how to develop custom extensions.
 </p>
 
 <h2>Main resources</h2>
