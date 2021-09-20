@@ -108,7 +108,7 @@ $fn = function (
 <h1>PHP internals info</h1>
 
 <p>
-The PHP programming language is written (mostly) in C. The resources below cover both how to modify the PHP language and it's core library, as well as how to develop custom extensions.
+The PHP programming language is written (mostly) in C. The resources below cover both how to modify the PHP language and the core PHP library, as well as how to develop custom extensions.
 </p>
 
 <h2>Main resources</h2>
