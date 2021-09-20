@@ -61,29 +61,46 @@ function get_thomas_example_html()
 }
 
 
+
+
 function get_dmitry_example_html()
 {
-//    Writing PHP Extensions
-//1. Setting up Your PHP Build Environment on Linux
-//2. Generating a PHP Extension Skeleton
-//3. Building and Installing a PHP Extension
-//4. Rebuilding Extensions for Production
-//                             5. Extension Skeleton File Content
-//6. Running PHP Extension Tests
-//7. Adding New Functionality
-//8. Basic PHP Structures
-//9. PHP Arrays
-//10. Catching Memory Leaks
-//11. PHP Memory Management
-//12. PHP References
-//13. Copy on Write
-//14. PHP Classes and Objects
-//15. Using OOP in our Example Extension
-//16. Embedding C Data into PHP Objects
-//17. Overriding Object Handlers
-//18. Answers to Common Extension Questions
-//// https://github.com/dstogov/php-extension
-////https://www.zend.com/resources/writing-php-extensions
+
+
+
+    $dmitry_examples = [
+        "https://www.zend.com/setting-up-your-php-build-environment" => "Setting up Your PHP Build Environment on Linux",
+        "https://www.zend.com/generating-php-extension-skeleton" => "Generating a PHP Extension Skeleton",
+        "https://www.zend.com/building-and-installing-php-extension" => "Building and Installing a PHP Extension",
+        "https://www.zend.com/rebuilding-extensions-for-production" => "Rebuilding Extensions for Production",
+        "https://www.zend.com/extension-skeleton-file-content" => "Extension Skeleton File Content",
+        "https://www.zend.com/running-php-extension-tests" => "Running PHP Extension Tests",
+        "https://www.zend.com/adding-new-functionality" => "Adding New Functionality",
+        "https://www.zend.com/basic-php-structures" => "Basic PHP Structures",
+        "https://www.zend.com/php-arrays" => "PHP Arrays",
+        "https://www.zend.com/catching-memory-leaks" => "Catching Memory Leaks",
+        "https://www.zend.com/php-memory-management" => "PHP Memory Management",
+        "https://www.zend.com/php-references" => "PHP References",
+        "https://www.zend.com/copy-on-write" => "Copy on Write",
+        "https://www.zend.com/php-classes-and-objects" => "PHP Classes and Objects",
+        "https://www.zend.com/using-oop-in-our-example-extension" => "Using OOP in our Example Extension",
+        "https://www.zend.com/embedding-c-data-into-php-objects" => "Embedding C Data into PHP Objects",
+        "https://www.zend.com/overriding-object-handlers" => "Overriding Object Handlers",
+        "https://www.zend.com/answers-to-common-extension-questions" => "Answers to Common Extension Questions",
+    ];
+
+    $dmitry_example_entries = [];
+    foreach ($dmitry_examples as $link => $description) {
+        $dmitry_example_entries[] = sprintf(
+            '<li><a href="%s">%s</a></li>',
+            $link,
+            $description
+        );
+    }
+
+
+    return "<ul>" . implode("\n", $dmitry_example_entries) . "</ul>";
+
 }
 
 
@@ -95,12 +112,13 @@ $fn = function (
 ) : Page {
 
     $thomas_example_html = get_thomas_example_html();
+    $dmitry_example_html = get_dmitry_example_html();
 
     $html  = <<< HTML
 <h1>PHP internals info</h1>
 
 <p>
-Info about PHP Internal development.
+The PHP programming langauge is written (mostly) in C. 
 </p>
 
 <h2>Main resources</h2>
@@ -149,13 +167,24 @@ The <a href="http://www.phpinternalsbook.com/">PHP Internals Book</a> is the mos
 On his blog, Julien Pauli has quite a few <a href="http://blog.jpauli.tech/tag/php/">in-depth posts about PHP</a>. He also has a presentation of how <a href="https://symfonycasts.com/screencast/symfonycon2019/a-view-in-the-php-virtual-machine">all the internal bits fit together.</a>
 
 
-<h3>Sample implementation details</h3>
+<h3>Sample extension implementation details</h3>
 
 <p>
 Thomas Weinert has a comprehensive example of <a href="https://github.com/ThomasWeinert/php-extension-sample">how to implement features in PHP internals</a>, where each branch implements a single feature. The way to use this set of examples is to find the branch that contains what you want to implement, check it out, and then look at the commits in that branch to see what was done.
 </p>
 
 $thomas_example_html
+
+<h3>PHP Extension guide from Zend</h3>
+
+<p>Written by Dmitry Stogov, one of the core PHP developers, here is a <a href="https://www.zend.com/resources/writing-php-extensions">guide to "Writing PHP Extensions"</a>. It covers:</p>
+
+$dmitry_example_html
+
+<p>
+You can also go directly to the <a href="https://github.com/dstogov/php-extension">repo with all the code</a>.
+</p>
+
 
 <h2>Other stuff</h2>
 
