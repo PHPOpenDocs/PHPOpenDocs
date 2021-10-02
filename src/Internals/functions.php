@@ -92,8 +92,8 @@ function createRemoteMarkdownPageFn(
 function getInternalsContentLinks(): array
 {
     return [
-
         ContentLink::level1(null, "Technical"),
+        ContentLink::level2('/', 'Overview of resources'),
         ContentLink::level2('/php_parameter_parsing', 'PHP Parameter parsing'),
         ContentLink::level2('/php_contributing', 'Contributing to PHP'),
 
@@ -101,8 +101,6 @@ function getInternalsContentLinks(): array
         ContentLink::level2('/mailing_list', 'Mailing list etiquette'),
         ContentLink::level2('/rfc_attitudes', 'RFC attitudes'),
         ContentLink::level2('/rfc_etiquette', 'RFC etiquette'),
-
-
     ];
 }
 

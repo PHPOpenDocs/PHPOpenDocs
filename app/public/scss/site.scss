@@ -1,8 +1,18 @@
 
+
+// Hello! If you're looking at this file, you're probably wondering just
+// how bad someone can be at CSS. Well, you're about to find out.
+
+// @media (min-width: $screen_break_large) {
+// }
+// @media (max-width: $screen_break_medium) {
+// }
+// @media (max-width: $screen_break_small) {
+// }
+
 @import "colors.scss";
 @import "variables.scss";
 @import "fonts.scss";
-
 @import "layout.scss";
 @import "breadcrumbs.scss";
 @import "content.scss";
@@ -39,6 +49,11 @@ blockquote {
   quotes: "“" "”" "‘" "’";
   background: #f9f9f9;
   font-style: italic;
+
+  // This prevents quotes from being different lines to the quote text
+  p {
+    display: inline;
+  }
 }
 
 

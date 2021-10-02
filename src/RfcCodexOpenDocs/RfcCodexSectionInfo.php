@@ -13,8 +13,6 @@ class RfcCodexSectionInfo implements SectionInfo
     {
         return [
             new GetRoute('/{name:.+}', 'RfcCodexOpenDocs\Pages::getPage'),
-            new GetRoute('/', 'RfcCodexOpenDocs\Pages::getIndexPage'),
-            new GetRoute('', 'RfcCodexOpenDocs\Pages::getIndexPage'),
         ];
     }
 }

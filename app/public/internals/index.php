@@ -131,6 +131,11 @@ The <a href="http://www.phpinternalsbook.com/">PHP Internals Book</a> is the mos
   </li>
 </ul>
 
+<p>
+Also, the <a href="/internals/php_parameter_parsing">PHP parameter parsing</a> doc is held in git, but mirrored.
+</p>
+
+
 <h3>Nikita Popov's blog</h3>
 
 <p>
@@ -176,6 +181,18 @@ You can also go directly to the <a href="https://github.com/dstogov/php-extensio
 </p>
 
 
+<h3>Tpunt's articles</h3>
+
+<p>
+
+
+  <a href="http://phpinternals.net/articles/optimising_internal_functions_via_new_opcode_instructions">Optimising Internal Functions via New Opcode Instructions</a><br/>
+  <a href="http://phpinternals.net/articles/implementing_new_language_constructs_via_opcode_extending">Implementing New Language Constructs via Opcode Extending</a>
+  <href="http://phpinternals.net/articles/a_reimplementation_of_the_range_operator">A Reimplementation of the Range Operator</a>
+  <a href="http://phpinternals.net/articles/implementing_a_range_operator_into_php">Implementing a Range Operator into PHP</a><br/>
+  <a href="http://phpinternals.net/articles/implementing_a_digit_separator">Implementing a Digit Separator</a><br/>
+</p>
+
 <h2>Other stuff</h2>
 
 <h3>Debugging tools</h3>
@@ -190,6 +207,7 @@ You can also go directly to the <a href="https://github.com/dstogov/php-extensio
 
 
 <h2>Etiquette and RFCs</h2>
+<p>One thing that is difficult for people new to a community to understand is the etiquette and established attitudes that people who have already been contributing to that project may have. The following links are my <em>personal interpretations</em> of other people's feelings. A.k.a. they are certainly wrong to some extent, but still might be useful.</p>
 <ul>
   <li>
     <a href='{$section->getPrefix()}/mailing_list'>Mailing list</a> - Mailing list etiquette.
@@ -205,17 +223,15 @@ You can also go directly to the <a href="https://github.com/dstogov/php-extensio
 </ul>
 
 
-
 <h2>Miscellaneous info</h2>
 
-
-<h2>Generics</h2>
+<h3>Generics</h3>
 
 <p>
 The feature most commonly desired in PHP is generics. People have been thinking about it for a while, and there is a <a href="https://github.com/PHPGenerics/php-generics-rfc/issues">discussion</a> about what would be required. In particular <a href="https://github.com/PHPGenerics/php-generics-rfc/issues/45">Nikic's notes on implementation</a> are probably of interest.
 </p> 
 
-<h2>Tests</h2>
+<h3>Tests</h3>
 
 The test suite used by PHP is well documented <a href="https://www.phpinternalsbook.com/tests/running_the_test_suite.html">in the PHP internals book</a> 
 
@@ -240,6 +256,9 @@ The test suite used by PHP is well documented <a href="https://www.phpinternalsb
   </li>
   <li>
     evaluate writing extensions in Go. - https://github.com/kitech/php-go
+  </li>
+  <li>
+    evaluate writing extensions in Rust - https://github.com/rethinkphp/php-rs
   </li>
   <li>
     evaluate https://wiki.php.net/internals/references

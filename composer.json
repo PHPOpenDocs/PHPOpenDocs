@@ -30,7 +30,7 @@
         "danack/float-hex": "^1.0",
         "michelf/php-markdown": "^1.9",
         "thecodingmachine/safe": "^1.3",
-        "league/commonmark": "^1.5",
+        "league/commonmark": "^2.0.2",
         "ext-posix": "*"
     },
     "require-dev": {
@@ -65,7 +65,8 @@
             "src/NamingThings/functions.php",
             "src/Work/functions.php",
             "src/PhpOpenDocs/functions.php",
-            "src/PHPFunding/functions.php"
+            "src/PHPFunding/functions.php",
+            "src/RfcCodexOpenDocs/functions.php"
         ]
     },
     "autoload-dev": {

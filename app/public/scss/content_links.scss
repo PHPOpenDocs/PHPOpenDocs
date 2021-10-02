@@ -6,6 +6,10 @@
   letter-spacing: -.00278rem;
   border-left: 1px dotted var(--content_links_border_color);
 
+  @media (min-width: $screen_break_medium) {
+    font-size: 1.2em;
+  }
+
   .opendocs_content_link_level_1,
   .opendocs_content_link_level_2,
   .opendocs_content_link_level_3 {
@@ -24,11 +28,7 @@
 
     a {
       border-bottom: 1px dotted;
-      //border-color: rgba(128, 128, 128, 0.25);
       border-color: var(--content_links_border_color);
-
-
-
       margin-bottom:-1px;
       display:block;
     }

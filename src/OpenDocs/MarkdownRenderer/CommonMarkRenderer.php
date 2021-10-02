@@ -15,7 +15,6 @@ use League\CommonMark\MarkdownConverter;
 
 class CommonMarkRenderer implements MarkdownRenderer
 {
-
     public function renderFile(string $filepath): string
     {
         $markdown = @file_get_contents($filepath);
@@ -47,7 +46,6 @@ class CommonMarkRenderer implements MarkdownRenderer
         $environment->mergeConfig($params);
 
         $converter = new MarkdownConverter($environment);
-
         return $converter->convertToHtml($markdown);
     }
 }

@@ -35,6 +35,7 @@ class RfcCodexEntry
 
     public function getPath()
     {
+        //return str_replace(".md", "", $this->filename);
         return pathinfo($this->filename, PATHINFO_FILENAME);
     }
 }
