@@ -64,13 +64,13 @@ $under_discussion
 These need to be summarised.
 </p>
 
-Async / fibres - this is being worked on.
+Async / fibres - this is being worked on.<br/>
 
-Pipe-operator - https://wiki.php.net/rfc/pipe-operator
+Pipe-operator - https://wiki.php.net/rfc/pipe-operator<br/>
 
-Tuple returns - though these would be moot if we had out parameters.
+Tuple returns - though these would be moot if we had out parameters.<br/>
 
-Type declarations type number = float | int;
+Type declarations type number = float | int; <br/>
 
 <h2>Ideas that overcame their challenges</h2>
 

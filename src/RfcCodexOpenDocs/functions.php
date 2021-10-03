@@ -102,8 +102,8 @@ function getUnderDiscussionList()
         ['Immutable', 'immutable.md'],
         ['Method overloading', 'method_overloading.md'],
         ['Out parameters', 'out_parameters.md'],
-
         ['Standardise core library', 'standardise_core_library.md'],
+        ['Static class initialization', 'static_class_init.md'],
         ['Strings/encoding is terrible', 'strings_and_encoding.md'],
         ['Strong typing', 'strong_typing.md'],
         ['Structs', 'structs.md'],
