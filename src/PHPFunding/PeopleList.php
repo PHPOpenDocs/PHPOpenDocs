@@ -59,16 +59,16 @@ class PeopleList
 
         $people[] = (new PHPPerson('Kamil Tekiela aka Dharman'))
             ->addRfc_8_1(
-               'https://wiki.php.net/rfc/mysqli_default_errmode',
-               'Change Default mysqli Error Mode',
+                'https://wiki.php.net/rfc/mysqli_default_errmode',
+                'Change Default mysqli Error Mode',
             )
             ->addRfc_8_1(
-               'https://wiki.php.net/rfc/mysqli_fetch_column',
-               'Add fetch_column method to mysqli',
+                'https://wiki.php.net/rfc/mysqli_fetch_column',
+                'Add fetch_column method to mysqli',
             )
             ->addRfc_8_1(
-               'https://wiki.php.net/rfc/mysqli_bind_in_execute',
-               'Mysqli bind in execute'
+                'https://wiki.php.net/rfc/mysqli_bind_in_execute',
+                'Mysqli bind in execute'
             )
             ->addRfc_8_1(
                 'https://wiki.php.net/rfc/autovivification_false',
@@ -240,7 +240,7 @@ class PeopleList
                 'https://wiki.php.net/rfc/deprecate_null_to_scalar_internal_arg',
                 'Deprecate passing null to non-nullable arguments of internal functions'
             )
-            ->addRfc_8_1('https://wiki.php.net/rfc/array_unpacking_string_keys',  'Array unpacking with string keys')
+            ->addRfc_8_1('https://wiki.php.net/rfc/array_unpacking_string_keys', 'Array unpacking with string keys')
             ->addRfc_8_1('https://wiki.php.net/rfc/restrict_globals_usage', 'Restrict $GLOBALS usage')
             ->addRfc_8_1('https://wiki.php.net/rfc/phase_out_serializable', 'Phasing out Serializable')
             ->addRfc_8_1(
@@ -259,7 +259,8 @@ class PeopleList
 
         $people[] = (new PHPPerson('Ondřej Mirtes'))
             ->addRfc_8_1('https://wiki.php.net/rfc/noreturn_type', 'noreturn type')
-            ->addGithubSponsor('https://github.com/sponsors/ondrejmirtes');;
+            ->addGithubSponsor('https://github.com/sponsors/ondrejmirtes');
+        ;
 
         $people[] = (new PHPPerson('Paul Crovella'))
             ->addRfc_8_1(

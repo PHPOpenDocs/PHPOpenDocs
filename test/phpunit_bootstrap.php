@@ -94,7 +94,7 @@ function createHttpRequest(string $url)
 }
 
 
-function  getTestContentLinks(): array
+function getTestContentLinks(): array
 {
     return [
         ContentLink::level1(null, "Best practices"),

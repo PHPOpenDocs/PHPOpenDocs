@@ -35,11 +35,12 @@
     <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
         <exclude-pattern>*test_stub_functions.php</exclude-pattern>
         <exclude-pattern>functions.php</exclude-pattern>
+        <exclude-pattern>web_bootstrap.php</exclude-pattern>
     </rule>
 
     <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
-        <exclude-pattern>*PhpOpenDocs/src/PHPFunding/Pages.php</exclude-pattern>
-        <exclude-pattern>*PhpOpenDocs/src/PHPFunding/PHPPerson.php</exclude-pattern>
+        <exclude-pattern>src/PHPFunding/Pages.php</exclude-pattern>
+        <exclude-pattern>src/PHPFunding/PHPPerson.php</exclude-pattern>
     </rule>
 
     <rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/TypeHints/DeclareStrictTypesSniff.php" >

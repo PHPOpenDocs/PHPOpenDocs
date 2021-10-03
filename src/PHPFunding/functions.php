@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace PHPFunding;
 
@@ -30,6 +30,3 @@ function getFundingContentLinks(): array
         ContentLink::level2('/userland', 'Userland'),
     ];
 }
-
-
-

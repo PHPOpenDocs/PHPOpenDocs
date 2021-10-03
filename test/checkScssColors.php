@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 $filename = __DIR__ . "/../app/public/scss/colors.scss";
 
@@ -18,7 +18,6 @@ function getBlock($contents, int $bracket_offset): string
     $bracket_count = 0;
 
     foreach ($lines as $line) {
-
         if (strpos($line, ":root {") !== false) {
             $bracket_count += 1;
         }
@@ -47,7 +46,6 @@ function getBlock($contents, int $bracket_offset): string
 //            $bracket_count += 1;
 //        }
 //
-
     }
 
     echo "Failed to find ending } after the $bracket_offset {\n";

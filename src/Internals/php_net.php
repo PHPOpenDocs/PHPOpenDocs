@@ -2,7 +2,6 @@
 
 declare(strict_types = 1);
 
-
 https://wiki.php.net/internals/references
 
 # Contributing to PHP

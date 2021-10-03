@@ -10,7 +10,7 @@ echo "ENV_TO_USE is ${ENV_TO_USE}";
 
 COMPOSER_TYPE=$(php src/check_composer_command.php)
 echo "composer type is ${COMPOSER_TYPE}";
-if [ "$composer_type" = "update" ]; then
+if [ "${COMPOSER_TYPE}" = "update" ]; then
     php composer.phar update
 else
     php composer.phar install
