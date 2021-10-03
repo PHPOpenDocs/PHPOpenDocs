@@ -4,10 +4,13 @@ declare(strict_types = 1);
 
 namespace OpenDocs\MarkdownRenderer;
 
+use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
+use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\GithubFlavoredMarkdownConverter;
 
 use League\CommonMark\CommonMarkConverter;
-use League\CommonMark\Environment;
+
+use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkRenderer;
 use League\CommonMark\Normalizer\SlugNormalizer;
@@ -28,24 +31,27 @@ class CommonMarkRenderer implements MarkdownRenderer
 
     public function render(string $markdown): string
     {
-        $environment = Environment::createGFMEnvironment();
 
-        $environment->addExtension(new HeadingPermalinkExtension());
-
-        $params = [
+        $config = [
             'heading_permalink' => [
                 'html_class' => 'heading-permalink',
-                'id_prefix' => 'user-content',
+                'id_prefix' => '',
+                'fragment_prefix' => '',
                 'insert' => 'after',
                 'title' => 'Permalink',
                 'symbol' => "\u{00A0}\u{00A0}🔗",
-                'slug_normalizer' => new SlugNormalizer(),
             ],
         ];
 
-        $environment->mergeConfig($params);
+        $environment = new Environment($config);
+        $environment->addExtension(new HeadingPermalinkExtension());
+        $environment->addExtension(new CommonMarkCoreExtension());
+        $environment->addExtension(new GithubFlavoredMarkdownExtension());
 
         $converter = new MarkdownConverter($environment);
-        return $converter->convertToHtml($markdown);
+
+        $wat = $converter->convertToHtml($markdown);
+
+        return $wat->getContent();
     }
 }

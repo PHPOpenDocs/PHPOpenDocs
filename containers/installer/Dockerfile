@@ -23,6 +23,6 @@ RUN  apt-get update -qq \
 # Make the default directory you
 WORKDIR /var/app
 
-#CMD tail -f README.md
+# CMD tail -f /var/app/readme.MD
 
 CMD sh /var/app/containers/installer/entrypoint.sh
