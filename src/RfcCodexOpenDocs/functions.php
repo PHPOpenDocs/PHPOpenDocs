@@ -88,6 +88,24 @@ function createRemoteMarkdownPageFn(
     };
 }
 
+
+function getTitleFromFileName(string $name)
+{
+    foreach (getUnderDiscussionList() as $codexEntry) {
+        if ($codexEntry->getPath() === $name) {
+            return $codexEntry->getName();
+        }
+    }
+
+    foreach (getAchievedList() as $codexEntry) {
+        if ($codexEntry->getPath() === $name) {
+            return $codexEntry->getName();
+        }
+    }
+
+    return $name;
+}
+
 /**
  * @return RfcCodexEntry[]
  */

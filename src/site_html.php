@@ -35,7 +35,7 @@ function createBreadcrumbHtml(
     $li_parts = [];
 
     if ($section !== null) {
-        $prefix  = $section->getPrefix();
+        $prefix  = $section->getPrefix() . '/';
         $li_parts[] = createBreadcrumbPart($prefix, $section->getName());
     }
 

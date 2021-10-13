@@ -75,14 +75,16 @@ class Pages
             $contents = "This should be a 404 page.";
         }
 
+        $title = getTitleFromFileName($name);
+
         return new Page(
-            'RFC Codex - ' . $name,
+            'RFC Codex - ' . $title,
             createDefaultEditInfo(),
             getRfcCodexContentLinks(),
             createPrevNextLinksFromContentLinks(getRfcCodexContentLinks(), $name),
             $contents,
             new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
-            $breadcrumbs = new Breadcrumbs(new Breadcrumb($name, $name)),
+            $breadcrumbs = new Breadcrumbs(new Breadcrumb($name, $title)),
             $section
         );
     }
