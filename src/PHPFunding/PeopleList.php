@@ -115,8 +115,7 @@ class PeopleList
             ->addRfc_8_0('https://wiki.php.net/rfc/throw_expression', 'throw expression')
             ->addRfc_8_0('https://wiki.php.net/rfc/match_expression_v2', 'Match expression v2')
             ->addRfc_8_0('https://wiki.php.net/rfc/nullsafe_operator', 'Nullsafe operator')
-            ->addRfc_8_1('https://wiki.php.net/rfc/enumerations', 'Enumerations')
-            ->addGithubSponsor("https://github.com/sponsors/iluuu1994");
+            ->addRfc_8_1('https://wiki.php.net/rfc/enumerations', 'Enumerations');
 
         $people[] = (new PHPPerson('Joe Watkins aka Krakjoe '))
             ->addRfc_8_1(
