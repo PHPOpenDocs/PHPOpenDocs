@@ -26,7 +26,7 @@ Laminas is an 'enterprise-ready PHP Framework and components'. Laminas is a cont
 
 ### [Laravel](https://laravel.com/)
 
-Symfony is an highly opinionated framework for making PHP web applications and set of components.
+Laravel is an highly opinionated framework for making PHP web applications and set of components.
 
 ### [Slim](https://www.slimframework.com/) 
 
@@ -54,11 +54,11 @@ Build high-performance, scalable, concurrent TCP, UDP, Unix Socket, HTTP, WebSoc
 
 ## Code quality tools
 
-### PHPStan
+### [PHPStan](https://phpstan.org/)
 
-### Psalm
+### [Psalm](https://psalm.dev/)
 
-### Phan
+### [Phan](https://github.com/phan/phan)
 
 ### [Infection](https://infection.github.io/)
 
