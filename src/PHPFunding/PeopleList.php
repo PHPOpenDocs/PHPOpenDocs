@@ -133,6 +133,17 @@ class PeopleList
             )
             ->addGithubSponsor("https://github.com/sponsors/krakjoe");
 
+//        $people[] = (new PHPPerson('Juliette'))
+//            ->addMisc(
+//                'https://github.com/squizlabs/PHP_CodeSniffer',
+//                'PHP CodeSniffer'
+//            )
+//            ->addMisc(
+//                'https://profiles.wordpress.org/jrf/',
+//                'Wordpress core team'
+//            )
+//            ->addGithubSponsor('https://github.com/sponsors/jrfnl');
+
         $people[] = (new PHPPerson('Larry Garfield'))
             ->addRfc_8_1('https://wiki.php.net/rfc/enumerations', 'Enumerations')
             ->addRfc_8_1('https://wiki.php.net/rfc/pipe-operator-v2', 'Pipe Operator v2')
@@ -151,6 +162,14 @@ class PeopleList
             ->addRfc_8_1(
                 'https://wiki.php.net/rfc/make-reflection-setaccessible-no-op',
                 'Make reflection setAccessible() no-op'
+            )
+            ->addMisc(
+                'https://github.com/Roave/SecurityAdvisories',
+                'Roave Security Advisories'
+            )
+            ->addMisc(
+                'https://github.com/Ocramius/ProxyManager',
+                'ProxyManager'
             )
             ->addGithubSponsor("https://github.com/sponsors/Ocramius");
 

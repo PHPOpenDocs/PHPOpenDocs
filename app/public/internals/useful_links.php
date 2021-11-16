@@ -8,13 +8,18 @@ use function Internals\createPageFn;
 
 
 use OpenDocs\CopyrightInfo;
-use function Internals\createRemoteMarkdownPageFn;
+use function Internals\createRemoteMarkdownPageFnEx;
 
-$fn = createRemoteMarkdownPageFn(
+$editInfo = createPHPOpenDocsEditInfo('Edit page', __FILE__, null);
+
+$editInfo->addNameWithLink('Edit content', 'https://github.com/w9smg/.github/blob/master/profile/README.md');
+
+$fn = createRemoteMarkdownPageFnEx(
     "https://raw.githubusercontent.com/w9smg/.github/master/profile/README.md",
     'PHP useful links',
     '/useful_links',
-    new CopyrightInfo("SG", "https://github.com/w9smg/.github")
+    new CopyrightInfo("SG", "https://github.com/w9smg/.github"),
+    $editInfo
 );
 
 showInternalsResponse($fn);

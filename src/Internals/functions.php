@@ -88,14 +88,61 @@ function createRemoteMarkdownPageFn(
     };
 }
 
+/**
+ * @param string $markdown_url
+ * @param string $title
+ * @param string $current_path
+ * @param CopyrightInfo $copyright_info
+ * @param \OpenDocs\EditInfo[] $editInfoArray
+ * @return \Closure
+ */
+function createRemoteMarkdownPageFnEx(
+    string $markdown_url,
+    string $title,
+    string $current_path,
+    CopyrightInfo $copyright_info,
+    EditInfo $editInfo
+) {
+    $breadcrumbs = [$current_path => $title];
+
+    return function (
+        InternalsSection $section,
+        ExternalMarkdownRenderer $markdownRenderer,
+        BreadcrumbsFactory $breadcrumbsFactory
+    ) use (
+        $markdown_url,
+        $title,
+        $breadcrumbs,
+        $current_path,
+        $copyright_info,
+        $editInfo
+    ) {
+
+        $html = $markdownRenderer->renderUrl($markdown_url);
+
+        $contentLinks = getInternalsContentLinks();
+//        $editInfo = createPHPOpenDocsEditInfo('Edit page', __FILE__, null);
+
+        $page = Page::createFromHtmlEx2(
+            $title,
+            $html,
+            $editInfo,
+            $breadcrumbsFactory->createFromArray($breadcrumbs),
+            $copyright_info,
+            createLinkInfo($current_path, $contentLinks),
+            $section
+        );
+
+        return $page;
+    };
+}
+
+
 
 function getInternalsContentLinks(): array
 {
     return [
         ContentLink::level1(null, "Technical"),
-
-
-
         ContentLink::level2('/', 'Overview of resources here'),
         ContentLink::level2('/useful_links', 'Links to elsewhere'),
         ContentLink::level2('/php_parameter_parsing', 'PHP Parameter parsing'),
