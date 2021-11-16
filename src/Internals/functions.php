@@ -93,7 +93,11 @@ function getInternalsContentLinks(): array
 {
     return [
         ContentLink::level1(null, "Technical"),
-        ContentLink::level2('/', 'Overview of resources'),
+
+
+
+        ContentLink::level2('/', 'Overview of resources here'),
+        ContentLink::level2('/useful_links', 'Links to elsewhere'),
         ContentLink::level2('/php_parameter_parsing', 'PHP Parameter parsing'),
         ContentLink::level2('/php_contributing', 'Contributing to PHP'),
 
