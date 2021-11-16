@@ -17,3 +17,4 @@ $fn = createRemoteMarkdownPageFn(
     new CopyrightInfo("SG", "https://github.com/w9smg/.github")
 );
 
+showInternalsResponse($fn);
