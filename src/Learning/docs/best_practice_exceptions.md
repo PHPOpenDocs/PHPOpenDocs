@@ -430,7 +430,7 @@ There's at least one reasonable example [of using an exception for flow control]
 
 ## Further reading
 
-[Exception-Handling Antipatterns](/java_exception_antipatterns) by Tim McCune.
+[Exception-Handling Antipatterns](/learning/java_exception_antipatterns) by Tim McCune.
 
 There is however one piece of what I consider to be inappropriate advice in that article:
 
