@@ -3,6 +3,8 @@
 
 The recommendations below are patterns of how to use exceptions in ways that will be appreciated by whoever has to maintain your application.  
 
+<!-- Menu(h2, h3) -->
+
 ## Always set previous when catching and re-throwing
 
 A mistake people make when first using exception is to not pass the previous exception when catching and throwing a more specific exeption.
@@ -37,11 +39,60 @@ This can be enforced with a [PHPStan strict rule](https://github.com/thecodingma
 
 
 
-## Common base exception per library
+## Single catchable exception per library/module
+
+For anyone calling your code, it is useful to be able to catch any exception your code might throw with a single catch statement:
+
+```
+try {
+   foo();
+}
+catch (FooException $fe) {
+   // something went wrong with foo, and
+   // we don't particularly care what.
+}
+```
+
+rather than having to catch every possible exception:
+
+```
+try {
+   foo();
+}
+catch (InvalidArgumentException|OutOfRangeException $fe) {
+   // something went wrong with foo, and
+   // we don't particularly care what.
+}
+```
+
+Not only is having a single exception type to catch easier to write, it also means that if you add another exception to your library/module then people using your library will catch that new exception by default, rather than having to alter their code to catch the new exception.
+
+This can be accomplished in at least two ways.
+
+### Common base exception
 
 Creating a base exception for your library, and then extending all other exceptions from it allows consumers of your library to catch just a single exception type, rather than having to list all of the individual exceptions to be caught.
 
 [Base exception](https://github.com/Danack/Params/blob/7c2ffd076ba8ba924df617ccd92fd62e4a28099f/lib/Params/Exception/ParamsException.php#L10), [example extended exception](https://github.com/Danack/Params/blob/7c2ffd076ba8ba924df617ccd92fd62e4a28099f/lib/Params/Exception/LogicException.php#L11)
+
+
+### Common interface
+
+Interfaces in PHP are allowed to be empty, so you can define a 'FooException' interface that has no methods:
+
+```
+interface FooException {}
+```
+
+These are often called 'marker' or 'tag' interfaces. You can then 'implement' that interface on all of the exceptions that are defined by the library/module 'Foo':
+
+```
+class InvalidArgumentException implements FooException { ... }
+
+class OutOfRangeException implements FooException { ... }
+```
+
+
 
 
 ## Catch exceptions from code you are calling and rethrow more specific
