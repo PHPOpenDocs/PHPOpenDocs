@@ -39,7 +39,7 @@ This can be enforced with a [PHPStan strict rule](https://github.com/thecodingma
 
 
 
-## Single catchable exception per library/module
+## Single catchable exception type per library/module
 
 For anyone calling your code, it is useful to be able to catch any exception your code might throw with a single catch statement:
 
