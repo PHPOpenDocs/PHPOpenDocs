@@ -4,9 +4,13 @@ declare(strict_types = 1);
 
 namespace PhpOpenDocs\Middleware;
 
-use Psr\Http\Message\ResponseInterface;
+//use Psr\Http\Message\ResponseInterface;
 use PhpOpenDocs\Service\MemoryWarningCheck\MemoryWarningCheck;
+//use Psr\Http\Message\ServerRequestInterface as Request;
+
+use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
 // Check to make sure that not too much memory is being used.
 // in dev, just return an error.
@@ -28,14 +32,12 @@ class MemoryCheckMiddleware
 
     /**
      * @param Request $request
-     * @param ResponseInterface $response
-     * @param callable $next
-     * @return ResponseInterface
+     * @param RequestHandler $handler
+     * @return Response
      */
-    public function __invoke(Request $request, ResponseInterface $response, $next): ResponseInterface
+    public function __invoke(Request $request, RequestHandler $handler): Response
     {
-        /** @var ResponseInterface $response */
-        $response = $next($request, $response);
+        $response = $handler->handle($request);
         $percentMemoryUsed = $this->memoryWarningCheck->checkMemoryUsage($request);
 
         $response = $response->withAddedHeader('X-Debug-Memory', $percentMemoryUsed . '%');

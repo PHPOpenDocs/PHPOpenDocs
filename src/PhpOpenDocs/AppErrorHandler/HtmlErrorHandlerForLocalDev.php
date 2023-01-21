@@ -5,10 +5,11 @@ declare(strict_types = 1);
 namespace PhpOpenDocs\AppErrorHandler;
 
 use PhpOpenDocs\App;
-use SlimAuryn\ResponseMapper\ResponseMapper;
+//use SlimAuryn\ResponseMapper\ResponseMapper;
 use SlimAuryn\Response\HtmlResponse;
 use OpenDocs\Page;
 use OpenDocs\Breadcrumbs;
+use function SlimAuryn\mapStubResponseToPsr7;
 
 class HtmlErrorHandlerForLocalDev implements AppErrorHandler
 {
@@ -34,7 +35,11 @@ class HtmlErrorHandlerForLocalDev implements AppErrorHandler
             $html = createPageHtml(null, $page);
             $stubResponse = new HtmlResponse($html, [], 500);
             \error_log($text);
-            $response = ResponseMapper::mapStubResponseToPsr7($stubResponse, $response);
+            $response = mapStubResponseToPsr7(//$stubResponse, $response);
+                $stubResponse,
+                $request,
+                $response
+            );
 
             return $response;
         };

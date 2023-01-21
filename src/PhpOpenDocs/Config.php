@@ -72,6 +72,16 @@ class Config
         return self::get(self::PHPOPENDOCS_ENVIRONMENT);
     }
 
+    public function getForceAssetRefresh(): bool
+    {
+        return $this->get(self::PHPOPENDOCS_ASSETS_FORCE_REFRESH);
+    }
+
+    public function getCommitSha(): string
+    {
+        return $this->get(self::PHPOPENDOCS_COMMIT_SHA);
+    }
+
     public static function isProductionEnv(): bool
     {
         if (self::getEnvironment() === App::ENVIRONMENT_LOCAL) {

@@ -12,6 +12,7 @@ services:
     environment:
       - ENV_DESCRIPTION=default,local
     ports:
+      - "80:80"
       - "8000:8000"
       - "8001:8001"
   npm:
@@ -23,6 +24,10 @@ services:
     environment:
       - PHP_WEB_BUGS_BASE_URL=http://local.api.phpopendocs.com
   php_fpm:
+    security_opt:
+      - seccomp:unconfined
+    cap_add:
+      - SYS_PTRACE
     environment:
       - ENV_DESCRIPTION=default,local
   php_fpm_debug:
@@ -34,13 +39,13 @@ services:
   supervisord:
     ports:
       - "8002:8080"
-  varnish:
-    depends_on:
-      - nginx
-      - php_fpm
-      - php_fpm_debug
-    ports:
-      - "80:80"
+#  varnish:
+#    depends_on:
+#      - nginx
+#      - php_fpm
+#      - php_fpm_debug
+#    ports:
+#      - "80:80"
     environment:
       - ENV_DESCRIPTION=default,local
 

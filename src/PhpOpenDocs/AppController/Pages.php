@@ -134,7 +134,7 @@ HTML;
 
         $page = new \OpenDocs\Page(
             $title = 'PHP OpenDocs',
-            createPHPOpenDocsEditInfo('Edit page', realpath(__DIR__ . "/../../../docs/php_opendocs_about.md"), null),
+            createPhpOpenDocsEditInfo('Edit page', realpath(__DIR__ . "/../../../docs/php_opendocs_about.md"), null),
             [],
             new PrevNextLinks(null, null),
             $contentHtml = $page->getPageContent(),

@@ -23,7 +23,7 @@ $fn = function (
     $page = \OpenDocs\Page::createFromHtmlEx2(
         'Java Exception Antipatterns',
         $html,
-        createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
+        createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
         $breadcrumbsFactory->createFromArray([
             '/java_exception_antipatterns' => 'Java Exception Antipatterns'
         ]),

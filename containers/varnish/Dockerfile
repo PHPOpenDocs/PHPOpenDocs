@@ -1,4 +1,4 @@
-FROM debian:9
+FROM debian:11
 
 
 USER root
@@ -22,10 +22,10 @@ RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee -a /
 
 RUN  apt-get update -qq \
     && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-    git php7.4 \
-    php7.4-common php7.4-cli \
-    php7.4-mysql php7.4-curl php7.4-xml php7.4-mbstring \
-    php7.4-intl php7.4-redis php7.4-zip
+    git php8.2 \
+    php8.2-common php8.2-cli \
+    php8.2-mysql php8.2-curl php8.2-xml php8.2-mbstring \
+    php8.2-intl php8.2-redis php8.2-zip
 
 
 # Make the default directory you sh into

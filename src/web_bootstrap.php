@@ -2,20 +2,12 @@
 
 declare(strict_types = 1);
 
+use Laminas\Diactoros\Request;
+use Laminas\Diactoros\ServerRequest;
+
 error_reporting(E_ALL);
 
-require_once __DIR__ . "/../vendor/autoload.php";
-require_once __DIR__ . "/../injectionParams/app.php";
-require_once __DIR__ . '/../app/exception_mappers_app.php';
-require_once __DIR__ . '/factories.php';
-require_once __DIR__ . '/functions.php';
-require_once __DIR__ . '/error_functions.php';
-require_once __DIR__ . '/site_html.php';
-require_once __DIR__ . '/slim_functions.php';
-require_once __DIR__ . '/../injectionParams/section.php';
-require_once __DIR__ . "/../config.generated.php";
-
-use Slim\Http\Request;
+require_once __DIR__ . "/includes.php";
 
 set_error_handler('saneErrorHandler');
 
@@ -95,22 +87,20 @@ function showResponse($callable)
 function showResponseInternal($callable, Auryn\Injector $injector)
 {
     try {
-        $container = new \Slim\Container();
-        $container['request'] = function ($container) {
-            $request = Request::createFromEnvironment($container->get('environment'));
-            $uri = $request->getUri();
-            $fakeUri = $uri->withPath('/fake_path');
-            return $request->withUri($fakeUri);
-        };
-
         $errorHandler = $injector->make(\PhpOpenDocs\AppErrorHandler\AppErrorHandler::class);
-        $app = \createSlimAppForApp($injector, $container, $errorHandler);
+        $app = \createSlimAppForApp($injector, $errorHandler);
         $app->map(['GET'], '/fake_path', $callable);
 
-        $app->run();
+        $request =  new ServerRequest(
+            [],
+            [],
+            '/fake_path',
+            'GET',
+            'php://temp'
+        );
+
+        $app->run($request);
     } catch (\Throwable $exception) {
         showTotalErrorPage($exception);
     }
-
-    exit(0);
 }

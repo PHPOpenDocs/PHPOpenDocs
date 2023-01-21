@@ -102,7 +102,7 @@ HTML;
     $page = Page::createFromHtmlEx2(
         'RFC Codex',
         $html,
-        createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
+        createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
         $breadcrumbsFactory->createFromArray([]),
         createRfcCodexDefaultCopyrightInfo(),
         createLinkInfo('/', getRfcCodexContentLinks()),

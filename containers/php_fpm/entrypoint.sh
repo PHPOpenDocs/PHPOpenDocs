@@ -31,7 +31,7 @@ php vendor/bin/configurate \
     $ENV_TO_USE
 
 
-/usr/sbin/php-fpm7.4 \
+/usr/sbin/php-fpm8.2 \
   --nodaemonize \
   --fpm-config=/var/app/containers/php_fpm/config/fpm.conf \
   -c /var/app/containers/php_fpm/config/php.ini

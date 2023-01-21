@@ -42,6 +42,10 @@ class App
     public const ENVIRONMENT_LOCAL = 'local';
     public const ENVIRONMENT_PROD = 'prod';
 
+    const CSP_REPORT_PATH = '/csp/violation';
+    const CSP_REPORTS_SHOWN_PER_PAGE = 10;
+
+
     public static function getAssetSuffix()
     {
         $forcesRefresh = Config::get(\PhpOpenDocs\Config::PHPOPENDOCS_ASSETS_FORCE_REFRESH);

@@ -15,11 +15,15 @@ services:
   php_fpm:
     environment:
       - ENV_DESCRIPTION=default,prod
-  varnish:
-    depends_on:
-      - nginx
-      - php_fpm
+  nginx:
     ports:
       - "8007:80"
-    environment:
-      - ENV_DESCRIPTION=default,prod
+
+#  varnish:
+#    depends_on:
+#      - nginx
+#      - php_fpm
+#    ports:
+#      - "8007:80"
+#    environment:
+#      - ENV_DESCRIPTION=default,prod

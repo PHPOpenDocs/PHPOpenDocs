@@ -33,7 +33,7 @@ HTML;
     $page = Page::createFromHtmlEx2(
         'Debugging',
         $html,
-        createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
+        createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
         $breadcrumbsFactory->createFromArray([]),
         createLearningDefaultCopyrightInfo(),
         createLinkInfo('/', $contentLinks),

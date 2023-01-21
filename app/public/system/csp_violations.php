@@ -30,7 +30,7 @@ HTML;
     $page = \OpenDocs\Page::createFromHtmlEx(
         'System',
         $html,
-        createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
+        createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
         $breadcrumbsFactory->createFromArray(['/csp_violations' => 'CSP violations'])
     );
     return $page;

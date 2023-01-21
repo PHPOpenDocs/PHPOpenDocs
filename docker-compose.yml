@@ -66,17 +66,17 @@ services:
       - redis
     volumes:
       - .:/var/app
-  varnish:
-    build: containers/varnish
-    environment:
-      CACHE_SIZE: 128m
-    networks:
-      default_network:
-    volumes:
-      - ./:/var/app
-    depends_on:
-      - nginx
-      - php_fpm
+#  varnish:
+#    build: containers/varnish
+#    environment:
+#      CACHE_SIZE: 128m
+#    networks:
+#      default_network:
+#    volumes:
+#      - ./:/var/app
+#    depends_on:
+#      - nginx
+#      - php_fpm
 networks:
   default_network:
 

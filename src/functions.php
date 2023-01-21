@@ -11,7 +11,11 @@ use OpenDocs\CopyrightInfo;
 use OpenDocs\EditInfo;
 use OpenDocs\SectionList;
 use PhpOpenDocs\Data\ContentPolicyViolationReport;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use SlimAuryn\Response\HtmlResponse;
+use SlimAuryn\Response\StubResponse;
+use function SlimAuryn\mapStubResponseToPsr7;
 
 /**
  * @param array<mixed> $indexes
@@ -675,8 +679,6 @@ function getRandomId(): string
 
 function showTotalErrorPage(\Throwable $exception)
 {
-    $exceptionText = null;
-
     $exceptionText = "Failed to get exception text.";
 
     try {
@@ -751,7 +753,7 @@ function convertPageToHtmlResponse(
 }
 
 
-function createPHPOpenDocsEditInfo(string $description, string $file, ?int $line): EditInfo
+function createPhpOpenDocsEditInfo(string $description, string $file, ?int $line): EditInfo
 {
     $path = normaliseFilePath($file);
 
@@ -855,5 +857,26 @@ function createLinkInfo(string $currentPosition, array $contentLinks): OpenDocs\
     return new \OpenDocs\LinkInfo(
         $prevNext,
         $contentLinks,
+    );
+}
+
+
+function mapOpenDocsPageToPsr7(
+    \OpenDocs\Page $page,
+    \Psr\Http\Message\RequestInterface $request,
+    ResponseInterface $response
+
+) {
+    $html = createPageHtml(
+        $page->getSection(),
+        $page
+    );
+
+    $htmlResponse = new \SlimAuryn\Response\HtmlResponse($html);
+
+    return mapStubResponseToPsr7(
+        $htmlResponse,
+        $request,
+        $response
     );
 }

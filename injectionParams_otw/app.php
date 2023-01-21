@@ -7,7 +7,6 @@ function injectionParams()
     // These classes will only be created once by the injector.
     $shares = [
         \Auryn\Injector::class,
-        \Slim\Container::class,
         \Slim\App::class,
         \PhpOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
         \PhpOpenDocs\Service\RequestNonce::class,
@@ -42,11 +41,11 @@ function injectionParams()
     $delegates = [
         \OpenDocs\SectionList::class => 'createSectionList',
         \PhpOpenDocs\Service\MemoryWarningCheck\MemoryWarningCheck::class => 'createMemoryWarningCheck',
-        \SlimAuryn\Routes::class => 'createRoutesForApp',
-        \SlimAuryn\ExceptionMiddleware::class => 'createExceptionMiddlewareForApp',
-        \SlimAuryn\SlimAurynInvokerFactory::class => 'createSlimAurynInvokerFactory',
+//        \SlimAuryn\Routes::class => 'createRoutesForApp',
+//        \SlimAuryn\ExceptionMiddleware::class => 'createExceptionMiddlewareForApp',
+//        \SlimAuryn\SlimAurynInvokerFactory::class => 'createSlimAurynInvokerFactory',
 
-        \Slim\Container::class => 'createSlimContainer',
+//        \Slim\Container::class => 'createSlimContainer',
         \Slim\App::class => 'createSlimAppForApp',
         \PhpOpenDocs\AppErrorHandler\AppErrorHandler::class => 'createHtmlAppErrorHandler',
         \PhpOpenDocs\Data\ApiDomain::class => 'createApiDomain',

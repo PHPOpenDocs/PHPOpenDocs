@@ -1,4 +1,4 @@
-FROM debian:9-slim
+FROM debian:11-slim
 
 USER root
 
@@ -16,9 +16,9 @@ RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee -a /
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 
 RUN  apt-get update -qq \
-    && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y php7.4 php7.4-common php7.4-cli \
-    php7.4-mysql php7.4-curl php7.4-xml php7.4-mbstring \
-    php7.4-intl php7.4-redis php7.4-zip unzip
+    && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y php8.2 php8.2-common php8.2-cli \
+    php8.2-mysql php8.2-curl php8.2-xml php8.2-mbstring \
+    php8.2-intl php8.2-redis php8.2-zip unzip
 
 # Make the default directory you
 WORKDIR /var/app

@@ -20,8 +20,7 @@ $fn = function (
     $html = $markdownRenderer->renderFile($fullPath);
 
     $contentLinks = getLearningContentLinks();
-    $editInfo = createPHPOpenDocsEditInfo('Edit page', __FILE__, null);
-    //$editInfo->addNameWithLink('edit content', best_practice_exceptions.md);
+    $editInfo = createPhpOpenDocsEditInfo('Edit page', __FILE__, null);
 
     $page = \OpenDocs\Page::createFromHtmlEx2(
         'Best practice exceptions',

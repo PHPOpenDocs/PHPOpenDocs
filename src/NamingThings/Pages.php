@@ -109,6 +109,11 @@ Please note these suggestions are for naming things in terms that <em>programmer
       <li>
         <a href="http://source-code-wordle.de/">Words used in Source Code</a> by Markus Meyer
       </li>
+
+
+      <li>
+        <a href="https://sparkbox.com/foundry/semantic_commit_messages">Semantic Commit Messages</a>
+      </li>
     </ul>
 </p>
 

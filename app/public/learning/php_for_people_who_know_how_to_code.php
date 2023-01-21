@@ -24,7 +24,7 @@ $fn = function (
     $page = \OpenDocs\Page::createFromHtmlEx2(
         'Best practice exceptions',
         $html,
-        createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
+        createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
         Breadcrumbs::fromArray([
             '/php_for_people_who_know_how_to_code' => 'PHP for people who know how to program'
         ]),

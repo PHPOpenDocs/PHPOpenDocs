@@ -33,7 +33,7 @@ function createPageFn(
         $html = $markdownRenderer->renderFile($fullPath);
 
         $contentLinks = getInternalsContentLinks();
-        $editInfo = createPHPOpenDocsEditInfo('Edit page', __FILE__, null);
+        $editInfo = createPhpOpenDocsEditInfo('Edit page', __FILE__, null);
 
         $page = Page::createFromHtmlEx2(
             $title,
@@ -72,7 +72,7 @@ function createRemoteMarkdownPageFn(
         $html = $markdownRenderer->renderUrl($markdown_url);
 
         $contentLinks = getInternalsContentLinks();
-        $editInfo = createPHPOpenDocsEditInfo('Edit page', __FILE__, null);
+        $editInfo = createPhpOpenDocsEditInfo('Edit page', __FILE__, null);
 
         $page = Page::createFromHtmlEx2(
             $title,

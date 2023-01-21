@@ -275,8 +275,6 @@ function createPageHtml(
 
     $assetSuffix = \PhpOpenDocs\App::getAssetSuffix();
 
-
-
     $params = [
         ':raw_site_css_link' => '/css/site.css' . $assetSuffix,
         ':raw_site_js_link' => '/js/app.bundle.js' . $assetSuffix,

@@ -60,7 +60,7 @@ class Page
     ): Page {
         $page = new \OpenDocs\Page(
             $title,
-            createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
+            createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
             [],
             new PrevNextLinks(null, null),
             $contentHtml,

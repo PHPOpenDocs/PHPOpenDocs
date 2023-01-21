@@ -10,7 +10,7 @@ use function Internals\createPageFn;
 use OpenDocs\CopyrightInfo;
 use function Internals\createRemoteMarkdownPageFnEx;
 
-$editInfo = createPHPOpenDocsEditInfo('Edit page', __FILE__, null);
+$editInfo = createPhpOpenDocsEditInfo('Edit page', __FILE__, null);
 
 $editInfo->addNameWithLink('Edit content', 'https://github.com/w9smg/.github/blob/master/profile/README.md');
 

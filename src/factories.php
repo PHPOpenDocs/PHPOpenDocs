@@ -83,44 +83,9 @@ function createRoutesForApp(\OpenDocs\SectionList $sectionList)//: \SlimAuryn\Ro
     return $routes;
 }
 
-/**
- * Creates the ExceptionMiddleware that converts all known app exceptions
- * to nicely formatted pages for the app/user facing sites
- */
-function createExceptionMiddlewareForApp(\Auryn\Injector $injector): \SlimAuryn\ExceptionMiddleware
-{
-    $exceptionHandlers = [
-        \PhpOpenDocs\Exception\DebuggingCaughtException::class => 'debuggingCaughtExceptionExceptionMapperApp',
-        \Auryn\InjectionException::class => 'renderAurynInjectionException',
-        \OpenDocs\MarkdownRenderer\MarkdownRendererException::class => 'renderMarkdownRendererException',
 
-        \ParseError::class => 'parseErrorMapperForApp',
-    ];
 
-    $resultMappers = getResultMappers($injector);
 
-    return new \SlimAuryn\ExceptionMiddleware(
-        $exceptionHandlers,
-        $resultMappers
-    );
-}
-
-function mapOpenDocsPageToPsr7(
-    \OpenDocs\Page $page,
-    \Psr\Http\Message\ResponseInterface $response
-) {
-    $html = createPageHtml(
-        $page->getSection(),
-        $page
-    );
-
-    $htmlResponse = new \SlimAuryn\Response\HtmlResponse($html);
-
-    return SlimAuryn\ResponseMapper\ResponseMapper::mapStubResponseToPsr7(
-        $htmlResponse,
-        $response
-    );
-}
 
 /**
  * Creates the objects that map StubResponse into PSR7 responses
@@ -184,43 +149,7 @@ function createSlimContainer(): \Slim\Container
     return $container;
 }
 
-/**
- * @return Redis
- * @throws Exception
- */
-function createRedis()
-{
-    $redisInfo = Config::get(Config::PHPOPENDOCS_REDIS_INFO);
 
-    $redis = new Redis();
-    $redis->connect(
-        $redisInfo['host'],
-        $redisInfo['port'],
-        $timeout = 2.0
-    );
-    $redis->auth($redisInfo['password']);
-    $redis->ping();
-
-    return $redis;
-}
-
-function createHtmlAppErrorHandler(\Auryn\Injector $injector) : \PhpOpenDocs\AppErrorHandler\AppErrorHandler
-{
-    if (Config::isProductionEnv() === true) {
-        return $injector->make(\PhpOpenDocs\AppErrorHandler\HtmlErrorHandlerForProd::class);
-    }
-
-    return $injector->make(\PhpOpenDocs\AppErrorHandler\HtmlErrorHandlerForLocalDev::class);
-}
-
-function createJsonAppErrorHandler(\Auryn\Injector $injector) : \PhpOpenDocs\AppErrorHandler\AppErrorHandler
-{
-    if (Config::isProductionEnv() === true) {
-        return $injector->make(\PhpOpenDocs\AppErrorHandler\JsonErrorHandlerForProd::class);
-    }
-
-    return $injector->make(\PhpOpenDocs\AppErrorHandler\JsonErrorHandlerForLocalDev::class);
-}
 
 /**
  * Creates the ExceptionMiddleware that converts all known app exceptions
@@ -318,14 +247,6 @@ function createSectionList(): \OpenDocs\SectionList
     return new \OpenDocs\SectionList($sections);
 }
 
-function createApiDomain(Config $config)
-{
-    if ($config->isProductionEnv()) {
-        return new \PhpOpenDocs\Data\ApiDomain("https://api.phpopendocs.com");
-    }
-
-    return new \PhpOpenDocs\Data\ApiDomain("http://local.api.phpopendocs.com");
-}
 
 
 function createInternalsSection()
@@ -366,7 +287,7 @@ function createNamingThingsSection()
         '/naming',
         'Naming',
         'Naming things',
-        new \PhpOpenDocs\NamingThingsSectionInfo
+        new \NamingThings\NamingThingsSectionInfo
     );
 }
 
