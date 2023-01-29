@@ -24,8 +24,6 @@ function createExceptionToErrorPageResponseMiddleware(Injector $injector): Excep
         \Auryn\InjectionException::class => 'renderAurynInjectionExceptionToHtml',
         \OpenDocs\MarkdownRenderer\MarkdownRendererException::class => 'renderMarkdownRendererException',
         \ParseError::class => 'renderParseErrorToHtml',
-
-
         \Throwable::class => 'genericExceptionHandler' // should be last
     ];
 

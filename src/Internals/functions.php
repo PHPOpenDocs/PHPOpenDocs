@@ -150,6 +150,7 @@ function getInternalsContentLinks(): array
 
         ContentLink::level1(null, "Etiquette"),
         ContentLink::level2('/mailing_list', 'Mailing list etiquette'),
+        ContentLink::level2('/mailing_list_for_younguns', 'Mailing list etiquette for young\'uns'),
         ContentLink::level2('/rfc_attitudes', 'RFC attitudes'),
         ContentLink::level2('/rfc_etiquette', 'RFC etiquette'),
     ];

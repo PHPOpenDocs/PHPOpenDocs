@@ -50,7 +50,7 @@ class CommonMarkRenderer implements MarkdownRenderer
 
         $converter = new MarkdownConverter($environment);
 
-        $wat = $converter->convertToHtml($markdown);
+        $wat = $converter->convert($markdown);
 
         return $wat->getContent();
     }

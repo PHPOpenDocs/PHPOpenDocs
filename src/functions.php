@@ -880,3 +880,70 @@ function mapOpenDocsPageToPsr7(
         $response
     );
 }
+
+
+
+
+
+
+function getAurynFixText(\Auryn\InjectionException $injectionException)
+{
+    switch ($injectionException->getCode()) {
+
+        case (\Auryn\Injector::E_NEEDS_DEFINITION):
+        {
+            $type = $injectionException->getDependencyChain()[0];
+
+            $rc = new ReflectionClass($type);
+            $kind = "Not an interface or abstract class - that's odd.";
+
+            if ($rc->isInterface()) {
+                $kind = 'interface';
+            }
+            else if ($rc->isAbstract()){
+                $kind = 'abstract class';
+            }
+            $message = <<< TEXT
+The type $type is a $kind and so can't be instantiated. You need to alias it to an instantiable class in the injector config. That would look something like:
+<pre>
+
+  \$injector->alias(
+    $type::class,
+    Foo$type::class
+  );
+</pre>
+TEXT;
+
+            return $message;
+        }
+
+//    \Auryn\Injector::E_NON_EMPTY_STRING_ALIAS
+//    \Auryn\Injector::E_SHARED_CANNOT_ALIAS
+//    \Auryn\Injector::E_SHARE_ARGUMENT
+//    \Auryn\Injector::E_ALIASED_CANNOT_SHARE
+//    \Auryn\Injector::E_INVOKABLE
+//    \Auryn\Injector::E_NON_PUBLIC_CONSTRUCTOR
+//
+//    \Auryn\Injector::E_MAKE_FAILURE
+//    \Auryn\Injector::E_UNDEFINED_PARAM
+//    \Auryn\Injector::E_DELEGATE_ARGUMENT
+//    \Auryn\Injector::E_CYCLIC_DEPENDENCY
+//    \Auryn\Injector::E_MAKING_FAILED
+
+
+
+        default:
+        {
+            return null;
+        }
+
+    }
+
+
+
+
+
+}
+
+
+

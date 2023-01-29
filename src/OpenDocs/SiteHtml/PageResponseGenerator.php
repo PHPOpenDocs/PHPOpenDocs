@@ -21,7 +21,7 @@ class PageResponseGenerator
         $statusCode
     ): Response {
 
-        $page = createErrorPage(nl2br($contentHtml));
+        $page = createErrorPage($contentHtml);
 //        $page = createPageHtml($this->assetLinkEmitter, $contentHtml);
         $page = createPageHtml(null, $page);
 

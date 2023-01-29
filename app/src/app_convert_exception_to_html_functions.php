@@ -43,28 +43,6 @@ function parseErrorMapperForApp(\ParseError $parseError, ResponseInterface $resp
     return new \SlimAuryn\Response\HtmlNoCacheResponse($html, [], 500);
 }
 
-function renderAurynInjectionException(
-    \Auryn\InjectionException $injectionException,
-    ResponseInterface $response
-) {
-
-    $text = 'Error creating dependency:<br/>';
-
-    foreach ($injectionException->dependencyChain as $dependency) {
-        $text .= "&nbsp;&nbsp;" . $dependency . "<br/>";
-    }
-
-    $text .= "<br/>";
-    $text .= $injectionException->getMessage();
-    $text .= "<br/>";
-    $text .= getStacktraceForException($injectionException);
-
-    $page = createErrorPage(nl2br($text));
-    $html = createPageHtml(null, $page);
-
-    return new \SlimAuryn\Response\HtmlNoCacheResponse($html, [], 500);
-
-}
 
 function renderMarkdownRendererException(
     \OpenDocs\MarkdownRenderer\MarkdownRendererException $markdownRendererException,
@@ -143,11 +121,17 @@ function renderAurynInjectionExceptionToHtml(
     $text .= "<hr/>";
     $text .= "Stacktrace: <br/>";
 
-
     $text .= "<br/>";
     $text .= getStacktraceForException($injectionException);
 
-    return [nl2br($text), 500];
+    $html = nl2br($text);
+
+    $howToFixHTML = getAurynFixText($injectionException);
+    if ($howToFixHTML !== null) {
+        $html = $howToFixHTML . "<hr/>" . $html;
+    }
+
+    return [$html, 500];
 }
 
 //function renderMarkdownRendererException(

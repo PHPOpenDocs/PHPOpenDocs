@@ -7,20 +7,22 @@ ENV_TO_USE=${ENV_DESCRIPTION:=default}
 
 echo "ENV_TO_USE is ${ENV_TO_USE}";
 
-if [ "/var/app/composer.json" -nt "/var/app/composer.lock" ]
-then
-  printf '%s\n' "composer.json is newer than composer.lock"
+#if [ "/var/app/composer.json" -nt "/var/app/composer.lock" ]
+#then
+#  printf '%s\n' "composer.json is newer than composer.lock"
 
   COMPOSER_TYPE=$(php src/check_composer_command.php)
   echo "composer type is ${COMPOSER_TYPE}";
   if [ "${COMPOSER_TYPE}" = "update" ]; then
       php composer.phar update --no-plugins
+      # update composer.lock time
+      touch composer.lock
   else
-      php composer.phar install
+      php composer.phar install --no-plugins
   fi
-else
-    printf '%s\n' "composer.json is not newer than composer.lock. Skipping install"
-fi
+#else
+#    printf '%s\n' "composer.json is not newer than composer.lock. Skipping install"
+#fi
 
 # Generate config settings used per environment
 php vendor/bin/classconfig \

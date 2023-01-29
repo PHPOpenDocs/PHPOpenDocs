@@ -184,8 +184,6 @@ You can also go directly to the <a href="https://github.com/dstogov/php-extensio
 <h3>Tpunt's articles</h3>
 
 <p>
-
-
   <a href="http://phpinternals.net/articles/optimising_internal_functions_via_new_opcode_instructions">Optimising Internal Functions via New Opcode Instructions</a><br/>
   <a href="http://phpinternals.net/articles/implementing_new_language_constructs_via_opcode_extending">Implementing New Language Constructs via Opcode Extending</a>
   <href="http://phpinternals.net/articles/a_reimplementation_of_the_range_operator">A Reimplementation of the Range Operator</a>
@@ -199,6 +197,9 @@ You can also go directly to the <a href="https://github.com/dstogov/php-extensio
 <p>
   If you're writing C code, you have probably made a poor life choice somewhere, and as a result, you should learn how to use <a href="/learning/debugging/valgrind">valgrind</a> and <a href="/learning/debugging/gdb">GDB</a>.
 </p>
+<p>Valgrind is a tool that checks that you don't have any (detectable) errors accessing memory in your program, such as 'reading from unitialized memory' or 'reading or writing from freed memory'. If you're writing PHP extension, it's worth running your test suite under valgrind before doing a release.</p>
+
+<p>GDB is a command line debugger, that allows you to set breakpoints, step through code, inspect variables, and other things you would expect from a powerful debugger.</p>
 
 <h3>M4</h3>
 <p>
@@ -210,7 +211,10 @@ You can also go directly to the <a href="https://github.com/dstogov/php-extensio
 <p>One thing that is difficult for people new to a community to understand is the etiquette and established attitudes that people who have already been contributing to that project may have. The following links are my <em>personal interpretations</em> of other people's feelings. A.k.a. they are certainly wrong to some extent, but still might be useful.</p>
 <ul>
   <li>
-    <a href='{$section->getPrefix()}/mailing_list'>Mailing list</a> - Mailing list etiquette.
+    <a href='{$section->getPrefix()}/mailing_list'>Mailing list etiquette</a> - Mailing list etiquette specific to PHP Internals
+  </li>
+  <li>
+    <a href='{$section->getPrefix()}/mailing_list_for_younguns'>Mailing list etiquette for younguns</a> - Mailing list etiquette for people who haven't used a mailing list before.
   </li>
 
   <li>
@@ -218,10 +222,9 @@ You can also go directly to the <a href="https://github.com/dstogov/php-extensio
   </li>
   
   <li>
-    <a href='{$section->getPrefix()}/rfc_etiquette'>RFC Etiquette</a> - notes on etiquette surrounding RFCs.
+    <a href='{$section->getPrefix()}/rfc_etiquette'>RFC etiquette</a> - notes on etiquette surrounding RFCs.
   </li>
 </ul>
-
 
 <h2>Miscellaneous info</h2>
 
