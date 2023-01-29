@@ -509,12 +509,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Danack/RfcCodex.git",
-                "reference": "85ae9fb756efbf5c5ba1ddd9a3f141c7cd7c7a3c"
+                "reference": "dd33e67de0e599a78cfc1b199b7b84e0b0ea8836"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Danack/RfcCodex/zipball/85ae9fb756efbf5c5ba1ddd9a3f141c7cd7c7a3c",
-                "reference": "85ae9fb756efbf5c5ba1ddd9a3f141c7cd7c7a3c",
+                "url": "https://api.github.com/repos/Danack/RfcCodex/zipball/dd33e67de0e599a78cfc1b199b7b84e0b0ea8836",
+                "reference": "dd33e67de0e599a78cfc1b199b7b84e0b0ea8836",
                 "shasum": ""
             },
             "default-branch": true,
@@ -534,7 +534,7 @@
                 "issues": "https://github.com/Danack/RfcCodex/issues",
                 "source": "https://github.com/Danack/RfcCodex/tree/master"
             },
-            "time": "2023-01-29T17:07:21+00:00"
+            "time": "2023-01-29T22:17:36+00:00"
         },
         {
             "name": "danack/slim4-auryn-invoker",
