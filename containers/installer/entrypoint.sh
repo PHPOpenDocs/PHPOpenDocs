@@ -7,6 +7,8 @@ ENV_TO_USE=${ENV_DESCRIPTION:=default}
 
 echo "ENV_TO_USE is ${ENV_TO_USE}";
 
+git config --global --add safe.directory /var/app
+
 #if [ "/var/app/composer.json" -nt "/var/app/composer.lock" ]
 #then
 #  printf '%s\n' "composer.json is newer than composer.lock"
