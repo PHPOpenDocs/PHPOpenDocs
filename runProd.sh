@@ -16,4 +16,4 @@ docker-compose -f docker-compose.yml -f docker-compose.prod.yml up  --build --fo
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build --force-recreate nginx php_fpm redis
 
 
-# docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --build --force-recreate varnish nginx php_fpm
+# docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --build --force-recreate nginx php_fpm

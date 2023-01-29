@@ -7,6 +7,7 @@ ENV_TO_USE=${ENV_DESCRIPTION:=default}
 
 echo "ENV_TO_USE is ${ENV_TO_USE}";
 
+git config --global --add safe.directory /var/app
 
 # Generate config settings used per environment
 php vendor/bin/classconfig \
