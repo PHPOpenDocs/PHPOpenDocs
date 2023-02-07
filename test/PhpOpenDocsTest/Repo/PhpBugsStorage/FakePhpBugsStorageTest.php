@@ -8,9 +8,11 @@ use PhpOpenDocs\Model\PhpBugsMaxComment;
 use PhpOpenDocs\Repo\PhpBugsStorage\FakePhpBugsStorage;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @coversNothing
+ */
 class FakePhpBugsStorageTest extends TestCase
 {
-
     public function testGetPhpBugsMaxComment()
     {
         $foo = new FakePhpBugsStorage();

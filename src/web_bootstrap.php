@@ -34,7 +34,6 @@ function showPage(\OpenDocs\Page $page)
         $request = (new ServerRequestFactory)->createServerRequest('GET', '/fake_path');
         $app->map(['GET'], '/fake_path', $callable);
         $app->run($request);
-
     } catch (\Throwable $exception) {
         showTotalErrorPage($exception);
     }

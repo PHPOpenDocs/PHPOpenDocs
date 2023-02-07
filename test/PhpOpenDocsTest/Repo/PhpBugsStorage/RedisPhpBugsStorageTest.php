@@ -8,6 +8,9 @@ use PhpOpenDocs\Model\PhpBugsMaxComment;
 use PhpOpenDocs\Repo\PhpBugsStorage\RedisPhpBugsStorage;
 use PhpOpenDocsTest\BaseTestCase;
 
+/**
+ * @coversNothing
+ */
 class RedisPhpBugsStorageTest extends BaseTestCase
 {
     public function setup()

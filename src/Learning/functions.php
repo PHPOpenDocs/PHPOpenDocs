@@ -19,7 +19,6 @@ use function Internals\createInternalsDefaultCopyrightInfo;
 use function Internals\getInternalsContentLinks;
 use OpenDocs\MarkdownRenderer\PackageMarkdownRenderer;
 
-
 function createGlobalPageInfoForLearning(
     string $html = null,
     string $title = null

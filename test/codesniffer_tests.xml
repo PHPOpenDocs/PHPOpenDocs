@@ -13,6 +13,12 @@
     <exclude-pattern>*migrations*</exclude-pattern>
     <exclude-pattern>*seeds*</exclude-pattern>
 
+<!--    <rule ref="PSR1">-->
+<!--        <exclude name="Methods.CamelCapsMethodName.NotCamelCaps"/>-->
+<!--    </rule>-->
+
+
+
     <rule ref="PSR2">
         <!-- Need to find a way to turn this off for text, before re-enabling -->
         <exclude name="Generic.Files.LineLength.TooLong"/>
@@ -20,6 +26,9 @@
         <!-- I just don't agree with these. -->
         <exclude name="PSR2.ControlStructures.ElseIfDeclaration"/>
         <exclude name="Squiz.ControlStructures.ElseIfDeclaration"/>
+
+        <exclude name="PSR1.Methods.CamelCapsMethodName.NotCamelCaps"/>
+
 
         <!-- TODO make this be newline -->
         <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace"/>
@@ -31,6 +40,8 @@
     <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
         <exclude-pattern>*test_stub_functions.php</exclude-pattern>
         <exclude-pattern>functions.php</exclude-pattern>
+        <exclude-pattern>test/check_site.php</exclude-pattern>
+        <exclude-pattern>test/checkScssColors.php</exclude-pattern>
     </rule>
 
 

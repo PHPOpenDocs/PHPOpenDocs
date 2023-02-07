@@ -10,7 +10,7 @@ use SlimAuryn\Response\StubResponse;
 
 class PageStubResponseGenerator
 {
-    function __construct(private AssetLinkEmitter $assetLinkEmitter)
+    public function __construct(private AssetLinkEmitter $assetLinkEmitter)
     {
     }
 

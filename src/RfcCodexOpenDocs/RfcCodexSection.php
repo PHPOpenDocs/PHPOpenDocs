@@ -15,7 +15,7 @@ class RfcCodexSection extends Section
             'RFC Codex',
             "Discussions ideas for how PHP can be improved, why some ideas haven't come to fruition yet.",
             new \RfcCodexOpenDocs\RfcCodexSectionInfo(),
-//            'https://github.com/PHPOpenDocs/PHPOpenDocs/tree/main'
+            //            'https://github.com/PHPOpenDocs/PHPOpenDocs/tree/main'
             'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main'
         );
     }

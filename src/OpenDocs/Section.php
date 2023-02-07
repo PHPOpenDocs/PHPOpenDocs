@@ -71,6 +71,4 @@ class Section
     {
         return $this->base_edit_url;
     }
-
-
 }

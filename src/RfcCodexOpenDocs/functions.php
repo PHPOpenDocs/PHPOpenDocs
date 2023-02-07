@@ -15,7 +15,6 @@ use OpenDocs\Page;
 use function Learning\createLearningDefaultCopyrightInfo;
 use function Learning\getLearningContentLinks;
 
-
 function getCodexEntry(string $name): RfcCodexEntry|null
 {
     foreach (getUnderDiscussionList() as $codexEntry) {
@@ -172,7 +171,7 @@ function createGlobalPageInfoForRfcCodex(
 ) {
     GlobalPageInfo::create(
         contentHtml: $html,
-        contentLinks: getRfcCodexContentLinks() ,
+        contentLinks: getRfcCodexContentLinks(),
         copyrightInfo: createRfcCodexDefaultCopyrightInfo(),
         section: \RfcCodexOpenDocs\RfcCodexSection::create(),
         title: $title,

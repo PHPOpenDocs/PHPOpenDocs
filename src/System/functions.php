@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types = 1);
 
 use OpenDocs\ContentLink;
 use OpenDocs\GlobalPageInfo;
@@ -32,5 +33,3 @@ function getSystemContentLinks(): array
         ContentLink::level2('/brain_dump', 'Brain dump'),
     ];
 }
-
-

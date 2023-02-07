@@ -63,6 +63,4 @@ class Pages
 
         return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
     }
-
-
 }

@@ -110,5 +110,4 @@ class ExtensionList
     {
         return $this->extensions;
     }
-
 }

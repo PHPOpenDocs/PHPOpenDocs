@@ -7,6 +7,9 @@ namespace PhpOpenDocsTest\Repo\PhpBugsFetcher;
 use PHPUnit\Framework\TestCase;
 use PhpOpenDocs\Repo\PhpBugsFetcher\CurlPhpBugsFetcher;
 
+/**
+ * @coversNothing
+ */
 class CurlPhpBugsFetcherTest extends TestCase
 {
     public function testGetPhpBugsMaxComment()

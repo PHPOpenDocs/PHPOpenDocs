@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace OpenDocs;
 
 use Slim\Interfaces\RouteInterface;
@@ -23,5 +25,4 @@ class HardCodedRouteResolver implements RouteResolverInterface
     {
         throw new \Exception("not implemented");
     }
-
 }

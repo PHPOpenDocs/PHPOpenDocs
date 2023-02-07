@@ -17,7 +17,6 @@ use SlimAuryn\Response\HtmlResponse;
 use SlimAuryn\Response\StubResponse;
 use function SlimAuryn\mapStubResponseToPsr7;
 
-
 ///**
 // * @param array<mixed> $indexes
 // * @return mixed
@@ -863,7 +862,6 @@ function mapOpenDocsPageToPsr7(
     \OpenDocs\Page $page,
     \Psr\Http\Message\ServerRequestInterface $request,
     ResponseInterface $response
-
 ) {
     $html = createPageHtml(
         $page->getSection(),
@@ -887,8 +885,7 @@ function mapOpenDocsPageToPsr7(
 function getAurynFixText(\Auryn\InjectionException $injectionException)
 {
     switch ($injectionException->getCode()) {
-
-        case (\Auryn\Injector::E_NEEDS_DEFINITION):
+        case \Auryn\Injector::E_NEEDS_DEFINITION:
         {
             $type = $injectionException->getDependencyChain()[0];
 
@@ -898,7 +895,7 @@ function getAurynFixText(\Auryn\InjectionException $injectionException)
             if ($rc->isInterface()) {
                 $kind = 'interface';
             }
-            else if ($rc->isAbstract()){
+            else if ($rc->isAbstract()) {
                 $kind = 'abstract class';
             }
             $message = <<< TEXT
@@ -931,10 +928,7 @@ TEXT;
 
 
         default:
-        {
             return null;
-        }
-
     }
 }
 

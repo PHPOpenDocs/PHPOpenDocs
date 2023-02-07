@@ -25,6 +25,9 @@
         <exclude name="PSR2.ControlStructures.ElseIfDeclaration"/>
         <exclude name="Squiz.ControlStructures.ElseIfDeclaration"/>
 
+        <!-- Seems buggy? -->
+        <exclude name="PSR2.ControlStructures.SwitchDeclaration.WrongOpenercase"/>
+
         <!-- TODO make this be newline -->
         <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace"/>
 
@@ -38,9 +41,11 @@
         <exclude-pattern>web_bootstrap.php</exclude-pattern>
     </rule>
 
+
     <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
         <exclude-pattern>src/PHPFunding/Pages.php</exclude-pattern>
         <exclude-pattern>src/PHPFunding/PHPPerson.php</exclude-pattern>
+        <exclude-pattern>src/PhpOpenDocs/Types/PackageMarkdownPage.php</exclude-pattern>
     </rule>
 
     <rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/TypeHints/DeclareStrictTypesSniff.php" >

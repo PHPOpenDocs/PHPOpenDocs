@@ -288,4 +288,3 @@ function createRfcCodexSection()
         new \RfcCodexOpenDocs\RfcCodexSectionInfo()
     );
 }
-

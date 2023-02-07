@@ -7,9 +7,11 @@ namespace PhpOpenDocsTest\Repo\PhpBugsFetcher;
 use PhpOpenDocs\Repo\PhpBugsFetcher\FakePhpBugsFetcher;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @coversNothing
+ */
 class FakePhpBugsFetcherTest extends TestCase
 {
-
     public function testGetPhpBugsMaxComment()
     {
         $bugsFetcher = new FakePhpBugsFetcher();
