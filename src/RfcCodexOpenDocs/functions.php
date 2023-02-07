@@ -7,87 +7,13 @@ namespace RfcCodexOpenDocs;
 use OpenDocs\EditInfo;
 use OpenDocs\ContentLink;
 use OpenDocs\CopyrightInfo;
+use OpenDocs\GlobalPageInfo;
 use OpenDocs\MarkdownRenderer\MarkdownRenderer;
 use OpenDocs\ExternalMarkdownRenderer\ExternalMarkdownRenderer;
 use OpenDocs\BreadcrumbsFactory;
 use OpenDocs\Page;
-
-function createPageFn(
-    string $markdown_path,
-    string $title,
-    string $current_path
-) {
-    $breadcrumbs = [$current_path => $title];
-
-    return function (
-        RfcCodexSection $section,
-        MarkdownRenderer $markdownRenderer,
-        BreadcrumbsFactory $breadcrumbsFactory
-    ) use (
-        $markdown_path,
-        $title,
-        $breadcrumbs,
-        $current_path
-    ) {
-        $fullPath = $markdown_path;
-        $html = $markdownRenderer->renderFile($fullPath);
-
-        $contentLinks = getRfcCodexContentLinks();
-        $editInfo = createPhpOpenDocsEditInfo('Edit page', __FILE__, null);
-
-        $page = Page::createFromHtmlEx2(
-            $title,
-            $html,
-            $editInfo,
-            $breadcrumbsFactory->createFromArray($breadcrumbs),
-            createRfcCodexDefaultCopyrightInfo(),
-            createLinkInfo($current_path, $contentLinks),
-            $section
-        );
-
-        return $page;
-    };
-}
-
-function createRemoteMarkdownPageFn(
-    string $markdown_url,
-    string $title,
-    string $current_path,
-    CopyrightInfo $copyright_info
-) {
-    $breadcrumbs = [$current_path => $title];
-
-    return function (
-        RfcCodexSection $section,
-        ExternalMarkdownRenderer $markdownRenderer,
-        BreadcrumbsFactory $breadcrumbsFactory
-    ) use (
-        $markdown_url,
-        $title,
-        $breadcrumbs,
-        $current_path,
-        $copyright_info
-    ) {
-
-        $html = $markdownRenderer->renderUrl($markdown_url);
-
-        $contentLinks = getRfcCodexContentLinks();
-        $editInfo = createPhpOpenDocsEditInfo('Edit page', __FILE__, null);
-
-        $page = Page::createFromHtmlEx2(
-            $title,
-            $html,
-            $editInfo,
-            $breadcrumbsFactory->createFromArray($breadcrumbs),
-            $copyright_info,
-            createLinkInfo($current_path, $contentLinks),
-            $section
-        );
-
-        return $page;
-    };
-}
-
+use function Learning\createLearningDefaultCopyrightInfo;
+use function Learning\getLearningContentLinks;
 
 function getTitleFromFileName(string $name)
 {
@@ -112,21 +38,29 @@ function getTitleFromFileName(string $name)
 function getUnderDiscussionList()
 {
     $under_discussion_list = [
+        ['Array key casting', 'array_key_casting.md'],
+        ['Auto-capture closure aka multi-line blocks', 'auto_capture_closure.md'],
         ['Better web sapi', 'better_web_sapi.md'],
         ['Call site error or exception control', 'call_site_error_exception_control.md'],
+        ['Chained comparison operators', 'chained_comparison_operators.md'],
+        ['Class method callable', 'class_method_callable.md'],
         ['Class scoping improvements', 'class_scoping_improvements.md'],
+        ['Closure self-reference', 'closure_self_reference.md'],
         ['Consistent callables', 'consistent_callables.md'],
         ['Generics', 'generics.md'],
-        ['Immutable', 'immutable.md'],
         ['Method overloading', 'method_overloading.md'],
         ['Out parameters', 'out_parameters.md'],
+        ['Pipe operator', 'pipe_operator.md'],
         ['Standardise core library', 'standardise_core_library.md'],
         ['Static class initialization', 'static_class_init.md'],
+        ['Strict mode and internal engine callbacks', 'engine_strict_mode_interaction.md'],
         ['Strings/encoding is terrible', 'strings_and_encoding.md'],
         ['Strong typing', 'strong_typing.md'],
         ['Structs', 'structs.md'],
-        ['Ternary right associative', 'ternary_operator_right_associative.md'],
+        ['Template string literals', 'template_literals.md'],
         ['Throws declarations', 'throws_declaration.md'],
+        ['Tuple return declarations', 'tuple_returns.md'],
+        ['Type aliasing', 'type_aliasing.md'],
         ['Typedef callable signatures', 'typedef_callables.md'],
     ];
 
@@ -153,9 +87,12 @@ function getAchievedList()
         ['Briefer closure syntax', 'briefer_closure_syntax.md'],
         ['Co- and contra-variance', 'co_and_contra_variance.md'],
         ['Enums', 'enums.md'],
+        ['Immutables', 'immutable.md'],
         ['Named params', 'named_params.md'],
 //        ['Null short-circuiting', 'https://wiki.php.net/rfc/nullsafe_operator'],
+        ['Null type', 'null_type.md'],
         ['Referencing functions', 'referencing_functions.md'],
+        ['Ternary right associative', 'ternary_operator_right_associative.md'],
         ['Union types', 'union_types.md'],
     ];
 
@@ -217,15 +154,22 @@ function createRfcCodexDefaultCopyrightInfo()
     );
 }
 
-function showRfcCodexResponse($callable)
-{
-    $injector = new \Auryn\Injector();
-    $injectionParams = injectionParams();
-    $injectionParams->addToInjector($injector);
-    $injector->share($injector);
-    $section = $injector->make(\RfcCodexOpenDocs\RfcCodexSection::class);
-    $breadcrumbsFactory = new \OpenDocs\BreadcrumbsFactory($section);
-    $injector->share($breadcrumbsFactory);
 
-    showResponseInternal($callable, $injector);
+function createGlobalPageInfoForRfcCodex(
+    string $html = null,
+    string $title = null
+) {
+    GlobalPageInfo::create(
+        contentHtml: $html,
+        contentLinks: getRfcCodexContentLinks() ,
+        copyrightInfo: createRfcCodexDefaultCopyrightInfo(),
+        section: \RfcCodexOpenDocs\RfcCodexSection::create(),
+        title: $title,
+        current_path: getRequestPath(),
+    );
+
+
+
+    GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
+
 }

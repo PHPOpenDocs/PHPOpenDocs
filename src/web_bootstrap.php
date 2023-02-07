@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 use Laminas\Diactoros\Request;
 use Laminas\Diactoros\ServerRequest;
+use Laminas\Diactoros\ServerRequestFactory;
 
 error_reporting(E_ALL);
 
@@ -13,11 +14,6 @@ set_error_handler('saneErrorHandler');
 
 function showPage(\OpenDocs\Page $page)
 {
-    $injector = new Auryn\Injector();
-    $injectionParams = injectionParams();
-    $injectionParams->addToInjector($injector);
-    $injector->share($injector);
-
     $callable = function () use ($page) {
         $html = createPageHtml(
             null,
@@ -27,20 +23,18 @@ function showPage(\OpenDocs\Page $page)
         return new \SlimAuryn\Response\HtmlResponse($html);
     };
 
+
+    $injector = new Auryn\Injector();
+    $injectionParams = injectionParams();
+    $injectionParams->addToInjector($injector);
+    $injector->share($injector);
+
     try {
-        $container = new \Slim\Container();
-        $container['request'] = function ($container) {
-            $request = Request::createFromEnvironment($container->get('environment'));
-            $uri = $request->getUri();
-            $fakeUri = $uri->withPath('/fake_path');
-            return $request->withUri($fakeUri);
-        };
-
-        $errorHandler = $injector->make(\PhpOpenDocs\AppErrorHandler\AppErrorHandler::class);
-        $app = \createSlimAppForApp($injector, $container, $errorHandler);
+        $app = $injector->make(\Slim\App::class);
+        $request = (new ServerRequestFactory)->createServerRequest('GET', '/fake_path');
         $app->map(['GET'], '/fake_path', $callable);
+        $app->run($request);
 
-        $app->run();
     } catch (\Throwable $exception) {
         showTotalErrorPage($exception);
     }
@@ -48,30 +42,20 @@ function showPage(\OpenDocs\Page $page)
     exit(0);
 }
 
-function showInternalsResponse($callable)
+function showPageResponse($callable)
 {
-    $injector = new Auryn\Injector();
-    $injectionParams = injectionParams();
-    $injectionParams->addToInjector($injector);
-    $injector->share($injector);
-    $section = $injector->make(\Internals\InternalsSection::class);
-    $breadcrumbsFactory = new \OpenDocs\BreadcrumbsFactory($section);
-    $injector->share($breadcrumbsFactory);
+    try {
+        $injector = new Auryn\Injector();
+        // This should be the section injection params?
+        $injectionParams = injectionParams();
+        $injectionParams->addToInjector($injector);
+        $injector->share($injector);
 
-    showResponseInternal($callable, $injector);
-}
-
-function showLearningResponse($callable)
-{
-    $injector = new Auryn\Injector();
-    $injectionParams = injectionParams();
-    $injectionParams->addToInjector($injector);
-    $injector->share($injector);
-    $section = $injector->make(\Learning\LearningSection::class);
-    $breadcrumbsFactory = new \OpenDocs\BreadcrumbsFactory($section);
-    $injector->share($breadcrumbsFactory);
-
-    showResponseInternal($callable, $injector);
+        showResponseInternal($callable, $injector);
+    }
+    catch (\Throwable $exception) {
+        showTotalErrorPage($exception);
+    }
 }
 
 function showResponse($callable)
@@ -91,7 +75,7 @@ function showResponseInternal($callable, Auryn\Injector $injector)
         $app = \createSlimAppForApp($injector, $errorHandler);
         $app->map(['GET'], '/fake_path', $callable);
 
-        $request =  new ServerRequest(
+        $request = new ServerRequest(
             [],
             [],
             '/fake_path',

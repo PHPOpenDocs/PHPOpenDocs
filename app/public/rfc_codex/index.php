@@ -7,17 +7,15 @@ require_once __DIR__ . "/../../../src/web_bootstrap.php";
 use OpenDocs\Page;
 use RfcCodexOpenDocs\RfcCodexEntry;
 use RfcCodexOpenDocs\RfcCodexSection;
-use function RfcCodexOpenDocs\showRfcCodexResponse;
-use function RfcCodexOpenDocs\createRfcCodexDefaultCopyrightInfo;
-use function RfcCodexOpenDocs\getRfcCodexContentLinks;
 use function RfcCodexOpenDocs\getUnderDiscussionList;
 use function RfcCodexOpenDocs\getAchievedList;
+use function RfcCodexOpenDocs\createGlobalPageInfoForRfcCodex;
 
 /**
  * @param RfcCodexEntry[] $links
  * @return string
  */
-function getLinkList($links)
+function getLinkList(RfcCodexSection $section, $links)
 {
     $htmlLines = [];
 
@@ -25,7 +23,8 @@ function getLinkList($links)
         $description = $linkAndDescription->getName();
         $link = $linkAndDescription->getPath();
         $htmlLines[] = sprintf(
-            "<li><a href='%s'>%s</a></li>",
+            "<li><a href='%s/%s'>%s</a></li>",
+            $section->getPrefix(),
             $link,
             $description
         );
@@ -34,14 +33,14 @@ function getLinkList($links)
     return "<ul>" . implode("\n", $htmlLines) . "</ul>";
 }
 
-$fn = function (
-    RfcCodexSection $section,
-    \OpenDocs\BreadcrumbsFactory $breadcrumbsFactory
-) : Page {
 
-    $under_discussion = getLinkList(getUnderDiscussionList());
 
-    $achieved_html = getLinkList(getAchievedList());
+
+function getHtml(RfcCodexSection $section): string
+{
+    $under_discussion = getLinkList($section, getUnderDiscussionList());
+
+    $achieved_html = getLinkList($section, getAchievedList());
 
     $html  = <<< HTML
 
@@ -57,21 +56,6 @@ The purpose of these documents is to avoid information from being lost and to tr
 
 $under_discussion
 
-
-<h2>TODO</h2>
-
-<p>
-These need to be summarised.
-</p>
-
-Async / fibres - this is being worked on.<br/>
-
-Pipe-operator - https://wiki.php.net/rfc/pipe-operator<br/>
-
-Tuple returns - though these would be moot if we had out parameters.<br/>
-
-Type declarations type number = float | int; <br/>
-
 <h2>Ideas that overcame their challenges</h2>
 
 <p>
@@ -79,7 +63,6 @@ Type declarations type number = float | int; <br/>
 </p>
 
 $achieved_html
-
 
 <h2>Things that are probably moot</h2>
 
@@ -98,21 +81,19 @@ Someone asked for a summary of the <a href="/rfc_codex/spl_summary">general issu
 
 HTML;
 
-
-    $page = Page::createFromHtmlEx2(
-        'RFC Codex',
-        $html,
-        createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
-        $breadcrumbsFactory->createFromArray([]),
-        createRfcCodexDefaultCopyrightInfo(),
-        createLinkInfo('/', getRfcCodexContentLinks()),
-        $section
-    );
-
-    return $page;
+    return $html;
 };
 
 
+$fn = function (RfcCodexSection $section): Page
+{
+    createGlobalPageInfoForRfcCodex(
+        title: 'RFC codex',
+        html: getHtml($section)
+    );
+
+    return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
+};
 
 
-showRfcCodexResponse($fn);
+showPageResponse($fn);

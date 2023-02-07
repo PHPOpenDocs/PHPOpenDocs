@@ -16,17 +16,20 @@ class Section
 
     private SectionInfo $sectionInfo;
 
+    private string|null $base_edit_url;
 
     public function __construct(
         string $prefix,
         string $name,
         string $purpose,
-        SectionInfo $sectionInfo
+        SectionInfo $sectionInfo,
+        string $base_edit_url = null
     ) {
         $this->prefix = $prefix;
         $this->name = $name;
         $this->purpose = $purpose;
         $this->sectionInfo = $sectionInfo;
+        $this->base_edit_url = $base_edit_url;
     }
 
     /**
@@ -60,4 +63,14 @@ class Section
     {
         return $this->sectionInfo;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getBaseEditUrl(): ?string
+    {
+        return $this->base_edit_url;
+    }
+
+
 }

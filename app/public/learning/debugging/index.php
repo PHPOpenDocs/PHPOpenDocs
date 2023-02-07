@@ -43,4 +43,4 @@ HTML;
     return $page;
 };
 
-showLearningResponse($fn);
+showResponse($fn);

@@ -9,7 +9,8 @@ use OpenDocs\Page;
 
 $fn = function (
     CSPViolationStorage $cspvStorage,
-    \OpenDocs\BreadcrumbsFactory $breadcrumbsFactory
+//    SystemSection $systemSection
+//    \OpenDocs\BreadcrumbsFactory $breadcrumbsFactory
 ): Page {
 
     $html = <<< HTML
@@ -27,13 +28,22 @@ HTML;
         $html .= "<p>Redis is having a problem: " . $redisException->getMessage() . "</p>";
     }
 
-    $page = \OpenDocs\Page::createFromHtmlEx(
-        'System',
-        $html,
-        createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
-        $breadcrumbsFactory->createFromArray(['/csp_violations' => 'CSP violations'])
+//    $page = \OpenDocs\Page::createFromHtmlEx(
+//        'System',
+//        $html,
+//        createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
+//        $breadcrumbsFactory->createFromArray(['/csp_violations' => 'CSP violations'])
+//    );
+
+
+    createGlobalPageInfoForSystem(
+        title: 'CSP Violations',
+        html: $html
     );
-    return $page;
+
+    return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
+
+//    return $page;
 };
 
-showLearningResponse($fn);
+showResponse($fn);

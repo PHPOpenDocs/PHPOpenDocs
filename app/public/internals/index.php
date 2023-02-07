@@ -6,10 +6,8 @@ require_once __DIR__ . "/../../../src/web_bootstrap.php";
 
 use Internals\InternalsSection;
 
-use OpenDocs\BreadcrumbsFactory;
 use OpenDocs\Page;
-use function Internals\getInternalsContentLinks;
-use function Internals\createInternalsDefaultCopyrightInfo;
+use function Internals\createGlobalPageInfoForInternals;
 
 function get_thomas_example_html()
 {
@@ -96,11 +94,8 @@ function get_dmitry_example_html()
     return "<ul>" . implode("\n", $dmitry_example_entries) . "</ul>";
 }
 
-$fn = function (
-    InternalsSection $section,
-    BreadcrumbsFactory $breadcrumbsFactory
-) : Page {
-
+function getBasicHtml(InternalsSection $section): string
+{
     $thomas_example_html = get_thomas_example_html();
     $dmitry_example_html = get_dmitry_example_html();
 
@@ -183,13 +178,17 @@ You can also go directly to the <a href="https://github.com/dstogov/php-extensio
 
 <h3>Tpunt's articles</h3>
 
-<p>
-  <a href="http://phpinternals.net/articles/optimising_internal_functions_via_new_opcode_instructions">Optimising Internal Functions via New Opcode Instructions</a><br/>
-  <a href="http://phpinternals.net/articles/implementing_new_language_constructs_via_opcode_extending">Implementing New Language Constructs via Opcode Extending</a>
-  <href="http://phpinternals.net/articles/a_reimplementation_of_the_range_operator">A Reimplementation of the Range Operator</a>
-  <a href="http://phpinternals.net/articles/implementing_a_range_operator_into_php">Implementing a Range Operator into PHP</a><br/>
-  <a href="http://phpinternals.net/articles/implementing_a_digit_separator">Implementing a Digit Separator</a><br/>
-</p>
+<ul>
+  <li><a href="http://phpinternals.net/articles/optimising_internal_functions_via_new_opcode_instructions">Optimising Internal Functions via New Opcode Instructions</a></li>
+
+  <li><a href="http://phpinternals.net/articles/implementing_new_language_constructs_via_opcode_extending">Implementing New Language Constructs via Opcode Extending</a></li>
+  
+  <li><a href="http://phpinternals.net/articles/a_reimplementation_of_the_range_operator">A Reimplementation of the Range Operator</a></li>
+  
+  <li><a href="http://phpinternals.net/articles/implementing_a_range_operator_into_php">Implementing a Range Operator into PHP</a></li>
+  
+  <li><a href="http://phpinternals.net/articles/implementing_a_digit_separator">Implementing a Digit Separator</a></li>
+</ul>
 
 <h2>Other stuff</h2>
 
@@ -205,7 +204,6 @@ You can also go directly to the <a href="https://github.com/dstogov/php-extensio
 <p>
   M4 is a macro processor used to configure PHP and PHP extensions. It is <em>somewhat</em> non-intuitive to use, and you may find <a href="https://mbreen.com/m4.html">notes on the M4 Macro Language</a> useful. The fine <a href="https://www.gnu.org/software/m4/manual/html_node/index.html">M4 manual</a> itself is also possibly useful.
 </p>
-
 
 <h2>Etiquette and RFCs</h2>
 <p>One thing that is difficult for people new to a community to understand is the etiquette and established attitudes that people who have already been contributing to that project may have. The following links are my <em>personal interpretations</em> of other people's feelings. A.k.a. they are certainly wrong to some extent, but still might be useful.</p>
@@ -270,23 +268,18 @@ The test suite used by PHP is well documented <a href="https://www.phpinternalsb
     evaluate https://github.com/SammyK/php-internals-getting-started
   </li>
 </ul>
-
-
 HTML;
 
-    $contentLinks = getInternalsContentLinks();
+    return $html;
+}
 
-    $page = Page::createFromHtmlEx2(
-        'Internals',
-        $html,
-        createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
-        $breadcrumbsFactory->createFromArray([]),
-        createInternalsDefaultCopyrightInfo(),
-        createLinkInfo('/', $contentLinks),
-        $section
+$fn = function (InternalsSection $section): Page {
+    createGlobalPageInfoForInternals(
+        title: 'Internals',
+        html: getBasicHtml($section)
     );
 
-    return $page;
+    return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
 };
 
-showLearningResponse($fn);
+showResponse($fn);

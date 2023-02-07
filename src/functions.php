@@ -17,36 +17,37 @@ use SlimAuryn\Response\HtmlResponse;
 use SlimAuryn\Response\StubResponse;
 use function SlimAuryn\mapStubResponseToPsr7;
 
-/**
- * @param array<mixed> $indexes
- * @return mixed
- * @throws Exception
- */
-function getConfig(array $indexes)
-{
-    static $options = null;
-    if ($options === null) {
-        require __DIR__ . '/../config.php';
-        require __DIR__ . '/../autoconf.php';
 
-        $staticConfigOptions = getStaticConfigOptions();
-        $generatedConfigOptions = getGeneratedConfigOptions();
-
-        $options = array_merge_recursive($staticConfigOptions, $generatedConfigOptions);
-    }
-
-    $data = $options;
-
-    foreach ($indexes as $index) {
-        if (array_key_exists($index, $data) === false) {
-            throw new \Exception("Config doesn't contain an element for $index, for indexes [" . implode('|', $indexes) . "]");
-        }
-
-        $data = $data[$index];
-    }
-
-    return $data;
-}
+///**
+// * @param array<mixed> $indexes
+// * @return mixed
+// * @throws Exception
+// */
+//function getConfig(array $indexes)
+//{
+//    static $options = null;
+//    if ($options === null) {
+//        require __DIR__ . '/../config.php';
+//        require __DIR__ . '/../autoconf.php';
+//
+//        $staticConfigOptions = getStaticConfigOptions();
+//        $generatedConfigOptions = getGeneratedConfigOptions();
+//
+//        $options = array_merge_recursive($staticConfigOptions, $generatedConfigOptions);
+//    }
+//
+//    $data = $options;
+//
+//    foreach ($indexes as $index) {
+//        if (array_key_exists($index, $data) === false) {
+//            throw new \Exception("Config doesn't contain an element for $index, for indexes [" . implode('|', $indexes) . "]");
+//        }
+//
+//        $data = $data[$index];
+//    }
+//
+//    return $data;
+//}
 
 
 /**
@@ -667,9 +668,6 @@ function formatLinesWithCount(array $lines): string
     return $output;
 }
 
-
-
-
 function getRandomId(): string
 {
     $foo = random_bytes(32);
@@ -863,7 +861,7 @@ function createLinkInfo(string $currentPosition, array $contentLinks): OpenDocs\
 
 function mapOpenDocsPageToPsr7(
     \OpenDocs\Page $page,
-    \Psr\Http\Message\RequestInterface $request,
+    \Psr\Http\Message\ServerRequestInterface $request,
     ResponseInterface $response
 
 ) {
@@ -938,12 +936,24 @@ TEXT;
         }
 
     }
-
-
-
-
-
 }
 
 
+function setupAllRoutes($app)
+{
+    $sectionList = createSectionList();
+    foreach ($sectionList->getSections() as $section) {
+        $sectionInfo = $section->getSectionInfo();
+        foreach ($sectionInfo->getRoutes() as $route) {
+            $fullPath = $section->getPrefix() . $route->getPath();
+            $routeCallable = $route->getCallable();
+            $slimRoute = $app->map([$route->getMethod()], $fullPath, $routeCallable);
+        }
+    }
 
+    $routes = getAllRoutes();
+    foreach ($routes as $standardRoute) {
+        list($path, $method, $callable) = $standardRoute;
+        $slimRoute = $app->map([$method], $path, $callable);
+    }
+}

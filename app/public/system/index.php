@@ -4,7 +4,8 @@ declare(strict_types = 1);
 
 require_once __DIR__ . "/../../../src/web_bootstrap.php";
 
-use OpenDocs\Breadcrumbs;
+use PhpOpenDocs\SystemSection;
+use OpenDocs\Page;
 
 $html  = <<< HTML
 
@@ -24,12 +25,13 @@ $html  = <<< HTML
 
 HTML;
 
-$page = \OpenDocs\Page::createFromHtmlEx(
-    'System',
-    $html,
-    createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
-    Breadcrumbs::fromArray(['/system' => 'System'])
+
+createGlobalPageInfoForSystem(
+    title: 'System',
+    html: $html
 );
+
+$page = \OpenDocs\Page::createFromHtmlGlobalPageInfo();
 
 showPage($page);
 

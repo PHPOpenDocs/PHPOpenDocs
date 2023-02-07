@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace OpenDocs;
 
+use OpenDocs\GlobalPageInfo;
+
 class Page
 {
     // The title for SEO
@@ -51,6 +53,27 @@ class Page
         $this->copyrightInfo = $copyrightOwner;
         $this->breadcrumbs = $breadcrumbs;
         $this->section = $section;
+    }
+
+    public static function createFromGlobalPage()
+    {
+        $linkInfo = createLinkInfo(
+            GlobalPageInfo::getCurrentPath(),
+            GlobalPageInfo::getContentLinks()
+        );
+
+        $page = new \OpenDocs\Page(
+            GlobalPageInfo::getTitle(),
+            GlobalPageInfo::getEditInfo(),
+            GlobalPageInfo::getContentLinks(),
+            GlobalPageInfo::getPrevNextLinks(),
+            GlobalPageInfo::getContentHtml(),
+            GlobalPageInfo::getCopyrightInfo(),
+            GlobalPageInfo::getBreadcrumbs(),
+            GlobalPageInfo::getSection()
+        );
+
+        return $page;
     }
 
     public static function createFromHtml(
@@ -115,6 +138,27 @@ class Page
         return $page;
     }
 
+
+    public static function createFromHtmlGlobalPageInfo(): Page
+    {
+        $linkInfo = createLinkInfo(
+            GlobalPageInfo::getCurrentPath(),
+            GlobalPageInfo::getContentLinks()
+        );
+
+        $page = new \OpenDocs\Page(
+            GlobalPageInfo::getTitle(),
+            GlobalPageInfo::getEditInfo(),
+            GlobalPageInfo::getContentLinks(),
+            $linkInfo->getPrevNextLinks(),
+            GlobalPageInfo::getContentHtml(),
+            GlobalPageInfo::getCopyrightInfo(),
+            GlobalPageInfo::getBreadcrumbs(),
+            GlobalPageInfo::getSection()
+        );
+
+        return $page;
+    }
 
 
 

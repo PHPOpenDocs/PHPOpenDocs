@@ -10,9 +10,55 @@ use OpenDocs\EditInfo;
 use OpenDocs\ContentLink;
 use OpenDocs\CopyrightInfo;
 use OpenDocs\ExternalMarkdownRenderer\ExternalMarkdownRenderer;
+use OpenDocs\GlobalPageInfo;
 use OpenDocs\MarkdownRenderer\MarkdownRenderer;
 use OpenDocs\Page;
+use PhpOpenDocs\Types\PackageMarkdownPage;
+
+use function Internals\createInternalsDefaultCopyrightInfo;
 use function Internals\getInternalsContentLinks;
+use OpenDocs\MarkdownRenderer\PackageMarkdownRenderer;
+
+
+function createGlobalPageInfoForLearning(
+    string $html = null,
+    string $title = null
+) {
+    GlobalPageInfo::create(
+        contentHtml: $html,
+        contentLinks: getLearningContentLinks(),
+        copyrightInfo: createLearningDefaultCopyrightInfo(),
+        section: \Learning\LearningSection::create(),
+        title: $title,
+        current_path: getRequestPath(),
+    );
+}
+
+
+function createMarkdownPackagePageFnLearning(
+    PackageMarkdownPage $packageMarkdownPage,
+    string $title
+) {
+    createGlobalPageInfoForLearning(null, $title);
+
+    GlobalPageInfo::addMarkDownEditInfo("Edit content", $packageMarkdownPage);
+    GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
+    GlobalPageInfo::setTitleFromCurrentPath();
+    GlobalPageInfo::setBreadcrumbsFromArray(["blah" /*$current_path*/ => $title]);
+
+    return function (
+        PackageMarkdownRenderer $markdownRenderer
+    ) use (
+        $packageMarkdownPage,
+    ) {
+        $html = $markdownRenderer->render($packageMarkdownPage);
+
+        GlobalPageInfo::setContentHtml($html);
+
+        return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
+    };
+}
+
 
 function getLearningContentLinks(): array
 {
@@ -30,7 +76,6 @@ function getLearningContentLinks(): array
 
         ContentLink::level1(null, "Library recommendations"),
         ContentLink::level2('/php_static_analysis_tools', 'Static analysis tools'),
-
 
         ContentLink::level1('/debugging', "Debugging"),
         ContentLink::level2('/debugging/xdebug.php', 'Xdebug'),

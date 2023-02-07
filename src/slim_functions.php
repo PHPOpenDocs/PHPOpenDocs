@@ -51,7 +51,6 @@ function setupSlimAurynInvoker(
     $injector->share(createSystemSection());
     $injector->share(createRfcCodexSection());
 
-
     $invokerRouteParams = new RouteParams($routeArguments);
     $injector->share($invokerRouteParams);
 

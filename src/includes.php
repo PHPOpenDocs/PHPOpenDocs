@@ -13,5 +13,6 @@ require_once __DIR__ . "/../config.generated.php";
 require_once __DIR__ . "/../app/src/app_injection_params.php";
 require_once __DIR__ . '/../app/src/app_convert_exception_to_html_functions.php';
 require_once __DIR__ . '/../app/src/app_factories.php';
+require_once __DIR__ . '/../app/src/app_functions.php';
 require_once __DIR__ . '/../app/src/app_routes.php';
 

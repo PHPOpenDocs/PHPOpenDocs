@@ -11,80 +11,90 @@ use OpenDocs\MarkdownRenderer\MarkdownRenderer;
 use OpenDocs\ExternalMarkdownRenderer\ExternalMarkdownRenderer;
 use OpenDocs\BreadcrumbsFactory;
 use OpenDocs\Page;
+use OpenDocs\GlobalPageInfo;
+use OpenDocs\MarkdownRenderer\PackageMarkdownRenderer;
+use PhpOpenDocs\Types\PackageMarkdownPage;
+use PhpOpenDocs\Types\RemoteMarkdownPage;
 
-function createPageFn(
-    string $markdown_path,
-    string $title,
-    string $current_path
+function createGlobalPageInfoForInternals(
+    string $html = null,
+    string $title = null
 ) {
-    $breadcrumbs = [$current_path => $title];
+    GlobalPageInfo::create(
+        contentHtml: $html,
+        contentLinks: getInternalsContentLinks(),
+        copyrightInfo: createInternalsDefaultCopyrightInfo(),
+        section: \Internals\InternalsSection::create(),
+        title: $title,
+        current_path: getRequestPath(),
+    );
+}
+
+function createGlobalPageInfo2(
+    CopyrightInfo $copyrightInfo,
+    EditInfo $editInfo
+) {
+    GlobalPageInfo::create(
+        contentLinks: getInternalsContentLinks(),
+        copyrightInfo: $copyrightInfo,
+        section: \Internals\InternalsSection::create(),
+        editInfo: $editInfo
+    );
+}
+
+
+function createMarkdownPackagePageFnInternals(
+    PackageMarkdownPage $packageMarkdownPage,
+    string $title,
+) {
+    createGlobalPageInfoForInternals();
+
+    GlobalPageInfo::addMarkDownEditInfo("Edit content", $packageMarkdownPage);
+    GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
+    GlobalPageInfo::setTitleFromCurrentPath();
+    GlobalPageInfo::setBreadcrumbsFromArray(["blah" /*$current_path*/ => $title]);
 
     return function (
-        InternalsSection $section,
-        MarkdownRenderer $markdownRenderer,
-        BreadcrumbsFactory $breadcrumbsFactory
+        PackageMarkdownRenderer $markdownRenderer
     ) use (
-        $markdown_path,
-        $title,
-        $breadcrumbs,
-        $current_path
+        $packageMarkdownPage,
     ) {
-        $fullPath = $markdown_path;
-        $html = $markdownRenderer->renderFile($fullPath);
+        $html = $markdownRenderer->render($packageMarkdownPage);
 
-        $contentLinks = getInternalsContentLinks();
-        $editInfo = createPhpOpenDocsEditInfo('Edit page', __FILE__, null);
+        GlobalPageInfo::setContentHtml($html);
 
-        $page = Page::createFromHtmlEx2(
-            $title,
-            $html,
-            $editInfo,
-            $breadcrumbsFactory->createFromArray($breadcrumbs),
-            createInternalsDefaultCopyrightInfo(),
-            createLinkInfo($current_path, $contentLinks),
-            $section
-        );
-
-        return $page;
+        return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
     };
 }
 
 function createRemoteMarkdownPageFn(
-    string $markdown_url,
+    RemoteMarkdownPage $remoteMarkdownPage,
     string $title,
-    string $current_path,
     CopyrightInfo $copyright_info
 ) {
-    $breadcrumbs = [$current_path => $title];
+    createGlobalPageInfoForInternals();
+
+    GlobalPageInfo::addRemoteMarkDownEditInfo("Edit content", $remoteMarkdownPage);
+    GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
+    GlobalPageInfo::setTitle($title);
+//    $gPageInfo->setCurrentPath($current_path);
+    GlobalPageInfo::setTitleFromCurrentPath();
+//    $gPageInfo->setBreadcrumbsFromArray([$current_path => $title]);
+
+    GlobalPageInfo::addCopyrightInfo($copyright_info);
 
     return function (
-        InternalsSection $section,
         ExternalMarkdownRenderer $markdownRenderer,
-        BreadcrumbsFactory $breadcrumbsFactory
     ) use (
-        $markdown_url,
-        $title,
-        $breadcrumbs,
-        $current_path,
-        $copyright_info
+        $remoteMarkdownPage,
     ) {
 
+        $markdown_url = $remoteMarkdownPage->getEditUrl();
         $html = $markdownRenderer->renderUrl($markdown_url);
 
-        $contentLinks = getInternalsContentLinks();
-        $editInfo = createPhpOpenDocsEditInfo('Edit page', __FILE__, null);
+        GlobalPageInfo::setContentHtml($html);
 
-        $page = Page::createFromHtmlEx2(
-            $title,
-            $html,
-            $editInfo,
-            $breadcrumbsFactory->createFromArray($breadcrumbs),
-            $copyright_info,
-            createLinkInfo($current_path, $contentLinks),
-            $section
-        );
-
-        return $page;
+        return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
     };
 }
 
@@ -97,43 +107,31 @@ function createRemoteMarkdownPageFn(
  * @return \Closure
  */
 function createRemoteMarkdownPageFnEx(
-    string $markdown_url,
+    RemoteMarkdownPage $remoteMarkdownPage,
     string $title,
     string $current_path,
     CopyrightInfo $copyright_info,
     EditInfo $editInfo
 ) {
-    $breadcrumbs = [$current_path => $title];
+    \Internals\createGlobalPageInfo2($copyright_info, $editInfo);
+
+    GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
+    GlobalPageInfo::setTitle($title);
+    GlobalPageInfo::setCurrentPath($current_path);
+    GlobalPageInfo::setBreadcrumbsFromArray([$current_path => $title]);
 
     return function (
-        InternalsSection $section,
         ExternalMarkdownRenderer $markdownRenderer,
-        BreadcrumbsFactory $breadcrumbsFactory
     ) use (
-        $markdown_url,
+        $remoteMarkdownPage,
         $title,
-        $breadcrumbs,
-        $current_path,
-        $copyright_info,
-        $editInfo
     ) {
-
+        $markdown_url = $remoteMarkdownPage->getEditUrl();
         $html = $markdownRenderer->renderUrl($markdown_url);
 
-        $contentLinks = getInternalsContentLinks();
-//        $editInfo = createPHPOpenDocsEditInfo('Edit page', __FILE__, null);
+        GlobalPageInfo::setContentHtml($html);
 
-        $page = Page::createFromHtmlEx2(
-            $title,
-            $html,
-            $editInfo,
-            $breadcrumbsFactory->createFromArray($breadcrumbs),
-            $copyright_info,
-            createLinkInfo($current_path, $contentLinks),
-            $section
-        );
-
-        return $page;
+        return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
     };
 }
 
@@ -169,7 +167,7 @@ function createEditInfo(string $description, string $file, ?int $line): EditInfo
     return new EditInfo([$description => $link]);
 }
 
-function createInternalsDefaultCopyrightInfo()
+function createInternalsDefaultCopyrightInfo(): CopyrightInfo
 {
     return new CopyrightInfo(
         'PHP OpenDocs',

@@ -28,6 +28,8 @@ class ContentLink
         $this->level = $level;
     }
 
+
+
     public static function level1(?string $path, string $description)
     {
         return new self($path, $description, 1);
@@ -59,7 +61,16 @@ class ContentLink
         return $this->description;
     }
 
-    /**
+    public function getContentLinkWithSection(\OpenDocs\Section $section)
+    {
+        return new self(
+            $section->getPrefix() . '/' .$this->path,
+            $this->description,
+            $this->level
+        );
+    }
+
+        /**
      * @return int
      */
     public function getLevel(): int

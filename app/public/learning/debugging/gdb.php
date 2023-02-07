@@ -34,4 +34,4 @@ $fn = function (
     return $page;
 };
 
-showLearningResponse($fn);
+showResponse($fn);

@@ -7,10 +7,12 @@ namespace RfcCodexOpenDocs;
 use OpenDocs\Breadcrumb;
 use OpenDocs\Breadcrumbs;
 use OpenDocs\CopyrightInfo;
+use OpenDocs\GlobalPageInfo;
 use OpenDocs\MarkdownRenderer\MarkdownRenderer;
 use OpenDocs\Page;
 use OpenDocs\PrevNextLinks;
 use OpenDocs\ContentLink;
+use OpenDocs\EditInfo;
 use RfcCodexOpenDocs\RfcCodexSection;
 use function RfcCodexOpenDocs\getAchievedList;
 use function RfcCodexOpenDocs\getUnderDiscussionList;
@@ -26,33 +28,33 @@ class Pages
     }
 
 
-    /**
-     * @return ContentLink[]
-     */
-    public function getContentLinks(): array
-    {
-        $links = [];
-
-        $links[] = ContentLink::level1(null, 'Under discussion');
-
-        foreach (getUnderDiscussionList() as $under_discussion_entry) {
-            $links[] = ContentLink::level2(
-                '/' . $under_discussion_entry->getPath(),
-                $under_discussion_entry->getName()
-            );
-        }
-
-        $links[] = ContentLink::level1(null, 'Ideas that overcame their challenges');
-
-        foreach (getAchievedList() as $achieved_entry) {
-            $links[] = ContentLink::level2(
-                '/' . $achieved_entry->getPath(),
-                $achieved_entry->getName()
-            );
-        }
-
-        return $links;
-    }
+//    /**
+//     * @return ContentLink[]
+//     */
+//    public function getContentLinks(): array
+//    {
+//        $links = [];
+//
+//        $links[] = ContentLink::level1(null, 'Under discussion');
+//
+//        foreach (getUnderDiscussionList() as $under_discussion_entry) {
+//            $links[] = ContentLink::level2(
+//                '/' . $under_discussion_entry->getPath(),
+//                $under_discussion_entry->getName()
+//            );
+//        }
+//
+//        $links[] = ContentLink::level1(null, 'Ideas that overcame their bhallenges');
+//
+//        foreach (getAchievedList() as $achieved_entry) {
+//            $links[] = ContentLink::level2(
+//                '/' . $achieved_entry->getPath(),
+//                $achieved_entry->getName()
+//            );
+//        }
+//
+//        return $links;
+//    }
 
     private function getContents($name): ?string
     {
@@ -76,10 +78,13 @@ class Pages
         }
 
         $title = getTitleFromFileName($name);
+        $edit_url = $section->getBaseEditUrl() . '/' . normaliseFilePath(__FILE__);
+
+        $edit_info = new EditInfo(['Edit page' => $edit_url]);
 
         return new Page(
             'RFC Codex - ' . $title,
-            createDefaultEditInfo(),
+            $edit_info, //createDefaultEditInfo(),
             getRfcCodexContentLinks(),
             createPrevNextLinksFromContentLinks(getRfcCodexContentLinks(), $name),
             $contents,
@@ -89,27 +94,5 @@ class Pages
         );
     }
 
-    public function getIndexPage(RfcCodexSection $section): Page
-    {
-        $fullPath = __DIR__ . "/../../vendor/danack/rfc-codex/rfc_codex.md";
-        $markdown = file_get_contents($fullPath);
-        $contents = $this->markdownRenderer->render($markdown);
 
-        $contents = str_replace(
-            "https://github.com/Danack/RfcCodex/blob/master",
-            $section->getPrefix(),
-            $contents
-        );
-
-        return new Page(
-            'Rfc Codex',
-            createDefaultEditInfo(),
-            getRfcCodexContentLinks(),
-            new PrevNextLinks(null, null),
-            $contents,
-            new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
-            $breadcrumbs = new Breadcrumbs(),
-            $section
-        );
-    }
 }

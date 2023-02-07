@@ -4,12 +4,12 @@ declare(strict_types = 1);
 
 require_once __DIR__ . "/../../../src/web_bootstrap.php";
 
-use function Learning\createPageFn;
+use PhpOpenDocs\Types\PackageMarkdownPage;
+use function Learning\createMarkdownPackagePageFnLearning;
 
-$fn = createPageFn(
-    __DIR__ . "/../../../src/Learning/docs/best_practice_shorts.md",
+$fn = createMarkdownPackagePageFnLearning(
+    PackageMarkdownPage::Learning("docs/best_practice_shorts.md"),
     'Best practice shorts',
-    '/best_practice_shorts'
 );
 
-showInternalsResponse($fn);
+showPageResponse($fn);

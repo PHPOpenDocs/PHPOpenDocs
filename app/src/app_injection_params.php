@@ -12,12 +12,12 @@ function injectionParams()
         \PhpOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
         \PhpOpenDocs\Service\RequestNonce::class,
         \OpenDocs\SectionList::class,
-        createInternalsSection(),
-        createLearningSection(),
-        createMerchSection(),
-        createNamingThingsSection(),
-        createSystemSection(),
-        createRfcCodexSection(),
+//        createInternalsSection(),
+//        createLearningSection(),
+//        createMerchSection(),
+//        createNamingThingsSection(),
+//        createSystemSection(),
+//        createRfcCodexSection(),
     ];
 
     // Alias interfaces (or classes) to the actual types that should be used
@@ -50,6 +50,7 @@ function injectionParams()
         \PhpOpenDocs\AppErrorHandler\AppErrorHandler::class => 'createHtmlAppErrorHandler',
         \Redis::class => 'createRedis',
         \PhpOpenDocs\Data\ApiDomain::class => 'createApiDomain',
+        \OpenDocs\RequestPath::class => 'createRequestPath',
     ];
 
     // Define some params that can be injected purely by name.

@@ -204,45 +204,23 @@ function createSectionList(): \OpenDocs\SectionList
 {
     $sections = [];
 
-    $sections[] = createLearningSection();
-
-//        new \OpenDocs\Section(
-//        '/learning',
-//        'Learning',
-//        'So you want/have been forced to learn PHP?',
-//        new \Learning\LearningSectionInfo
-//    );
-
-    $sections[] = new \OpenDocs\Section(
-        '/naming',
-        'Naming things',
-        'Naming things is one of the most difficult problems ever.',
-        new \NamingThings\NamingThingsSectionInfo
-    );
-
-    $sections[] = new \OpenDocs\Section(
-        '/rfc_codex',
-        'RFC Codex',
-        "Discussions ideas for how PHP can be improved, why some ideas haven't come to fruition yet.",
-        new \RfcCodexOpenDocs\RfcCodexSectionInfo()
-    );
-
+    $sections[] = \Learning\LearningSection::create();
+    $sections[] = \NamingThings\NamingThingsSection::create();
+    $sections[] = \RfcCodexOpenDocs\RfcCodexSection::create();
     $sections[] = new \OpenDocs\Section(
         '/sponsoring',
         'Sponsoring',
         'How to give money to people who work on PHP core or documentation.',
         new \PHPFunding\PHPFundingSectionInfo
     );
+//    $sections[] = new \OpenDocs\Section(
+//        '/work',
+//        'Work',
+//        'Distributing the work load required to support PHP',
+//        new \Work\WorkSectionInfo
+//    );
 
-
-    $sections[] = new \OpenDocs\Section(
-        '/work',
-        'Work',
-        'Distributing the work load required to support PHP',
-        new \Work\WorkSectionInfo
-    );
-
-    $sections[] = createInternalsSection();
+    $sections[] = \Internals\InternalsSection::create();
 
     return new \OpenDocs\SectionList($sections);
 }
@@ -310,3 +288,4 @@ function createRfcCodexSection()
         new \RfcCodexOpenDocs\RfcCodexSectionInfo()
     );
 }
+

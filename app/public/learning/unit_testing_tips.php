@@ -17,4 +17,4 @@ $fn = createRemoteMarkdownPageFn(
     $copyright_info
 );
 
-showLearningResponse($fn);
+showResponse($fn);

@@ -5,16 +5,13 @@ declare(strict_types = 1);
 require_once __DIR__ . "/../../../src/web_bootstrap.php";
 
 use Learning\LearningSection;
-use OpenDocs\ContentLink;
 use OpenDocs\Page;
 use function Learning\getLearningContentLinks;
 use function Learning\createLearningDefaultCopyrightInfo;
+use function Learning\createGlobalPageInfoForLearning;
 
-$fn = function (
-    LearningSection $section,
-    \OpenDocs\BreadcrumbsFactory $breadcrumbsFactory
-) : Page {
-
+function getHtml(LearningSection $section)
+{
     $html  = <<< HTML
 <h1>Learning PHP</h1>
 
@@ -69,19 +66,19 @@ So you want to learn some PHP ?
   </li>
 </ul>
 HTML;
-    $contentLinks = getLearningContentLinks();
 
-    $page = Page::createFromHtmlEx2(
-        'Learning',
-        $html,
-        createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
-        $breadcrumbsFactory->createFromArray([]),
-        createLearningDefaultCopyrightInfo(),
-        createLinkInfo('/', $contentLinks),
-        $section
+    return $html;
+}
+
+$fn = function (LearningSection $section): Page
+{
+    createGlobalPageInfoForLearning(
+        title: 'Learning',
+        html: getHtml($section)
     );
 
-    return $page;
+    return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
 };
 
-showLearningResponse($fn);
+
+showResponse($fn);

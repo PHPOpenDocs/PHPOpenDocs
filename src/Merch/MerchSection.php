@@ -8,5 +8,13 @@ use OpenDocs\Section;
 
 class MerchSection extends Section
 {
-
+    public static function create()
+    {
+        return new self(
+            '/merch',
+            'Merch',
+            'PHP related things to buy',
+            new \Merch\MerchSectionInfo()
+        );
+    }
 }

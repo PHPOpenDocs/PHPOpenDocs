@@ -53,6 +53,14 @@ function createJsonAppErrorHandler(\Auryn\Injector $injector) : \PhpOpenDocs\App
 }
 
 
+function createHardcodedRouteSlimApp(
+    $callable,
+    Injector $injector,
+    \PhpOpenDocs\AppErrorHandler\AppErrorHandler $appErrorHandler
+) {
+
+}
+
 /**
  * @param Injector $injector
  * @param \PhpOpenDocs\AppErrorHandler\AppErrorHandler $appErrorHandler
@@ -70,7 +78,7 @@ function createSlimAppForApp(
     );
 
     $app = new \Slim\App(
-    /* ResponseFactoryInterface */ $responseFactory = new ResponseFactory(),
+        /* ResponseFactoryInterface */ $responseFactory = new ResponseFactory(),
         /* ?ContainerInterface */ $container = null,
         /* ?CallableResolverInterface */ $callableResolver,
         /* ?RouteCollectorInterface */ $routeCollector = null,
@@ -327,4 +335,14 @@ function createRedis()
     $redis->ping();
 
     return $redis;
+}
+
+
+
+
+
+function createRequestPath()
+{
+//    $_SERVER["REQUEST_URI"]=> string(24) "/internals/rfc_etiquette"
+    return new \OpenDocs\RequestPath($_SERVER["REQUEST_URI"]);
 }

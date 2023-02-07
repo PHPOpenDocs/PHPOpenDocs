@@ -10,32 +10,47 @@ use OpenDocs\MarkdownRenderer\MarkdownRenderer;
 use OpenDocs\BreadcrumbsFactory;
 use function Learning\getLearningContentLinks;
 
-$fn = function (
-    LearningSection $section,
-    MarkdownRenderer $markdownRenderer,
-    BreadcrumbsFactory $breadcrumbsFactory
-) {
-    $fullPath = __DIR__ . "/../../../src/Learning/docs/archive_java_exception_antipatterns.md";
-    $html = $markdownRenderer->renderFile($fullPath);
+//$fn = function (
+//    LearningSection $section,
+//    MarkdownRenderer $markdownRenderer,
+//    BreadcrumbsFactory $breadcrumbsFactory
+//) {
+//    $fullPath = __DIR__ . "/../../../src/Learning/docs/archive_java_exception_antipatterns.md";
+//    $html = $markdownRenderer->renderFile($fullPath);
+//
+//    $contentLinks = getLearningContentLinks();
+//
+//    $page = \OpenDocs\Page::createFromHtmlEx2(
+//        'Java Exception Antipatterns',
+//        $html,
+//        createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
+//        $breadcrumbsFactory->createFromArray([
+//            '/java_exception_antipatterns' => 'Java Exception Antipatterns'
+//        ]),
+//        new CopyrightInfo(
+//            'Tim McCune',
+//            'https://github.com/Danack/RfcCodex/blob/master/LICENSE'
+//        ),
+//        createLinkInfo('/java_exception_antipatterns', $contentLinks),
+//        $section
+//    );
+//
+//    return convertPageToHtmlResponse($section, $page);
+//};
 
-    $contentLinks = getLearningContentLinks();
+use OpenDocs\GlobalPageInfo;
+use PhpOpenDocs\Types\PackageMarkdownPage;
+use function Learning\createMarkdownPackagePageFnLearning;
 
-    $page = \OpenDocs\Page::createFromHtmlEx2(
-        'Java Exception Antipatterns',
-        $html,
-        createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
-        $breadcrumbsFactory->createFromArray([
-            '/java_exception_antipatterns' => 'Java Exception Antipatterns'
-        ]),
-        new CopyrightInfo(
-            'Tim McCune',
-            'https://github.com/Danack/RfcCodex/blob/master/LICENSE'
-        ),
-        createLinkInfo('/java_exception_antipatterns', $contentLinks),
-        $section
-    );
+$fn = createMarkdownPackagePageFnLearning(
+    PackageMarkdownPage::Learning("docs/archive_java_exception_antipatterns.md"),
+    'Java Exception Antipatterns',
+);
 
-    return convertPageToHtmlResponse($section, $page);
-};
+GlobalPageInfo::addCopyright('Tim McCune');
 
-showLearningResponse($fn);
+
+
+showPageResponse($fn);
+
+showResponse($fn);

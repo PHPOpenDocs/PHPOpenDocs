@@ -33,6 +33,7 @@ services:
   php_fpm_debug:
     environment:
       - ENV_DESCRIPTION=default,local
+      - PHP_IDE_CONFIG=serverName=PHP_PHPOPENDOCS_DEBUG
   redis:
     ports:
       - "6379:6379"
