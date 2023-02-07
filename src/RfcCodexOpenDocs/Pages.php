@@ -27,35 +27,6 @@ class Pages
         $this->markdownRenderer = $markdownRenderer;
     }
 
-
-//    /**
-//     * @return ContentLink[]
-//     */
-//    public function getContentLinks(): array
-//    {
-//        $links = [];
-//
-//        $links[] = ContentLink::level1(null, 'Under discussion');
-//
-//        foreach (getUnderDiscussionList() as $under_discussion_entry) {
-//            $links[] = ContentLink::level2(
-//                '/' . $under_discussion_entry->getPath(),
-//                $under_discussion_entry->getName()
-//            );
-//        }
-//
-//        $links[] = ContentLink::level1(null, 'Ideas that overcame their bhallenges');
-//
-//        foreach (getAchievedList() as $achieved_entry) {
-//            $links[] = ContentLink::level2(
-//                '/' . $achieved_entry->getPath(),
-//                $achieved_entry->getName()
-//            );
-//        }
-//
-//        return $links;
-//    }
-
     private function getContents($name): ?string
     {
         $name = preg_replace("#([^a-zA-Z_])*#iu", "", $name);
@@ -71,27 +42,26 @@ class Pages
     public function getPage(RfcCodexSection $section, $name): Page
     {
         $contents = $this->getContents($name);
-
         if ($contents === null) {
             // TODO
             $contents = "This should be a 404 page.";
         }
 
-        $title = getTitleFromFileName($name);
-        $edit_url = $section->getBaseEditUrl() . '/' . normaliseFilePath(__FILE__);
+        $codexEntry = getCodexEntry($name);
 
-        $edit_info = new EditInfo(['Edit page' => $edit_url]);
+        $title = $codexEntry->getName();
 
-        return new Page(
-            'RFC Codex - ' . $title,
-            $edit_info, //createDefaultEditInfo(),
-            getRfcCodexContentLinks(),
-            createPrevNextLinksFromContentLinks(getRfcCodexContentLinks(), $name),
-            $contents,
-            new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
-            $breadcrumbs = new Breadcrumbs(new Breadcrumb($name, $title)),
-            $section
+        createGlobalPageInfoForRfcCodex(
+            title: 'RFC Codex - ' . $title,
+            html: $contents
         );
+
+        GlobalPageInfo::addEditInfoFromStrings(
+            'Edit content',
+            'https://github.com/Danack/RfcCodex/blob/master/' . $codexEntry->getFilename()
+        );
+
+        return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
     }
 
 

@@ -141,8 +141,15 @@ class Page
 
     public static function createFromHtmlGlobalPageInfo(): Page
     {
+        $prefix = GlobalPageInfo::getSection()->getPrefix();
+        $request_path = getRequestPath();
+
+        if (str_starts_with($request_path, $prefix) === true) {
+            $request_path = substr($request_path, strlen($prefix));
+        }
+
         $linkInfo = createLinkInfo(
-            GlobalPageInfo::getCurrentPath(),
+            $request_path,
             GlobalPageInfo::getContentLinks()
         );
 

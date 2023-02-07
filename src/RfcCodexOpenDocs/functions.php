@@ -15,21 +15,32 @@ use OpenDocs\Page;
 use function Learning\createLearningDefaultCopyrightInfo;
 use function Learning\getLearningContentLinks;
 
-function getTitleFromFileName(string $name)
+
+function getCodexEntry(string $name): RfcCodexEntry|null
 {
     foreach (getUnderDiscussionList() as $codexEntry) {
         if ($codexEntry->getPath() === $name) {
-            return $codexEntry->getName();
+            return $codexEntry;
         }
     }
 
     foreach (getAchievedList() as $codexEntry) {
         if ($codexEntry->getPath() === $name) {
-            return $codexEntry->getName();
+            return $codexEntry;
         }
     }
+    return null;
+}
 
-    return $name;
+function getTitleFromFileName(string $name)
+{
+    $codexEntry = getCodexEntry($name);
+
+    if ($codexEntry === null) {
+        return null;
+    }
+
+    return $codexEntry->getName();
 }
 
 /**
@@ -133,18 +144,18 @@ function getRfcCodexContentLinks(): array
     return $links;
 }
 
-function createEditInfo(string $description, string $file, ?int $line): EditInfo
-{
-    $path = normaliseFilePath($file);
-
-    $link = 'https://github.com/Danack/RfcCodex/blob/main/' . $path;
-
-    if ($link !== null) {
-        $link .= '#L' . $line;
-    }
-
-    return new EditInfo([$description => $link]);
-}
+//function createEditInfo(string $description, string $file, ?int $line): EditInfo
+//{
+//    $path = normaliseFilePath($file);
+//
+//    $link = 'https://github.com/Danack/RfcCodex/blob/main/' . $path;
+//
+//    if ($link !== null) {
+//        $link .= '#L' . $line;
+//    }
+//
+//    return new EditInfo([$description => $link]);
+//}
 
 function createRfcCodexDefaultCopyrightInfo()
 {
@@ -168,8 +179,17 @@ function createGlobalPageInfoForRfcCodex(
         current_path: getRequestPath(),
     );
 
-
+//    $prefix = GlobalPageInfo::getSection()->getPrefix();
+//
+//    $request_path = getRequestPath();
+//
+//    if (str_starts_with($request_path, $prefix) === true) {
+//        $request_path = substr($request_path, strlen($prefix));
+//    }
+//
+//    GlobalPageInfo::setPrevNextLinks(
+//        createPrevNextLinksFromContentLinks(getRfcCodexContentLinks(), $request_path)
+//    );
 
     GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
-
 }

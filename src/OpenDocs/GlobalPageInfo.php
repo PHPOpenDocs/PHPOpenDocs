@@ -2,6 +2,7 @@
 
 namespace OpenDocs;
 
+use OpenDocs\PrevNextLinks;
 use PhpOpenDocs\Types\PackageMarkdownPage;
 use PhpOpenDocs\Types\RemoteMarkdownPage;
 
@@ -15,6 +16,7 @@ class GlobalPageInfo
     private static string|null $title = null;
     private static string|null $current_path = null;
     private static Breadcrumbs|null $breadcrumbs = null;
+    private static PrevNextLinks|null $prevNextLinks = null;
 
     private function __construct()
     {
@@ -27,7 +29,8 @@ class GlobalPageInfo
         Section $section = null,
         EditInfo $editInfo = null,
         string $title = null,
-        string $current_path = null
+        string $current_path = null,
+        PrevNextLinks $prevNextLinks = null
     ) {
 
         self::$contentHtml = $contentHtml;
@@ -37,8 +40,8 @@ class GlobalPageInfo
         self::$editInfo = $editInfo ?? new EditInfo([]);
         self::$title = $title;
         self::$current_path = $current_path;
-
         self::$breadcrumbs = Breadcrumbs::fromArray([]);
+        self::$prevNextLinks = $prevNextLinks;
     }
 
     public static function addRemoteMarkDownEditInfo(string $name, RemoteMarkdownPage $remoteMarkdownPage)
@@ -146,6 +149,29 @@ class GlobalPageInfo
         return self::$editInfo;
     }
 
+    public static function addEditInfo(EditInfo $editInfo)
+    {
+        if (self::$editInfo === null) {
+            self::$editInfo = $editInfo;
+            return;
+        }
+
+        self::$editInfo->addEditInfo($editInfo);
+    }
+
+    public static function addEditInfoFromStrings(string $name, string $url)
+    {
+        $editInfo = new EditInfo([$name => $url]);
+
+        if (self::$editInfo === null) {
+            self::$editInfo = $editInfo;
+            return;
+        }
+
+        self::$editInfo->addEditInfo($editInfo);
+    }
+
+
     /**
      * @return string|null
      */
@@ -176,5 +202,23 @@ class GlobalPageInfo
     public static function getBreadcrumbs(): ?Breadcrumbs
     {
         return self::$breadcrumbs;
+    }
+
+    /**
+     * @param \OpenDocs\PrevNextLinks|null $prevNextLinks
+     */
+    public static function setPrevNextLinks(\OpenDocs\PrevNextLinks $prevNextLinks): void
+    {
+        self::$prevNextLinks = $prevNextLinks;
+    }
+
+
+
+    /**
+     * @return \OpenDocs\PrevNextLinks|null
+     */
+    public static function getPrevNextLinks(): ?\OpenDocs\PrevNextLinks
+    {
+        return self::$prevNextLinks;
     }
 }
