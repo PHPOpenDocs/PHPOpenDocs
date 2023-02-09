@@ -3,6 +3,7 @@
 declare(strict_types = 1);
 
 namespace PHPOpenDocs\CliController;
+
 //
 //use ASVoting\App;
 //use ASVoting\Config;

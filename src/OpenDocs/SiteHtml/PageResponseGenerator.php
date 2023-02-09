@@ -12,7 +12,7 @@ class PageResponseGenerator
 {
     public function __construct(
         private ResponseFactory $responseFactory,
-//        private AssetLinkEmitter $assetLinkEmitter
+        //        private AssetLinkEmitter $assetLinkEmitter
     ) {
     }
 

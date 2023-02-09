@@ -208,7 +208,6 @@ function createSectionList(): \OpenDocs\SectionList
     $sections[] = \NamingThings\NamingThingsSection::create();
     $sections[] = \RfcCodexOpenDocs\RfcCodexSection::create();
     $sections[] = \Sections\SponsoringSection::create(
-
     );
 //    $sections[] = new \OpenDocs\Section(
 //        '/work',
