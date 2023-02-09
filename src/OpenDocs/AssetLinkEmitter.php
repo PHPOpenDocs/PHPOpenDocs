@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace OpenDocs;
 
-use PhpOpenDocs\Config;
+use PHPOpenDocs\Config;
 
 class AssetLinkEmitter
 {
@@ -13,7 +13,7 @@ class AssetLinkEmitter
     {
     }
 
-    public function getAssetSuffix()
+    public function getAssetSuffix(): string
     {
         $forcesRefresh = $this->config->getForceAssetRefresh();
 

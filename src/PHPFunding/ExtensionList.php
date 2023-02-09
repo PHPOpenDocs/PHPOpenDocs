@@ -19,7 +19,7 @@ class ExtensionList
     }
 
 
-    private function init()
+    private function init(): void
     {
         $this->extensions[] = (new PHPExtension("Imagick"))->
             addMaintainer("Danack", ['Github' => 'https://github.com/sponsors/Danack']);

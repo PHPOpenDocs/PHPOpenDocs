@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\Response;
+namespace PHPOpenDocs\Response;
 
 class MarkdownResponse
 {

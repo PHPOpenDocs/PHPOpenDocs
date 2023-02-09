@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\AppController;
+namespace PHPOpenDocs\AppController;
 
 use OpenDocs\Breadcrumbs;
-use PhpOpenDocs\CSPViolation\CSPViolationStorage;
-use PhpOpenDocs\Data\ContentPolicyViolationReport;
+use PHPOpenDocs\CSPViolation\CSPViolationStorage;
+use PHPOpenDocs\Data\ContentPolicyViolationReport;
 use SlimAuryn\Response\HtmlResponse;
 use SlimAuryn\Response\JsonNoCacheResponse;
-use PhpOpenDocs\SystemSection;
+use PHPOpenDocs\SystemSection;
 
 class System
 {

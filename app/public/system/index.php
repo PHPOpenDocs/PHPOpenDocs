@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 require_once __DIR__ . "/../../../src/web_bootstrap.php";
 
-use PhpOpenDocs\SystemSection;
+use PHPOpenDocs\SystemSection;
 use OpenDocs\Page;
 
 $html  = <<< HTML

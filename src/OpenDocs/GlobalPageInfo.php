@@ -5,8 +5,8 @@ declare(strict_types = 1);
 namespace OpenDocs;
 
 use OpenDocs\PrevNextLinks;
-use PhpOpenDocs\Types\PackageMarkdownPage;
-use PhpOpenDocs\Types\RemoteMarkdownPage;
+use PHPOpenDocs\Types\PackageMarkdownPage;
+use PHPOpenDocs\Types\RemoteMarkdownPage;
 
 class GlobalPageInfo
 {
@@ -33,7 +33,7 @@ class GlobalPageInfo
         string $title = null,
         string $current_path = null,
         PrevNextLinks $prevNextLinks = null
-    ) {
+    ): void {
 
         self::$contentHtml = $contentHtml;
         self::$contentLinks = $contentLinks;
@@ -46,22 +46,26 @@ class GlobalPageInfo
         self::$prevNextLinks = $prevNextLinks;
     }
 
-    public static function addRemoteMarkDownEditInfo(string $name, RemoteMarkdownPage $remoteMarkdownPage)
-    {
+    public static function addRemoteMarkDownEditInfo(
+        string $name,
+        RemoteMarkdownPage $remoteMarkdownPage
+    ): void {
         self::$editInfo->addEditInfo(new EditInfo([
             $name => $remoteMarkdownPage->getEditUrl()
         ]));
     }
 
-    public static function addMarkDownEditInfo(string $name, PackageMarkdownPage $packageMarkdownPage)
-    {
+    public static function addMarkDownEditInfo(
+        string $name,
+        PackageMarkdownPage $packageMarkdownPage
+    ): void {
 
         self::$editInfo->addEditInfo(new EditInfo([
             $name => $packageMarkdownPage->getEditUrl()
         ]));
     }
 
-    public static function addEditInfoFromBacktrace(string $name, int $level)
+    public static function addEditInfoFromBacktrace(string $name, int $level): void
     {
         $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
         $setupPage = $backtrace[$level];
@@ -70,7 +74,7 @@ class GlobalPageInfo
         self::$editInfo->addEditInfo(new EditInfo([$name => $edit_url]));
     }
 
-    public static function setTitleFromCurrentPath()
+    public static function setTitleFromCurrentPath(): void
     {
         $prefix = self::$section->getPrefix();
 
@@ -88,7 +92,7 @@ class GlobalPageInfo
     }
 
 
-    public static function setTitle(string $title)
+    public static function setTitle(string $title): void
     {
         self::$title = $title;
     }
@@ -114,7 +118,7 @@ class GlobalPageInfo
         self::$breadcrumbs = Breadcrumbs::fromArray($breadcrumbs);
     }
 
-    public static function addCopyrightInfo(CopyrightInfo $copyright_info)
+    public static function addCopyrightInfo(CopyrightInfo $copyright_info): void
     {
         self::$copyrightInfo = $copyright_info;
     }
@@ -151,7 +155,7 @@ class GlobalPageInfo
         return self::$editInfo;
     }
 
-    public static function addEditInfo(EditInfo $editInfo)
+    public static function addEditInfo(EditInfo $editInfo): void
     {
         if (self::$editInfo === null) {
             self::$editInfo = $editInfo;
@@ -161,7 +165,7 @@ class GlobalPageInfo
         self::$editInfo->addEditInfo($editInfo);
     }
 
-    public static function addEditInfoFromStrings(string $name, string $url)
+    public static function addEditInfoFromStrings(string $name, string $url): void
     {
         $editInfo = new EditInfo([$name => $url]);
 
@@ -199,7 +203,7 @@ class GlobalPageInfo
     }
 
     /**
-     * @return array|null
+     * @return Breadcrumbs|null
      */
     public static function getBreadcrumbs(): ?Breadcrumbs
     {
@@ -207,7 +211,7 @@ class GlobalPageInfo
     }
 
     /**
-     * @param \OpenDocs\PrevNextLinks|null $prevNextLinks
+     * @param \OpenDocs\PrevNextLinks $prevNextLinks
      */
     public static function setPrevNextLinks(\OpenDocs\PrevNextLinks $prevNextLinks): void
     {

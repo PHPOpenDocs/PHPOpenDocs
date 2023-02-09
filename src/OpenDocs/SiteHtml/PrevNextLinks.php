@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace OpenDocs\SiteHtml;
 
+use OpenDocs\ContentLink;
+
 class PrevNextLinks
 {
     private ?ContentLink $prevLink;

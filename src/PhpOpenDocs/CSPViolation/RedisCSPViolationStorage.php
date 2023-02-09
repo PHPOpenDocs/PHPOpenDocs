@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\CSPViolation;
+namespace PHPOpenDocs\CSPViolation;
 
-use PhpOpenDocs\Data\ContentPolicyViolationReport;
-use PhpOpenDocs\Key\ContentSecurityPolicyKey;
+use PHPOpenDocs\Data\ContentPolicyViolationReport;
+use PHPOpenDocs\Key\ContentSecurityPolicyKey;
 use Redis;
 
 class RedisCSPViolationStorage implements CSPViolationStorage
@@ -37,7 +37,7 @@ class RedisCSPViolationStorage implements CSPViolationStorage
 
     /**
      * @return ContentPolicyViolationReport[]
-     * @throws \PhpOpenDocs\Exception\JsonException
+     * @throws \PHPOpenDocs\Exception\JsonException
      */
     public function getReports(): array
     {

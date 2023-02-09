@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\Middleware;
+namespace PHPOpenDocs\Middleware;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Server\MiddlewareInterface;
@@ -70,7 +70,7 @@ class ExceptionToErrorPageResponseMiddleware implements MiddlewareInterface
         }
     }
 
-    private function convertExceptionToResponse(\Throwable $e, Request $request)
+    private function convertExceptionToResponse(\Throwable $e, Request $request): Response|null
     {
         // Find if there is an exception handler for this type of exception
         foreach ($this->exceptionToResponseHandlerList as $type => $exceptionCallable) {

@@ -19,13 +19,8 @@ class InternalsSection extends Section
         );
     }
 
-    public static function create()
+    public static function create(): self
     {
-        return new self(
-            '/internals',
-            'Internals',
-            'Info about PHP core development',
-            new \Internals\InternalsSectionInfo()
-        );
+        return new self();
     }
 }

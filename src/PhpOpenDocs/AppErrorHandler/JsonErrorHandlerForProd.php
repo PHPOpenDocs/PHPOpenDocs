@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\AppErrorHandler;
+namespace PHPOpenDocs\AppErrorHandler;
 
 class JsonErrorHandlerForProd implements AppErrorHandler
 {

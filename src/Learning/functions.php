@@ -13,7 +13,7 @@ use OpenDocs\ExternalMarkdownRenderer\ExternalMarkdownRenderer;
 use OpenDocs\GlobalPageInfo;
 use OpenDocs\MarkdownRenderer\MarkdownRenderer;
 use OpenDocs\Page;
-use PhpOpenDocs\Types\PackageMarkdownPage;
+use PHPOpenDocs\Types\PackageMarkdownPage;
 
 use function Internals\createInternalsDefaultCopyrightInfo;
 use function Internals\getInternalsContentLinks;
@@ -22,7 +22,7 @@ use OpenDocs\MarkdownRenderer\PackageMarkdownRenderer;
 function createGlobalPageInfoForLearning(
     string $html = null,
     string $title = null
-) {
+): void {
     GlobalPageInfo::create(
         contentHtml: $html,
         contentLinks: getLearningContentLinks(),
@@ -37,7 +37,7 @@ function createGlobalPageInfoForLearning(
 function createMarkdownPackagePageFnLearning(
     PackageMarkdownPage $packageMarkdownPage,
     string $title
-) {
+): callable {
     createGlobalPageInfoForLearning(null, $title);
 
     GlobalPageInfo::addMarkDownEditInfo("Edit content", $packageMarkdownPage);
@@ -101,7 +101,7 @@ function createEditInfo(string $description, string $file, ?int $line): EditInfo
     return new EditInfo([$description => $link]);
 }
 
-function createLearningDefaultCopyrightInfo()
+function createLearningDefaultCopyrightInfo(): CopyrightInfo
 {
     return new CopyrightInfo(
         'PHP OpenDocs',
@@ -117,7 +117,7 @@ function createPageFn(
     string $markdown_path,
     string $title,
     string $current_path
-) {
+): callable {
     $breadcrumbs = [$current_path => $title];
 
     return function (
@@ -134,7 +134,7 @@ function createPageFn(
         $html = $markdownRenderer->renderFile($fullPath);
 
         $contentLinks = getLearningContentLinks();
-        $editInfo = createPhpOpenDocsEditInfo('Edit page', __FILE__, null);
+        $editInfo = createPHPOpenDocsEditInfo('Edit page', __FILE__, null);
 
         $page = Page::createFromHtmlEx2(
             $title,
@@ -156,7 +156,7 @@ function createRemoteMarkdownPageFn(
     string $title,
     string $current_path,
     CopyrightInfo $copyright_info
-) {
+): callable {
     $breadcrumbs = [$current_path => $title];
 
     return function (
@@ -174,7 +174,7 @@ function createRemoteMarkdownPageFn(
         $html = $markdownRenderer->renderUrl($markdown_url);
 
         $contentLinks = getInternalsContentLinks();
-        $editInfo = createPhpOpenDocsEditInfo('Edit page', __FILE__, null);
+        $editInfo = createPHPOpenDocsEditInfo('Edit page', __FILE__, null);
 
         $page = Page::createFromHtmlEx2(
             $title,

@@ -2,7 +2,7 @@
 
 namespace PHPSTORM_META {
   override(
-    \PhpOpenDocsTest\BaseTestCase::make(0),
+    \PHPOpenDocsTest\BaseTestCase::make(0),
     map([
       '' => '@'
     ])

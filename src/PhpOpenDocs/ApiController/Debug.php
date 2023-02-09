@@ -2,29 +2,29 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\ApiController;
+namespace PHPOpenDocs\ApiController;
 
-use PhpOpenDocs\Exception\DebuggingUncaughtException;
-use PhpOpenDocs\Exception\DebuggingCaughtException;
+use PHPOpenDocs\Exception\DebuggingUncaughtException;
+use PHPOpenDocs\Exception\DebuggingCaughtException;
 use SlimAuryn\Response\JsonResponse;
 
 class Debug
 {
-    public function testUncaughtException()
+    public function testUncaughtException(): never
     {
         throw new DebuggingUncaughtException(
             "Hello, I am a test exception that won't be caught by the application."
         );
     }
 
-    public function testCaughtException()
+    public function testCaughtException(): never
     {
         throw new DebuggingCaughtException(
             "Hello, I am a test exception that will be caught by the application."
         );
     }
 
-    public function testXdebugWorking()
+    public function testXdebugWorking(): JsonResponse
     {
         if (function_exists('xdebug_break') === false) {
             return new JsonResponse(

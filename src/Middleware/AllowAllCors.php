@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace ASVoting\Middleware;
+namespace PHPOpenDocs\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -12,8 +12,11 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  */
 class AllowAllCors
 {
-    public function __invoke(Request $request, ResponseInterface $response, $next)
-    {
+    public function __invoke(
+        Request $request,
+        ResponseInterface $response,
+        callable $next
+    ): ResponseInterface {
         /** @var ResponseInterface $response */
         $response = $next($request, $response);
         $response = $response->withHeader('Access-Control-Allow-Origin', '*');

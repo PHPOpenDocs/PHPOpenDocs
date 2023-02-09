@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\CSPViolation;
+namespace PHPOpenDocs\CSPViolation;
 
-use PhpOpenDocs\Data\ContentPolicyViolationReport;
+use PHPOpenDocs\Data\ContentPolicyViolationReport;
 
 interface CSPViolationReporter
 {

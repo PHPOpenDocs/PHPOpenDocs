@@ -27,7 +27,7 @@ class Pages
         $this->markdownRenderer = $markdownRenderer;
     }
 
-    private function getContents($name): ?string
+    private function getContents(string $name): ?string
     {
         $name = preg_replace("#([^a-zA-Z_])*#iu", "", $name);
         $fullPath = __DIR__ . "/../../vendor/danack/rfc-codex/" . $name . ".md";
@@ -39,7 +39,7 @@ class Pages
         return null;
     }
 
-    public function getPage(RfcCodexSection $section, $name): Page
+    public function getPage(RfcCodexSection $section, string $name): Page
     {
         $contents = $this->getContents($name);
         if ($contents === null) {

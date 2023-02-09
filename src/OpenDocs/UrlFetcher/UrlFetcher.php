@@ -6,5 +6,5 @@ namespace OpenDocs\UrlFetcher;
 
 interface UrlFetcher
 {
-    public function getUrl(string $uri);
+    public function getUrl(string $uri): string;
 }

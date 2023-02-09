@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\CliController;
+namespace PHPOpenDocs\CliController;
 
 use function LoopingExec\continuallyExecuteCallable;
 
@@ -11,7 +11,7 @@ class AliveCheck
     /**
      * This is a placeholder background task
      */
-    public function run()
+    public function run(): void
     {
         $callable = function () {
             $this->runInternal();
@@ -24,7 +24,7 @@ class AliveCheck
         );
     }
 
-    public function runInternal()
+    public function runInternal(): void
     {
         echo "Alive check is alive at " . date('Y_m_d_H_i_s') . "\n";
         sleep(1);

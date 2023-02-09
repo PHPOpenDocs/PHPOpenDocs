@@ -2,14 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\Key;
+namespace PHPOpenDocs\Key;
 
 class UrlCacheKey
 {
-    /**
-     * @param string $key
-     * @return string
-     */
     public static function getAbsoluteKeyName(string $uri) : string
     {
         // Hash the key to prevent any odd characters from

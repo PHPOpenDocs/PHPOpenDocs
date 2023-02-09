@@ -17,8 +17,6 @@ class PHPPerson
     /** @var WorkItem[] */
     private array $workItems_misc = [];
 
-
-
     private ?string $githubSponsor = null;
 
     /**
@@ -30,26 +28,26 @@ class PHPPerson
         $this->name = $name;
     }
 
-    public function addRfc_8_0(string $url, string $name)
+    public function addRfc_8_0(string $url, string $name): self
     {
         $this->workItems_8_0[] = new Rfc($name, $url);
         return $this;
     }
 
-    public function addRfc_8_1(string $url, string $name)
+    public function addRfc_8_1(string $url, string $name): self
     {
         $this->workItems_8_1[] = new Rfc($name, $url);
         return $this;
     }
 
-    public function addMisc(string $url, string $name)
+    public function addMisc(string $url, string $name): self
     {
         $this->workItems_misc[] = new Rfc($name, $url);
         return $this;
     }
 
 
-    public function addGithubSponsor(string $url)
+    public function addGithubSponsor(string $url): self
     {
         $this->githubSponsor = $url;
         return $this;

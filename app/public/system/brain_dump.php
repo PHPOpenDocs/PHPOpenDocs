@@ -50,7 +50,7 @@ HTML;
 $page = \OpenDocs\Page::createFromHtmlEx(
     'System',
     $html,
-    createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
+    createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
     Breadcrumbs::fromArray(['/system/brain_dump' => 'Brain dump'])
 );
 

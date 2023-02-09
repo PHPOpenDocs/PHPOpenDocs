@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOpenDocs\Route;
+namespace PHPOpenDocs\Route;
 
 // Each row of this array should return an array of:
 // - The path to match
@@ -12,35 +12,35 @@ namespace PhpOpenDocs\Route;
 // an api key, should call an appropriate callable.
 return [
 
-    ['/', 'GET', 'PhpOpenDocs\AppController\Pages::index'],
-    ['/about', 'GET', 'PhpOpenDocs\AppController\Pages::about'],
-    ['/sections', 'GET', 'PhpOpenDocs\AppController\Pages::sections'],
+    ['/', 'GET', 'PHPOpenDocs\AppController\Pages::index'],
+    ['/about', 'GET', 'PHPOpenDocs\AppController\Pages::about'],
+    ['/sections', 'GET', 'PHPOpenDocs\AppController\Pages::sections'],
 
-    ['/tools', 'GET', 'PhpOpenDocs\AppController\ExternalPages::tools'],
+    ['/tools', 'GET', 'PHPOpenDocs\AppController\ExternalPages::tools'],
 
-    ['/privacy_policy', 'GET', 'PhpOpenDocs\AppController\Pages::privacyPolicy'],
+    ['/privacy_policy', 'GET', 'PHPOpenDocs\AppController\Pages::privacyPolicy'],
 
-//    ['/system', 'GET', 'PhpOpenDocs\AppController\System::indexPage'],
-    ['/system/htmltest', 'GET', 'PhpOpenDocs\AppController\Pages::htmlTest'],
+//    ['/system', 'GET', 'PHPOpenDocs\AppController\System::indexPage'],
+    ['/system/htmltest', 'GET', 'PHPOpenDocs\AppController\Pages::htmlTest'],
 
 
-//    ['/system/csp_reports', 'GET', 'PhpOpenDocs\AppController\System::getReports'],
-    ['/system/csp_test', 'GET', 'PhpOpenDocs\AppController\ContentSecurityPolicy::getTestPage'],
+//    ['/system/csp_reports', 'GET', 'PHPOpenDocs\AppController\System::getReports'],
+    ['/system/csp_test', 'GET', 'PHPOpenDocs\AppController\ContentSecurityPolicy::getTestPage'],
 
-    ['/system/csp_clear', 'GET', 'PhpOpenDocs\AppController\ContentSecurityPolicy::clearReports'],
+    ['/system/csp_clear', 'GET', 'PHPOpenDocs\AppController\ContentSecurityPolicy::clearReports'],
 
-//    ['/rfc_codex{name:.+}', 'GET', 'PhpOpenDocs\AppController\Pages::rfc_codex_item'],
-//    ['/rfc_codex', 'GET', 'PhpOpenDocs\AppController\Pages::rfc_codex'],
+//    ['/rfc_codex{name:.+}', 'GET', 'PHPOpenDocs\AppController\Pages::rfc_codex_item'],
+//    ['/rfc_codex', 'GET', 'PHPOpenDocs\AppController\Pages::rfc_codex'],
 
-    ['/css/{any:.*}', 'GET', 'PhpOpenDocs\AppController\Pages::get404Page'],
+    ['/css/{any:.*}', 'GET', 'PHPOpenDocs\AppController\Pages::get404Page'],
 
-    ['/test/caught_exception', 'GET', 'PhpOpenDocs\AppController\Debug::testCaughtException'],
-    ['/test/uncaught_exception', 'GET', 'PhpOpenDocs\AppController\Debug::testUncaughtException'],
-    ['/test/compile_error', 'GET', 'PhpOpenDocs\AppController\CompileError::deliberateCompileError'],
+    ['/test/caught_exception', 'GET', 'PHPOpenDocs\AppController\Debug::testCaughtException'],
+    ['/test/uncaught_exception', 'GET', 'PHPOpenDocs\AppController\Debug::testUncaughtException'],
+    ['/test/compile_error', 'GET', 'PHPOpenDocs\AppController\CompileError::deliberateCompileError'],
 
 
     // TODO - actually make a 404 page
-    ['/{any:.*}', 'GET', 'PhpOpenDocs\AppController\Pages::get404Page'],
+    ['/{any:.*}', 'GET', 'PHPOpenDocs\AppController\Pages::get404Page'],
 ];
 
 

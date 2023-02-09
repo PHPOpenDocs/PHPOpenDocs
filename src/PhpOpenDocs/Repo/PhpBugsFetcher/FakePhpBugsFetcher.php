@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\Repo\PhpBugsFetcher;
+namespace PHPOpenDocs\Repo\PhpBugsFetcher;
 
-use PhpOpenDocs\Model\PhpBugsMaxComment;
+use PHPOpenDocs\Model\PhpBugsMaxComment;
 
 class FakePhpBugsFetcher implements PhpBugsFetcher
 {

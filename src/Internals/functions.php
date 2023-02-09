@@ -13,13 +13,13 @@ use OpenDocs\BreadcrumbsFactory;
 use OpenDocs\Page;
 use OpenDocs\GlobalPageInfo;
 use OpenDocs\MarkdownRenderer\PackageMarkdownRenderer;
-use PhpOpenDocs\Types\PackageMarkdownPage;
-use PhpOpenDocs\Types\RemoteMarkdownPage;
+use PHPOpenDocs\Types\PackageMarkdownPage;
+use PHPOpenDocs\Types\RemoteMarkdownPage;
 
 function createGlobalPageInfoForInternals(
     string $html = null,
     string $title = null
-) {
+): void {
     GlobalPageInfo::create(
         contentHtml: $html,
         contentLinks: getInternalsContentLinks(),
@@ -33,7 +33,7 @@ function createGlobalPageInfoForInternals(
 function createGlobalPageInfo2(
     CopyrightInfo $copyrightInfo,
     EditInfo $editInfo
-) {
+): void {
     GlobalPageInfo::create(
         contentLinks: getInternalsContentLinks(),
         copyrightInfo: $copyrightInfo,
@@ -46,7 +46,7 @@ function createGlobalPageInfo2(
 function createMarkdownPackagePageFnInternals(
     PackageMarkdownPage $packageMarkdownPage,
     string $title,
-) {
+): callable {
     createGlobalPageInfoForInternals();
 
     GlobalPageInfo::addMarkDownEditInfo("Edit content", $packageMarkdownPage);
@@ -71,7 +71,7 @@ function createRemoteMarkdownPageFn(
     RemoteMarkdownPage $remoteMarkdownPage,
     string $title,
     CopyrightInfo $copyright_info
-) {
+): callable {
     createGlobalPageInfoForInternals();
 
     GlobalPageInfo::addRemoteMarkDownEditInfo("Edit content", $remoteMarkdownPage);
@@ -98,21 +98,14 @@ function createRemoteMarkdownPageFn(
     };
 }
 
-/**
- * @param string $markdown_url
- * @param string $title
- * @param string $current_path
- * @param CopyrightInfo $copyright_info
- * @param \OpenDocs\EditInfo[] $editInfoArray
- * @return \Closure
- */
+
 function createRemoteMarkdownPageFnEx(
     RemoteMarkdownPage $remoteMarkdownPage,
     string $title,
     string $current_path,
     CopyrightInfo $copyright_info,
     EditInfo $editInfo
-) {
+): callable {
     \Internals\createGlobalPageInfo2($copyright_info, $editInfo);
 
     GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
@@ -123,8 +116,7 @@ function createRemoteMarkdownPageFnEx(
     return function (
         ExternalMarkdownRenderer $markdownRenderer,
     ) use (
-        $remoteMarkdownPage,
-        $title,
+        $remoteMarkdownPage
     ) {
         $markdown_url = $remoteMarkdownPage->getEditUrl();
         $html = $markdownRenderer->renderUrl($markdown_url);
@@ -154,18 +146,18 @@ function getInternalsContentLinks(): array
     ];
 }
 
-function createEditInfo(string $description, string $file, ?int $line): EditInfo
-{
-    $path = normaliseFilePath($file);
-
-    $link = 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/' . $path;
-
-    if ($link !== null) {
-        $link .= '#L' . $line;
-    }
-
-    return new EditInfo([$description => $link]);
-}
+//function createEditInfo(string $description, string $file, ?int $line): EditInfo
+//{
+//    $path = normaliseFilePath($file);
+//
+//    $link = 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/' . $path;
+//
+//    if ($link !== null) {
+//        $link .= '#L' . $line;
+//    }
+//
+//    return new EditInfo([$description => $link]);
+//}
 
 function createInternalsDefaultCopyrightInfo(): CopyrightInfo
 {

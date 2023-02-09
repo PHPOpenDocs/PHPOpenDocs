@@ -12,7 +12,7 @@ require_once __DIR__ . "/includes.php";
 
 set_error_handler('saneErrorHandler');
 
-function showPage(\OpenDocs\Page $page)
+function showPage(\OpenDocs\Page $page): void
 {
     $callable = function () use ($page) {
         $html = createPageHtml(
@@ -41,7 +41,7 @@ function showPage(\OpenDocs\Page $page)
     exit(0);
 }
 
-function showPageResponse($callable)
+function showPageResponse(callable $callable): void
 {
     try {
         $injector = new Auryn\Injector();
@@ -57,7 +57,7 @@ function showPageResponse($callable)
     }
 }
 
-function showResponse($callable)
+function showResponse(callable $callable): void
 {
     $injector = new Auryn\Injector();
     $injectionParams = injectionParams();
@@ -67,10 +67,10 @@ function showResponse($callable)
     showResponseInternal($callable, $injector);
 }
 
-function showResponseInternal($callable, Auryn\Injector $injector)
+function showResponseInternal(callable $callable, Auryn\Injector $injector): void
 {
     try {
-        $errorHandler = $injector->make(\PhpOpenDocs\AppErrorHandler\AppErrorHandler::class);
+        $errorHandler = $injector->make(\PHPOpenDocs\AppErrorHandler\AppErrorHandler::class);
         $app = \createSlimAppForApp($injector, $errorHandler);
         $app->map(['GET'], '/fake_path', $callable);
 

@@ -24,7 +24,7 @@ $fn = function (
     $page = Page::createFromHtmlEx2(
         'Debugging',
         $html,
-        createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
+        createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
         $breadcrumbsFactory->createFromArray([]),
         createLearningDefaultCopyrightInfo(),
         createLinkInfo('/', $contentLinks),

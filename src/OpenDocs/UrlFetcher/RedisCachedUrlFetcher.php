@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace OpenDocs\UrlFetcher;
 
-use PhpOpenDocs\Key\UrlCacheKey;
+use PHPOpenDocs\Key\UrlCacheKey;
 
 class RedisCachedUrlFetcher implements UrlFetcher
 {
@@ -23,7 +23,7 @@ class RedisCachedUrlFetcher implements UrlFetcher
         $this->urlFetcher = $urlFetcher;
     }
 
-    public function getUrl(string $uri)
+    public function getUrl(string $uri): string
     {
         $cacheKey = UrlCacheKey::getAbsoluteKeyName($uri);
 

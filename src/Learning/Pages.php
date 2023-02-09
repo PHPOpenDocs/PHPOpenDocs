@@ -82,7 +82,7 @@ function generateGoodDocsHtml(Section $section): string
     return implode("\n", $lines);
 }
 
-function generateBestPracticesHtml()
+function generateBestPracticesHtml(): string
 {
     $bps = getBestPractices();
     $lines = [];

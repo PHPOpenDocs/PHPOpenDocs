@@ -18,7 +18,7 @@ use OpenDocs\ExternalMarkdownRenderer\ExternalMarkdownRenderer;
 //
 //    $contentLinks = getLearningContentLinks();
 //
-//    $editInfo = createPhpOpenDocsEditInfo('Edit page', __FILE__, __LINE__ - 5);
+//    $editInfo = createPHPOpenDocsEditInfo('Edit page', __FILE__, __LINE__ - 5);
 //    $editInfo->addNameWithLink(
 //        "Edit content",
 //        "https://github.com/exakat/php-static-analysis-tools/blob/master/README.md"
@@ -46,7 +46,7 @@ use OpenDocs\ExternalMarkdownRenderer\ExternalMarkdownRenderer;
 
 use OpenDocs\CopyrightInfo;
 use function Internals\createRemoteMarkdownPageFn;
-use PhpOpenDocs\Types\RemoteMarkdownPage;
+use PHPOpenDocs\Types\RemoteMarkdownPage;
 
 //$editInfo->addNameWithLink(
 //    "Edit content",

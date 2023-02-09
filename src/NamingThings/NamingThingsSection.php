@@ -8,7 +8,7 @@ use OpenDocs\Section;
 
 class NamingThingsSection extends Section
 {
-    public static function create()
+    public static function create(): self
     {
         return new self(
             '/naming',

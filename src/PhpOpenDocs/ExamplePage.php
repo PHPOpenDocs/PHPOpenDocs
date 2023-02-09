@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs;
+namespace PHPOpenDocs;
 
 class ExamplePage
 {
@@ -16,7 +16,7 @@ class ExamplePage
 
 HTML;
 
-        $html .= "<p>version is: " .\PhpOpenDocs\Config::getVersion() . "</p>";
+        $html .= "<p>version is: " .\PHPOpenDocs\Config::getVersion() . "</p>";
 
         $html .= <<< 'HTML'
 <h2>

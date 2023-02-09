@@ -9,8 +9,8 @@ function injectionParams()
     $shares = [
         \Auryn\Injector::class,
         \Slim\App::class,
-        \PhpOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
-        \PhpOpenDocs\Service\RequestNonce::class,
+        \PHPOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
+        \PHPOpenDocs\Service\RequestNonce::class,
         \OpenDocs\SectionList::class,
 //        createInternalsSection(),
 //        createLearningSection(),
@@ -24,12 +24,12 @@ function injectionParams()
     // where they are required.
     $aliases = [
         \VarMap\VarMap::class => \VarMap\Psr7VarMap::class,
-        \PhpOpenDocs\Service\TooMuchMemoryNotifier\TooMuchMemoryNotifier::class =>
-            \PhpOpenDocs\Service\TooMuchMemoryNotifier\NullTooMuchMemoryNotifier::class,
-        \PhpOpenDocs\CSPViolation\CSPViolationReporter::class =>
-            \PhpOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
-        \PhpOpenDocs\CSPViolation\CSPViolationStorage::class =>
-            \PhpOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
+        \PHPOpenDocs\Service\TooMuchMemoryNotifier\TooMuchMemoryNotifier::class =>
+            \PHPOpenDocs\Service\TooMuchMemoryNotifier\NullTooMuchMemoryNotifier::class,
+        \PHPOpenDocs\CSPViolation\CSPViolationReporter::class =>
+            \PHPOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
+        \PHPOpenDocs\CSPViolation\CSPViolationStorage::class =>
+            \PHPOpenDocs\CSPViolation\RedisCSPViolationStorage::class,
         \OpenDocs\MarkdownRenderer\MarkdownRenderer::class =>
             \OpenDocs\MarkdownRenderer\CommonMarkRenderer::class,
         \OpenDocs\UrlFetcher\UrlFetcher::class =>
@@ -43,13 +43,13 @@ function injectionParams()
     // Delegate the creation of types to callables.
     $delegates = [
         \OpenDocs\SectionList::class => 'createSectionList',
-        \PhpOpenDocs\Service\MemoryWarningCheck\MemoryWarningCheck::class => 'createMemoryWarningCheck',
-        \PhpOpenDocs\Middleware\ExceptionToErrorPageResponseMiddleware::class =>
+        \PHPOpenDocs\Service\MemoryWarningCheck\MemoryWarningCheck::class => 'createMemoryWarningCheck',
+        \PHPOpenDocs\Middleware\ExceptionToErrorPageResponseMiddleware::class =>
             'createExceptionToErrorPageResponseMiddleware',
         \Slim\App::class => 'createSlimAppForApp',
-        \PhpOpenDocs\AppErrorHandler\AppErrorHandler::class => 'createHtmlAppErrorHandler',
+        \PHPOpenDocs\AppErrorHandler\AppErrorHandler::class => 'createHtmlAppErrorHandler',
         \Redis::class => 'createRedis',
-        \PhpOpenDocs\Data\ApiDomain::class => 'createApiDomain',
+        \PHPOpenDocs\Data\ApiDomain::class => 'createApiDomain',
         \OpenDocs\RequestPath::class => 'createRequestPath',
     ];
 

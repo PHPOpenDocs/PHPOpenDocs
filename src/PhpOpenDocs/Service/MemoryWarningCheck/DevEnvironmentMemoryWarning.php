@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\Service\MemoryWarningCheck;
+namespace PHPOpenDocs\Service\MemoryWarningCheck;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 

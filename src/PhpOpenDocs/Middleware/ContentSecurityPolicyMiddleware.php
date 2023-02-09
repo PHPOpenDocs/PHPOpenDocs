@@ -2,13 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\Middleware;
+namespace PHPOpenDocs\Middleware;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use PhpOpenDocs\Service\RequestNonce;
-use PhpOpenDocs\Data\ApiDomain;
-use PhpOpenDocs\App;
+use PHPOpenDocs\Service\RequestNonce;
+use PHPOpenDocs\Data\ApiDomain;
+use PHPOpenDocs\App;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 

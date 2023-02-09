@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\Repo\PhpBugsStorage;
+namespace PHPOpenDocs\Repo\PhpBugsStorage;
 
-use PhpOpenDocs\Model\PhpBugsMaxComment;
-use PhpOpenDocs\Key\PhpBugsMaxCommentStorageKey;
+use PHPOpenDocs\Model\PhpBugsMaxComment;
+use PHPOpenDocs\Key\PhpBugsMaxCommentStorageKey;
 use Redis;
 
 class RedisPhpBugsStorage implements PhpBugsStorage

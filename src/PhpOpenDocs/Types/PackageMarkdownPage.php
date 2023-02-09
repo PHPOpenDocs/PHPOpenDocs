@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\Types;
+namespace PHPOpenDocs\Types;
 
 /**
  * A package that has been composer installed locally, and so the files

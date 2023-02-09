@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs;
+namespace PHPOpenDocs;
 
 class Config
 {
@@ -33,7 +33,7 @@ class Config
      * @return mixed
      * @throws \Exception
      */
-    public static function get($key)
+    public static function get(string $key)
     {
         static $values = null;
         if ($values === null) {

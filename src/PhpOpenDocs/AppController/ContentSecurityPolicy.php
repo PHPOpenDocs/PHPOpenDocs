@@ -2,22 +2,22 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\AppController;
+namespace PHPOpenDocs\AppController;
 
-use PhpOpenDocs\Data\ContentPolicyViolationReport;
+use PHPOpenDocs\Data\ContentPolicyViolationReport;
 use SlimAuryn\Response\JsonNoCacheResponse;
 use SlimAuryn\Response\HtmlResponse;
-use PhpOpenDocs\CSPViolation\CSPViolationReporter;
-use PhpOpenDocs\CSPViolation\CSPViolationStorage;
+use PHPOpenDocs\CSPViolation\CSPViolationReporter;
+use PHPOpenDocs\CSPViolation\CSPViolationStorage;
 use SlimAuryn\Response\TextResponse;
-use PhpOpenDocs\JsonInput\JsonInput;
+use PHPOpenDocs\JsonInput\JsonInput;
 
 class ContentSecurityPolicy
 {
     public function postReport(
         CSPViolationStorage $violationReporter,
         JsonInput $jsonInput
-    ) {
+    ): TextResponse {
         $payload = $jsonInput->getData();
 
         $cspReport = ContentPolicyViolationReport::fromCSPPayload($payload);

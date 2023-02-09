@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs;
+namespace PHPOpenDocs;
 
 use Michelf\Markdown;
 

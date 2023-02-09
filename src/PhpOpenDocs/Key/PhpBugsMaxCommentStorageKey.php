@@ -2,14 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\Key;
+namespace PHPOpenDocs\Key;
 
 class PhpBugsMaxCommentStorageKey
 {
-    /**
-     * @param string $externalSource
-     * @return string
-     */
     public static function getAbsoluteKeyName() : string
     {
         return __CLASS__ ;

@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\Repo\PhpBugsStorage;
+namespace PHPOpenDocs\Repo\PhpBugsStorage;
 
-use PhpOpenDocs\Model\PhpBugsMaxComment;
+use PHPOpenDocs\Model\PhpBugsMaxComment;
 
 interface PhpBugsStorage
 {

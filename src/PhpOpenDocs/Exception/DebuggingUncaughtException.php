@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\Exception;
+namespace PHPOpenDocs\Exception;
 
 class DebuggingUncaughtException extends \Exception
 {

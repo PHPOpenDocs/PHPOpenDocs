@@ -70,7 +70,7 @@ HTML;
     $page = Page::createFromHtmlEx(
         'PHP Merch',
         $html,
-        createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
+        createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
         Breadcrumbs::fromArray([
             '/merch' => 'Merch',
         ])

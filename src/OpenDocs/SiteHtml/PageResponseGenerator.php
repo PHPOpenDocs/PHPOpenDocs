@@ -12,13 +12,13 @@ class PageResponseGenerator
 {
     public function __construct(
         private ResponseFactory $responseFactory,
-        private AssetLinkEmitter $assetLinkEmitter
+//        private AssetLinkEmitter $assetLinkEmitter
     ) {
     }
 
     public function createPageWithStatusCode(
-        $contentHtml,
-        $statusCode
+        string $contentHtml,
+        int $statusCode
     ): Response {
 
         $page = createErrorPage($contentHtml);

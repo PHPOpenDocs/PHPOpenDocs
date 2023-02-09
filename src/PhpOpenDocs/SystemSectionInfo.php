@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs;
+namespace PHPOpenDocs;
 
 use OpenDocs\GetRoute;
 use OpenDocs\SectionInfo;

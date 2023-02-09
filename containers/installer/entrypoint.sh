@@ -29,7 +29,7 @@ git config --global --add safe.directory /var/app
 # Generate config settings used per environment
 php vendor/bin/classconfig \
   -p config.source.php \
-  "PhpOpenDocs\\Config" \
+  "PHPOpenDocs\\Config" \
   config.generated.php \
   $ENV_TO_USE
 

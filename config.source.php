@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use PhpOpenDocs\Config;
+use PHPOpenDocs\Config;
 
 $sha = `git rev-parse HEAD`;
 

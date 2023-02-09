@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace ASVoting\Middleware;
+namespace PHPOpenDocs\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
-use ASVoting\MemoryWarningCheck\MemoryWarningCheck;
+use PHPOpenDocs\MemoryWarningCheck\MemoryWarningCheck;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use CIDRmatch\CIDRmatch;
 
@@ -41,7 +41,7 @@ class AllowedAccessMiddleware
         $this->notAllowedPath = $notAllowedPath;
     }
 
-    private function isAllowedAccess(Request $request)
+    private function isAllowedAccess(Request $request): bool
     {
         $path = $request->getUri()->getPath();
 
@@ -63,8 +63,11 @@ class AllowedAccessMiddleware
         return false;
     }
 
-    public function __invoke(Request $request, ResponseInterface $response, $next)
-    {
+    public function __invoke(
+        Request $request,
+        ResponseInterface $response,
+        callable $next
+    ): ResponseInterface {
         if ($this->isAllowedAccess($request) !== true) {
             $response = $response->withStatus(303)
                 ->withHeader('Location', $this->notAllowedPath);

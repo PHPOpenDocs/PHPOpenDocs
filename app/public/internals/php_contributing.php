@@ -5,7 +5,7 @@ declare(strict_types = 1);
 require_once __DIR__ . "/../../../src/web_bootstrap.php";
 
 use OpenDocs\CopyrightInfo;
-use PhpOpenDocs\Types\RemoteMarkdownPage;
+use PHPOpenDocs\Types\RemoteMarkdownPage;
 use function Internals\createRemoteMarkdownPageFn;
 
 $fn = createRemoteMarkdownPageFn(

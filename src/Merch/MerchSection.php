@@ -8,7 +8,7 @@ use OpenDocs\Section;
 
 class MerchSection extends Section
 {
-    public static function create()
+    public static function create(): self
     {
         return new self(
             '/merch',

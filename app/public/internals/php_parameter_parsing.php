@@ -6,7 +6,7 @@ require_once __DIR__ . "/../../../src/web_bootstrap.php";
 
 use OpenDocs\CopyrightInfo;
 use function Internals\createRemoteMarkdownPageFn;
-use PhpOpenDocs\Types\RemoteMarkdownPage;
+use PHPOpenDocs\Types\RemoteMarkdownPage;
 
 $fn = createRemoteMarkdownPageFn(
     new RemoteMarkdownPage("https://raw.githubusercontent.com/php/php-src/master/docs/parameter-parsing-api.md"),

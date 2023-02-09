@@ -19,7 +19,7 @@ class UrlFetcherException extends \Exception
         parent::__construct($message);
     }
 
-    public static function notOk(int $statusCode, string $uri)
+    public static function notOk(int $statusCode, string $uri): self
     {
         $message = sprintf(
             self::RESPONSE_NOT_OK,

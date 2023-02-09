@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\Middleware;
+namespace PHPOpenDocs\Middleware;
 
 //use Psr\Http\Message\ResponseInterface;
-use PhpOpenDocs\Service\MemoryWarningCheck\MemoryWarningCheck;
+use PHPOpenDocs\Service\MemoryWarningCheck\MemoryWarningCheck;
 //use Psr\Http\Message\ServerRequestInterface as Request;
 
 use Psr\Http\Message\ResponseInterface as Response;
@@ -18,7 +18,7 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
 class MemoryCheckMiddleware
 {
-    /** @var \PhpOpenDocs\Service\MemoryWarningCheck\MemoryWarningCheck */
+    /** @var \PHPOpenDocs\Service\MemoryWarningCheck\MemoryWarningCheck */
     private $memoryWarningCheck;
 
     /**

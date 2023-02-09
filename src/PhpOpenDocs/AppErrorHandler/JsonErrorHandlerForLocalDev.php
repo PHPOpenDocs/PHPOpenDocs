@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\AppErrorHandler;
+namespace PHPOpenDocs\AppErrorHandler;
 
-use PhpOpenDocs\App;
+use PHPOpenDocs\App;
 
 class JsonErrorHandlerForLocalDev implements AppErrorHandler
 {

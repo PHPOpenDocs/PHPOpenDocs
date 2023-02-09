@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\Model;
+namespace PHPOpenDocs\Model;
 
-use PhpOpenDocs\ToArray;
-use PhpOpenDocs\FromArray;
+use PHPOpenDocs\ToArray;
+use PHPOpenDocs\FromArray;
 
 class PhpBugsMaxComment
 {
@@ -20,12 +20,12 @@ class PhpBugsMaxComment
         $this->maxCommentId = $maxCommentId;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return ['max_comment_id' => $this->maxCommentId];
     }
 
-    public static function fromArray(array $data)
+    public static function fromArray(array $data): self
     {
         return new self($data['max_comment_id']);
     }

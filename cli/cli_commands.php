@@ -20,7 +20,7 @@ function add_console_commands(Application $console)
  */
 function addDebugCommands(Application $console)
 {
-    $command = new Command('debug:hello', 'PhpOpenDocs\CliController\Debug::hello');
+    $command = new Command('debug:hello', 'PHPOpenDocs\CliController\Debug::hello');
     $command->setDescription("Test cli commands are working.");
     $console->add($command);
 
@@ -40,7 +40,7 @@ function addProcessCommands(Application $console)
 
     $command = new Command(
         'process:php_bugs:update_max_comment_id',
-        'PhpOpenDocs\CliController\ProcessPhpBugs::updateMaxCommentId'
+        'PHPOpenDocs\CliController\ProcessPhpBugs::updateMaxCommentId'
     );
     $command->setDescription("Update the max comment ID.");
     $console->add($command);

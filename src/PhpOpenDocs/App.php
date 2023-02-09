@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs;
+namespace PHPOpenDocs;
 
 /**
  * Mostly used for app wide constants.
@@ -46,15 +46,15 @@ class App
     const CSP_REPORTS_SHOWN_PER_PAGE = 10;
 
 
-    public static function getAssetSuffix()
+    public static function getAssetSuffix(): string
     {
-        $forcesRefresh = Config::get(\PhpOpenDocs\Config::PHPOPENDOCS_ASSETS_FORCE_REFRESH);
+        $forcesRefresh = Config::get(\PHPOpenDocs\Config::PHPOPENDOCS_ASSETS_FORCE_REFRESH);
 
         if ($forcesRefresh) {
             return '?time=' . time();
         }
 
-        $sha = Config::get(\PhpOpenDocs\Config::PHPOPENDOCS_COMMIT_SHA);
+        $sha = Config::get(\PHPOpenDocs\Config::PHPOPENDOCS_COMMIT_SHA);
 
         return "?version=" . $sha;
     }

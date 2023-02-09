@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace OpenDocs\MarkdownRenderer;
 
-use PhpOpenDocs\Types\PackageMarkdownPage;
+use PHPOpenDocs\Types\PackageMarkdownPage;
 
 class PackageMarkdownRenderer
 {

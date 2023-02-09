@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocsTest\Repo\PhpBugsFetcher;
+namespace PHPOpenDocsTest\Repo\PhpBugsFetcher;
 
 use PHPUnit\Framework\TestCase;
-use PhpOpenDocs\Repo\PhpBugsFetcher\CurlPhpBugsFetcher;
+use PHPOpenDocs\Repo\PhpBugsFetcher\CurlPhpBugsFetcher;
 
 /**
  * @coversNothing
@@ -18,7 +18,7 @@ class CurlPhpBugsFetcherTest extends TestCase
         $phpBugsMaxComment = $bugsFetcher->getPhpBugsMaxComment();
 
         $this->assertInstanceOf(
-            \PhpOpenDocs\Model\PhpBugsMaxComment::class,
+            \PHPOpenDocs\Model\PhpBugsMaxComment::class,
             $phpBugsMaxComment
         );
     }

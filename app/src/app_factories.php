@@ -3,13 +3,13 @@
 declare(strict_types = 1);
 
 use Auryn\Injector;
-use PhpOpenDocs\Config;
+use Laminas\Diactoros\ResponseFactory;
+use OpenDocs\SiteHtml\PageResponseGenerator;
+use PHPOpenDocs\App;
+use PHPOpenDocs\Config;
+use PHPOpenDocs\Middleware\ExceptionToErrorPageResponseMiddleware;
 use Psr\Http\Message\ResponseInterface;
 use SlimAuryn\AurynCallableResolver;
-use Laminas\Diactoros\ResponseFactory;
-use PhpOpenDocs\Middleware\ExceptionToErrorPageResponseMiddleware;
-use OpenDocs\SiteHtml\PageResponseGenerator;
-use PhpOpenDocs\App;
 
 /**
  * Creates the ExceptionMiddleware that converts all known app exceptions
@@ -20,7 +20,7 @@ function createExceptionToErrorPageResponseMiddleware(Injector $injector): Excep
     // TODO - the key is un-needed. Matching the exception handler to the
     // type of exception could be done via reflection.
     $exceptionHandlers = [
-        \PhpOpenDocs\Exception\DebuggingCaughtException::class => 'renderDebuggingCaughtExceptionToHtml',
+        \PHPOpenDocs\Exception\DebuggingCaughtException::class => 'renderDebuggingCaughtExceptionToHtml',
         \Auryn\InjectionException::class => 'renderAurynInjectionExceptionToHtml',
         \OpenDocs\MarkdownRenderer\MarkdownRendererException::class => 'renderMarkdownRendererException',
         \ParseError::class => 'renderParseErrorToHtml',
@@ -34,42 +34,42 @@ function createExceptionToErrorPageResponseMiddleware(Injector $injector): Excep
 }
 
 
-function createHtmlAppErrorHandler(\Auryn\Injector $injector) : \PhpOpenDocs\AppErrorHandler\AppErrorHandler
+function createHtmlAppErrorHandler(\Auryn\Injector $injector) : \PHPOpenDocs\AppErrorHandler\AppErrorHandler
 {
     if (Config::isProductionEnv() === true) {
-        return $injector->make(\PhpOpenDocs\AppErrorHandler\HtmlErrorHandlerForProd::class);
+        return $injector->make(\PHPOpenDocs\AppErrorHandler\HtmlErrorHandlerForProd::class);
     }
 
-    return $injector->make(\PhpOpenDocs\AppErrorHandler\HtmlErrorHandlerForLocalDev::class);
+    return $injector->make(\PHPOpenDocs\AppErrorHandler\HtmlErrorHandlerForLocalDev::class);
 }
 
-function createJsonAppErrorHandler(\Auryn\Injector $injector) : \PhpOpenDocs\AppErrorHandler\AppErrorHandler
+function createJsonAppErrorHandler(\Auryn\Injector $injector) : \PHPOpenDocs\AppErrorHandler\AppErrorHandler
 {
     if (Config::isProductionEnv() === true) {
-        return $injector->make(\PhpOpenDocs\AppErrorHandler\JsonErrorHandlerForProd::class);
+        return $injector->make(\PHPOpenDocs\AppErrorHandler\JsonErrorHandlerForProd::class);
     }
 
-    return $injector->make(\PhpOpenDocs\AppErrorHandler\JsonErrorHandlerForLocalDev::class);
+    return $injector->make(\PHPOpenDocs\AppErrorHandler\JsonErrorHandlerForLocalDev::class);
 }
 
 
 function createHardcodedRouteSlimApp(
     $callable,
     Injector $injector,
-    \PhpOpenDocs\AppErrorHandler\AppErrorHandler $appErrorHandler
+    \PHPOpenDocs\AppErrorHandler\AppErrorHandler $appErrorHandler
 ) {
 
 }
 
 /**
  * @param Injector $injector
- * @param \PhpOpenDocs\AppErrorHandler\AppErrorHandler $appErrorHandler
+ * @param \PHPOpenDocs\AppErrorHandler\AppErrorHandler $appErrorHandler
  * @return \Slim\App
  * @throws \Auryn\InjectionException
  */
 function createSlimAppForApp(
     Injector $injector,
-    \PhpOpenDocs\AppErrorHandler\AppErrorHandler $appErrorHandler
+    \PHPOpenDocs\AppErrorHandler\AppErrorHandler $appErrorHandler
 ): \Slim\App {
 
     $callableResolver = new AurynCallableResolver(
@@ -86,11 +86,11 @@ function createSlimAppForApp(
         /* ?MiddlewareDispatcherInterface */ $middlewareDispatcher = null
     );
 
-    $app->add($injector->make(\PhpOpenDocs\Middleware\ExceptionToErrorPageResponseMiddleware::class));
-    $app->add($injector->make(\PhpOpenDocs\Middleware\ContentSecurityPolicyMiddleware::class));
+    $app->add($injector->make(\PHPOpenDocs\Middleware\ExceptionToErrorPageResponseMiddleware::class));
+    $app->add($injector->make(\PHPOpenDocs\Middleware\ContentSecurityPolicyMiddleware::class));
 //    $app->add($injector->make(\Bristolian\Middleware\BadHeaderMiddleware::class));
 //    $app->add($injector->make(\Bristolian\Middleware\AllowedAccessMiddleware::class));
-    $app->add($injector->make(\PhpOpenDocs\Middleware\MemoryCheckMiddleware::class));
+    $app->add($injector->make(\PHPOpenDocs\Middleware\MemoryCheckMiddleware::class));
 
     return $app;
 }
@@ -99,10 +99,10 @@ function createSlimAppForApp(
 function createApiDomain(Config $config)
 {
     if ($config->isProductionEnv()) {
-        return new \PhpOpenDocs\Data\ApiDomain("https://api.phpopendocs.com");
+        return new \PHPOpenDocs\Data\ApiDomain("https://api.phpopendocs.com");
     }
 
-    return new \PhpOpenDocs\Data\ApiDomain("http://local.api.phpopendocs.com");
+    return new \PHPOpenDocs\Data\ApiDomain("http://local.api.phpopendocs.com");
 }
 
 /**
@@ -120,85 +120,87 @@ function getResultMappers(\Auryn\Injector $injector)
 }
 
 
-function createInternalsSection()
-{
-    return new \Internals\InternalsSection(
-        '/internals',
-        'Internals',
-        'Info about PHP core development',
-        new \Internals\InternalsSectionInfo()
-    );
-}
+//function createInternalsSection()
+//{
+//    return new \Internals\InternalsSection(
+//        '/internals',
+//        'Internals',
+//        'Info about PHP core development',
+//        new \Internals\InternalsSectionInfo()
+//    );
+//}
 
-function createLearningSection()
-{
-    return new \Learning\LearningSection(
-        '/learning',
-        'Learning',
-        'So you want/have been forced to learn PHP?',
-        new \Learning\LearningSectionInfo
-    );
-}
-
-function createMerchSection()
-{
-    return new \Merch\MerchSection(
-        '/merch',
-        'Merch',
-        'PHP related things to buy',
-        new \Merch\MerchSectionInfo()
-    );
-}
-
-
-
-function createNamingThingsSection()
-{
-    return new \NamingThings\NamingThingsSection(
-        '/naming',
-        'Naming',
-        'Naming things',
-        new \NamingThings\NamingThingsSectionInfo
-    );
-}
-
-function createSystemSection()
-{
-    return new \PhpOpenDocs\SystemSection(
-        '/system',
-        'System',
-        'Site system stuff...',
-        new \PhpOpenDocs\SystemSectionInfo
-    );
-}
-
-function createRfcCodexSection()
-{
-    return new \RfcCodexOpenDocs\RfcCodexSection(
-        '/rfc_codex',
-        'RFC Codex',
-        "Discussions ideas for how PHP can be improved, why some ideas haven't come to fruition yet.",
-        new \RfcCodexOpenDocs\RfcCodexSectionInfo()
-    );
-}
+//function createLearningSection()
+//{
+//    return new \Learning\LearningSection(
+//        '/learning',
+//        'Learning',
+//        'So you want/have been forced to learn PHP?',
+//        new \Learning\LearningSectionInfo
+//    );
+//}
+//
+//function createMerchSection()
+//{
+//    return new \Merch\MerchSection(
+//        '/merch',
+//        'Merch',
+//        'PHP related things to buy',
+//        new \Merch\MerchSectionInfo()
+//    );
+//}
 
 
-function createSponsoringSection()
-{
-    return new \OpenDocs\Section(
-        '/sponsoring',
-        'Sponsoring',
-        'How to give money to people who work on PHP core or documentation.',
-        new \PHPFunding\PHPFundingSectionInfo
-    );
-}
+
+//function createNamingThingsSection()
+//{
+//    return new \NamingThings\NamingThingsSection(
+//        '/naming',
+//        'Naming',
+//        'Naming things',
+//        new \NamingThings\NamingThingsSectionInfo
+//    );
+//}
+
+//function createSystemSection()
+//{
+//    return new \PHPOpenDocs\SystemSection(
+//        '/system',
+//        'System',
+//        'Site system stuff...',
+//        new \PHPOpenDocs\SystemSectionInfo
+//    );
+//}
+//
+//function createRfcCodexSection()
+//{
+//    return new \RfcCodexOpenDocs\RfcCodexSection(
+//        '/rfc_codex',
+//        'RFC Codex',
+//        "Discussions ideas for how PHP can be improved, why some ideas haven't come to fruition yet.",
+//        new \RfcCodexOpenDocs\RfcCodexSectionInfo()
+//    );
+//}
+
+
+//function createSponsoringSection()
+//{
+//    return new \OpenDocs\Section(
+//        '/sponsoring',
+//        'Sponsoring',
+//        'How to give money to people who work on PHP core or documentation.',
+//        new \PHPFunding\PHPFundingSectionInfo
+//    );
+//}
 
 function createSectionList(): \OpenDocs\SectionList
 {
     $sections = [];
 
-    $sections[] = createLearningSection();
-    $sections[] = createNamingThingsSection();
+//    $sections[] = createLearningSection();
+    $sections[] = \Learning\LearningSection::create();
+//    $sections[] = createNamingThingsSection();
+    $sections[] = \NamingThings\NamingThingsSection::create();
 //        new \OpenDocs\Section(
 //        '/naming',
 //        'Naming things',
@@ -206,7 +208,8 @@ function createSectionList(): \OpenDocs\SectionList
 //        new \NamingThings\NamingThingsSectionInfo
 //    );
 
-    $sections[] = createRfcCodexSection();
+//    $sections[] = createRfcCodexSection();
+    $sections[] = \RfcCodexOpenDocs\RfcCodexSection::create();
 //        new \OpenDocs\Section(
 //        '/rfc_codex',
 //        'RFC Codex',
@@ -214,9 +217,11 @@ function createSectionList(): \OpenDocs\SectionList
 //        new \RfcCodexOpenDocs\RfcCodexSectionInfo()
 //    );
 
-    $sections[] = createMerchSection();
-    $sections[] = createSystemSection();
-    $sections[] = createSponsoringSection();
+//    $sections[] = createMerchSection();
+    $sections[] = \Merch\MerchSection::create();
+//    $sections[] = createSystemSection();
+    $sections[] = \PHPOpenDocs\SystemSection::create();
+//    $sections[] = createSponsoringSection();
 
 //    $sections[] = new \OpenDocs\Section(
 //        '/work',
@@ -225,7 +230,8 @@ function createSectionList(): \OpenDocs\SectionList
 //        new \Work\WorkSectionInfo
 //    );
 
-    $sections[] = createInternalsSection();
+//    $sections[] = createInternalsSection();
+    $sections[] = \Internals\InternalsSection::create();
 
     return new \OpenDocs\SectionList($sections);
 }
@@ -233,65 +239,65 @@ function createSectionList(): \OpenDocs\SectionList
 function createMemoryWarningCheck(
     Config $config,
     \Auryn\Injector $injector
-) : \PhpOpenDocs\Service\MemoryWarningCheck\MemoryWarningCheck {
+) : \PHPOpenDocs\Service\MemoryWarningCheck\MemoryWarningCheck {
     $env = Config::getEnvironment();
 
     if ($env === App::ENVIRONMENT_LOCAL) {
-        return $injector->make(\PhpOpenDocs\Service\MemoryWarningCheck\DevEnvironmentMemoryWarning::class);
+        return $injector->make(\PHPOpenDocs\Service\MemoryWarningCheck\DevEnvironmentMemoryWarning::class);
     }
 
-    return $injector->make(\PhpOpenDocs\Service\MemoryWarningCheck\ProdMemoryWarningCheck::class);
+    return $injector->make(\PHPOpenDocs\Service\MemoryWarningCheck\ProdMemoryWarningCheck::class);
 }
 
 
 
-function createRoutesForApp(\OpenDocs\SectionList $sectionList)//: \SlimAuryn\Routes
-{
-    $routes = new \PhpOpenDocs\SlimRoutesExtended();
-
-    $injector = new \Auryn\Injector();
-    $injectionParams = getSectionInjectionParams();
-    $injectionParams->addToInjector($injector);
-
-    foreach ($sectionList->getSections() as $section) {
-        $sectionInfo = $section->getSectionInfo();
-        foreach ($sectionInfo->getRoutes() as $route) {
-            $fullPath = $section->getPrefix() . $route->getPath();
-            $routeCallable = $route->getCallable();
-            $sectionFn = function (\PhpOpenDocs\FullRouteInfo $fullRouteInfo)
-            use ($section, $routeCallable, $injector) {
-                $injector = clone $injector;
-                $injector->share($section);
-
-                $breadcrumbsFactory = new \OpenDocs\BreadcrumbsFactory($section);
-                $injector->share($breadcrumbsFactory);
-                foreach ($fullRouteInfo->getRouteParams()->getAll() as $key => $value) {
-                    $injector->defineParam($key, $value);
-                }
-
-                $injector->share(createLearningSection());
-                $injector->share(createNamingThingsSection());
-                $injector->share(createInternalsSection());
-                $injector->share(createSystemSection());
-                $injector->share(createRfcCodexSection());
-
-                $page = $injector->execute($routeCallable);
-
-                return convertPageToHtmlResponse($section, $page);
-            };
-
-            $routes->addRoute($fullPath, $route->getMethod(), $sectionFn);
-        }
-    }
-
-    $standardRoutes = require __DIR__ . '/../routes/app_routes.php';
-    foreach ($standardRoutes as $standardRoute) {
-        list($path, $method, $callable) = $standardRoute;
-        $routes->addRoute($path, $method, $callable);
-    }
-
-    return $routes;
-}
+//function createRoutesForApp(\OpenDocs\SectionList $sectionList)//: \SlimAuryn\Routes
+//{
+//    $routes = new \SlimRoutesExtended();
+//
+//    $injector = new \Auryn\Injector();
+//    $injectionParams = getSectionInjectionParams();
+//    $injectionParams->addToInjector($injector);
+//
+//    foreach ($sectionList->getSections() as $section) {
+//        $sectionInfo = $section->getSectionInfo();
+//        foreach ($sectionInfo->getRoutes() as $route) {
+//            $fullPath = $section->getPrefix() . $route->getPath();
+//            $routeCallable = $route->getCallable();
+//            $sectionFn = function (\PHPOpenDocs\FullRouteInfo $fullRouteInfo)
+//            use ($section, $routeCallable, $injector) {
+//                $injector = clone $injector;
+//                $injector->share($section);
+//
+//                $breadcrumbsFactory = new \OpenDocs\BreadcrumbsFactory($section);
+//                $injector->share($breadcrumbsFactory);
+//                foreach ($fullRouteInfo->getRouteParams()->getAll() as $key => $value) {
+//                    $injector->defineParam($key, $value);
+//                }
+//
+////                $injector->share(createLearningSection());
+////                $injector->share(createNamingThingsSection());
+////                $injector->share(createInternalsSection());
+////                $injector->share(createSystemSection());
+////                $injector->share(createRfcCodexSection());
+//
+//                $page = $injector->execute($routeCallable);
+//
+//                return convertPageToHtmlResponse($section, $page);
+//            };
+//
+//            $routes->addRoute($fullPath, $route->getMethod(), $sectionFn);
+//        }
+//    }
+//
+//    $standardRoutes = require __DIR__ . '/../routes/app_routes.php';
+//    foreach ($standardRoutes as $standardRoute) {
+//        list($path, $method, $callable) = $standardRoute;
+//        $routes->addRoute($path, $method, $callable);
+//    }
+//
+//    return $routes;
+//}
 
 /**
  * Creates the ExceptionMiddleware that converts all known app exceptions
@@ -300,7 +306,7 @@ function createRoutesForApp(\OpenDocs\SectionList $sectionList)//: \SlimAuryn\Ro
 function createExceptionMiddlewareForApp(\Auryn\Injector $injector): \SlimAuryn\ExceptionMiddleware
 {
     $exceptionHandlers = [
-        \PhpOpenDocs\Exception\DebuggingCaughtException::class => 'debuggingCaughtExceptionExceptionMapperApp',
+        \PHPOpenDocs\Exception\DebuggingCaughtException::class => 'debuggingCaughtExceptionExceptionMapperApp',
         \Auryn\InjectionException::class => 'renderAurynInjectionException',
         \OpenDocs\MarkdownRenderer\MarkdownRendererException::class => 'renderMarkdownRendererException',
 

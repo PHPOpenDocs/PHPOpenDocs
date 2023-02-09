@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocsTest\Repo\PhpBugsStorage;
+namespace PHPOpenDocsTest\Repo\PhpBugsStorage;
 
-use PhpOpenDocs\Model\PhpBugsMaxComment;
-use PhpOpenDocs\Repo\PhpBugsStorage\FakePhpBugsStorage;
+use PHPOpenDocs\Model\PhpBugsMaxComment;
+use PHPOpenDocs\Repo\PhpBugsStorage\FakePhpBugsStorage;
 use PHPUnit\Framework\TestCase;
 
 /**

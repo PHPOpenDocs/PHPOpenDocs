@@ -4,7 +4,7 @@ set -e
 set -x
 
 sh runCodeSniffer.sh
-# sh runPhpStan.sh
+sh runPhpStan.sh
 # sh runPhpUnit.sh
 # sh runBehat.sh
 

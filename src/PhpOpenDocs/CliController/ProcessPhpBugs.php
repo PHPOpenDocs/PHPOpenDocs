@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\CliController;
+namespace PHPOpenDocs\CliController;
 
-use PhpOpenDocs\Repo\PhpBugsStorage\PhpBugsStorage;
-use PhpOpenDocs\Repo\PhpBugsFetcher\PhpBugsFetcher;
+use PHPOpenDocs\Repo\PhpBugsStorage\PhpBugsStorage;
+use PHPOpenDocs\Repo\PhpBugsFetcher\PhpBugsFetcher;
 use function LoopingExec\continuallyExecuteCallable;
 
 class ProcessPhpBugs
@@ -29,7 +29,7 @@ class ProcessPhpBugs
     }
 
 
-    public function updateMaxCommentId()
+    public function updateMaxCommentId(): void
     {
         $callable = function () {
             $this->updateMaxCommentIdInternal();
@@ -42,7 +42,7 @@ class ProcessPhpBugs
         );
     }
 
-    public function updateMaxCommentIdInternal()
+    public function updateMaxCommentIdInternal(): void
     {
         echo "updateMaxCommentIdInternal \n";
 

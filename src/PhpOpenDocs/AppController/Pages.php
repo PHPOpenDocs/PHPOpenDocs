@@ -2,15 +2,15 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\AppController;
+namespace PHPOpenDocs\AppController;
 
 use OpenDocs\Breadcrumb;
 use OpenDocs\Breadcrumbs;
 use OpenDocs\ContentLink;
 use OpenDocs\PrevNextLinks;
 use OpenDocs\SectionList;
-use PhpOpenDocs\ExamplePage;
-use PhpOpenDocs\MarkdownPage;
+use PHPOpenDocs\ExamplePage;
+use PHPOpenDocs\MarkdownPage;
 use SlimAuryn\Response\HtmlResponse;
 use SlimAuryn\Response\StubResponse;
 
@@ -134,7 +134,7 @@ HTML;
 
         $page = new \OpenDocs\Page(
             $title = 'PHP OpenDocs',
-            createPhpOpenDocsEditInfo('Edit page', realpath(__DIR__ . "/../../../docs/php_opendocs_about.md"), null),
+            createPHPOpenDocsEditInfo('Edit page', realpath(__DIR__ . "/../../../docs/php_opendocs_about.md"), null),
             [],
             new PrevNextLinks(null, null),
             $contentHtml = $page->getPageContent(),
@@ -151,7 +151,7 @@ HTML;
         return new HtmlResponse($html);
     }
 
-    public function privacyPolicy()
+    public function privacyPolicy(): void
     {
     }
 

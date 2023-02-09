@@ -2,21 +2,21 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\AppController;
+namespace PHPOpenDocs\AppController;
 
-use PhpOpenDocs\Exception\DebuggingUncaughtException;
-use PhpOpenDocs\Exception\DebuggingCaughtException;
+use PHPOpenDocs\Exception\DebuggingUncaughtException;
+use PHPOpenDocs\Exception\DebuggingCaughtException;
 
 class Debug
 {
-    public function testUncaughtException()
+    public function testUncaughtException(): never
     {
         throw new DebuggingUncaughtException(
             "Hello, I am a test exception that won't be caught by the application."
         );
     }
 
-    public function testCaughtException()
+    public function testCaughtException(): never
     {
         throw new DebuggingCaughtException(
             "Hello, I am a test exception that will be caught by the application."

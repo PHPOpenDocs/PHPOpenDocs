@@ -1,37 +1,19 @@
 parameters:
-  bootstrap: null
-
-  scanFiles:
-    - injectionParams/cli.php
-
-  #bootstrapFiles
-
-#  autoload_files:
-#    - lib/cli_functions.php
-#    - injectionParams/cli.php
-#    - lib/cli_functions.php
-#    - lib/exception_mappers_api.php
-#    - lib/exception_mappers_app.php
-#    - lib/exception_mappers_cli.php
-#    - src/factories.php
-#    - src/functions.php
-#    - src/site_html.php
-
-includes:
-    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
-
-  excludes_analyse:
-    - *injectionParams/*
-    - *PhpOpenDocs/InjectionParams.php
-    - *PHPOpenDocs/CommonController/CompileError.php
-    - PhpOpenDocs/Config.php
-    - *opcache.php
+  level: 6
+  paths:
+    - app
+    - src
+    - config.generated.php
   ignoreErrors:
-## PHP 7/8 issues start - delete these when PHP 7 support is dropped
-    -
-      message: '#Strict comparison using === .*#'
-      path: *functions.php
-    -
-      message: '#Comparison operation ">" between int<1, max> and 0 is always true.*#'
-      path: *functions.php
-## PHP 7/8 issues end - delete these when PHP 7 support is dropped
+    - "#Function [a-zA-Z0-9\\_\\\\:\\(\\)]+ has parameter \\$[a-zA-Z0-9_]+ with no value type specified in iterable type array#"
+    - "#Function [a-zA-Z0-9\\_\\\\:\\(\\)]+ return type has no value type specified in iterable type array#"
+    - "#Method [a-zA-Z0-9\\_\\\\:\\(\\)]+ has parameter \\$[a-zA-Z0-9_]+ with no value type specified in iterable type array#"
+    - "#Method [a-zA-Z0-9\\_\\\\:\\(\\)]+ return type has no value type specified in iterable type array#"
+    - "#Property [a-zA-Z0-9\\$\\_\\\\:\\(\\)]+ type has no value type specified in iterable type array#"
+    - "#Dead catch - .* is never thrown in the try block.#"
+
+  excludePaths:
+    - src/PHPOpenDocs/AppController/CompileError.php
+    - src/Middleware/ContentSecurityPolicyMiddleware.php
+    - src/Middleware/MemoryCheckMiddleware.php
+

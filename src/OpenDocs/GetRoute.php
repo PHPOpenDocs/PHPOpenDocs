@@ -21,7 +21,7 @@ class GetRoute
      */
     public function __construct(
         string $path,
-        $callable
+        callable|string $callable
     ) {
         $this->path = $path;
         $this->callable = $callable;

@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs;
+namespace PHPOpenDocs;
 
 use OpenDocs\Section;
 use OpenDocs\SectionInfo;
@@ -15,11 +15,11 @@ class SystemSection extends Section
             '/system',
             'System',
             'Site system stuff...',
-            new \PhpOpenDocs\SystemSectionInfo
+            new \PHPOpenDocs\SystemSectionInfo
         );
     }
 
-    public static function create()
+    public static function create(): self
     {
         return new self();
     }

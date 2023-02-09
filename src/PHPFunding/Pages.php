@@ -14,14 +14,14 @@ use function PHPFunding\createEditInfo;
 
 class Pages
 {
-    private MarkdownRenderer $markdownRenderer;
+//    private MarkdownRenderer $markdownRenderer;
+//
+//    public function __construct(MarkdownRenderer $markdownRenderer)
+//    {
+//        $this->markdownRenderer = $markdownRenderer;
+//    }
 
-    public function __construct(MarkdownRenderer $markdownRenderer)
-    {
-        $this->markdownRenderer = $markdownRenderer;
-    }
-
-    public function renderPhpFunding(PeopleList $peopleList, $version)
+    public function renderPhpFunding(PeopleList $peopleList, string $version): string
     {
         $rows = [];
 
@@ -103,7 +103,7 @@ HTML;
     }
 
 
-    public function renderExtensionsFunding(ExtensionList $extensionList)
+    public function renderExtensionsFunding(ExtensionList $extensionList): string
     {
         $sponsorLinkFn = function (SponsorLink $sponsorLink) {
             $linkTemplate = "<a href=':attr_url'>:html_name</a>";
@@ -169,7 +169,7 @@ HTML;
         return $html;
     }
 
-    public function renderUserlandFunding()
+    public function renderUserlandFunding(): string
     {
         return "<b>todo</b> - trawl <a href='https://packagist.org/explore/popular.json'>the top packages</a> and extract the sponsoring info.";
     }

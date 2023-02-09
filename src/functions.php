@@ -10,7 +10,7 @@ use OpenDocs\Breadcrumbs;
 use OpenDocs\CopyrightInfo;
 use OpenDocs\EditInfo;
 use OpenDocs\SectionList;
-use PhpOpenDocs\Data\ContentPolicyViolationReport;
+use PHPOpenDocs\Data\ContentPolicyViolationReport;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use SlimAuryn\Response\HtmlResponse;
@@ -56,7 +56,7 @@ use function SlimAuryn\mapStubResponseToPsr7;
 function json_decode_safe(?string $json)
 {
     if ($json === null) {
-        throw new \PhpOpenDocs\Exception\JsonException("Error decoding JSON: cannot decode null.");
+        throw new \PHPOpenDocs\Exception\JsonException("Error decoding JSON: cannot decode null.");
     }
 
     $data = json_decode($json, true);
@@ -73,10 +73,10 @@ function json_decode_safe(?string $json)
     }
 
     if ($data === null) {
-        throw new \PhpOpenDocs\Exception\JsonException("Error decoding JSON: null returned.");
+        throw new \PHPOpenDocs\Exception\JsonException("Error decoding JSON: null returned.");
     }
 
-    throw new \PhpOpenDocs\Exception\JsonException("Error decoding JSON: " . json_last_error_msg());
+    throw new \PHPOpenDocs\Exception\JsonException("Error decoding JSON: " . json_last_error_msg());
 }
 
 
@@ -121,15 +121,9 @@ function get_password_options(): array
 function generate_password_hash(string $password): string
 {
     $options = get_password_options();
-    $hash = password_hash($password, PASSWORD_BCRYPT, $options);
 
-    if ($hash === false) {
-        throw new \Exception('Failed to hash password.');
-    }
-
-    return $hash;
+    return password_hash($password, PASSWORD_BCRYPT, $options);
 }
-
 
 function getClientIpAddress() : string
 {
@@ -140,13 +134,9 @@ function getClientIpAddress() : string
     if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {   // from load balancer
         $ipString = $_SERVER['HTTP_X_FORWARDED_FOR'];
         $ipParts = explode(',', $ipString);
-        if ($ipParts === false) {
-            throw new \Exception("Failed to explode ipSrting.");
-        }
 
-        if (count($ipParts) > 0) {
-            return trim($ipParts[0]);
-        }
+        // TODO - validate this.
+        return trim($ipParts[0]);
     }
 
     return $_SERVER['REMOTE_ADDR'];
@@ -191,7 +181,7 @@ function convertToValue(string $name, $value)
         return $callable();
     }
     if (is_object($value) === true && $value instanceof \DateTime) {
-        return $value->format(\PhpOpenDocs\App::DATE_TIME_EXACT_FORMAT);
+        return $value->format(\PHPOpenDocs\App::DATE_TIME_EXACT_FORMAT);
     }
 
     if (is_array($value) === true) {
@@ -674,7 +664,7 @@ function getRandomId(): string
     return hash("sha256", $foo);
 }
 
-function showTotalErrorPage(\Throwable $exception)
+function showTotalErrorPage(\Throwable $exception): void
 {
     $exceptionText = "Failed to get exception text.";
 
@@ -695,12 +685,12 @@ function showTotalErrorPage(\Throwable $exception)
     }
 }
 
-function createDefaultEditInfo()
+function createDefaultEditInfo(): EditInfo
 {
     return new EditInfo(['Edit page' => 'https://github.com/PHPOpenDocs/PHPOpenDocs']);
 }
 
-function createDefaultCopyrightInfo()
+function createDefaultCopyrightInfo(): CopyrightInfo
 {
     return new CopyrightInfo(
         'PHP OpenDocs',
@@ -708,7 +698,7 @@ function createDefaultCopyrightInfo()
     );
 }
 
-function createErrorPage($errorContentsHtml)
+function createErrorPage(string $errorContentsHtml): OpenDocs\Page
 {
     return new OpenDocs\Page(
         'error',
@@ -737,7 +727,7 @@ function normaliseFilePath(string $file): string
 function convertPageToHtmlResponse(
     \OpenDocs\Section $section,
     \OpenDocs\Page $page
-) {
+): HtmlResponse {
     $headerLinks = createStandardHeaderLinks();
     $breadcrumbs = new Breadcrumbs();
 
@@ -750,7 +740,7 @@ function convertPageToHtmlResponse(
 }
 
 
-function createPhpOpenDocsEditInfo(string $description, string $file, ?int $line): EditInfo
+function createPHPOpenDocsEditInfo(string $description, string $file, ?int $line): EditInfo
 {
     $path = normaliseFilePath($file);
 
@@ -805,7 +795,12 @@ function formatCSPViolationReportsToHtml(array $reports): string
     return renderTable($headers, $data);
 }
 
-function getPreviousLink(array $contentLinks, string $currentPosition)
+/**
+ * @param \OpenDocs\ContentLink[] $contentLinks
+ * @param string $currentPosition
+ * @return \OpenDocs\ContentLink|null
+ */
+function getPreviousLink(array $contentLinks, string $currentPosition):\OpenDocs\ContentLink|null
 {
     $currentLink = null;
 
@@ -862,7 +857,7 @@ function mapOpenDocsPageToPsr7(
     \OpenDocs\Page $page,
     \Psr\Http\Message\ServerRequestInterface $request,
     ResponseInterface $response
-) {
+): ResponseInterface {
     $html = createPageHtml(
         $page->getSection(),
         $page
@@ -879,10 +874,7 @@ function mapOpenDocsPageToPsr7(
 
 
 
-
-
-
-function getAurynFixText(\Auryn\InjectionException $injectionException)
+function getAurynFixText(\Auryn\InjectionException $injectionException): string|null
 {
     switch ($injectionException->getCode()) {
         case \Auryn\Injector::E_NEEDS_DEFINITION:
@@ -933,7 +925,7 @@ TEXT;
 }
 
 
-function setupAllRoutes($app)
+function setupAllRoutes(\Slim\App $app): void
 {
     $sectionList = createSectionList();
     foreach ($sectionList->getSections() as $section) {

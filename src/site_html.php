@@ -16,7 +16,7 @@ use OpenDocs\Page;
 use OpenDocs\PrevNextLinks;
 use SlimAuryn\Response\HtmlResponse;
 
-function createBreadcrumbPart(string $path, string $description)
+function createBreadcrumbPart(string $path, string $description): string
 {
     $li_template = "<li><a href=':attr_link'>:html_description</a></li>";
     $params = [
@@ -81,7 +81,7 @@ function createPrevNextHtml(?PrevNextLinks $prevNextLinks): string
     try {
         esprintf($template, $params);
     }
-    catch (Zend\Escaper\Exception\RuntimeException $re) {
+    catch (\Laminas\Escaper\Exception\RuntimeException $re) {
         var_dump($params);
         exit(0);
     }
@@ -89,7 +89,7 @@ function createPrevNextHtml(?PrevNextLinks $prevNextLinks): string
     return "<span class='opendocs_prev_next_container'>" . esprintf($template, $params) ."</span>";
 }
 
-function createPageHeaderHtml(HeaderLinks $headerLinks) : string
+function createPageHeaderHtml(HeaderLinks $headerLinks): string
 {
     $template = '<span><a href=":attr_path">:html_description</a></span>';
     $html = "";
@@ -116,7 +116,7 @@ function createStandardHeaderLinks(): HeaderLinks
     ]);
 }
 
-function getUrl($sectionPath, $path)
+function getUrl(string $sectionPath, string $path): string
 {
     // It's an external url
     if (strpos($path, 'http') === 0) {
@@ -253,7 +253,7 @@ function createPageHtmlResponse(
     return new HtmlResponse($html);
 }
 
-function createPageHtmlFromPage(Page $page)
+function createPageHtmlFromPage(Page $page): string
 {
     return createPageHtml($page->getSection(), $page);
 }
@@ -271,14 +271,14 @@ function createPageHtml(
         $prefix = $section->getPrefix();
     }
 
-    $pageTitle = $page->getTitle() ?? "PHP OpenDocs";
+//    $pageTitle = $page->getTitle() ?? "PHP OpenDocs";
 
-    $assetSuffix = \PhpOpenDocs\App::getAssetSuffix();
+    $assetSuffix = \PHPOpenDocs\App::getAssetSuffix();
 
     $params = [
         ':raw_site_css_link' => '/css/site.css' . $assetSuffix,
         ':raw_site_js_link' => '/js/app.bundle.js' . $assetSuffix,
-        ':html_page_title' => $pageTitle,
+        ':html_page_title' => $page->getTitle(),
         ':raw_top_header' => createPageHeaderHtml($headerLinks),
         ':raw_breadcrumbs' => createBreadcrumbHtml($section, $page->getBreadcrumbs()),
         ':raw_prev_next' => createPrevNextHtml($page->getPrevNextLinks()),

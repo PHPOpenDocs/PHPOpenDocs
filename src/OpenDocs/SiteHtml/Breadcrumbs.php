@@ -16,7 +16,7 @@ class Breadcrumbs
 
     /**
      * @param array<string, string> $breadcrumbData Array of paths with description
-     * @return static
+     * @return self
      */
     public static function fromArray(array $breadcrumbData): self
     {

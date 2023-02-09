@@ -14,8 +14,6 @@ class EditInfo
      */
     private array $namesWithLinks;
 
-    private string $link;
-
     /**
      * @param array<string, string> $namesWithLinks
      */
@@ -32,12 +30,12 @@ class EditInfo
         return $this->namesWithLinks;
     }
 
-    public function addNameWithLink(string $name, string $link)
+    public function addNameWithLink(string $name, string $link): void
     {
         $this->namesWithLinks[$name] = $link;
     }
 
-    public function addEditInfo(EditInfo $editInfo)
+    public function addEditInfo(EditInfo $editInfo): void
     {
         foreach ($editInfo->getNamesWithLinks() as $name => $link) {
             $this->namesWithLinks[$name] = $link;

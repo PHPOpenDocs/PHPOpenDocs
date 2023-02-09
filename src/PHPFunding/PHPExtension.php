@@ -34,10 +34,10 @@ class PHPExtension
 
     /**
      * @param string $name
-     * @param array<string, string> $sponsorUrls
+     * @param array<string, string> $sponsorLinks
      * @return $this
      */
-    public function addMaintainer(string $name, array $sponsorLinks)
+    public function addMaintainer(string $name, array $sponsorLinks): self
     {
         $this->maintainers[] = new Maintainer($name, $sponsorLinks);
         return $this;

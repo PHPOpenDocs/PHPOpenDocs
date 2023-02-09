@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\AppErrorHandler;
+namespace PHPOpenDocs\AppErrorHandler;
 
-use PhpOpenDocs\App;
+use PHPOpenDocs\App;
 //use SlimAuryn\ResponseMapper\ResponseMapper;
 use SlimAuryn\Response\HtmlResponse;
 use OpenDocs\Page;

@@ -4,14 +4,14 @@ declare(strict_types = 1);
 
 use OpenDocs\ContentLink;
 use OpenDocs\GlobalPageInfo;
-use PhpOpenDocs\SystemSection;
+use PHPOpenDocs\SystemSection;
 use function Internals\createInternalsDefaultCopyrightInfo;
 use function Internals\getInternalsContentLinks;
 
 function createGlobalPageInfoForSystem(
     string $html = null,
     string $title = null
-) {
+): void {
     GlobalPageInfo::create(
         contentHtml: $html,
         contentLinks: getSystemContentLinks(),

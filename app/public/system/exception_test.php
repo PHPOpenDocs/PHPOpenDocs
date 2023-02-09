@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 require_once __DIR__ . "/../../../src/web_bootstrap.php";
 
-use PhpOpenDocs\CSPViolation\CSPViolationStorage;
+use PHPOpenDocs\CSPViolation\CSPViolationStorage;
 use SlimAuryn\Response\HtmlResponse;
 use OpenDocs\Breadcrumbs;
 
@@ -74,7 +74,7 @@ HTML;
     $page = \OpenDocs\Page::createFromHtmlEx(
         'System',
         $html,
-        createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
+        createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
         Breadcrumbs::fromArray([
             '/system' => 'System',
             '/system/exception_test' => 'Exception test'

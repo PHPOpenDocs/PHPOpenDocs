@@ -30,17 +30,17 @@ class ContentLink
 
 
 
-    public static function level1(?string $path, string $description)
+    public static function level1(?string $path, string $description): self
     {
         return new self($path, $description, 1);
     }
 
-    public static function level2(?string $path, string $description)
+    public static function level2(?string $path, string $description): self
     {
         return new self($path, $description, 2);
     }
 
-    public static function level3(?string $path, string $description)
+    public static function level3(?string $path, string $description): self
     {
         return new self($path, $description, 3);
     }
@@ -61,7 +61,7 @@ class ContentLink
         return $this->description;
     }
 
-    public function getContentLinkWithSection(\OpenDocs\Section $section)
+    public function getContentLinkWithSection(\OpenDocs\Section $section): self
     {
         return new self(
             $section->getPrefix() . '/' .$this->path,
@@ -70,7 +70,7 @@ class ContentLink
         );
     }
 
-        /**
+    /**
      * @return int
      */
     public function getLevel(): int

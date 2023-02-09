@@ -24,39 +24,39 @@ function exampleResponseMapper(
     return $response;
 }
 
-/**
- * @param Injector $injector
- * @param ServerRequestInterface $request
- * @param ResponseInterface $response
- * @param array<string, string> $routeArguments
- * @throws \Auryn\ConfigException
- */
-function setupSlimAurynInvoker(
-    Injector $injector,
-    ServerRequestInterface $request,
-    ResponseInterface $response,
-    array $routeArguments
-): void {
-    $injector->alias(ServerRequestInterface::class, get_class($request));
-    $injector->share($request);
-    $injector->alias(ResponseInterface::class, get_class($response));
-    $injector->share($response);
-    foreach ($routeArguments as $key => $value) {
-        $injector->defineParam($key, $value);
-    }
-
-    $injector->share(createLearningSection());
-    $injector->share(createNamingThingsSection());
-    $injector->share(createInternalsSection());
-    $injector->share(createSystemSection());
-    $injector->share(createRfcCodexSection());
-
-    $invokerRouteParams = new RouteParams($routeArguments);
-    $injector->share($invokerRouteParams);
-
-    $psr7WithRouteParams = \VarMap\Psr7InputMapWithVarMap::createFromRequestAndVarMap(
-        $request,
-        new \VarMap\ArrayVarMap($routeArguments)
-    );
-    $injector->share($psr7WithRouteParams);
-}
+///**
+// * @param Injector $injector
+// * @param ServerRequestInterface $request
+// * @param ResponseInterface $response
+// * @param array<string, string> $routeArguments
+// * @throws \Auryn\ConfigException
+// */
+//function setupSlimAurynInvoker(
+//    Injector $injector,
+//    ServerRequestInterface $request,
+//    ResponseInterface $response,
+//    array $routeArguments
+//): void {
+//    $injector->alias(ServerRequestInterface::class, get_class($request));
+//    $injector->share($request);
+//    $injector->alias(ResponseInterface::class, get_class($response));
+//    $injector->share($response);
+//    foreach ($routeArguments as $key => $value) {
+//        $injector->defineParam($key, $value);
+//    }
+//
+//    $injector->share(createLearningSection());
+//    $injector->share(createNamingThingsSection());
+//    $injector->share(createInternalsSection());
+//    $injector->share(createSystemSection());
+//    $injector->share(createRfcCodexSection());
+//
+//    $invokerRouteParams = new RouteParams($routeArguments);
+//    $injector->share($invokerRouteParams);
+//
+//    $psr7WithRouteParams = \VarMap\Psr7InputMapWithVarMap::createFromRequestAndVarMap(
+//        $request,
+//        new \VarMap\ArrayVarMap($routeArguments)
+//    );
+//    $injector->share($psr7WithRouteParams);
+//}

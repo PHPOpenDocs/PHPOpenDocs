@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\AppController;
+namespace PHPOpenDocs\AppController;
 
 
 class CompileError

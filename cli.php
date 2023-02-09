@@ -3,7 +3,7 @@
 
 use Danack\Console\Application;
 use Danack\Console\Output\BufferedOutput;
-use PhpOpenDocs\CLIFunction;
+use PHPOpenDocs\CLIFunction;
 use VarMap\VarMap;
 use VarMap\ArrayVarMap;
 

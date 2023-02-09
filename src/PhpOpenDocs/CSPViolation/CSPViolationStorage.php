@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\CSPViolation;
+namespace PHPOpenDocs\CSPViolation;
 
-use PhpOpenDocs\CSPViolation\CSPViolationReporter;
-use PhpOpenDocs\Data\ContentPolicyViolationReport;
+use PHPOpenDocs\CSPViolation\CSPViolationReporter;
+use PHPOpenDocs\Data\ContentPolicyViolationReport;
 
 interface CSPViolationStorage extends CSPViolationReporter
 {

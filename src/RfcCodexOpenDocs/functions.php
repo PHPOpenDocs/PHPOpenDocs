@@ -31,7 +31,7 @@ function getCodexEntry(string $name): RfcCodexEntry|null
     return null;
 }
 
-function getTitleFromFileName(string $name)
+function getTitleFromFileName(string $name): string|null
 {
     $codexEntry = getCodexEntry($name);
 
@@ -156,7 +156,7 @@ function getRfcCodexContentLinks(): array
 //    return new EditInfo([$description => $link]);
 //}
 
-function createRfcCodexDefaultCopyrightInfo()
+function createRfcCodexDefaultCopyrightInfo(): CopyrightInfo
 {
     return new CopyrightInfo(
         'PHP OpenDocs',
@@ -168,7 +168,7 @@ function createRfcCodexDefaultCopyrightInfo()
 function createGlobalPageInfoForRfcCodex(
     string $html = null,
     string $title = null
-) {
+): void {
     GlobalPageInfo::create(
         contentHtml: $html,
         contentLinks: getRfcCodexContentLinks(),

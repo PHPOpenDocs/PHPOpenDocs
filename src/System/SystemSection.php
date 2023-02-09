@@ -14,11 +14,11 @@ class SystemSection extends Section
             '/system',
             'System stuff',
             "Really, stuff to do with the system",
-            new \PhpOpenDocs\SystemSectionInfo()
+            new \PHPOpenDocs\SystemSectionInfo()
         );
     }
 
-    public static function create()
+    public static function create(): self
     {
         return new self();
     }

@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\Key;
+namespace PHPOpenDocs\Key;
 
 class ContentSecurityPolicyKey
 {

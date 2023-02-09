@@ -6,15 +6,17 @@ namespace Sections;
 
 use OpenDocs\Section;
 
+use Sponsoring\SponsoringSectionInfo;
+
 class SponsoringSection extends Section
 {
-    public static function create()
+    public static function create(): self
     {
         return new self(
-            '/work',
-            'Work',
-            'Distributing the work load required to support PHP',
-            new \Work\WorkSectionInfo()
+            '/sponsoring',
+            'Sponsoring',
+            'How to give money to people who work on PHP core or documentation.',
+            new \Sponsoring\SponsoringSectionInfo()
         );
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs;
+namespace PHPOpenDocs;
 
 /**
  * Class CLIFunction
@@ -10,7 +10,7 @@ namespace PhpOpenDocs;
  */
 class CLIFunction
 {
-    public static function setupErrorHandlers()
+    public static function setupErrorHandlers(): void
     {
         $initialOBLevel = ob_get_level();
         $shutdownFunction = function () use ($initialOBLevel) {
@@ -22,10 +22,10 @@ class CLIFunction
 
         register_shutdown_function($shutdownFunction);
 
-        set_error_handler([\PhpOpenDocs\CLIFunction::class, 'errorHandler']);
+        set_error_handler([\PHPOpenDocs\CLIFunction::class, 'errorHandler']);
     }
 
-    public static function fatalErrorShutdownHandler()
+    public static function fatalErrorShutdownHandler(): void
     {
         $fatals = [
             E_ERROR,
@@ -66,7 +66,7 @@ class CLIFunction
         }
     }
 
-    public static function errorHandler($errno, $errstr, $errfile, $errline)
+    public static function errorHandler(int $errno, string $errstr, string $errfile, int $errline): bool
     {
         if (error_reporting() === 0) {
             return true;

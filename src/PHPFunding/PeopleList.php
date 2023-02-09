@@ -18,7 +18,7 @@ class PeopleList
     }
 
 
-    public function init()
+    public function init(): void
     {
         $people = [];
 

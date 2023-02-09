@@ -19,7 +19,7 @@ return [
 
     ['/PhpBugsMaxComment', 'GET', '\Work\ApiController\Bugs::getPhpBugsMaxComment'],
 
-    ['/csp_violation', 'POST', 'PhpOpenDocs\AppController\ContentSecurityPolicy::postReport'],
+    ['/csp_violation', 'POST', 'PHPOpenDocs\AppController\ContentSecurityPolicy::postReport'],
 
 
 //    ['/motions', 'GET', 'ASVoting\ApiController\Motions::getProposedMotions'],
@@ -34,16 +34,16 @@ return [
 //    ['/csp', 'POST', 'Osf\CommonController\ContentSecurityPolicy::postReport'],
 //  ['/projects/{project_name:.+}', 'GET', '\Osf\AppController\Projects::getProject'],
 
-    ['/test/caught_exception', 'GET', 'PhpOpenDocs\ApiController\Debug::testCaughtException'],
-    ['/test/uncaught_exception', 'GET', 'PhpOpenDocs\ApiController\Debug::testUncaughtException'],
-    ['/test/xdebug', 'GET', 'PhpOpenDocs\ApiController\Debug::testXdebugWorking'],
+    ['/test/caught_exception', 'GET', 'PHPOpenDocs\ApiController\Debug::testCaughtException'],
+    ['/test/uncaught_exception', 'GET', 'PHPOpenDocs\ApiController\Debug::testUncaughtException'],
+    ['/test/xdebug', 'GET', 'PHPOpenDocs\ApiController\Debug::testXdebugWorking'],
 
 
 
-    ['/status', 'GET', 'PhpOpenDocs\ApiController\HealthCheck::get'],
+    ['/status', 'GET', 'PHPOpenDocs\ApiController\HealthCheck::get'],
 
 
-    ['/{any:.+}', 'GET', 'PhpOpenDocs\ApiController\HealthCheck::get'],
-    ['/', 'GET', 'PhpOpenDocs\ApiController\Index::getRouteList'],
+    ['/{any:.+}', 'GET', 'PHPOpenDocs\ApiController\HealthCheck::get'],
+    ['/', 'GET', 'PHPOpenDocs\ApiController\Index::getRouteList'],
 ];
 

@@ -55,26 +55,26 @@ class Page
         $this->section = $section;
     }
 
-    public static function createFromGlobalPage()
-    {
-        $linkInfo = createLinkInfo(
-            GlobalPageInfo::getCurrentPath(),
-            GlobalPageInfo::getContentLinks()
-        );
-
-        $page = new \OpenDocs\Page(
-            GlobalPageInfo::getTitle(),
-            GlobalPageInfo::getEditInfo(),
-            GlobalPageInfo::getContentLinks(),
-            GlobalPageInfo::getPrevNextLinks(),
-            GlobalPageInfo::getContentHtml(),
-            GlobalPageInfo::getCopyrightInfo(),
-            GlobalPageInfo::getBreadcrumbs(),
-            GlobalPageInfo::getSection()
-        );
-
-        return $page;
-    }
+//    public static function createFromGlobalPage()
+//    {
+//        $linkInfo = createLinkInfo(
+//            GlobalPageInfo::getCurrentPath(),
+//            GlobalPageInfo::getContentLinks()
+//        );
+//
+//        $page = new \OpenDocs\Page(
+//            GlobalPageInfo::getTitle(),
+//            GlobalPageInfo::getEditInfo(),
+//            GlobalPageInfo::getContentLinks(),
+//            GlobalPageInfo::getPrevNextLinks(),
+//            GlobalPageInfo::getContentHtml(),
+//            GlobalPageInfo::getCopyrightInfo(),
+//            GlobalPageInfo::getBreadcrumbs(),
+//            GlobalPageInfo::getSection()
+//        );
+//
+//        return $page;
+//    }
 
     public static function createFromHtml(
         string $title,
@@ -83,7 +83,7 @@ class Page
     ): Page {
         $page = new \OpenDocs\Page(
             $title,
-            createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
+            createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
             [],
             new PrevNextLinks(null, null),
             $contentHtml,

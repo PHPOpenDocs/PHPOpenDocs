@@ -23,7 +23,7 @@ use function Learning\getLearningContentLinks;
 //    $page = \OpenDocs\Page::createFromHtmlEx2(
 //        'Java Exception Antipatterns',
 //        $html,
-//        createPhpOpenDocsEditInfo('Edit page', __FILE__, null),
+//        createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
 //        $breadcrumbsFactory->createFromArray([
 //            '/java_exception_antipatterns' => 'Java Exception Antipatterns'
 //        ]),
@@ -39,7 +39,7 @@ use function Learning\getLearningContentLinks;
 //};
 
 use OpenDocs\GlobalPageInfo;
-use PhpOpenDocs\Types\PackageMarkdownPage;
+use PHPOpenDocs\Types\PackageMarkdownPage;
 use function Learning\createMarkdownPackagePageFnLearning;
 
 $fn = createMarkdownPackagePageFnLearning(

@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\Service\TooMuchMemoryNotifier;
+namespace PHPOpenDocs\Service\TooMuchMemoryNotifier;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 

@@ -43,12 +43,12 @@ function createEditInfo2(
 }
 
 
-function noun_link(string $noun)
+function noun_link(string $noun): string
 {
     return "<a href='/naming/nouns#" . $noun . "'>" . $noun . "</a>";
 }
 
-function verb_link(string $verb)
+function verb_link(string $verb): string
 {
     return "<a href='/naming/verbs#" . $verb . "'>" . $verb . "</a>";
 }
@@ -101,7 +101,7 @@ HTML;
     return $content;
 }
 
-function getVerbSeeAlsoLinks($alsos): string
+function getVerbSeeAlsoLinks(array $alsos): string
 {
     $links = [];
     foreach ($alsos as $also) {
@@ -112,7 +112,7 @@ function getVerbSeeAlsoLinks($alsos): string
 }
 
 
-function getVerbSeeAlsoLinksNarrow($alsos): string
+function getVerbSeeAlsoLinksNarrow(array $alsos): string
 {
     if (count($alsos) === 0) {
         return '';

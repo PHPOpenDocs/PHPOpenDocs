@@ -7,17 +7,9 @@ use Danack\Console\Application;
 // Holds functions that convert exceptions into command
 // line output for use in the command line tools.
 
-
 function cliHandleInjectionException(Application $console, \Auryn\InjectionException $ie)
 {
-    fwrite(STDERR, "time: " . date(\Osf\App::DATE_TIME_FORMAT) . " ");
-//    $output = new \Danack\Console\Output\BufferedOutput();
-//    $console->renderException($ie, $output);
-//    fwrite(STDERR, $output->fetch());
-//
-//    fwrite(STDERR, "Stacktrace:\n");
-
-
+    fwrite(STDERR, "time: " . date(\PHPOpenDocs\App::DATE_TIME_FORMAT) . " ");
     fwrite(STDERR, getTextForException($ie) . "\n");
     fwrite(STDERR, "Dependency chain:\n");
     fwrite(STDERR, implode("\n  ", $ie->getDependencyChain()));
@@ -26,18 +18,50 @@ function cliHandleInjectionException(Application $console, \Auryn\InjectionExcep
     exit(-1);
 }
 
-function cliHandleGenericException(Application $console, \Exception $e)
-{
-    fwrite(STDERR, "time: " . date(\Osf\App::DATE_TIME_FORMAT) . "\n");
-
-    fwrite(STDERR, getTextForException($e) . "\n");
-
-//    $output = new \Danack\Console\Output\BufferedOutput();
-//    $console->renderException($e, $output);
-//    fwrite(STDERR, $output->fetch());
+//function cliHandleInjectionException(Application $console, \Auryn\InjectionException $ie)
+//{
+//    fwrite(STDERR, "time: " . date(\Osf\App::DATE_TIME_FORMAT) . " ");
+////    $output = new \Danack\Console\Output\BufferedOutput();
+////    $console->renderException($ie, $output);
+////    fwrite(STDERR, $output->fetch());
+////
+////    fwrite(STDERR, "Stacktrace:\n");
 //
-//    fwrite(STDERR, "Stacktrace:\n");
-//    fwrite(STDERR, $e->getTraceAsString() . "\n");
+//
+//    fwrite(STDERR, getTextForException($ie) . "\n");
+//    fwrite(STDERR, "Dependency chain:\n");
+//    fwrite(STDERR, implode("\n  ", $ie->getDependencyChain()));
+//    fwrite(STDERR, "\n");
+//
+//    exit(-1);
+//}
 
+//function cliHandleGenericException(Application $console, \Exception $e)
+//{
+//    fwrite(STDERR, "time: " . date(\Osf\App::DATE_TIME_FORMAT) . "\n");
+//
+//    fwrite(STDERR, getTextForException($e) . "\n");
+//
+////    $output = new \Danack\Console\Output\BufferedOutput();
+////    $console->renderException($e, $output);
+////    fwrite(STDERR, $output->fetch());
+////
+////    fwrite(STDERR, "Stacktrace:\n");
+////    fwrite(STDERR, $e->getTraceAsString() . "\n");
+//
+//    exit(-1);
+//}
+
+function cliHandleGenericException(Application $console, \Exception $e): never
+{
+    fwrite(STDERR, "time: " . date(\PHPOpenDocs\App::DATE_TIME_FORMAT) . "\n");
+    fwrite(STDERR, getTextForException($e) . "\n");
     exit(-1);
 }
+
+//function cliHandleGenericException(Application $console, \Exception $e): never
+//{
+//    fwrite(STDERR, "time: " . date(\PHPOpenDocs\App::DATE_TIME_FORMAT) . "\n");
+//    fwrite(STDERR, getTextForException($e) . "\n");
+//    exit(-1);
+//}

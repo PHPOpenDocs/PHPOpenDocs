@@ -2,23 +2,24 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\Service\MemoryWarningCheck;
+namespace PHPOpenDocs\Service\MemoryWarningCheck;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
+use PHPOpenDocs\Service\TooMuchMemoryNotifier\TooMuchMemoryNotifier;
 
 class ProdMemoryWarningCheck implements MemoryWarningCheck
 {
-    /** @var \PhpOpenDocs\Service\TooMuchMemoryNotifier\TooMuchMemoryNotifier */
-    private $tooMuchMemoryNotifier;
+//    /** @var \PHPOpenDocs\Service\TooMuchMemoryNotifier\TooMuchMemoryNotifier */
+//    private $tooMuchMemoryNotifier;
 
-    /**
-     *
-     * @param \PhpOpenDocs\Service\TooMuchMemoryNotifier\TooMuchMemoryNotifier $tooMuchMemoryNotifier
-     */
-    public function __construct(\PhpOpenDocs\Service\TooMuchMemoryNotifier\TooMuchMemoryNotifier $tooMuchMemoryNotifier)
-    {
-        $this->tooMuchMemoryNotifier = $tooMuchMemoryNotifier;
-    }
+//    /**
+//     *
+//     * @param \PHPOpenDocs\Service\TooMuchMemoryNotifier\TooMuchMemoryNotifier $tooMuchMemoryNotifier
+//     */
+//    public function __construct(TooMuchMemoryNotifier $tooMuchMemoryNotifier)
+//    {
+//        $this->tooMuchMemoryNotifier = $tooMuchMemoryNotifier;
+//    }
 
     public function checkMemoryUsage(Request $request) : int
     {

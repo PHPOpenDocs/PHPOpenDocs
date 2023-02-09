@@ -58,17 +58,15 @@
             "NamingThings\\": "src/",
             "OpenDocs\\": "src/",
             "PHPFunding\\": "src/",
-            "PhpOpenDocs\\": "src/",
+            "PHPOpenDocs\\": "src/",
             "RfcCodexOpenDocs\\": "src/",
-            "System\\": "src/",
-            "Work\\": "src/"
+            "System\\": "src/"
         },
         "files": [
             "src/Internals/functions.php",
             "src/Learning/functions.php",
             "src/NamingThings/functions.php",
-            "src/Work/functions.php",
-            "src/PhpOpenDocs/functions.php",
+            "src/PHPOpenDocs/functions.php",
             "src/PHPFunding/functions.php",
             "src/RfcCodexOpenDocs/functions.php",
             "src/System/functions.php"
@@ -76,7 +74,7 @@
     },
     "autoload-dev": {
         "psr-0": {
-            "PhpOpenDocsTest\\": "test/"
+            "PHPOpenDocsTest\\": "test/"
         }
     },
     "config": {

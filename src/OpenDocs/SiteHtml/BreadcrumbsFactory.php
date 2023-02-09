@@ -4,21 +4,22 @@ declare(strict_types = 1);
 
 namespace OpenDocs\SiteHtml;
 
+// TODO - remove this class as it is pointless
 class BreadcrumbsFactory
 {
-    private Section $currentSection;
-
-    /**
-     * BreadcrumbsFactory constructor.
-     * @param Section $currentSection
-     */
-    public function __construct(Section $currentSection)
-    {
-        $this->currentSection = $currentSection;
-    }
+//    private Section $currentSection;
+//
+//    /**
+//     * BreadcrumbsFactory constructor.
+//     * @param Section $currentSection
+//     */
+//    public function __construct(Section $currentSection)
+//    {
+//        $this->currentSection = $currentSection;
+//    }
 
     // TODO - move to section.
-    public function createFromArray(array $subParts)
+    public function createFromArray(array $subParts): Breadcrumbs
     {
 //        $allParts = [
 //            $this->currentSection->getPrefix() => $this->currentSection->getName(),

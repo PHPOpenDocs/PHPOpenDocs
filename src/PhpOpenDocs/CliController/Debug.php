@@ -2,13 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace PhpOpenDocs\CliController;
+namespace PHPOpenDocs\CliController;
 
 use SlimAuryn\Response\HtmlResponse;
 
 class Debug
 {
-    public function hello()
+    public function hello(): void
     {
         echo "Hello world.";
     }

@@ -6,7 +6,7 @@ namespace OpenDocs\UrlFetcher;
 
 class CurlUrlFetcher implements UrlFetcher
 {
-    public function getUrl(string $uri)
+    public function getUrl(string $uri): string
     {
 //        echo "$uri";
 //        exit(0);

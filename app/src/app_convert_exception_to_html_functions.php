@@ -12,7 +12,7 @@ use OpenDocs\Page;
 use Psr\Http\Message\ResponseInterface;
 
 function debuggingCaughtExceptionExceptionMapperApp(
-    \PhpOpenDocs\Exception\DebuggingCaughtException $pdoe,
+    \PHPOpenDocs\Exception\DebuggingCaughtException $pdoe,
     ResponseInterface $response
 ) {
     $text = getTextForException($pdoe);
@@ -77,7 +77,7 @@ function renderUrlFetcherException(\OpenDocs\UrlFetcher\UrlFetcherException $url
 }
 
 function renderDebuggingCaughtExceptionToHtml(
-    \PhpOpenDocs\Exception\DebuggingCaughtException $pdoe,
+    \PHPOpenDocs\Exception\DebuggingCaughtException $pdoe,
     \Psr\Http\Message\RequestInterface $request
 ) {
     $text = getTextForException($pdoe);
