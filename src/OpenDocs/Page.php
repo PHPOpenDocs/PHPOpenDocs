@@ -55,27 +55,6 @@ class Page
         $this->section = $section;
     }
 
-//    public static function createFromGlobalPage()
-//    {
-//        $linkInfo = createLinkInfo(
-//            GlobalPageInfo::getCurrentPath(),
-//            GlobalPageInfo::getContentLinks()
-//        );
-//
-//        $page = new \OpenDocs\Page(
-//            GlobalPageInfo::getTitle(),
-//            GlobalPageInfo::getEditInfo(),
-//            GlobalPageInfo::getContentLinks(),
-//            GlobalPageInfo::getPrevNextLinks(),
-//            GlobalPageInfo::getContentHtml(),
-//            GlobalPageInfo::getCopyrightInfo(),
-//            GlobalPageInfo::getBreadcrumbs(),
-//            GlobalPageInfo::getSection()
-//        );
-//
-//        return $page;
-//    }
-
     public static function createFromHtml(
         string $title,
         string $contentHtml,

@@ -6,36 +6,41 @@ namespace OpenDocs;
 
 class CopyrightInfo
 {
-    private string $name;
-
-    private string $link;
-
     /**
-     *
-     * @param string $name
-     * @param string $link
+     * @var array<string, string>
      */
-    public function __construct(
+    private array $namesWithLinks = array();
+
+
+    public function __construct()
+    {
+    }
+
+    public static function create(
         string $name,
         string $link
-    ) {
-        $this->name = $name;
-        $this->link = $link;
+    ): self {
+        $instance = new self();
+        $instance->namesWithLinks[$name] = $link;
+
+        return $instance;
+    }
+
+    public static function createEmpty(): self
+    {
+        return new self();
     }
 
     /**
-     * @return string
+     * @return array<string, string>
      */
-    public function getName(): string
+    public function getNamesWithLinks(): array
     {
-        return $this->name;
+        return $this->namesWithLinks;
     }
 
-    /**
-     * @return string
-     */
-    public function getLink(): string
+    public function addNameWithLink(string $name, string $url): void
     {
-        return $this->link;
+        $this->namesWithLinks[$name] = $url;
     }
 }

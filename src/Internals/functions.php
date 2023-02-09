@@ -161,7 +161,7 @@ function getInternalsContentLinks(): array
 
 function createInternalsDefaultCopyrightInfo(): CopyrightInfo
 {
-    return new CopyrightInfo(
+    return CopyrightInfo::create(
         'PHP OpenDocs',
         'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/LICENSE'
     );

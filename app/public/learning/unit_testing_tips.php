@@ -5,7 +5,7 @@ require_once __DIR__ . "/../../../src/web_bootstrap.php";
 use OpenDocs\CopyrightInfo;
 use function Learning\createRemoteMarkdownPageFn;
 
-$copyright_info = new CopyrightInfo(
+$copyright_info = CopyrightInfo::create(
     'sarven',
     'https://github.com/sarven/unit-testing-tips/blob/main/LICENSE'
 );

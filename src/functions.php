@@ -692,7 +692,7 @@ function createDefaultEditInfo(): EditInfo
 
 function createDefaultCopyrightInfo(): CopyrightInfo
 {
-    return new CopyrightInfo(
+    return CopyrightInfo::create(
         'PHP OpenDocs',
         'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/LICENSE'
     );
@@ -706,7 +706,7 @@ function createErrorPage(string $errorContentsHtml): OpenDocs\Page
         [],
         new OpenDocs\PrevNextLinks(null, null),
         $contentHtml = $errorContentsHtml,
-        new OpenDocs\CopyrightInfo('PHPOpenDocs', 'https://github.com/PHPOpenDocs/PHPOpenDocs'),
+        OpenDocs\CopyrightInfo::create('PHPOpenDocs', 'https://github.com/PHPOpenDocs/PHPOpenDocs'),
         new Breadcrumbs(),
         null
     );

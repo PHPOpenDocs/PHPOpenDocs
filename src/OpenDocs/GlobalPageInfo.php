@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace OpenDocs;
 
-use OpenDocs\PrevNextLinks;
 use PHPOpenDocs\Types\PackageMarkdownPage;
 use PHPOpenDocs\Types\RemoteMarkdownPage;
 
@@ -44,6 +43,10 @@ class GlobalPageInfo
         self::$current_path = $current_path;
         self::$breadcrumbs = Breadcrumbs::fromArray([]);
         self::$prevNextLinks = $prevNextLinks;
+
+        if (self::$copyrightInfo === null) {
+            self::$copyrightInfo = new CopyrightInfo();
+        }
     }
 
     public static function addRemoteMarkDownEditInfo(
@@ -122,6 +125,12 @@ class GlobalPageInfo
     {
         self::$copyrightInfo = $copyright_info;
     }
+
+    public static function addCopyrightInfoFromStrings(string $name, string $url): void
+    {
+        self::$copyrightInfo->addNameWithLink($name, $url);
+    }
+
 
     /**
      * @return \OpenDocs\ContentLink[]

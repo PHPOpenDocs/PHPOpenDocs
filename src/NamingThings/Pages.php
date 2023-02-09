@@ -29,7 +29,7 @@ class Pages
             $this->getContentLinks(),
             createPrevNextLinksFromContentLinks($this->getContentLinks(), "/nouns"),
             $contents,
-            new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
+            CopyrightInfo::create('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
             $breadcrumbs = new Breadcrumbs(
                 new Breadcrumb('/nouns', 'Nouns'),
             ),
@@ -52,7 +52,7 @@ class Pages
             $this->getContentLinks(),
             createPrevNextLinksFromContentLinks($this->getContentLinks(), "/verbs"),
             $contents,
-            new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
+            CopyrightInfo::create('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
             $breadcrumbs = new Breadcrumbs(
                 new Breadcrumb('/verbs', 'Verbs'),
             ),
@@ -132,7 +132,7 @@ HTML;
             $this->getContentLinks(),
             new PrevNextLinks(null, null),
             $contents,
-            new CopyrightInfo('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
+            CopyrightInfo::create('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
             $breadcrumbs = new Breadcrumbs(),
             $section
         );

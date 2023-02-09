@@ -20,7 +20,7 @@ $fn = createRemoteMarkdownPageFnEx(
     new RemoteMarkdownPage("https://raw.githubusercontent.com/w9smg/.github/master/profile/README.md"),
     'PHP useful links',
     '/useful_links',
-    new CopyrightInfo("SG", "https://github.com/w9smg/.github"),
+    CopyrightInfo::create("SG", "https://github.com/w9smg/.github"),
     $editInfo
 );
 

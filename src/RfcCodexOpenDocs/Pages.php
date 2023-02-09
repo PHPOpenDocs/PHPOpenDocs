@@ -56,6 +56,12 @@ class Pages
             html: $contents
         );
 
+
+        GlobalPageInfo::addCopyrightInfoFromStrings(
+            'Danack',
+            'https://github.com/Danack/RfcCodex/blob/master/LICENSE'
+        );
+
         GlobalPageInfo::addEditInfoFromStrings(
             'Edit content',
             'https://github.com/Danack/RfcCodex/blob/master/' . $codexEntry->getFilename()

@@ -143,22 +143,9 @@ function getRfcCodexContentLinks(): array
     return $links;
 }
 
-//function createEditInfo(string $description, string $file, ?int $line): EditInfo
-//{
-//    $path = normaliseFilePath($file);
-//
-//    $link = 'https://github.com/Danack/RfcCodex/blob/main/' . $path;
-//
-//    if ($link !== null) {
-//        $link .= '#L' . $line;
-//    }
-//
-//    return new EditInfo([$description => $link]);
-//}
-
 function createRfcCodexDefaultCopyrightInfo(): CopyrightInfo
 {
-    return new CopyrightInfo(
+    return CopyrightInfo::create(
         'PHP OpenDocs',
         'https://github.com/Danack/RfcCodex/blob/master/LICENSE'
     );
@@ -177,18 +164,6 @@ function createGlobalPageInfoForRfcCodex(
         title: $title,
         current_path: getRequestPath(),
     );
-
-//    $prefix = GlobalPageInfo::getSection()->getPrefix();
-//
-//    $request_path = getRequestPath();
-//
-//    if (str_starts_with($request_path, $prefix) === true) {
-//        $request_path = substr($request_path, strlen($prefix));
-//    }
-//
-//    GlobalPageInfo::setPrevNextLinks(
-//        createPrevNextLinksFromContentLinks(getRfcCodexContentLinks(), $request_path)
-//    );
 
     GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
 }

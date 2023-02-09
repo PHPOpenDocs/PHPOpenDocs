@@ -56,7 +56,7 @@ use PHPOpenDocs\Types\RemoteMarkdownPage;
 $fn = createRemoteMarkdownPageFn(
     new RemoteMarkdownPage("https://raw.githubusercontent.com/exakat/php-static-analysis-tools/master/README.md"),
     'PHP static analysis_tools',
-    new CopyrightInfo(
+    CopyrightInfo::create(
         'exakat',
         'https://github.com/exakat/php-static-analysis-tools/blob/master/LICENSE.md'
     )

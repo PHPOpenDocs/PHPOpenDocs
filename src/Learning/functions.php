@@ -103,7 +103,7 @@ function createEditInfo(string $description, string $file, ?int $line): EditInfo
 
 function createLearningDefaultCopyrightInfo(): CopyrightInfo
 {
-    return new CopyrightInfo(
+    return CopyrightInfo::create(
         'PHP OpenDocs',
         'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/LICENSE'
     );
