@@ -34,7 +34,7 @@ class Pages
             $page
         );
 
-        return new HtmlResponse($html);
+        return new HtmlResponse($html, [], 404);
     }
 
 

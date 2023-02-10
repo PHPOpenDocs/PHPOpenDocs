@@ -14,11 +14,11 @@ use OpenDocs\PrevNextLinks;
 
 class Pages
 {
-    public function getNounsPage(NamingThingsSection $namingThingsSection): Page
+    public function getNounsPage(): Page
     {
         $nouns = require(__DIR__ . "/nouns.php");
-
         $contents = renderNouns($nouns);
+        $namingThingsSection = NamingThingsSection::create();
 
         return new Page(
             'Naming things - nouns',
@@ -37,11 +37,11 @@ class Pages
         );
     }
 
-    public function getVerbsPage(NamingThingsSection $namingThingsSection): Page
+    public function getVerbsPage(): Page
     {
         $verbs = require(__DIR__ . "/verbs.php");
-
         $contents = renderVerbs($verbs);
+        $namingThingsSection = NamingThingsSection::create();
 
         return new Page(
             'Naming things - verbs',
@@ -60,8 +60,10 @@ class Pages
         );
     }
 
-    public function getIndexPage(NamingThingsSection $section): Page
+    public function getIndexPage(): Page
     {
+        $section = NamingThingsSection::create();
+
         $words = <<< HTML
 
 <h1>Naming all the things</h1>

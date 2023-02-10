@@ -113,3 +113,5 @@ if (count($errors) > 0) {
 }
 
 echo "Checked " . $siteChecker->numberOfPagesChecked() . " pages without errors.\n";
+
+$siteChecker->dumpPagesChecked();

@@ -157,4 +157,15 @@ class SiteChecker
     {
         return count($this->urls);
     }
+
+    public function dumpPagesChecked()
+    {
+        $urls = array_keys($this->urls);
+
+        sort($urls);
+
+        foreach ($urls as $url) {
+            echo "$url\n";
+        }
+    }
 }

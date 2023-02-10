@@ -63,7 +63,14 @@ $pages_to_check = [
         "© Danack",
         "https://github.com/Danack/RfcCodex/blob/master/LICENSE"
     ],
-  ]
+  ],
+
+  '/naming' => [
+      [
+          "Naming",
+          "/naming"
+      ],
+  ],
 ];
 
 $base_domain = 'http://local.phpopendocs.com';

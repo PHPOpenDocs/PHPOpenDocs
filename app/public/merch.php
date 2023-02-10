@@ -10,9 +10,11 @@ use OpenDocs\Page;
 use OpenDocs\Breadcrumbs;
 
 $fn = function (
-    MerchSection $section,
-    BreadcrumbsFactory $breadcrumbsFactory
+//    MerchSection $section,
+//    BreadcrumbsFactory $breadcrumbsFactory
 ) : Page {
+
+    $section = MerchSection::create();
 
     $html  = <<< HTML
 <h1>Merch</h1>
