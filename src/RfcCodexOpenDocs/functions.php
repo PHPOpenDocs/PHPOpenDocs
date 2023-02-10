@@ -28,6 +28,19 @@ function getCodexEntry(string $name): RfcCodexEntry|null
             return $codexEntry;
         }
     }
+
+    foreach (getMootList() as $codexEntry) {
+        if ($codexEntry->getPath() === $name) {
+            return $codexEntry;
+        }
+    }
+
+    foreach (getOtherList() as $codexEntry) {
+        if ($codexEntry->getPath() === $name) {
+            return $codexEntry;
+        }
+    }
+
     return null;
 }
 
@@ -118,6 +131,48 @@ function getAchievedList()
     return $entries;
 }
 
+/**
+ * @return RfcCodexEntry[]
+ */
+function getMootList()
+{
+    $moot_list = [
+        ['Consistent callables', 'consistent_callables.md'],
+        ['Explicit defaults', 'explicit_defaults.md'],
+    ];
+
+    $entries = [];
+
+    foreach ($moot_list as $entry) {
+        $entries[] = new RfcCodexEntry(
+            $entry[0],
+            $entry[1]
+        );
+    }
+
+    return $entries;
+}
+
+
+function getOtherList()
+{
+    $other_list = [
+        ['SPL problems summary', 'spl_summary.md'],
+
+    ];
+
+    $entries = [];
+
+    foreach ($other_list as $entry) {
+        $entries[] = new RfcCodexEntry(
+            $entry[0],
+            $entry[1]
+        );
+    }
+
+    return $entries;
+}
+
 
 function getRfcCodexContentLinks(): array
 {
@@ -139,6 +194,13 @@ function getRfcCodexContentLinks(): array
         );
     }
 
+    $links[] = ContentLink::level1(null, 'Things that are probably moot');
+    foreach (getMootList() as $moot_entry) {
+        $links[] = ContentLink::level2(
+            '/' . $moot_entry->getPath(),
+            $moot_entry->getName()
+        );
+    }
 
     return $links;
 }

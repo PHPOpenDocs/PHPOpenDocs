@@ -9,6 +9,7 @@ use RfcCodexOpenDocs\RfcCodexEntry;
 use RfcCodexOpenDocs\RfcCodexSection;
 use function RfcCodexOpenDocs\getUnderDiscussionList;
 use function RfcCodexOpenDocs\getAchievedList;
+use function RfcCodexOpenDocs\getMootList;
 use function RfcCodexOpenDocs\createGlobalPageInfoForRfcCodex;
 
 /**
@@ -42,6 +43,8 @@ function getHtml(RfcCodexSection $section): string
 
     $achieved_html = getLinkList($section, getAchievedList());
 
+    $moot_html = getLinkList($section, getMootList());
+
     $html  = <<< HTML
 
 <h1>RFC Codex</h1>
@@ -70,7 +73,7 @@ $achieved_html
 PHP is actually getting better, but that means that some solutions to problems have become pretty moot, as they seek to solve problems that are now less of a problem.
 </p>
 
-<a href="/rfc_codex/explicit_defaults">Explicit defaults</a>
+$moot_html
 
 <h2>Misc notes</h2>
 

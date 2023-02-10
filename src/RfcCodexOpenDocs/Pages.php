@@ -45,10 +45,9 @@ class Pages
         if ($contents === null) {
             // TODO
             $contents = "This should be a 404 page.";
+            exit(0);
         }
-
         $codexEntry = getCodexEntry($name);
-
         $title = $codexEntry->getName();
 
         createGlobalPageInfoForRfcCodex(
