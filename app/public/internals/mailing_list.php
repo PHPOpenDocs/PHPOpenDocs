@@ -5,11 +5,12 @@ declare(strict_types = 1);
 require_once __DIR__ . "/../../../src/web_bootstrap.php";
 
 use PHPOpenDocs\Types\PackageMarkdownPage;
-use function Internals\createMarkdownPackagePageFnInternals;
+use function Internals\createGlobalPageInfoForInternals;
 
-$fn = createMarkdownPackagePageFnInternals(
-    PackageMarkdownPage::RfcCodex("etiquette/mailing_list.md"),
-    'Mailing list etiquette',
+createGlobalPageInfoForInternals('Mailing list etiquette');
+
+$fn = createMarkdownPackagePageFnSectionFree(
+    PackageMarkdownPage::RfcCodex("etiquette/mailing_list.md")
 );
 
 showPageResponse($fn);

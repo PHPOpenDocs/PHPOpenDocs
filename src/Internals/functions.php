@@ -4,129 +4,24 @@ declare(strict_types = 1);
 
 namespace Internals;
 
-use OpenDocs\EditInfo;
 use OpenDocs\ContentLink;
 use OpenDocs\CopyrightInfo;
-use OpenDocs\MarkdownRenderer\MarkdownRenderer;
-use OpenDocs\ExternalMarkdownRenderer\ExternalMarkdownRenderer;
-use OpenDocs\BreadcrumbsFactory;
-use OpenDocs\Page;
 use OpenDocs\GlobalPageInfo;
-use OpenDocs\MarkdownRenderer\PackageMarkdownRenderer;
-use PHPOpenDocs\Types\PackageMarkdownPage;
-use PHPOpenDocs\Types\RemoteMarkdownPage;
 
 function createGlobalPageInfoForInternals(
+    string $title,
     string $html = null,
-    string $title = null
+    CopyrightInfo $copyrightInfo = null
+
 ): void {
     GlobalPageInfo::create(
         contentHtml: $html,
         contentLinks: getInternalsContentLinks(),
-        copyrightInfo: createInternalsDefaultCopyrightInfo(),
+        copyrightInfo: $copyrightInfo ?? createInternalsDefaultCopyrightInfo(),
         section: \Internals\InternalsSection::create(),
         title: $title,
-        current_path: getRequestPath(),
     );
 }
-
-function createGlobalPageInfo2(
-    CopyrightInfo $copyrightInfo,
-    EditInfo $editInfo
-): void {
-    GlobalPageInfo::create(
-        contentLinks: getInternalsContentLinks(),
-        copyrightInfo: $copyrightInfo,
-        section: \Internals\InternalsSection::create(),
-        editInfo: $editInfo
-    );
-}
-
-
-function createMarkdownPackagePageFnInternals(
-    PackageMarkdownPage $packageMarkdownPage,
-    string $title,
-): callable {
-    createGlobalPageInfoForInternals();
-
-    GlobalPageInfo::addMarkDownEditInfo("Edit content", $packageMarkdownPage);
-    GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
-    GlobalPageInfo::setTitleFromCurrentPath();
-    GlobalPageInfo::setBreadcrumbsFromArray(["blah" /*$current_path*/ => $title]);
-
-    return function (
-        PackageMarkdownRenderer $markdownRenderer
-    ) use (
-        $packageMarkdownPage,
-    ) {
-        $html = $markdownRenderer->render($packageMarkdownPage);
-
-        GlobalPageInfo::setContentHtml($html);
-
-        return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
-    };
-}
-
-function createRemoteMarkdownPageFn(
-    RemoteMarkdownPage $remoteMarkdownPage,
-    string $title,
-    CopyrightInfo $copyright_info
-): callable {
-    createGlobalPageInfoForInternals();
-
-    GlobalPageInfo::addRemoteMarkDownEditInfo("Edit content", $remoteMarkdownPage);
-    GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
-    GlobalPageInfo::setTitle($title);
-//    $gPageInfo->setCurrentPath($current_path);
-    GlobalPageInfo::setTitleFromCurrentPath();
-//    $gPageInfo->setBreadcrumbsFromArray([$current_path => $title]);
-
-    GlobalPageInfo::addCopyrightInfo($copyright_info);
-
-    return function (
-        ExternalMarkdownRenderer $markdownRenderer,
-    ) use (
-        $remoteMarkdownPage,
-    ) {
-
-        $markdown_url = $remoteMarkdownPage->getEditUrl();
-        $html = $markdownRenderer->renderUrl($markdown_url);
-
-        GlobalPageInfo::setContentHtml($html);
-
-        return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
-    };
-}
-
-
-function createRemoteMarkdownPageFnEx(
-    RemoteMarkdownPage $remoteMarkdownPage,
-    string $title,
-    string $current_path,
-    CopyrightInfo $copyright_info,
-    EditInfo $editInfo
-): callable {
-    \Internals\createGlobalPageInfo2($copyright_info, $editInfo);
-
-    GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
-    GlobalPageInfo::setTitle($title);
-    GlobalPageInfo::setCurrentPath($current_path);
-    GlobalPageInfo::setBreadcrumbsFromArray([$current_path => $title]);
-
-    return function (
-        ExternalMarkdownRenderer $markdownRenderer,
-    ) use (
-        $remoteMarkdownPage
-    ) {
-        $markdown_url = $remoteMarkdownPage->getEditUrl();
-        $html = $markdownRenderer->renderUrl($markdown_url);
-
-        GlobalPageInfo::setContentHtml($html);
-
-        return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
-    };
-}
-
 
 
 function getInternalsContentLinks(): array
@@ -145,19 +40,6 @@ function getInternalsContentLinks(): array
         ContentLink::level2('/rfc_etiquette', 'RFC etiquette'),
     ];
 }
-
-//function createEditInfo(string $description, string $file, ?int $line): EditInfo
-//{
-//    $path = normaliseFilePath($file);
-//
-//    $link = 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/' . $path;
-//
-//    if ($link !== null) {
-//        $link .= '#L' . $line;
-//    }
-//
-//    return new EditInfo([$description => $link]);
-//}
 
 function createInternalsDefaultCopyrightInfo(): CopyrightInfo
 {

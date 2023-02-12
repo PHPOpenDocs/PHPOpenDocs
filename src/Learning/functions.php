@@ -20,43 +20,29 @@ use function Internals\getInternalsContentLinks;
 use OpenDocs\MarkdownRenderer\PackageMarkdownRenderer;
 
 function createGlobalPageInfoForLearning(
-    string $html = null,
-    string $title = null
+    string $title,
+    CopyrightInfo $copyrightInfo = null
 ): void {
+
+    $default_copyright = CopyrightInfo::create(
+        'PHP OpenDocs',
+        'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/LICENSE'
+    );
+
     GlobalPageInfo::create(
-        contentHtml: $html,
         contentLinks: getLearningContentLinks(),
-        copyrightInfo: createLearningDefaultCopyrightInfo(),
+        copyrightInfo: $copyrightInfo ?? $default_copyright,
         section: \Learning\LearningSection::create(),
         title: $title,
         current_path: getRequestPath(),
     );
-}
 
+//    GlobalPageInfo::addMarkDownEditInfo("Edit content", $packageMarkdownPage);
+//    GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
 
-function createMarkdownPackagePageFnLearning(
-    PackageMarkdownPage $packageMarkdownPage,
-    string $title
-): callable {
-    createGlobalPageInfoForLearning(null, $title);
-
-    GlobalPageInfo::addMarkDownEditInfo("Edit content", $packageMarkdownPage);
     GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
-    GlobalPageInfo::setTitleFromCurrentPath();
-    GlobalPageInfo::setBreadcrumbsFromArray(["blah" /*$current_path*/ => $title]);
-
-    return function (
-        PackageMarkdownRenderer $markdownRenderer
-    ) use (
-        $packageMarkdownPage,
-    ) {
-        $html = $markdownRenderer->render($packageMarkdownPage);
-
-        GlobalPageInfo::setContentHtml($html);
-
-        return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
-    };
 }
+
 
 
 function getLearningContentLinks(): array
@@ -88,104 +74,10 @@ function getLearningContentLinks(): array
     ];
 }
 
-function createEditInfo(string $description, string $file, ?int $line): EditInfo
-{
-    $path = normaliseFilePath($file);
-
-    $link = 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/' . $path;
-
-    if ($link !== null) {
-        $link .= '#L' . $line;
-    }
-
-    return new EditInfo([$description => $link]);
-}
-
 function createLearningDefaultCopyrightInfo(): CopyrightInfo
 {
     return CopyrightInfo::create(
         'PHP OpenDocs',
         'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/LICENSE'
     );
-}
-
-
-
-
-
-function createPageFn(
-    string $markdown_path,
-    string $title,
-    string $current_path
-): callable {
-    $breadcrumbs = [$current_path => $title];
-
-    return function (
-        InternalsSection $section,
-        MarkdownRenderer $markdownRenderer,
-        BreadcrumbsFactory $breadcrumbsFactory
-    ) use (
-        $markdown_path,
-        $title,
-        $breadcrumbs,
-        $current_path
-    ) {
-        $fullPath = $markdown_path;
-        $html = $markdownRenderer->renderFile($fullPath);
-
-        $contentLinks = getLearningContentLinks();
-        $editInfo = createPHPOpenDocsEditInfo('Edit page', __FILE__, null);
-
-        $page = Page::createFromHtmlEx2(
-            $title,
-            $html,
-            $editInfo,
-            $breadcrumbsFactory->createFromArray($breadcrumbs),
-            createLearningDefaultCopyrightInfo(),
-            createLinkInfo($current_path, $contentLinks),
-            $section
-        );
-
-        return $page;
-    };
-}
-
-
-function createRemoteMarkdownPageFn(
-    string $markdown_url,
-    string $title,
-    string $current_path,
-    CopyrightInfo $copyright_info
-): callable {
-    $breadcrumbs = [$current_path => $title];
-
-    return function (
-        InternalsSection $section,
-        ExternalMarkdownRenderer $markdownRenderer,
-        BreadcrumbsFactory $breadcrumbsFactory
-    ) use (
-        $markdown_url,
-        $title,
-        $breadcrumbs,
-        $current_path,
-        $copyright_info
-    ) {
-
-        $html = $markdownRenderer->renderUrl($markdown_url);
-
-        $contentLinks = getInternalsContentLinks();
-        $editInfo = createPHPOpenDocsEditInfo('Edit page', __FILE__, null);
-
-        $page = Page::createFromHtmlEx2(
-            $title,
-            $html,
-            $editInfo,
-            $breadcrumbsFactory->createFromArray($breadcrumbs),
-            $copyright_info,
-            createLinkInfo($current_path, $contentLinks),
-            $section
-        );
-
-        return $page;
-    };
 }

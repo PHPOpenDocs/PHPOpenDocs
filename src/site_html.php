@@ -26,18 +26,10 @@ function createBreadcrumbPart(string $path, string $description): string
     return esprintf($li_template, $params);
 }
 
-function createBreadcrumbHtml(
-    ?\OpenDocs\Section $section,
-    Breadcrumbs $breadcrumbs
-): string {
-
+function createBreadcrumbHtml(Breadcrumbs $breadcrumbs): string
+{
     $prefix = '';
     $li_parts = [];
-
-    if ($section !== null) {
-        $prefix  = $section->getPrefix();// . '/';
-        $li_parts[] = createBreadcrumbPart($prefix, $section->getName());
-    }
 
     foreach ($breadcrumbs->getBreadcrumbs() as $breadcrumb) {
         $li_parts[] = createBreadcrumbPart(
@@ -54,7 +46,10 @@ function createBreadcrumbHtml(
     return "<ul>" . implode("", $li_parts) . "</ul>";
 }
 
-function createPrevNextHtml(?PrevNextLinks $prevNextLinks): string
+function createPrevNextHtml(
+    ?PrevNextLinks $prevNextLinks,
+    ?\OpenDocs\Section $section
+    ): string
 {
     if ($prevNextLinks === null) {
         return "";
@@ -66,15 +61,17 @@ function createPrevNextHtml(?PrevNextLinks $prevNextLinks): string
     $template = '';
     $params = [];
 
+    $prefix = $section?->getPrefix() ?? "";
+
     if ($prevLink) {
         $template .= '<span class="opendocs_prev"><a href=":attr_prev_link">«&nbsp;:html_prev_description</a></span>';
-        $params[':attr_prev_link'] = $prevLink->getPath();
+        $params[':attr_prev_link'] = $prefix . $prevLink->getPath();
         $params[':html_prev_description'] = $prevLink->getDescription();
     }
 
     if ($nextLink) {
         $template .= '<span class="opendocs_next"><a href=":attr_next_link">:html_next_description&nbsp;»</a></span>';
-        $params[':attr_next_link'] = $nextLink->getPath();
+        $params[':attr_next_link'] = $prefix . $nextLink->getPath();
         $params[':html_next_description'] = $nextLink->getDescription();
     }
 
@@ -248,22 +245,23 @@ function createPageHtmlResponse(
     Page $page,
     Breadcrumbs $breadcrumbs
 ): HtmlResponse {
-    $html = createPageHtml($section, $page);
+    $html = createPageHtml($page);
     return new HtmlResponse($html);
 }
 
 function createPageHtmlFromPage(Page $page): string
 {
-    return createPageHtml($page->getSection(), $page);
+    return createPageHtml(/*$page->getSection(),*/ $page);
 }
 
 
 function createPageHtml(
-    ?\OpenDocs\Section $section,
     Page $page
 ): string {
 
     $headerLinks = createStandardHeaderLinks();
+
+    $section = $page->getSection();
 
     $prefix = '/';
     if ($section) {
@@ -272,15 +270,17 @@ function createPageHtml(
 
     $assetSuffix = \PHPOpenDocs\App::getAssetSuffix();
 
+    $content_links = createContentLinksHtml($prefix, $page->getContentLinks());
+
     $params = [
         ':raw_site_css_link' => '/css/site.css' . $assetSuffix,
         ':raw_site_js_link' => '/js/app.bundle.js' . $assetSuffix,
         ':html_page_title' => $page->getTitle(),
         ':raw_top_header' => createPageHeaderHtml($headerLinks),
-        ':raw_breadcrumbs' => createBreadcrumbHtml($section, $page->getBreadcrumbs()),
-        ':raw_prev_next' => createPrevNextHtml($page->getPrevNextLinks()),
+        ':raw_breadcrumbs' => createBreadcrumbHtml($page->getBreadcrumbs()),
+        ':raw_prev_next' => createPrevNextHtml($page->getPrevNextLinks(), $section),
         ':raw_content' => $page->getContentHtml(),
-        ':raw_nav_content' => createContentLinksHtml($prefix, $page->getContentLinks()),
+        ':raw_nav_content' => $content_links,
         ':raw_footer' => createFooterHtml($page->getCopyrightInfo(), $page->getEditInfo()),
     ];
 

@@ -32,7 +32,8 @@ class HtmlErrorHandlerForLocalDev implements AppErrorHandler
             $text .= App::ERROR_CAUGHT_BY_ERROR_HANDLER_MESSAGE;
             $page = createErrorPage(nl2br($text));
 
-            $html = createPageHtml(null, $page);
+
+            $html = createPageHtml($page);
             $stubResponse = new HtmlResponse($html, [], 500);
             \error_log($text);
             $response = mapStubResponseToPsr7(//$stubResponse, $response);

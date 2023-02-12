@@ -41,13 +41,39 @@ class GlobalPageInfo
         self::$editInfo = $editInfo ?? new EditInfo([]);
         self::$title = $title;
         self::$current_path = $current_path;
-        self::$breadcrumbs = Breadcrumbs::fromArray([]);
         self::$prevNextLinks = $prevNextLinks;
 
         if (self::$copyrightInfo === null) {
             self::$copyrightInfo = new CopyrightInfo();
         }
+
+        self::calculateBreadcrumbs();
     }
+
+    public static function calculateBreadcrumbs()
+    {
+        $section = self::getSection();
+
+        if ($section === null) {
+            self::$breadcrumbs = Breadcrumbs::fromArray([
+            ]);
+            return;
+        }
+
+        $path = getRequestPath();
+        if ($path === $section->getPrefix()) {
+            self::$breadcrumbs = Breadcrumbs::fromArray([
+                $section->getPrefix() => $section->getName(),
+            ]);
+        }
+        else {
+            self::$breadcrumbs = Breadcrumbs::fromArray([
+                $section->getPrefix() => $section->getName(),
+                $path => self::$title
+            ]);
+        }
+    }
+
 
     public static function addRemoteMarkDownEditInfo(
         string $name,
@@ -81,7 +107,7 @@ class GlobalPageInfo
     {
         $prefix = self::$section->getPrefix();
 
-        $path = self::$current_path;
+        $path = getRequestPath();
 
         if (str_starts_with($path, $prefix) === true) {
             $path = str_replace($prefix, '', $path);

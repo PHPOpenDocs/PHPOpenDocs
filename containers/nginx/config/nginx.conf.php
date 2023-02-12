@@ -54,7 +54,7 @@ $portsInfo
             include /var/app/containers/nginx/config/fastcgi.conf;
             fastcgi_param SCRIPT_FILENAME \$document_root/\$fastcgi_script_name;
             fastcgi_read_timeout 300;
-            fastcgi_pass php_fpm:9000;
+            fastcgi_pass $phpBackend;
             add_header DJA "php_file";
         }
 

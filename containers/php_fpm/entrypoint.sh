@@ -36,3 +36,5 @@ php vendor/bin/configurate \
   --nodaemonize \
   --fpm-config=/var/app/containers/php_fpm/config/fpm.conf \
   -c /var/app/containers/php_fpm/config/php.ini
+
+#   --force-stderr \

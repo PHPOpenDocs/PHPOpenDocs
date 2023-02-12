@@ -30,7 +30,6 @@ class Pages
         );
 
         $html = createPageHtml(
-            null,
             $page
         );
 
@@ -73,7 +72,6 @@ HTML;
             null
         );
         $html = createPageHtml(
-            null,
             $page
         );
 
@@ -120,7 +118,6 @@ HTML;
         );
 
         $html = createPageHtml(
-            null,
             $page
         );
         return new HtmlResponse($html);
@@ -144,7 +141,6 @@ HTML;
         );
 
         $html = createPageHtml(
-            null,
             $page
         );
 
@@ -172,7 +168,6 @@ HTML;
         );
 
         $html = createPageHtml(
-            null,
             $page
         );
 

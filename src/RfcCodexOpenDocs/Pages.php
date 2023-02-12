@@ -39,7 +39,7 @@ class Pages
         return null;
     }
 
-    public function getPage(RfcCodexSection $section, string $name): Page
+    public function getPage(string $name): Page
     {
         $contents = $this->getContents($name);
         if ($contents === null) {
@@ -51,7 +51,7 @@ class Pages
         $title = $codexEntry->getName();
 
         createGlobalPageInfoForRfcCodex(
-            title: 'RFC Codex - ' . $title,
+            title: $title,
             html: $contents
         );
 

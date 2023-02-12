@@ -8,8 +8,8 @@ fi
 
 touch this_is_local.txt
 
-docker-compose build php_fpm
-docker-compose build php_fpm_debug
+DOCKER_BUILDKIT=0 docker-compose build php_fpm
+DOCKER_BUILDKIT=0 docker-compose build php_fpm_debug
 
 docker-compose up --build installer
 

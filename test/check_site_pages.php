@@ -96,7 +96,15 @@ $errors = [];
 //    }
 //}
 
-$siteChecker = new SiteChecker('http://local.phpopendocs.com', '/');
+$excluded_urls = [
+    '/system/exception_test'
+];
+
+$siteChecker = new SiteChecker(
+    'http://local.phpopendocs.com',
+    '/',
+    $excluded_urls
+);
 
 $siteChecker->run();
 
@@ -104,9 +112,15 @@ $errors = $siteChecker->getErrors();
 
 if (count($errors) > 0) {
     echo "Checked " . $siteChecker->numberOfPagesChecked() . " pages.\n";
-    echo "There were errors:\n";
+    echo "There were " . count($errors) . " errors:\n";
     foreach ($errors as $error) {
-        echo "  " . $error . "\n";
+        printf(
+            "Url: %s, status: %s, message %s - linked from %s\n",
+            $error->getUrl(),
+            $error->getStatus(),
+            $error->getErrorMessage(),
+            $error->getOriginUrl()
+        );
     }
 
     exit(-1);

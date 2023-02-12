@@ -6,6 +6,7 @@ namespace OpenDocs;
 
 use OpenDocs\GlobalPageInfo;
 
+
 class Page
 {
     // The title for SEO
@@ -129,7 +130,8 @@ class Page
 
         $linkInfo = createLinkInfo(
             $request_path,
-            GlobalPageInfo::getContentLinks()
+            GlobalPageInfo::getContentLinks(),
+            GlobalPageInfo::getSection()
         );
 
         $page = new \OpenDocs\Page(

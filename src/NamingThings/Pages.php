@@ -4,60 +4,48 @@ declare(strict_types = 1);
 
 namespace NamingThings;
 
-use NamingThings\NamingThingsSection;
-use OpenDocs\Breadcrumb;
-use OpenDocs\Breadcrumbs;
-use OpenDocs\CopyrightInfo;
-use OpenDocs\ContentLink;
 use OpenDocs\Page;
-use OpenDocs\PrevNextLinks;
+
 
 class Pages
 {
     public function getNounsPage(): Page
     {
-        $nouns = require(__DIR__ . "/nouns.php");
-        $contents = renderNouns($nouns);
-        $namingThingsSection = NamingThingsSection::create();
+        $contents = renderNouns(getNouns());
 
-        return new Page(
-            'Naming things - nouns',
-            createEditInfo2(
-                'Edit page', __FILE__, __LINE__,
-                'Edit nouns', __DIR__ . "/nouns.php", null
-            ),
-            $this->getContentLinks(),
-            createPrevNextLinksFromContentLinks($this->getContentLinks(), "/nouns"),
-            $contents,
-            CopyrightInfo::create('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
-            $breadcrumbs = new Breadcrumbs(
-                new Breadcrumb('/nouns', 'Nouns'),
-            ),
-            $namingThingsSection
+        createGlobalPageInfoForNamingThings(
+            title: 'Nouns'
         );
+
+        \OpenDocs\GlobalPageInfo::setContentHtml($contents);
+
+        return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
+
+        // TODO - make edit info better
+//        createEditInfo2(
+//            'Edit page', __FILE__, __LINE__,
+//            'Edit nouns', __DIR__ . "/nouns.php", null
+//        ),
+
     }
 
     public function getVerbsPage(): Page
     {
-        $verbs = require(__DIR__ . "/verbs.php");
-        $contents = renderVerbs($verbs);
-        $namingThingsSection = NamingThingsSection::create();
+        $contents = renderVerbs(getVerbs());
 
-        return new Page(
-            'Naming things - verbs',
-            createEditInfo2(
-                'Edit page', __FILE__, __LINE__,
-                'Edit verbs', __DIR__ . "/verbs.php", null
-            ),
-            $this->getContentLinks(),
-            createPrevNextLinksFromContentLinks($this->getContentLinks(), "/verbs"),
-            $contents,
-            CopyrightInfo::create('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
-            $breadcrumbs = new Breadcrumbs(
-                new Breadcrumb('/verbs', 'Verbs'),
-            ),
-            $namingThingsSection
+
+        createGlobalPageInfoForNamingThings(
+            title: 'Verbs'
         );
+        \OpenDocs\GlobalPageInfo::setContentHtml($contents);
+
+        // TODO - make editing more precise.
+        //            createEditInfo2(
+//                'Edit page', __FILE__, __LINE__,
+//                'Edit verbs', __DIR__ . "/verbs.php", null
+//            ),
+
+        return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
     }
 
     public function getIndexPage(): Page
@@ -128,27 +116,25 @@ HTML;
 
         $contents = esprintf($words, $params);
 
-        return new Page(
-            'Naming things',
-            createEditInfo('Edit page', __FILE__, __LINE__ - 33),
-            $this->getContentLinks(),
-            new PrevNextLinks(null, null),
-            $contents,
-            CopyrightInfo::create('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
-            $breadcrumbs = new Breadcrumbs(),
-            $section
-        );
-    }
 
-    /**
-     * @return ContentLink[]
-     */
-    public function getContentLinks(): array
-    {
-        return [
-            ContentLink::Level1(null, "Naming things"),
-            ContentLink::Level2("/nouns", "Nouns"),
-            ContentLink::Level2("/verbs", "Verbs"),
-        ];
+        createGlobalPageInfoForNamingThings(
+            title: 'Naming things'
+        );
+        \OpenDocs\GlobalPageInfo::setContentHtml($contents);
+
+        return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
+
+//        return new Page(
+//            'Naming things',
+//            createEditInfo('Edit page', __FILE__, __LINE__ - 33),
+//            $this->getContentLinks(),
+//            new PrevNextLinks(null, null),
+//            $contents,
+//            CopyrightInfo::create('Danack', 'https://github.com/Danack/RfcCodex/blob/master/LICENSE'),
+//            $breadcrumbs = Breadcrumbs::fromArray([
+//                $section->getPrefix() => "Naming",
+//            ]),
+//            $section
+//        );
     }
 }

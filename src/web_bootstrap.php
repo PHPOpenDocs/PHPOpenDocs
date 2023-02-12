@@ -16,13 +16,11 @@ function showPage(\OpenDocs\Page $page): void
 {
     $callable = function () use ($page) {
         $html = createPageHtml(
-            null,
             $page
         );
 
         return new \SlimAuryn\Response\HtmlResponse($html);
     };
-
 
     $injector = new Auryn\Injector();
     $injectionParams = injectionParams();

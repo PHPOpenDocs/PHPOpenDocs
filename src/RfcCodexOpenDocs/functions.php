@@ -4,16 +4,10 @@ declare(strict_types = 1);
 
 namespace RfcCodexOpenDocs;
 
-use OpenDocs\EditInfo;
 use OpenDocs\ContentLink;
 use OpenDocs\CopyrightInfo;
 use OpenDocs\GlobalPageInfo;
-use OpenDocs\MarkdownRenderer\MarkdownRenderer;
-use OpenDocs\ExternalMarkdownRenderer\ExternalMarkdownRenderer;
-use OpenDocs\BreadcrumbsFactory;
-use OpenDocs\Page;
-use function Learning\createLearningDefaultCopyrightInfo;
-use function Learning\getLearningContentLinks;
+
 
 function getCodexEntry(string $name): RfcCodexEntry|null
 {
@@ -215,8 +209,8 @@ function createRfcCodexDefaultCopyrightInfo(): CopyrightInfo
 
 
 function createGlobalPageInfoForRfcCodex(
-    string $html = null,
-    string $title = null
+    string $html,
+    string $title
 ): void {
     GlobalPageInfo::create(
         contentHtml: $html,
@@ -224,7 +218,6 @@ function createGlobalPageInfoForRfcCodex(
         copyrightInfo: createRfcCodexDefaultCopyrightInfo(),
         section: \RfcCodexOpenDocs\RfcCodexSection::create(),
         title: $title,
-        current_path: getRequestPath(),
     );
 
     GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);

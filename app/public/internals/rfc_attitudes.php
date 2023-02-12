@@ -5,11 +5,12 @@ declare(strict_types = 1);
 require_once __DIR__ . "/../../../src/web_bootstrap.php";
 
 use PHPOpenDocs\Types\PackageMarkdownPage;
-use function Internals\createMarkdownPackagePageFnInternals;
+use function Internals\createGlobalPageInfoForInternals;
 
-$fn = createMarkdownPackagePageFnInternals(
-    PackageMarkdownPage::RfcCodex("etiquette/rfc_attitudes.md"),
-    'RFC attitudes',
+createGlobalPageInfoForInternals('RFC attitudes');
+
+$fn = createMarkdownPackagePageFnSectionFree(
+    PackageMarkdownPage::RfcCodex("etiquette/rfc_attitudes.md")
 );
 
 showPageResponse($fn);

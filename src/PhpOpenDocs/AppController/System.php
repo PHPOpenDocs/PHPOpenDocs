@@ -34,7 +34,6 @@ HTML;
             $section
         );
         $html = createPageHtml(
-            $section,
             $page
         );
 
@@ -53,7 +52,6 @@ HTML;
             $section
         );
         $html = createPageHtml(
-            $section,
             $page
         );
 

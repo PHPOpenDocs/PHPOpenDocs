@@ -4,43 +4,47 @@ declare(strict_types = 1);
 
 namespace NamingThings;
 
+use OpenDocs\ContentLink;
+use OpenDocs\CopyrightInfo;
 use OpenDocs\EditInfo;
+use OpenDocs\GlobalPageInfo;
+use function Learning\getLearningContentLinks;
 
-function createEditInfo(string $description, string $file, ?int $line): EditInfo
-{
-    $path = normaliseFilePath($file);
+//function createEditInfo(string $description, string $file, ?int $line): EditInfo
+//{
+//    $path = normaliseFilePath($file);
+//
+//    $link = 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/' . $path;
+//
+//    if ($link !== null) {
+//        $link .= '#L' . $line;
+//    }
+//
+//    return new EditInfo([$description => $link]);
+//}
 
-    $link = 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/' . $path;
-
-    if ($link !== null) {
-        $link .= '#L' . $line;
-    }
-
-    return new EditInfo([$description => $link]);
-}
-
-function createEditInfo2(
-    string $description1,
-    string $file1,
-    ?int $line1,
-    string $description2,
-    string $file2,
-    ?int $line2
-): EditInfo {
-    $path = normaliseFilePath($file1);
-    $link1 = 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/' . $path;
-    if ($line1 !== null) {
-        $link1 .= '#L' . $line1;
-    }
-
-    $path = normaliseFilePath($file2);
-    $link2 = 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/' . $path;
-    if ($line2 !== null) {
-        $link2 .= '#L' . $line2;
-    }
-
-    return new EditInfo([$description1 => $link1, $description2 => $link2]);
-}
+//function createEditInfo2(
+//    string $description1,
+//    string $file1,
+//    ?int $line1,
+//    string $description2,
+//    string $file2,
+//    ?int $line2
+//): EditInfo {
+//    $path = normaliseFilePath($file1);
+//    $link1 = 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/' . $path;
+//    if ($line1 !== null) {
+//        $link1 .= '#L' . $line1;
+//    }
+//
+//    $path = normaliseFilePath($file2);
+//    $link2 = 'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/' . $path;
+//    if ($line2 !== null) {
+//        $link2 .= '#L' . $line2;
+//    }
+//
+//    return new EditInfo([$description1 => $link1, $description2 => $link2]);
+//}
 
 
 function noun_link(string $noun): string
@@ -225,4 +229,40 @@ function Verb(
         $description,
         $also
     );
+}
+
+
+function getNamingThingsContentLinks(): array
+{
+    return [
+        ContentLink::Level1(null, "Naming things"),
+        ContentLink::Level2("/nouns", "Nouns"),
+        ContentLink::Level2("/verbs", "Verbs"),
+    ];
+}
+
+
+
+function createGlobalPageInfoForNamingThings(
+    string $title,
+    CopyrightInfo $copyrightInfo = null
+): void {
+
+    $default_copyright = CopyrightInfo::create(
+        'PHP OpenDocs',
+        'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/LICENSE'
+    );
+
+    GlobalPageInfo::create(
+        contentLinks: getNamingThingsContentLinks(),
+        copyrightInfo: $copyrightInfo ?? $default_copyright,
+        section: NamingThingsSection::create(),
+        title: $title,
+        current_path: getRequestPath(),
+    );
+
+//    GlobalPageInfo::addMarkDownEditInfo("Edit content", $packageMarkdownPage);
+//    GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
+
+    GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
 }

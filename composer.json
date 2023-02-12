@@ -67,6 +67,8 @@
             "src/Internals/functions.php",
             "src/Learning/functions.php",
             "src/NamingThings/functions.php",
+            "src/NamingThings/nouns.php",
+            "src/NamingThings/verbs.php",
             "src/PHPOpenDocs/functions.php",
             "src/PHPFunding/functions.php",
             "src/RfcCodexOpenDocs/functions.php",

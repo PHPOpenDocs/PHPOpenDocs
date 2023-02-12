@@ -4,7 +4,13 @@ declare(strict_types = 1);
 
 namespace NamingThings;
 
-$nouns = [];
+/**
+ * @return Noun[]
+ */
+function getNouns()
+{
+
+    $nouns = [];
 
 // TODO
 // JobRunner or Executor.
@@ -604,10 +610,10 @@ $nouns = [];
 // $nouns[] = Noun('reset', '', []);
 // $nouns[] = Noun('resolution', '', []);
 // $nouns[] = Noun('resolver', '', []);
-$nouns[] = Noun(
-    'resource',
-    'A part of the computer that can be controlled by a program. Examples include files on a filesystem, the file system itself, network connections, database connections, processes.'
-);
+    $nouns[] = Noun(
+        'resource',
+        'A part of the computer that can be controlled by a program. Examples include files on a filesystem, the file system itself, network connections, database connections, processes.'
+    );
 // $nouns[] = Noun('response', '', []);
 // $nouns[] = Noun('result', '', []);
 // $nouns[] = Noun('return', '', []);
@@ -813,4 +819,6 @@ $nouns[] = Noun(
 // $nouns[] = Noun('zone', '', []);
 // $nouns[] = Noun('zoom', '', []);
 
-return $nouns;
+    return $nouns;
+
+}

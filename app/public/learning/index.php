@@ -5,9 +5,8 @@ declare(strict_types = 1);
 require_once __DIR__ . "/../../../src/web_bootstrap.php";
 
 use Learning\LearningSection;
+use OpenDocs\GlobalPageInfo;
 use OpenDocs\Page;
-use function Learning\getLearningContentLinks;
-use function Learning\createLearningDefaultCopyrightInfo;
 use function Learning\createGlobalPageInfoForLearning;
 
 function getHtml(LearningSection $section)
@@ -73,9 +72,9 @@ HTML;
 $fn = function (LearningSection $section): Page
 {
     createGlobalPageInfoForLearning(
-        title: 'Learning',
-        html: getHtml($section)
+        title: 'Learning'
     );
+    GlobalPageInfo::setContentHtml(getHtml($section));
 
     return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
 };

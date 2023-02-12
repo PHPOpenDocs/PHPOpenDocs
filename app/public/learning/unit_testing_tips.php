@@ -3,18 +3,32 @@
 require_once __DIR__ . "/../../../src/web_bootstrap.php";
 
 use OpenDocs\CopyrightInfo;
-use function Learning\createRemoteMarkdownPageFn;
+use PHPOpenDocs\Types\RemoteMarkdownPage;
+use function Internals\createGlobalPageInfoForInternals;
 
-$copyright_info = CopyrightInfo::create(
-    'sarven',
-    'https://github.com/sarven/unit-testing-tips/blob/main/LICENSE'
-);
+//$copyright_info = CopyrightInfo::create(
+//    'sarven',
+//    'https://github.com/sarven/unit-testing-tips/blob/main/LICENSE'
+//);
+//
+//$fn = createRemoteMarkdownPageFn(
+//    "https://github.com/sarven/unit-testing-tips/raw/main/README.md",
+//    'Unit testing tips',
+//    '/unit_testing_tips',
+//    $copyright_info
+//);
 
-$fn = createRemoteMarkdownPageFn(
-    "https://github.com/sarven/unit-testing-tips/raw/main/README.md",
+createGlobalPageInfoForInternals(
     'Unit testing tips',
-    '/unit_testing_tips',
-    $copyright_info
+    copyrightInfo: CopyrightInfo::create(
+        'sarven',
+        'https://github.com/sarven/unit-testing-tips/blob/main/LICENSE'
+    )
 );
+
+$fn = createRemoteMarkdownPageFnSectionFree(
+    new RemoteMarkdownPage("https://github.com/sarven/unit-testing-tips/raw/main/README.md"),
+);
+
 
 showResponse($fn);

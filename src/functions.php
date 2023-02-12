@@ -17,37 +17,6 @@ use SlimAuryn\Response\HtmlResponse;
 use SlimAuryn\Response\StubResponse;
 use function SlimAuryn\mapStubResponseToPsr7;
 
-///**
-// * @param array<mixed> $indexes
-// * @return mixed
-// * @throws Exception
-// */
-//function getConfig(array $indexes)
-//{
-//    static $options = null;
-//    if ($options === null) {
-//        require __DIR__ . '/../config.php';
-//        require __DIR__ . '/../autoconf.php';
-//
-//        $staticConfigOptions = getStaticConfigOptions();
-//        $generatedConfigOptions = getGeneratedConfigOptions();
-//
-//        $options = array_merge_recursive($staticConfigOptions, $generatedConfigOptions);
-//    }
-//
-//    $data = $options;
-//
-//    foreach ($indexes as $index) {
-//        if (array_key_exists($index, $data) === false) {
-//            throw new \Exception("Config doesn't contain an element for $index, for indexes [" . implode('|', $indexes) . "]");
-//        }
-//
-//        $data = $data[$index];
-//    }
-//
-//    return $data;
-//}
-
 
 /**
  * Decode JSON with actual error detection
@@ -56,7 +25,9 @@ use function SlimAuryn\mapStubResponseToPsr7;
 function json_decode_safe(?string $json)
 {
     if ($json === null) {
-        throw new \PHPOpenDocs\Exception\JsonException("Error decoding JSON: cannot decode null.");
+        throw new \PHPOpenDocs\Exception\JsonException(
+            "Error decoding JSON: cannot decode null."
+        );
     }
 
     $data = json_decode($json, true);
@@ -724,20 +695,20 @@ function normaliseFilePath(string $file): string
     return $file;
 }
 
-function convertPageToHtmlResponse(
-    \OpenDocs\Section $section,
-    \OpenDocs\Page $page
-): HtmlResponse {
-    $headerLinks = createStandardHeaderLinks();
-    $breadcrumbs = new Breadcrumbs();
-
-    $html = createPageHtml(
-        $section,
-        $page
-    );
-
-    return new HtmlResponse($html);
-}
+//function convertPageToHtmlResponse(
+//    \OpenDocs\Section $section,
+//    \OpenDocs\Page $page
+//): HtmlResponse {
+//    $headerLinks = createStandardHeaderLinks();
+//    $breadcrumbs = new Breadcrumbs();
+//
+//    $html = createPageHtml(
+//        $section,
+//        $page
+//    );
+//
+//    return new HtmlResponse($html);
+//}
 
 
 function createPHPOpenDocsEditInfo(string $description, string $file, ?int $line): EditInfo
@@ -858,10 +829,7 @@ function mapOpenDocsPageToPsr7(
     \Psr\Http\Message\ServerRequestInterface $request,
     ResponseInterface $response
 ): ResponseInterface {
-    $html = createPageHtml(
-        $page->getSection(),
-        $page
-    );
+    $html = createPageHtml($page);
 
     $htmlResponse = new \SlimAuryn\Response\HtmlResponse($html);
 

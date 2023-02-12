@@ -23,7 +23,7 @@ class PageResponseGenerator
 
         $page = createErrorPage($contentHtml);
 //        $page = createPageHtml($this->assetLinkEmitter, $contentHtml);
-        $page = createPageHtml(null, $page);
+        $page = createPageHtml($page);
 
         $response = $this->responseFactory->createResponse();
         $response = $response->withHeader('Content-Type', 'text/html');
