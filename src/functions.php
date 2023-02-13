@@ -17,7 +17,6 @@ use SlimAuryn\Response\HtmlResponse;
 use SlimAuryn\Response\StubResponse;
 use function SlimAuryn\mapStubResponseToPsr7;
 
-
 /**
  * Decode JSON with actual error detection
  * @return mixed
@@ -910,4 +909,13 @@ function setupAllRoutes(\Slim\App $app): void
         list($path, $method, $callable) = $standardRoute;
         $slimRoute = $app->map([$method], $path, $callable);
     }
+}
+
+function replace_local_links(string $markdown, string $base_remote_url): string
+{
+    $pattern = "#\[([^\]]+)\]\(([^\)]+)\)#iu";
+
+    $replacement = '[$1](' . $base_remote_url . '$2)';
+
+    return preg_replace($pattern, $replacement, $markdown);
 }

@@ -49,8 +49,7 @@ function createBreadcrumbHtml(Breadcrumbs $breadcrumbs): string
 function createPrevNextHtml(
     ?PrevNextLinks $prevNextLinks,
     ?\OpenDocs\Section $section
-    ): string
-{
+): string {
     if ($prevNextLinks === null) {
         return "";
     }

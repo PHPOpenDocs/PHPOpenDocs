@@ -36,8 +36,7 @@ function createRemoteMarkdownPageFnSectionFree(
         $remoteMarkdownPage,
     ) {
 
-        $markdown_url = $remoteMarkdownPage->getEditUrl();
-        $html = $markdownRenderer->renderUrl($markdown_url);
+        $html = $markdownRenderer->renderRemoteMarkdownPage($remoteMarkdownPage);
 
         GlobalPageInfo::setContentHtml($html);
 

@@ -6,14 +6,15 @@ require_once __DIR__ . "/../../../../src/web_bootstrap.php";
 
 use Learning\LearningSection;
 use OpenDocs\Page;
+use OpenDocs\GlobalPageInfo;
 use function Learning\getLearningContentLinks;
 use function Learning\createLearningDefaultCopyrightInfo;
 
-$fn = function (
-    LearningSection $section,
-    \OpenDocs\BreadcrumbsFactory $breadcrumbsFactory
-) : Page {
 
+use function Learning\createGlobalPageInfoForLearning;
+
+function getHtml(LearningSection $section)
+{
     $html  = <<< HTML
 <h1>Debugging</h1>
 
@@ -28,19 +29,17 @@ $fn = function (
 <h2>strace</h2>
 
 HTML;
-    $contentLinks = getLearningContentLinks();
+    return $html;
+}
 
-    $page = Page::createFromHtmlEx2(
-        'Debugging',
-        $html,
-        createPHPOpenDocsEditInfo('Edit page', __FILE__, null),
-        $breadcrumbsFactory->createFromArray([]),
-        createLearningDefaultCopyrightInfo(),
-        createLinkInfo('/', $contentLinks),
-        $section
+$fn = function (LearningSection $section): Page
+{
+    createGlobalPageInfoForLearning(
+        title: 'Learning'
     );
+    GlobalPageInfo::setContentHtml(getHtml($section));
 
-    return $page;
+    return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
 };
 
 showResponse($fn);

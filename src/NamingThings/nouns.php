@@ -820,5 +820,4 @@ function getNouns()
 // $nouns[] = Noun('zoom', '', []);
 
     return $nouns;
-
 }

@@ -4,43 +4,51 @@ declare(strict_types = 1);
 
 namespace Learning;
 
-use Internals\InternalsSection;
-use OpenDocs\BreadcrumbsFactory;
-use OpenDocs\EditInfo;
 use OpenDocs\ContentLink;
 use OpenDocs\CopyrightInfo;
-use OpenDocs\ExternalMarkdownRenderer\ExternalMarkdownRenderer;
 use OpenDocs\GlobalPageInfo;
-use OpenDocs\MarkdownRenderer\MarkdownRenderer;
-use OpenDocs\Page;
-use PHPOpenDocs\Types\PackageMarkdownPage;
 
-use function Internals\createInternalsDefaultCopyrightInfo;
-use function Internals\getInternalsContentLinks;
-use OpenDocs\MarkdownRenderer\PackageMarkdownRenderer;
+//function createGlobalPageInfoForLearning(
+//    string $title,
+//    CopyrightInfo $copyrightInfo = null
+//): void {
+//
+//
+//
+//    $default_copyright = CopyrightInfo::create(
+//        'PHP OpenDocs',
+//        'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/LICENSE'
+//    );
+//
+//    GlobalPageInfo::create(
+//        contentLinks: $section->getSectionInfo()->getContentLinks(),
+//        copyrightInfo: $copyrightInfo ?? $default_copyright,
+//        section: \Learning\LearningSection::create(),
+//        title: $title,
+//        current_path: getRequestPath(),
+//    );
+//
+////    GlobalPageInfo::addMarkDownEditInfo("Edit content", $packageMarkdownPage);
+////    GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
+//
+//    GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
+//}
+
 
 function createGlobalPageInfoForLearning(
     string $title,
+    string $html = null,
     CopyrightInfo $copyrightInfo = null
 ): void {
+    $section = \Learning\LearningSection::create();
 
-    $default_copyright = CopyrightInfo::create(
-        'PHP OpenDocs',
-        'https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main/LICENSE'
+    GlobalPageInfo::createFromSection(
+        $section,
+        $title,
+        $html,
+        $copyrightInfo
     );
-
-    GlobalPageInfo::create(
-        contentLinks: getLearningContentLinks(),
-        copyrightInfo: $copyrightInfo ?? $default_copyright,
-        section: \Learning\LearningSection::create(),
-        title: $title,
-        current_path: getRequestPath(),
-    );
-
-//    GlobalPageInfo::addMarkDownEditInfo("Edit content", $packageMarkdownPage);
-//    GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
-
-    GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
+    GlobalPageInfo::setContentHtml($html);
 }
 
 
@@ -58,7 +66,10 @@ function getLearningContentLinks(): array
             '/best_practice_shorts',
             "Best practice shorts"
         ),
-
+        ContentLink::level2(
+            '/unit_testing_tips',
+            "Unit testing tips"
+        ),
         ContentLink::level1(null, "Library recommendations"),
         ContentLink::level2('/php_static_analysis_tools', 'Static analysis tools'),
 

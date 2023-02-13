@@ -71,4 +71,17 @@ class Section
     {
         return $this->base_edit_url;
     }
+
+    /**
+     * @return ContentLink[]
+     */
+    public function getContentLinks(): array
+    {
+        return $this->sectionInfo->getContentLinks();
+    }
+
+    public function getDefaultCopyrightInfo(): CopyrightInfo
+    {
+        return $this->sectionInfo->getDefaultCopyrightInfo();
+    }
 }

@@ -13,9 +13,9 @@ createGlobalPageInfoForLearning(
     CopyrightInfo::create(
         'Java Exception Antipatterns',
         "Needs to be set"
+        // src/Learning/license_java_exception_antipatterns.png
     )
 );
-
 
 $fn = createMarkdownPackagePageFnSectionFree(
     PackageMarkdownPage::Learning("docs/archive_java_exception_antipatterns.md"),

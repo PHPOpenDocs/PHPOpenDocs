@@ -18,7 +18,7 @@ function debuggingCaughtExceptionExceptionMapperApp(
     $text = getTextForException($pdoe);
     \error_log($text);
     $page = createErrorPage(nl2br($text));
-    $html = createPageHtml('/blah', $page);
+    $html = createPageHtml($page);
     $html .= "\n<!-- This is caught in the exception mapper -->";
 
     return new \SlimAuryn\Response\HtmlResponse($html, [], 512);
@@ -38,7 +38,7 @@ function parseErrorMapperForApp(\ParseError $parseError, ResponseInterface $resp
     $text = $string . "\n\n" . $text;
 
     $page = createErrorPage(nl2br($text));
-    $html = createPageHtml(null, $page);
+    $html = createPageHtml($page);
 
     return new \SlimAuryn\Response\HtmlNoCacheResponse($html, [], 500);
 }
@@ -56,7 +56,7 @@ function renderMarkdownRendererException(
     );
 
     $page = createErrorPage(nl2br($string));
-    $html = createPageHtml(null, $page);
+    $html = createPageHtml($page);
 
     return new \SlimAuryn\Response\HtmlNoCacheResponse($html, [], 500);
 }
@@ -70,7 +70,7 @@ function renderUrlFetcherException(\OpenDocs\UrlFetcher\UrlFetcherException $url
     );
 
     $page = createErrorPage(nl2br($string));
-    $html = createPageHtml(null, $page);
+    $html = createPageHtml($page);
 
     return new \SlimAuryn\Response\HtmlNoCacheResponse($html, [], 500);
 

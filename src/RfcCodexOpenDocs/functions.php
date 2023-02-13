@@ -8,7 +8,6 @@ use OpenDocs\ContentLink;
 use OpenDocs\CopyrightInfo;
 use OpenDocs\GlobalPageInfo;
 
-
 function getCodexEntry(string $name): RfcCodexEntry|null
 {
     foreach (getUnderDiscussionList() as $codexEntry) {
@@ -36,17 +35,6 @@ function getCodexEntry(string $name): RfcCodexEntry|null
     }
 
     return null;
-}
-
-function getTitleFromFileName(string $name): string|null
-{
-    $codexEntry = getCodexEntry($name);
-
-    if ($codexEntry === null) {
-        return null;
-    }
-
-    return $codexEntry->getName();
 }
 
 /**
@@ -147,7 +135,9 @@ function getMootList()
     return $entries;
 }
 
-
+/**
+ * @return RfcCodexEntry[]
+ */
 function getOtherList()
 {
     $other_list = [
@@ -199,26 +189,14 @@ function getRfcCodexContentLinks(): array
     return $links;
 }
 
-function createRfcCodexDefaultCopyrightInfo(): CopyrightInfo
-{
-    return CopyrightInfo::create(
-        'PHP OpenDocs',
-        'https://github.com/Danack/RfcCodex/blob/master/LICENSE'
-    );
-}
-
 
 function createGlobalPageInfoForRfcCodex(
     string $html,
     string $title
 ): void {
-    GlobalPageInfo::create(
-        contentHtml: $html,
-        contentLinks: getRfcCodexContentLinks(),
-        copyrightInfo: createRfcCodexDefaultCopyrightInfo(),
-        section: \RfcCodexOpenDocs\RfcCodexSection::create(),
-        title: $title,
-    );
 
-    GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 1);
+    $section = \RfcCodexOpenDocs\RfcCodexSection::create();
+
+    GlobalPageInfo::createFromSection($section, $title);
+    GlobalPageInfo::setContentHtml($html);
 }

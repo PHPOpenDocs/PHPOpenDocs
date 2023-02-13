@@ -6,7 +6,6 @@ namespace NamingThings;
 
 use OpenDocs\Page;
 
-
 class Pages
 {
     public function getNounsPage(): Page
@@ -26,7 +25,6 @@ class Pages
 //            'Edit page', __FILE__, __LINE__,
 //            'Edit nouns', __DIR__ . "/nouns.php", null
 //        ),
-
     }
 
     public function getVerbsPage(): Page

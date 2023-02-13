@@ -1,117 +1,8 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace SiteChecker;
-
-use FluentDOM;
-
-class Link
-{
-    public function __construct(private string $caption, private string $href)
-    {
-    }
-
-    /**
-     * @return string
-     */
-    public function getCaption(): string
-    {
-        return $this->caption;
-    }
-
-    /**
-     * @return string
-     */
-    public function getHref(): string
-    {
-        return $this->href;
-    }
-}
-
-/**
- * @param string $html
- * @return Link[]
- */
-function extract_links_from_html(string $html)
-{
-    $document = FluentDOM::load(
-        $html,
-        'text/html',
-        [FluentDOM\Loader\Options::IS_STRING => true]
-    );
-
-    $links = [];
-
-    foreach ($document('//a[@href]') as $a) {
-        $links[] = new Link((string)$a, $a['href']);
-    }
-
-    return $links;
-}
-
-class UrlStatus
-{
-    private $status = 0;
-
-    private string|null $error_message = null;
-
-    public function __construct(
-        private string $url,
-        private string $origin_url
-    ) {
-
-    }
-
-    public function setStatus(int $new_status)
-    {
-        $this->status = $new_status;
-    }
-
-    public function setError(int $status_code, string $error_message)
-    {
-        $this->status = $status_code;
-        $this->error_message = $error_message;
-    }
-
-    public function setOk()
-    {
-        $this->status = 200;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUrl(): string
-    {
-        return $this->url;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOriginUrl(): string
-    {
-        return $this->origin_url;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getErrorMessage(): ?string
-    {
-        return $this->error_message;
-    }
-
-    /**
-     * @return int
-     */
-    public function getStatus(): int
-    {
-        return $this->status;
-    }
-
-
-}
-
 
 class SiteChecker
 {
@@ -131,7 +22,7 @@ class SiteChecker
         $this->excluded_urls = $excluded_urls;
     }
 
-    public function run()
+    public function run(): void
     {
         do {
             foreach ($this->urls as $url => $urlStatus) {
@@ -149,7 +40,7 @@ class SiteChecker
         while ($finished === false);
     }
 
-    private function checkUrl(string $url)
+    private function checkUrl(string $url): void
     {
         $full_url = $this->base_domain . $url;
 
@@ -195,9 +86,9 @@ class SiteChecker
         if ($links_added !== 0) {
             echo "Added $links_added links from $url \n";
         }
-
     }
-    public function anyLeftToCheck()
+
+    public function anyLeftToCheck(): bool
     {
         foreach ($this->urls as $url => $urlStatus) {
             if ($urlStatus->getStatus() === 0) {
@@ -224,12 +115,12 @@ class SiteChecker
         return $errors;
     }
 
-    public function numberOfPagesChecked()
+    public function numberOfPagesChecked(): int
     {
         return count($this->urls);
     }
 
-    public function dumpPagesChecked()
+    public function dumpPagesChecked(): void
     {
         $urls = array_keys($this->urls);
 

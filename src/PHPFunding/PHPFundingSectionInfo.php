@@ -4,11 +4,22 @@ declare(strict_types = 1);
 
 namespace PHPFunding;
 
+use OpenDocs\CopyrightInfo;
 use OpenDocs\GetRoute;
 use OpenDocs\SectionInfo;
 
 class PHPFundingSectionInfo implements SectionInfo
 {
+    public function getContentLinks(): array
+    {
+        throw new \Exception("Not implemented");
+    }
+
+    public function getDefaultCopyrightInfo(): CopyrightInfo
+    {
+        throw new \Exception("Not implemented.");
+    }
+
     public function getRoutes()
     {
         return [

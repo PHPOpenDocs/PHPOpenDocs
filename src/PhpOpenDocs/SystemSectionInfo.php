@@ -4,24 +4,37 @@ declare(strict_types = 1);
 
 namespace PHPOpenDocs;
 
-use OpenDocs\GetRoute;
+use OpenDocs\ContentLink;
+use OpenDocs\CopyrightInfo;
 use OpenDocs\SectionInfo;
 
 class SystemSectionInfo implements SectionInfo
 {
+    /**
+     * @return ContentLink[]
+     */
+    public function getContentLinks(): array
+    {
+        return [
+            ContentLink::level1(null, "Sytem"),
+            ContentLink::level2('/', 'System info'),
+            ContentLink::level2('/csp_violations', 'CSP violations'),
+            ContentLink::level2('/exception_test', 'Exception test'),
+            ContentLink::level2('/brain_dump', 'Brain dump'),
+        ];
+    }
+
+    public function getDefaultCopyrightInfo(): CopyrightInfo
+    {
+        return CopyrightInfo::create(
+            'PHP OpenDocs',
+            'https://github.com/Danack/RfcCodex/blob/master/LICENSE'
+        );
+    }
+
     public function getRoutes()
     {
-
-// best_practice_base_exceptions.md
-// best_practice_interfaces_for_external_apis.md
-// php_for_people_who_know_how_to_code.md
-// recommended_libraries.md
-
         return [
-//            new GetRoute(
-//                '/php_for_people_who_know_how_to_code',
-//                'Learning\Pages::getPhpForPeopleWhoCanCode'
-//            ),
 //            new GetRoute(
 //                '/java_exception_antipatterns',
 //                'Learning\Pages::getJavaAntipatterns'

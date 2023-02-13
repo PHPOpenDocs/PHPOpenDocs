@@ -50,7 +50,25 @@ class GlobalPageInfo
         self::calculateBreadcrumbs();
     }
 
-    public static function calculateBreadcrumbs()
+    public static function createFromSection(
+        Section $section,
+        string $title,
+        string $html = null,
+        CopyrightInfo $copyrightInfo = null
+    ): void {
+        GlobalPageInfo::create(
+            contentHtml: $html,
+            contentLinks: $section->getContentLinks(),
+            copyrightInfo: $copyrightInfo ?? $section->getDefaultCopyrightInfo(),
+            section: $section,
+            title: $title,
+            current_path: getRequestPath(),
+        );
+
+        GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 2);
+    }
+
+    public static function calculateBreadcrumbs(): void
     {
         $section = self::getSection();
 

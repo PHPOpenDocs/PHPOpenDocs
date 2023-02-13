@@ -4,23 +4,33 @@ declare(strict_types = 1);
 
 use OpenDocs\ContentLink;
 use OpenDocs\GlobalPageInfo;
-use PHPOpenDocs\SystemSection;
-use function Internals\createInternalsDefaultCopyrightInfo;
-use function Internals\getInternalsContentLinks;
+
+//function createGlobalPageInfoForSystem(
+//    string $html = null,
+//    string $title = null
+//): void {
+//    GlobalPageInfo::create(
+//        contentHtml: $html,
+//        contentLinks: getSystemContentLinks(),
+//        copyrightInfo: createDefaultCopyrightInfo(),
+//        section: \System\SystemSection::create(),
+//        title: $title,
+//        current_path: getRequestPath(),
+//    );
+//}
+
 
 function createGlobalPageInfoForSystem(
-    string $html = null,
-    string $title = null
+    string $html,
+    string $title
 ): void {
-    GlobalPageInfo::create(
-        contentHtml: $html,
-        contentLinks: getSystemContentLinks(),
-        copyrightInfo: createDefaultCopyrightInfo(),
-        section: \System\SystemSection::create(),
-        title: $title,
-        current_path: getRequestPath(),
-    );
+
+    $section = \System\SystemSection::create();
+
+    GlobalPageInfo::createFromSection($section, $title);
+    GlobalPageInfo::setContentHtml($html);
 }
+
 
 
 function getSystemContentLinks(): array

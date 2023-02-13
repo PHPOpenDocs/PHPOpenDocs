@@ -17,16 +17,16 @@ class BaseTestCase extends TestCase
 {
     private $startLevel = null;
 
-    private Injector $injector;
+//    private Injector $injector;
 
-    public function setup()
+    public function setup(): void
     {
         $this->startLevel = ob_get_level();
         ob_start();
-        $this->injector = createInjector();
+//        $this->injector = createInjector();
     }
 
-    public function teardown()
+    public function teardown(): void
     {
         if ($this->startLevel === null) {
             $this->assertEquals(0, 1, "startLevel was not set, cannot complete teardown");
@@ -45,7 +45,7 @@ class BaseTestCase extends TestCase
         $headerList = headers_list();
         if (count($headerList)) {
             $this->fail("Something has sent headers directly: ".var_export($headerList, true));
-            header_remove();
+//            header_remove();
         }
     }
 
@@ -56,13 +56,13 @@ class BaseTestCase extends TestCase
         //in the phpunit.xml file it still thinks this file is a test class.
     }
 
-    /**
-     * @template T of Foo
-     * @param class-string<T> $class
-     * @return T
-     */
-    public function make(string $class)
-    {
-        return $this->injector->make($class);
-    }
+//    /**
+//     * @template T of Foo
+//     * @param class-string<T> $class
+//     * @return T
+//     */
+//    public function make(string $class)
+//    {
+//        return $this->injector->make($class);
+//    }
 }

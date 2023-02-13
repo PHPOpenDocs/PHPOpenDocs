@@ -72,13 +72,17 @@
             "src/PHPOpenDocs/functions.php",
             "src/PHPFunding/functions.php",
             "src/RfcCodexOpenDocs/functions.php",
-            "src/System/functions.php"
+            "src/System/functions.php",
+            "src/functions.php"
         ]
     },
     "autoload-dev": {
         "psr-0": {
             "PHPOpenDocsTest\\": "test/"
-        }
+        },
+        "files": [
+            "src/SiteChecker/functions.php"
+        ]
     },
     "config": {
         "platform": {
