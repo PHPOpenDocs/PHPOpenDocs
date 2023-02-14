@@ -8,7 +8,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use OpenDocs\SiteHtml\PageResponseGenerator;
 use Psr\Http\Message\ResponseFactoryInterface as ResponseFactory;
 
 class ExceptionToJsonResponseMiddleware implements MiddlewareInterface

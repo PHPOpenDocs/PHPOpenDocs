@@ -83,27 +83,27 @@ HTML;
         $examplePage = new ExamplePage();
 
         $breadcrumbs = new Breadcrumbs(...[
-            new Breadcrumb("index.php", "PHP Manual"),
-            new Breadcrumb("funcref.php", "Function Reference"),
-            new Breadcrumb("refs.basic.vartype.php", "Variable and Type Related Extensions"),
-            new Breadcrumb("book.funchand.php", "Function Handling"),
-            new Breadcrumb("ref.funchand.php", "Function handling Functions")
+            new Breadcrumb("/system/htmltest", "PHP Manual"),
+            new Breadcrumb("/system/htmltest", "Function Reference"),
+            new Breadcrumb("/system/htmltest", "Variable and Type Related Extensions"),
+            new Breadcrumb("/system/htmltest", "Function Handling"),
+            new Breadcrumb("/system/htmltest", "Function handling Functions")
         ]);
 
 
         $prevNextLinks = new PrevNextLinks(
-            ContentLink::level1("function.func-get-arg.php", "prev link"),
-            ContentLink::level1("function.func-num-args.php", "next link"),
+            ContentLink::level1("/system/htmltest", "prev link"),
+            ContentLink::level1("/system/htmltest", "next link"),
         );
 
         $contentLinks = [
             ContentLink::level1(null, "Function handling Functions"),
-            ContentLink::level2("function.call-user-func-array.php", "call_​user_​func_​array"),
-            ContentLink::level2("function.call-user-func.php", "call_​user_​func"),
-            ContentLink::level2("function.forward-static-call-array.php", "forward_​static_​call_​array"),
-            ContentLink::level2("function.forward-static-call.php", "forward_​static_​call"),
+            ContentLink::level2("/system/htmltest", "call_​user_​func_​array"),
+            ContentLink::level2("/system/htmltest", "call_​user_​func"),
+            ContentLink::level2("/system/htmltest", "forward_​static_​call_​array"),
+            ContentLink::level2("/system/htmltest", "forward_​static_​call"),
             ContentLink::level1(null, 'Deprecated'),
-            ContentLink::level2("function.create-function.php", 'create_​function'),
+            ContentLink::level2("/system/htmltest", 'create_​function'),
         ];
 
         $page = new \OpenDocs\Page(

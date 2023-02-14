@@ -10,7 +10,7 @@ use function Learning\createGlobalPageInfoForLearning;
 createGlobalPageInfoForLearning('Debugging with xdebug');
 
 $fn = createMarkdownPackagePageFnSectionFree(
-    PackageMarkdownPage::Learning("docs/xdebug.md"),
+    PackageMarkdownPage::Learning("src/Learning/docs/xdebug.md"),
 );
 
 showResponse($fn);

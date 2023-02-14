@@ -10,7 +10,7 @@ use function Learning\createGlobalPageInfoForLearning;
 createGlobalPageInfoForLearning('Debugging with GDB');
 
 $fn = createMarkdownPackagePageFnSectionFree(
-    PackageMarkdownPage::Learning("docs/gdb.md"),
+    PackageMarkdownPage::Learning("src/Learning/docs/gdb.md"),
 );
 
 

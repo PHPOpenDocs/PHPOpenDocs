@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace RfcCodexOpenDocs;
 
 use OpenDocs\ContentLink;
-use OpenDocs\CopyrightInfo;
 use OpenDocs\GlobalPageInfo;
 
 function getCodexEntry(string $name): RfcCodexEntry|null

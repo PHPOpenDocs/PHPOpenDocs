@@ -10,9 +10,6 @@ declare (strict_types = 1);
  * as that would make it harder to read, not easier.
  */
 
-use Auryn\Injector;
-use PHPOpenDocs\App;
-use PHPOpenDocs\Config;
 use Psr\Http\Message\ResponseInterface;
 
 function forbidden(\Auryn\Injector $injector): void

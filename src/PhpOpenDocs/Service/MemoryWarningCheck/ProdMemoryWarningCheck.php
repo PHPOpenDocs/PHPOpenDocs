@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace PHPOpenDocs\Service\MemoryWarningCheck;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
-use PHPOpenDocs\Service\TooMuchMemoryNotifier\TooMuchMemoryNotifier;
 
 class ProdMemoryWarningCheck implements MemoryWarningCheck
 {

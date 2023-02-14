@@ -7,8 +7,6 @@ namespace PHPOpenDocs\AppErrorHandler;
 use PHPOpenDocs\App;
 //use SlimAuryn\ResponseMapper\ResponseMapper;
 use SlimAuryn\Response\HtmlResponse;
-use OpenDocs\Page;
-use OpenDocs\Breadcrumbs;
 use function SlimAuryn\mapStubResponseToPsr7;
 
 class HtmlErrorHandlerForLocalDev implements AppErrorHandler

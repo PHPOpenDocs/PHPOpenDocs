@@ -12,9 +12,6 @@ use OpenDocs\EditInfo;
 use OpenDocs\SectionList;
 use PHPOpenDocs\Data\ContentPolicyViolationReport;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use SlimAuryn\Response\HtmlResponse;
-use SlimAuryn\Response\StubResponse;
 use function SlimAuryn\mapStubResponseToPsr7;
 
 /**
@@ -913,7 +910,7 @@ function setupAllRoutes(\Slim\App $app): void
 
 function replace_local_links(string $markdown, string $base_remote_url): string
 {
-    $pattern = "#\[([^\]]+)\]\(([^\)]+)\)#iu";
+    $pattern = "#\[([^]]+)]\(([^)]+)\)#iu";
 
     $replacement = '[$1](' . $base_remote_url . '$2)';
 

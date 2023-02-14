@@ -239,20 +239,6 @@ function getPageLayoutHtml(): string
 HTML;
 }
 
-function createPageHtmlResponse(
-    ?\OpenDocs\Section $section,
-    Page $page,
-    Breadcrumbs $breadcrumbs
-): HtmlResponse {
-    $html = createPageHtml($page);
-    return new HtmlResponse($html);
-}
-
-function createPageHtmlFromPage(Page $page): string
-{
-    return createPageHtml(/*$page->getSection(),*/ $page);
-}
-
 
 function createPageHtml(
     Page $page

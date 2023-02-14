@@ -4,11 +4,7 @@ declare(strict_types = 1);
 
 namespace NamingThings;
 
-use OpenDocs\ContentLink;
-use OpenDocs\CopyrightInfo;
-use OpenDocs\EditInfo;
 use OpenDocs\GlobalPageInfo;
-use function Learning\getLearningContentLinks;
 
 function noun_link(string $noun): string
 {

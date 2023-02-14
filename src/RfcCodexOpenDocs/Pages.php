@@ -4,18 +4,9 @@ declare(strict_types = 1);
 
 namespace RfcCodexOpenDocs;
 
-use OpenDocs\Breadcrumb;
-use OpenDocs\Breadcrumbs;
-use OpenDocs\CopyrightInfo;
 use OpenDocs\GlobalPageInfo;
 use OpenDocs\MarkdownRenderer\MarkdownRenderer;
 use OpenDocs\Page;
-use OpenDocs\PrevNextLinks;
-use OpenDocs\ContentLink;
-use OpenDocs\EditInfo;
-use RfcCodexOpenDocs\RfcCodexSection;
-use function RfcCodexOpenDocs\getAchievedList;
-use function RfcCodexOpenDocs\getUnderDiscussionList;
 use function \Safe\preg_replace;
 
 class Pages

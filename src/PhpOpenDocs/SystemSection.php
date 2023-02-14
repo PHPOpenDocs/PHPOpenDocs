@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace PHPOpenDocs;
 
 use OpenDocs\Section;
-use OpenDocs\SectionInfo;
 
 class SystemSection extends Section
 {

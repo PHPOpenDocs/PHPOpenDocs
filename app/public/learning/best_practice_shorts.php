@@ -10,7 +10,7 @@ use function Learning\createGlobalPageInfoForLearning;
 createGlobalPageInfoForLearning('Best practice shorts');
 
 $fn = createMarkdownPackagePageFnSectionFree(
-    PackageMarkdownPage::Learning("docs/best_practice_shorts.md"),
+    PackageMarkdownPage::Learning("src/Learning/docs/best_practice_shorts.md"),
 );
 
 showPageResponse($fn);

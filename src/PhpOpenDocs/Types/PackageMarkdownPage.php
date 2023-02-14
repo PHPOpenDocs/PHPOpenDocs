@@ -24,8 +24,9 @@ class PackageMarkdownPage
         return new self(
             __DIR__ . "/../../../vendor/danack/rfc-codex",
             "https://github.com/Danack/RfcCodex",
-            'RfcCodex',
-            $path
+//            'RfcCodex',
+            $path,
+            'main'
         );
     }
 

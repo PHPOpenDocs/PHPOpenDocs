@@ -7,7 +7,6 @@ namespace PHPOpenDocs\AppController;
 use PHPOpenDocs\Data\ContentPolicyViolationReport;
 use SlimAuryn\Response\JsonNoCacheResponse;
 use SlimAuryn\Response\HtmlResponse;
-use PHPOpenDocs\CSPViolation\CSPViolationReporter;
 use PHPOpenDocs\CSPViolation\CSPViolationStorage;
 use SlimAuryn\Response\TextResponse;
 use PHPOpenDocs\JsonInput\JsonInput;

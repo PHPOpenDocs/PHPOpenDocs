@@ -6,7 +6,6 @@ namespace PHPFunding;
 
 use OpenDocs\ContentLink;
 use OpenDocs\EditInfo;
-use OpenDocs\GetRoute;
 
 function createEditInfo(string $description, string $file, ?int $line): EditInfo
 {

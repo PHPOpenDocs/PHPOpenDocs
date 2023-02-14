@@ -6,7 +6,6 @@ namespace Internals;
 
 use OpenDocs\ContentLink;
 use OpenDocs\CopyrightInfo;
-use OpenDocs\GetRoute;
 use OpenDocs\SectionInfo;
 
 class InternalsSectionInfo implements SectionInfo

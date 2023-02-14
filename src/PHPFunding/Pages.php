@@ -5,12 +5,9 @@ declare(strict_types = 1);
 namespace PHPFunding;
 
 use OpenDocs\Breadcrumbs;
-use OpenDocs\MarkdownRenderer\MarkdownRenderer;
 use OpenDocs\Page;
 use OpenDocs\PrevNextLinks;
 use OpenDocs\Section;
-
-use function PHPFunding\createEditInfo;
 
 class Pages
 {

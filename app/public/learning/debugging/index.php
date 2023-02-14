@@ -7,8 +7,6 @@ require_once __DIR__ . "/../../../../src/web_bootstrap.php";
 use Learning\LearningSection;
 use OpenDocs\Page;
 use OpenDocs\GlobalPageInfo;
-use function Learning\getLearningContentLinks;
-use function Learning\createLearningDefaultCopyrightInfo;
 
 
 use function Learning\createGlobalPageInfoForLearning;

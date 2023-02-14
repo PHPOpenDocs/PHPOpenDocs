@@ -6,7 +6,6 @@ namespace OpenDocs\SiteHtml;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ResponseFactoryInterface as ResponseFactory;
-use OpenDocs\AssetLinkEmitter;
 
 class PageResponseGenerator
 {

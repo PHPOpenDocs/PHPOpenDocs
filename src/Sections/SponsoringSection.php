@@ -6,8 +6,6 @@ namespace Sections;
 
 use OpenDocs\Section;
 
-use Sponsoring\SponsoringSectionInfo;
-
 class SponsoringSection extends Section
 {
     public static function create(): self

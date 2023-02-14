@@ -10,7 +10,7 @@ use function Learning\createGlobalPageInfoForLearning;
 createGlobalPageInfoForLearning('PHP for people who know how to program');
 
 $fn = createMarkdownPackagePageFnSectionFree(
-    PackageMarkdownPage::Learning("docs/php_for_people_who_know_how_to_code.md"),
+    PackageMarkdownPage::Learning("src/Learning/docs/php_for_people_who_know_how_to_code.md"),
 );
 
 showResponse($fn);

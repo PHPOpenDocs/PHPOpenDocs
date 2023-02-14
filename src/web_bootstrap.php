@@ -2,7 +2,6 @@
 
 declare(strict_types = 1);
 
-use Laminas\Diactoros\Request;
 use Laminas\Diactoros\ServerRequest;
 use Laminas\Diactoros\ServerRequestFactory;
 

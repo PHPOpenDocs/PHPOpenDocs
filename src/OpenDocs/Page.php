@@ -4,8 +4,6 @@ declare(strict_types = 1);
 
 namespace OpenDocs;
 
-use OpenDocs\GlobalPageInfo;
-
 class Page
 {
     // The title for SEO

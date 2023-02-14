@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Internals;
 
 use OpenDocs\Section;
-use OpenDocs\SectionInfo;
 
 class InternalsSection extends Section
 {

@@ -10,7 +10,7 @@ use function Learning\createGlobalPageInfoForLearning;
 createGlobalPageInfoForLearning('Debugging with strace');
 
 $fn = createMarkdownPackagePageFnSectionFree(
-    PackageMarkdownPage::Learning("docs/strace.md"),
+    PackageMarkdownPage::Learning("src/Learning/docs/strace.md"),
 );
 
 showResponse($fn);

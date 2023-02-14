@@ -10,7 +10,7 @@ use function Learning\createGlobalPageInfoForLearning;
 createGlobalPageInfoForLearning('Debugging with wireshark');
 
 $fn = createMarkdownPackagePageFnSectionFree(
-    PackageMarkdownPage::Learning("docs/wireshark.md"),
+    PackageMarkdownPage::Learning("src/Learning/docs/wireshark.md"),
 );
 
 showResponse($fn);

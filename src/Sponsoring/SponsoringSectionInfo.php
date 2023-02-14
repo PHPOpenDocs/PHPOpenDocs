@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Sponsoring;
 
 use OpenDocs\CopyrightInfo;
-use OpenDocs\GetRoute;
 use OpenDocs\SectionInfo;
 
 class SponsoringSectionInfo implements SectionInfo

@@ -4,11 +4,8 @@ declare(strict_types = 1);
 
 namespace PHPOpenDocs\AppController;
 
-use OpenDocs\Breadcrumbs;
 use PHPOpenDocs\CSPViolation\CSPViolationStorage;
-use PHPOpenDocs\Data\ContentPolicyViolationReport;
 use SlimAuryn\Response\HtmlResponse;
-use SlimAuryn\Response\JsonNoCacheResponse;
 use PHPOpenDocs\SystemSection;
 
 class System

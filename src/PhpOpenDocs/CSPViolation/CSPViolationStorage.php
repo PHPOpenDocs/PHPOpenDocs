@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace PHPOpenDocs\CSPViolation;
 
-use PHPOpenDocs\CSPViolation\CSPViolationReporter;
 use PHPOpenDocs\Data\ContentPolicyViolationReport;
 
 interface CSPViolationStorage extends CSPViolationReporter

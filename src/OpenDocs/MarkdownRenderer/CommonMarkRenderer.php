@@ -6,14 +6,9 @@ namespace OpenDocs\MarkdownRenderer;
 
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
-use League\CommonMark\GithubFlavoredMarkdownConverter;
-
-use League\CommonMark\CommonMarkConverter;
 
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
-use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkRenderer;
-use League\CommonMark\Normalizer\SlugNormalizer;
 use League\CommonMark\MarkdownConverter;
 
 class CommonMarkRenderer implements MarkdownRenderer

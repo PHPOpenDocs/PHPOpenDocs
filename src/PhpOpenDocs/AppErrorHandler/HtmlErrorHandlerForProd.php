@@ -4,9 +4,6 @@ declare(strict_types = 1);
 
 namespace PHPOpenDocs\AppErrorHandler;
 
-use OpenDocs\Breadcrumbs;
-use OpenDocs\Page;
-
 class HtmlErrorHandlerForProd implements AppErrorHandler
 {
     /**

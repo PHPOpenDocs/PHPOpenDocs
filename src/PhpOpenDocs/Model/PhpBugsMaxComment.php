@@ -4,9 +4,6 @@ declare(strict_types = 1);
 
 namespace PHPOpenDocs\Model;
 
-use PHPOpenDocs\ToArray;
-use PHPOpenDocs\FromArray;
-
 class PhpBugsMaxComment
 {
     private int $maxCommentId;

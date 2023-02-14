@@ -10,7 +10,7 @@ use function Learning\createGlobalPageInfoForLearning;
 createGlobalPageInfoForLearning('Debugging with valgrind');
 
 $fn = createMarkdownPackagePageFnSectionFree(
-    PackageMarkdownPage::Learning("docs/valgrind.md"),
+    PackageMarkdownPage::Learning("src/Learning/docs/valgrind.md"),
 );
 
 
