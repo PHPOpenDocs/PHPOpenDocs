@@ -10,7 +10,7 @@ use function Learning\createGlobalPageInfoForLearning;
 createGlobalPageInfoForLearning('Best practice exceptions');
 
 $fn = createMarkdownPackagePageFnSectionFree(
-    PackageMarkdownPage::Learning("docs/best_practice_exceptions.md"),
+    PackageMarkdownPage::Learning("src/Learning/docs/best_practice_exceptions.md"),
 );
 
 showResponse($fn);
