@@ -15,7 +15,7 @@ class GlobalPageInfo
     private static Section|null $section;
     private static EditInfo|null $editInfo;
     private static string|null $title = null;
-    private static string|null $current_path = null;
+//    private static string|null $current_path = null;
     private static Breadcrumbs|null $breadcrumbs = null;
     private static PrevNextLinks|null $prevNextLinks = null;
 
@@ -30,7 +30,6 @@ class GlobalPageInfo
         Section $section = null,
         EditInfo $editInfo = null,
         string $title = null,
-        string $current_path = null,
         PrevNextLinks $prevNextLinks = null
     ): void {
 
@@ -40,7 +39,7 @@ class GlobalPageInfo
         self::$section = $section;
         self::$editInfo = $editInfo ?? new EditInfo([]);
         self::$title = $title;
-        self::$current_path = $current_path;
+
         self::$prevNextLinks = $prevNextLinks;
 
         if (self::$copyrightInfo === null) {
@@ -62,7 +61,6 @@ class GlobalPageInfo
             copyrightInfo: $copyrightInfo ?? $section->getDefaultCopyrightInfo(),
             section: $section,
             title: $title,
-            current_path: getRequestPath(),
         );
 
         GlobalPageInfo::addEditInfoFromBacktrace('Edit page', 2);
@@ -152,13 +150,13 @@ class GlobalPageInfo
         self::$contentHtml = $contentHtml;
     }
 
-    /**
-     * @param string|null $current_path
-     */
-    public static function setCurrentPath(?string $current_path): void
-    {
-        self::$current_path = $current_path;
-    }
+//    /**
+//     * @param string|null $current_path
+//     */
+//    public static function setCurrentPath(?string $current_path): void
+//    {
+//        self::$current_path = $current_path;
+//    }
 
     public static function setBreadcrumbsFromArray(array $breadcrumbs): void
     {
@@ -239,13 +237,13 @@ class GlobalPageInfo
         return self::$title;
     }
 
-    /**
-     * @return string|null
-     */
-    public static function getCurrentPath(): ?string
-    {
-        return self::$current_path;
-    }
+//    /**
+//     * @return string|null
+//     */
+//    public static function getCurrentPath(): ?string
+//    {
+//        return self::$current_path;
+//    }
 
     /**
      * @return string|null

@@ -14,7 +14,8 @@ class LearningSection extends Section
             '/learning',
             'Learning',
             'So you want/have been forced to learn PHP?',
-            new \Learning\LearningSectionInfo()
+            new \Learning\LearningSectionInfo(),
+            "https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main"
         );
     }
 

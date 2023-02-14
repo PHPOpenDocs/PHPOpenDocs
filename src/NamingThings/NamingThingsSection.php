@@ -14,7 +14,8 @@ class NamingThingsSection extends Section
             '/naming',
             'Naming',
             'Naming things',
-            new \NamingThings\NamingThingsSectionInfo
+            new \NamingThings\NamingThingsSectionInfo,
+            "https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main"
         );
     }
 }

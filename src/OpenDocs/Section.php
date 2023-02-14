@@ -23,7 +23,7 @@ class Section
         string $name,
         string $purpose,
         SectionInfo $sectionInfo,
-        string $base_edit_url = null
+        string $base_edit_url
     ) {
         $this->prefix = $prefix;
         $this->name = $name;

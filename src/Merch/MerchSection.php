@@ -14,7 +14,8 @@ class MerchSection extends Section
             '/merch',
             'Merch',
             'PHP related things to buy',
-            new \Merch\MerchSectionInfo()
+            new \Merch\MerchSectionInfo(),
+            "https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main"
         );
     }
 }

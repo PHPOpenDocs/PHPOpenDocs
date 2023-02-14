@@ -57,6 +57,11 @@ function createMarkdownPackagePageFnSectionFree(
 
         GlobalPageInfo::setContentHtml($html);
 
+        GlobalPageInfo::addEditInfoFromStrings(
+            'Edit content',
+            $packageMarkdownPage->getEditUrl()
+        );
+
         return \OpenDocs\Page::createFromHtmlGlobalPageInfo();
     };
 }

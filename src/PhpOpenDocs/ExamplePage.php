@@ -170,21 +170,21 @@ HTML;
 
 <ul class="parent-menu-list">
   <li>
-    <a href="ref.funchand.php">Function handling Functions</a>
+    <a href="htmltest?foo=1">Function handling Functions</a>
 
     <ul class="child-menu-list">
 
       <li class="">
-        <a href="function.call-user-func-array.php" title="call_​user_​func_​array">call_​user_​func_​array</a>
+        <a href="htmltest?foo=2" title="call_​user_​func_​array">call_​user_​func_​array</a>
       </li>
       <li class="">
-        <a href="function.call-user-func.php" title="call_​user_​func">call_​user_​func</a>
+        <a href="htmltest?foo=3" title="call_​user_​func">call_​user_​func</a>
       </li>
       <li class="">
-        <a href="function.forward-static-call-array.php" title="forward_​static_​call_​array">forward_​static_​call_​array</a>
+        <a href="htmltest?foo=3" title="forward_​static_​call_​array">forward_​static_​call_​array</a>
       </li>
       <li class="">
-        <a href="function.forward-static-call.php" title="forward_​static_​call">forward_​static_​call</a>
+        <a href="htmltest?foo=4" title="forward_​static_​call">forward_​static_​call</a>
       </li>
     </ul>
   </li>
@@ -193,7 +193,7 @@ HTML;
     <span class="header">Deprecated</span>
     <ul class="child-menu-list">
       <li class="">
-        <a href="function.create-function.php" title="create_​function">create_​function</a>
+        <a href="htmltest?foo=5" title="create_​function">create_​function</a>
       </li>
     </ul>
   </li>

@@ -15,7 +15,8 @@ class SystemSection extends Section
             '/system',
             'System',
             'Site system stuff...',
-            new \PHPOpenDocs\SystemSectionInfo
+            new \PHPOpenDocs\SystemSectionInfo,
+            "https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main"
         );
     }
 

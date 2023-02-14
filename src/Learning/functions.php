@@ -37,8 +37,8 @@ use OpenDocs\GlobalPageInfo;
 
 function createGlobalPageInfoForLearning(
     string $title,
+    CopyrightInfo $copyrightInfo = null,
     string $html = null,
-    CopyrightInfo $copyrightInfo = null
 ): void {
     $section = \Learning\LearningSection::create();
 

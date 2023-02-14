@@ -16,7 +16,8 @@ class SponsoringSection extends Section
             '/sponsoring',
             'Sponsoring',
             'How to give money to people who work on PHP core or documentation.',
-            new \Sponsoring\SponsoringSectionInfo()
+            new \Sponsoring\SponsoringSectionInfo(),
+            "https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main"
         );
     }
 }

@@ -15,7 +15,8 @@ class InternalsSection extends Section
             '/internals',
             'Internals',
             'Info about PHP core development',
-            new \Internals\InternalsSectionInfo()
+            new \Internals\InternalsSectionInfo(),
+            "https://github.com/PHPOpenDocs/PHPOpenDocs/blob/main"
         );
     }
 

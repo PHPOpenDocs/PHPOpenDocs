@@ -18,7 +18,10 @@ createGlobalPageInfoForLearning(
 );
 
 $fn = createMarkdownPackagePageFnSectionFree(
-    PackageMarkdownPage::Learning("docs/archive_java_exception_antipatterns.md"),
+//    PackageMarkdownPage::Learning("docs/archive_java_exception_antipatterns.md"),
+    PackageMarkdownPage::Learning("src/Learning/docs/archive_java_exception_antipatterns.md"),
 );
+
+
 
 showPageResponse($fn);

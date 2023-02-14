@@ -13,8 +13,9 @@ class PackageMarkdownPage
     private function __construct(
         private string $path_to_package,
         private string $package_url,
-        private string $package_name,
-        private string $path
+        //        private string $package_name,
+        private string $path,
+        private string $default_branch
     ) {
     }
 
@@ -31,10 +32,10 @@ class PackageMarkdownPage
     public static function Learning(string $path): self
     {
         return new self(
-            __DIR__ . "/../../../src/Learning",
-            "https://github.com/PHPOpenDocs/Learning",
-            'Learning',
-            $path
+            __DIR__ . "/../../..",
+            "https://github.com/PHPOpenDocs/PHPOpenDocs",
+            $path,
+            'main'
         );
     }
 
@@ -54,16 +55,16 @@ class PackageMarkdownPage
         return $this->path_to_package;
     }
 
-
-
-
     public function getEditUrl(): string
     {
-        return sprintf(
-            "https://github.com/Danack/%s/blob/master/%s",
-            $this->package_name,
+        $path = sprintf(
+            "%s/blob/%s/%s",
+            $this->package_url,
+            $this->default_branch,
             $this->path
         );
+
+        return $path;
     }
 
     /**
