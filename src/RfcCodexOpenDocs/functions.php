@@ -53,6 +53,7 @@ function getUnderDiscussionList()
         ['Consistent callables', 'consistent_callables.md'],
         ['Generics', 'generics.md'],
         ['Method overloading', 'method_overloading.md'],
+        ['Multiple return types', 'multiple_return_type.md'],
         ['Out parameters', 'out_parameters.md'],
         ['Pipe operator', 'pipe_operator.md'],
         ['Standardise core library', 'standardise_core_library.md'],
