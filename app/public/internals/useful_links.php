@@ -4,22 +4,20 @@ declare(strict_types = 1);
 
 require_once __DIR__ . "/../../../src/web_bootstrap.php";
 
-use PHPOpenDocs\Types\RemoteMarkdownPage;
 use OpenDocs\CopyrightInfo;
-//use function Internals\createRemoteMarkdownPageFnEx;
+use PHPOpenDocs\Types\RemoteMarkdownPage;
+use function Internals\createGlobalPageInfoForInternals;
 
-$editInfo = createPHPOpenDocsEditInfo('Edit page', __FILE__, null);
-$editInfo->addNameWithLink('Edit content', 'https://github.com/w9smg/.github/blob/master/profile/README.md');
+createGlobalPageInfoForInternals(
+    'PHP useful links',
+    copyrightInfo: CopyrightInfo::create(
+        "The PHP Group.",
+        "https://github.com/php/php-src/blob/master/LICENSE"
+    )
+);
 
-echo "wat";
-exit(0);
-
-//$fn = createRemoteMarkdownPageFnEx(
-//    new RemoteMarkdownPage("https://raw.githubusercontent.com/w9smg/.github/master/profile/README.md"),
-//    'PHP useful links',
-//    '/useful_links',
-//    CopyrightInfo::create("SG", "https://github.com/w9smg/.github"),
-//    $editInfo
-//);
+$fn = createRemoteMarkdownPageFnSectionFree(
+    new RemoteMarkdownPage("https://raw.githubusercontent.com/php/.github/master/profile/README.md"),
+);
 
 showPageResponse($fn);
