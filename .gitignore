@@ -23,3 +23,4 @@ deadish
 .idea/
 app/public/js/app.bundle.map
 app/public/js/app.bundle.map.gz
+php_is_borg
