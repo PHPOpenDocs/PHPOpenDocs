@@ -43,12 +43,14 @@ class FunctionsTest extends BaseTestCase
 Ohohohoho
 [This is a link](/link)
 indeed
+[Get involved](https://www.php.net/get-involved) - Help make PHP better!
 MD;
 
         $markdown_expected = <<< MD
 Ohohohoho
 [This is a link](https://www.google.com/link)
 indeed
+[Get involved](https://www.php.net/get-involved) - Help make PHP better!
 MD;
 
         $result = replace_local_links($markdown_input, 'https://www.google.com');
