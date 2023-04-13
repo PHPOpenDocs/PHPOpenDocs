@@ -78,7 +78,7 @@ Please note these suggestions are for naming things in terms that <em>programmer
 <p>
     <ul>
       <li>A paper describing
-    <a href="https://www.nr.no/en/nrpublication?query=/file/sle2008_postproceedings.pdf">The Java Programmer’s Phrase BookEinar W. Høst and Bjarte M. Østvold</a> and the <a href="http://phrasebook.nr.no/phrasebook/index.html">Phrasebook itself</a>
+    <a href="https://www.nr.no/en/nrpublication?query=/file/sle2008_postproceedings.pdf">The Java Programmer’s Phrase Book Einar W. Høst and Bjarte M. Østvold</a> and the <a href="http://phrasebook.nr.no/phrasebook/index.html">Phrasebook itself</a>
       </li>
     
       <li>

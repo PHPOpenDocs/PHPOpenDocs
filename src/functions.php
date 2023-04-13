@@ -911,7 +911,7 @@ function setupAllRoutes(\Slim\App $app): void
 function replace_local_links(string $markdown, string $base_remote_url): string
 {
     $pattern = "#\[([^]]+)]\(([^)]+)\)#iu";
-    $fn = function (array $matches) use($base_remote_url) : string {
+    $fn = function (array $matches) use ($base_remote_url) : string {
         $original = $matches[0];
         $description = $matches[1];
         $link = $matches[2];

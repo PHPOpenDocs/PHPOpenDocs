@@ -24,7 +24,16 @@ class PackageMarkdownPage
         return new self(
             __DIR__ . "/../../../vendor/danack/rfc-codex",
             "https://github.com/Danack/RfcCodex",
-//            'RfcCodex',
+            $path,
+            'main'
+        );
+    }
+
+    public static function Internals(string $path): self
+    {
+        return new self(
+            __DIR__ . "/../../Internals/",
+            "https://github.com/PHPOpenDocs/PHPOpenDocs",
             $path,
             'main'
         );

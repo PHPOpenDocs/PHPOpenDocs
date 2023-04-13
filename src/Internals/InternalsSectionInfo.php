@@ -22,6 +22,7 @@ class InternalsSectionInfo implements SectionInfo
             ContentLink::level2('/php_parameter_parsing', 'PHP Parameter parsing'),
             ContentLink::level2('/php_contributing', 'Contributing to PHP'),
             ContentLink::level2('/useful_links', 'Useful PHP links'),
+            ContentLink::level2('/decided_issues', 'Decided issues'),
 
             ContentLink::level1(null, "Etiquette"),
             ContentLink::level2('/mailing_list', 'Mailing list etiquette'),
