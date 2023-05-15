@@ -326,7 +326,7 @@ The function `templateStringToRegExp` is available from the library [danack/php-
 ## Avoid exception hierarchies and don't re-use exceptions from other libraries
 
 One of the worst things that C++ did to a generation of programmers, is to make think
-<a href="C++_so_close_so_far.jpg">inheritance should be commonly used</a> and that 'abstractions' should be shared across libraries.
+<a href="/images/C++_so_close_so_far.jpg">inheritance should be commonly used</a> and that 'abstractions' should be shared across libraries.
 
 Both of these things lead to many unmaintainable programs being written and then abandoned a few years later.
 
