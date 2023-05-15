@@ -54,6 +54,7 @@ function getUnderDiscussionList()
         ['Generics', 'generics.md'],
         ['Method overloading', 'method_overloading.md'],
         ['Multiple return types', 'multiple_return_type.md'],
+        ['Non-extending code re-use', 'non_extending_code_reuse.md'],
         ['Out parameters', 'out_parameters.md'],
         ['Pipe operator', 'pipe_operator.md'],
         ['Standardise core library', 'standardise_core_library.md'],
