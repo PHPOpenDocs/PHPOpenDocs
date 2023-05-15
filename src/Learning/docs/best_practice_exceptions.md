@@ -326,6 +326,11 @@ Now if the text for the exception message is ever updated, the test will use the
 The function `templateStringToRegExp` is available from the library [danack/php-unit-helper](https://packagist.org/packages/danack/php-unit-helper), or you could just copy/paste it if you don't want an extra dependency.
 
 
+## Don't use deep exception hierarchies
+
+More words here...
+
+
 ## Don't use exceptions for flow control
 
 TL:DR version, don't use exceptions for flow control. Except when you really want to.
@@ -367,8 +372,6 @@ function sayHello(User $user) {
 ```
 
 In that code, if the name of the user is not available, an exception is thrown and caught almost immediately. i.e. the flow of which operations are called is controlled by an exception.
-
-
 
 This code can be modified to check if the value is going to be available first:
 
