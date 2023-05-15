@@ -92,9 +92,6 @@ class InvalidArgumentException implements FooException { ... }
 class OutOfRangeException implements FooException { ... }
 ```
 
-
-
-
 ## Catch exceptions from code you are calling and rethrow more specific
 
 Imagine we have an interface in our code that performs some operation that returns a particular type:
@@ -326,9 +323,37 @@ Now if the text for the exception message is ever updated, the test will use the
 The function `templateStringToRegExp` is available from the library [danack/php-unit-helper](https://packagist.org/packages/danack/php-unit-helper), or you could just copy/paste it if you don't want an extra dependency.
 
 
-## Don't use deep exception hierarchies
+## Avoid exception hierarchies and don't re-use exceptions from other libraries
 
-More words here...
+One of the worst things that C++ did to a generation of programmers, is to make think
+<a href="C++_so_close_so_far.jpg">inheritance should be commonly used</a> and that 'abstractions' should be shared across libraries.
+
+Both of these things lead to many unmaintainable programs being written and then abandoned a few years later.
+
+This over-eagerness to use inheritance can be found in PHP within the SPL and the exception classes it provides:
+
+```php
+class LogicException extends Exception {}
+class BadFunctionCallException extends LogicException {
+class BadMethodCallException extends BadFunctionCallException {
+```
+
+This hierarchy doesn't help people write or reason about the code, and in fact it can be a hindrance:
+
+```php
+try {
+    might_throw_LogicException();
+    might_throw_BadMethodCallException();
+}
+catch (LogicException $le) {
+    // Handle exception from might_throw_LogicException
+}
+catch (BadMethodCallException $bmce) {
+    // Handle exception from might_throw_BadMethodCallException
+}
+```
+
+This code looks valid. Without looking at the definition of BadMethodCallException, and seeing that two levels higher it extends LogicException, the code appears to be correct.
 
 
 ## Don't use exceptions for flow control
