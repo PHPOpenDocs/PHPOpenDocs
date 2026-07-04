@@ -29,6 +29,10 @@ class InternalsSectionInfo implements SectionInfo
             ContentLink::level2('/mailing_list_for_younguns', 'Mailing list etiquette for young\'uns'),
             ContentLink::level2('/rfc_attitudes', 'RFC attitudes'),
             ContentLink::level2('/rfc_etiquette', 'RFC etiquette'),
+
+            ContentLink::level2('/etiquette_vs_coc', 'Etiquette vs Code of Conduct'),
+            ContentLink::level2('/etiquette_rules', 'Etiquette rules'),
+            ContentLink::level2('/how_to_have_better_discussions', 'How to have better discussions'),
         ];
     }
 

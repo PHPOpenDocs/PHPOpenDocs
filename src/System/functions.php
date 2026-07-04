@@ -36,7 +36,7 @@ function createGlobalPageInfoForSystem(
 function getSystemContentLinks(): array
 {
     return [
-        ContentLink::level1(null, "Sytem"),
+        ContentLink::level1(null, "System"),
         ContentLink::level2('/', 'System info'),
         ContentLink::level2('/csp_violations', 'CSP violations'),
         ContentLink::level2('/exception_test', 'Exception test'),
